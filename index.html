@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanket Kamble - Product Professional Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="geometric-bg"></div>
+        <div class="hero-content">
+            <div class="profile-flip-container">
+                <div class="profile-flip-inner">
+                    <img src="images/sanket-portrait.png" alt="Sanket Kamble - Geometric Portrait" class="profile-flip-front">
+                    <img src="images/sanket-realistic.jpg" alt="Sanket Kamble - Professional Photo" class="profile-flip-back">
+                </div>
+            </div>
+            <h1>Sanket Kamble</h1>
+            <div class="subtitle">Product Professional | UX Strategist | Builder of Scalable, AI-Driven Enterprise Solutions</div>
+            <div class="location-info">
+                <div>📍 Bangalore, India • 🎓 IISc Bangalore, SPIT Mumbai</div>
+                <div>🧠 0–1 Product Management • 🌐 ERP • AI • UX • IoT</div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToProjects()">View Projects</button>
+                <button class="btn btn-outline" onclick="scrollToContact()">Get In Touch</button>
+            </div>
+            <a href="files/sanket-kamble-resume.pdf" download="Sanket_Kamble_Resume.pdf" class="resume-link">
+                📄 Download Resume ⬇️
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Product professional with <strong>8+ years of experience</strong> spanning software development, UX design, and early-stage product management. I started my career as a developer (including ABAP at SAP), earned my Master's in Product Design & Management from the Indian Institute of Science (IISc).</p>
+                    <p>With a strong UX foundation and deep empathy for users, I've shipped solutions across domains including Supply Chain ERP, Sustainability and Asset Management, Healthcare ERP and Logistics, MarTech, and AI/ML-powered productivity tools.</p>
+                    <p>I thrive in <strong>0–1 product spaces</strong>, collaborating with cross-functional teams to turn abstract user needs and business opportunities into real, impactful solutions.</p>
+                </div>
+                <div class="about-skills">
+                    <h3>My Expertise</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">• Enterprise UX</div>
+                        <div class="skill-item">• AI-infused SaaS Products</div>
+                        <div class="skill-item">• ERP + Sustainability</div>
+                        <div class="skill-item">• IoT-integrated Tools</div>
+                        <div class="skill-item">• Developer Experience (DevEx)</div>
+                        <div class="skill-item">• Early-stage Product Strategy</div>
+                    </div>
+                    <div class="education">
+                        <h3>Education</h3>
+                        <div class="education-item">
+                            <div class="education-title">🎓 Indian Institute of Science, Bangalore</div>
+                            <div class="education-desc">Master of Design (M.Des), Product Design & Management</div>
+                        </div>
+                        <div class="education-item">
+                            <div class="education-title">🎓 Sardar Patel Institute of Technology, Mumbai</div>
+                            <div class="education-desc">Bachelor of Engineering, Computer Engineering</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="mobile-notice">
+                <div class="notice-header">🖥️ Better Experience Available</div>
+                <p>For the full interactive timeline experience, view this portfolio on a desktop in fullscreen mode.</p>
+            </div>
+            <div class="zigzag-timeline" id="timeline">
+                <svg class="timeline-path" id="timelineSvg" viewBox="0 0 1400 1000">
+                    <defs>
+                        <marker id="start-square" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                            <rect x="0" y="0" width="6" height="6" fill="#330033" />
+                        </marker>
+                        <marker id="end-circle" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                            <circle cx="3" cy="3" r="3" fill="#330033" />
+                        </marker>
+                    </defs>
+                    <path id="timelinePath" class="timeline-progress" vectorEffect="non-scaling-stroke" marker-start="url(#start-square)"/>
+                </svg>
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-button" onclick="closeProject()">✕</button>
+            </div>
+            <div class="modal-image" id="modalImage">
+                <button class="nav-button prev" onclick="prevProject()">‹</button>
+                <button class="nav-button next" onclick="nextProject()">›</button>
+            </div>
+            <div class="modal-description" id="modalDescription">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Publications Section -->
+    <section class="publications-section">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <div class="publication-card">
+                <div class="publication-header">
+                    <h3>Interaction Study for the Visually Impaired</h3>
+                    <p>Peer-reviewed International Journal</p>
+                </div>
+                <div class="publication-content">
+                    <p>Published research focusing on accessible design and haptic interaction for inclusive device use. The study explores novel interaction patterns that can improve accessibility for visually impaired users across digital interfaces.</p>
+                    <button class="btn btn-secondary">🔗 View Publication</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="contact-title">Let's Connect</h2>
+            <p class="contact-subtitle">Interested in opportunities or collaborations in Enterprise UX, AI-infused SaaS Products, or Early-stage Product Strategy?</p>
+            <div class="contact-buttons">
+                <button class="btn btn-contact">📧 sanketkamble.design@gmail.com</button>
+                <button class="btn btn-contact-outline">💼 LinkedIn</button>
+                <button class="btn btn-contact-outline">🐙 GitHub</button>
+            </div>
+            <div class="contact-tags">
+                <span class="tag">Enterprise UX</span>
+                <span class="tag">AI-infused SaaS</span>
+                <span class="tag">ERP + Sustainability</span>
+                <span class="tag">IoT-integrated Tools</span>
+                <span class="tag">DevEx</span>
+                <span class="tag">Product Strategy</span>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
