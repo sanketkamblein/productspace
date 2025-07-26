@@ -1,0 +1,9 @@
+Place your image files in this directory:
+- sanket-portrait.png
+- sanket-realistic.jpg
+
+For the resume file, create a 'files' directory and place:
+- sanket-kamble-resume.pdf
+
+The JavaScript currently uses placeholder images from via.placeholder.com
+You can replace the image URLs in the projects array with your actual image paths.
