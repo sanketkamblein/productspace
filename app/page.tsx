@@ -219,7 +219,7 @@ export default function Portfolio() {
         role: "Product Management Trainee",
         duration: "4 Months",
         track: "SAP Ariba",
-        techStack: "HPOM (Hypothesis–Problem–Opportunity–Metrics)",
+        techStack: "HPOM (Harmonized Product Operating Model)",
         challenge:
           "Sourcing managers in SAP Ariba struggle to decide the next best step during multi-round auction events, especially when supplier bids are competitive or ambiguous. This leads to delays and inconsistent supplier engagement.",
         hypothesis:
