@@ -416,7 +416,7 @@ export default function Portfolio() {
       details: {
         productType: "Public Health SaaS (Mobile + Web Platform)",
         domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
-        teamSize: "8+ cross-functional members (Private + Public cloud PM, Engineering, Architect)",
+        teamSize: "8+ cross-functional members (Product, Public Health, Engineering, Business)",
         challenge:
           "During the COVID-19 pandemic, patients and their caretakers struggled with disjointed, unreliable, and rapidly outdated information regarding bed availability, admission protocols, plasma donors, and verified consultation—leading to panic, poor decision-making, and systemic stress.",
         solutionDescription: "coviCLOUD is a consolidated, multilingual platform designed to:",
