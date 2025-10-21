@@ -219,7 +219,7 @@ export default function Portfolio() {
         role: "Product Management Trainee",
         duration: "4 Months",
         track: "SAP Ariba",
-        
+        team: "Cross-functional (Developers, Architects)",
         challenge:
           "Sourcing managers in SAP Ariba struggle to decide the next best step during multi-round auction events, especially when supplier bids are competitive or ambiguous. This leads to delays and inconsistent supplier engagement.",
         hypothesis:
@@ -227,7 +227,6 @@ export default function Portfolio() {
         approach: [
           "Identified the problem through conversations with Ariba consultants.",
           "Extended the scope to include AI-based supplier selection suggestions, validating the relevance with sourcing experts.",
-          "Used the HPOM model to structure problem framing, ideation, and feedback.",
         ],
         solution: [
           'AI suggests contextual next steps: "Proceed to next round", "Accept bid", or "Negotiate."',
@@ -259,9 +258,9 @@ export default function Portfolio() {
       image: "/placeholder.svg?height=200&width=300",
       details: {
         role: "UX Product Manager",
+        duration: "2 years, Ongoing",
+        team: "Cross-functional private and public cloud (Design, Dev, PM)",
         context: "SAP Private and Public Cloud | Asset Management (EAM)",
-        duration: "Ongoing",
-    
         challenge:
           "SAP needed a scalable, consistent UI experience to manage technical systems and objects (like Equipment, Functional Locations) across both Private and Public Cloud deployments. The core challenge was aligning multiple cloud streams while addressing increasing complexity in data structures and user needs.",
         myRole:
@@ -299,8 +298,9 @@ export default function Portfolio() {
       details: {
         role: "Product Lead (joined as co-founder of FlashRad AI)",
         company: "AxonRad AI (formerly Axon Health + FlashRad AI)",
+        team: "ML Developer, Use Case Owner, Product Designer",
         stage: "MVP Built | Status: Pre-incubation | Domain: Radiology, Diagnostic ERP",
-        
+        duration: "1 year",
         productVision:
           "To transform diagnostic radiology reporting by combining AI-driven clinical summarization with a modular healthcare ERP system, tailored for next-generation diagnostic labs in India.",
         contextAndEvolution:
@@ -416,7 +416,8 @@ export default function Portfolio() {
       details: {
         productType: "Public Health SaaS (Mobile + Web Platform)",
         domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
-        teamSize: "8+ cross-functional members (Product, Public Health, Engineering, Business)",
+        teamSize: "8+ cross-functional members",
+        duration: "10 months",
         challenge:
           "During the COVID-19 pandemic, patients and their caretakers struggled with disjointed, unreliable, and rapidly outdated information regarding bed availability, admission protocols, plasma donors, and verified consultation—leading to panic, poor decision-making, and systemic stress.",
         solutionDescription: "coviCLOUD is a consolidated, multilingual platform designed to:",
@@ -457,7 +458,6 @@ export default function Portfolio() {
         productType: "IoT Wearable | HealthTech | Industrial Safety",
         domain: "Ergonomics · Workplace Safety · Human Factors Engineering",
         duration: "1 year (3 months research, 3 months design/dev, thesis at IISc)",
-        ipStatus: "Protected (Owned by IISc; selective disclosure only)",
         challenge:
           "Factory workers are exposed to unsafe working postures and high physical stress, which leads to musculoskeletal disorders and chronic fatigue. Conventional workplace safety checks are periodic, subjective, and reactive rather than preventive.",
         solutionDescription: "ErgoCheck is a wearable device that monitors two critical factors in real-time:",
