@@ -219,7 +219,7 @@ export default function Portfolio() {
         role: "Product Management Trainee",
         duration: "4 Months",
         track: "SAP Ariba",
-        techStack: "HPOM (Harmonized Product Operating Model)",
+        
         challenge:
           "Sourcing managers in SAP Ariba struggle to decide the next best step during multi-round auction events, especially when supplier bids are competitive or ambiguous. This leads to delays and inconsistent supplier engagement.",
         hypothesis:
@@ -261,7 +261,7 @@ export default function Portfolio() {
         role: "UX Product Manager",
         context: "SAP Private and Public Cloud | Asset Management (EAM)",
         duration: "Ongoing",
-        team: "Cross-functional (Design, Dev, PM, Cloud Infra)",
+    
         challenge:
           "SAP needed a scalable, consistent UI experience to manage technical systems and objects (like Equipment, Functional Locations) across both Private and Public Cloud deployments. The core challenge was aligning multiple cloud streams while addressing increasing complexity in data structures and user needs.",
         myRole:
@@ -300,7 +300,7 @@ export default function Portfolio() {
         role: "Product Lead (joined as co-founder of FlashRad AI)",
         company: "AxonRad AI (formerly Axon Health + FlashRad AI)",
         stage: "MVP Built | Status: Pre-incubation | Domain: Radiology, Diagnostic ERP",
-        team: "ML Developer, Use Case Owner, Product Designer, Vendor Engineers",
+        
         productVision:
           "To transform diagnostic radiology reporting by combining AI-driven clinical summarization with a modular healthcare ERP system, tailored for next-generation diagnostic labs in India.",
         contextAndEvolution:
@@ -377,9 +377,9 @@ export default function Portfolio() {
         company: "Asian Paints",
         track: "Hack for Customers Finalist",
         team: "Resolver (5 members)",
-        techStack: "SAP BTP, S/4HANA, SAP Data Sphere, AI, GenAI Hub",
+        
         challenge:
-          "Asian Paints processes a high volume of vendor invoices in varying formats, making its Accounts Payable (AP) process heavily manual, error-prone, and compliance-sensitive. Despite using rule-based automation, anomalies still slipped through, creating financial risk and audit inconsistencies.",
+          "Asian Paints processes a high volue of vendor invoices in varying formats, making its Accounts Payable (AP) process heavily manual, error-prone, and compliance-sensitive. Despite using rule-based automation, anomalies still slipped through, creating financial risk and audit inconsistencies.",
         solution: [
           "Machine Learning for invoice exception detection",
           "Fiori dashboard to visualize and interact with anomalies",
@@ -416,7 +416,7 @@ export default function Portfolio() {
       details: {
         productType: "Public Health SaaS (Mobile + Web Platform)",
         domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
-        teamSize: "8+ cross-functional members (Product, Public Health, Engineering, Business)",
+        teamSize: "8+ cross-functional members (Private + Public cloud PM, Engineering, Architect)",
         challenge:
           "During the COVID-19 pandemic, patients and their caretakers struggled with disjointed, unreliable, and rapidly outdated information regarding bed availability, admission protocols, plasma donors, and verified consultation—leading to panic, poor decision-making, and systemic stress.",
         solutionDescription: "coviCLOUD is a consolidated, multilingual platform designed to:",
