@@ -414,6 +414,7 @@ export default function Portfolio() {
       year: "2020",
       image: "/placeholder.svg?height=200&width=300",
       details: {
+        role: "Team Lead",
         productType: "Public Health SaaS (Mobile + Web Platform)",
         domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
         teamSize: "8+ cross-functional members",
@@ -455,6 +456,7 @@ export default function Portfolio() {
       year: "2021",
       image: "/placeholder.svg?height=200&width=300",
       details: {
+        role: "Product Builder",
         productType: "IoT Wearable | HealthTech | Industrial Safety",
         domain: "Ergonomics · Workplace Safety · Human Factors Engineering",
         duration: "1 year (3 months research, 3 months design/dev, thesis at IISc)",

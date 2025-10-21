@@ -163,6 +163,7 @@ const projects = [
     year: "2020",
     image: "images/cowecloud.png",
     details: {
+      role: "Team Lead",
       productType: "Public Health SaaS (Mobile + Web Platform)",
       domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
       teamSize: "8+ cross-functional members",
@@ -210,6 +211,7 @@ const projects = [
     year: "2021",
     image: "images/ergocheck.png",
     details: {
+      role: "Product Builder",
       productType: "IoT Wearable | HealthTech | Industrial Safety",
       domain: "Ergonomics · Workplace Safety · Human Factors Engineering",
       duration: "1 year (3 months research, 3 months design/dev, thesis at IISc)",
