@@ -773,6 +773,7 @@ function openProject(projectId, tileElement) {
   const modalProjectImage = document.getElementById("modalProjectImage");
   modalProjectImage.src = project.image;
   modalProjectImage.alt = project.title;
+  setupModalImageRectangles(project.image);
 
   // Remove any previous special class from the image itself
   modalProjectImage.classList.remove("modal-image-natural");
@@ -936,6 +937,26 @@ function prevProject() {
   // No need to reset scroll here, openProject will handle it
 
   openProject(projects[prevIndex].id, prevTile)
+}
+
+function setupModalImageRectangles(imageSrc) {
+  const modalImage = document.getElementById("modalImage");
+  if (!modalImage || !imageSrc) return;
+
+  modalImage.querySelectorAll(".modal-screen-rect").forEach((node) => node.remove());
+
+  ["left", "center", "right"].forEach((position) => {
+    const rect = document.createElement("div");
+    rect.className = `modal-screen-rect ${position}`;
+
+    const tileImg = document.createElement("img");
+    tileImg.src = imageSrc;
+    tileImg.alt = `${position} repeated project screenshot`;
+    tileImg.loading = "lazy";
+    rect.appendChild(tileImg);
+
+    modalImage.insertBefore(rect, modalImage.firstChild);
+  });
 }
 
 // Generate project content - Fixed to show all content
