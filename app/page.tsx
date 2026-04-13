@@ -71,6 +71,12 @@ export default function Portfolio() {
               <span className="ml-1">{details.duration}</span>
             </div>
           )}
+          {details.type && (
+            <div className="flex items-center gap-1">
+              <strong>Type:</strong>
+              <span className="ml-1">{details.type}</span>
+            </div>
+          )}
           {details.context && (
             <div className="flex items-center gap-1">
               <strong>Context:</strong>
@@ -117,18 +123,6 @@ export default function Portfolio() {
             <div className="flex items-center gap-1">
               <strong>Domain:</strong>
               <span className="ml-1">{details.domain}</span>
-            </div>
-          )}
-          {details.ipStatus && (
-            <div className="flex items-center gap-1">
-              <strong>IP Status:</strong>
-              <span className="ml-1">{details.ipStatus}</span>
-            </div>
-          )}
-          {details.type && (
-            <div className="flex items-center gap-1">
-              <strong>Type:</strong>
-              <span className="ml-1">{details.type}</span>
             </div>
           )}
         </div>

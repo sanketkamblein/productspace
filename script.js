@@ -320,7 +320,41 @@ const projects = [
     badge: "UX Design",
     year: "2018",
     image: "images/RefEq_Edit.png",
-    // details and links removed for confidentiality
+    details: {
+      role: "UX Designer (Execution & Delivery Focus)",
+      client: "Deutsche Bahn",
+      duration: "Full delivery cycle (Executional)",
+      type: "Enterprise Asset Management (EAM) | Private Cloud | Fiori Elements",
+      projectContext:
+        "This project was part of a customer-specific requirement from Deutsche Bahn, focused on improving Asset Management usability in SAP's Private Cloud. The effort involved building Fiori-based applications around Reference Objects, with strong alignment to SAP's design guidelines.",
+      yourRoleAndContribution: [
+        "Designed UI/UX using SAP Fiori Elements",
+        "Collaborated closely with developers to ensure component-level implementation matched design intent",
+        "Managed end-to-end delivery of screens, annotations, and responsiveness patterns",
+        "Followed SAP's design standards for private cloud deployment",
+        "Coordinated documentation and final handoff for stakeholder validation",
+      ],
+      applicationsDelivered: [
+        "Reference Structures App – For managing reusable structural hierarchies across asset types",
+        "Reference Equipment App – Allows users to define template-like equipment entities for faster replication",
+        "Manager Structure App – An administrative view to oversee and manage Reference Structures",
+      ],
+      scopeAndLimitations: [
+        "No discovery phase involvement due to direct, pre-defined business requirement from Deutsche Bahn",
+        "Focused purely on execution, delivery readiness, and development coordination",
+      ],
+      toolsAndTechnologiesUsed: [
+        "SAP Fiori Elements",
+        "UI Annotations",
+        "SAP UX Guidelines for Private Cloud",
+        "Developer handoff via Git-based systems and Jira",
+      ],
+      outcome: [
+        "Successfully delivered three SAP Fiori apps aligned with customer use cases",
+        "Enabled Deutsche Bahn to manage and reuse reference objects more efficiently",
+        "Strengthened system-wide configuration consistency and reusability in asset management",
+      ],
+    },
   },
 ]
 
@@ -393,7 +427,6 @@ function renderProjects() {
   const confidentialTitles = [
     "SAP Invent 2023: Ecopulse",
     "SAP Invent '24: Intelligent Controls Compliance System",
-    "Reference Objects in Private Cloud (SAP Fiori App Development)"
   ];
 
   projects.forEach((project, index) => {
@@ -704,7 +737,6 @@ function openProject(projectId, tileElement) {
   const confidentialTitles = [
     "SAP Invent 2023: Ecopulse",
     "SAP Invent '24: Intelligent Controls Compliance System",
-    "Reference Objects in Private Cloud (SAP Fiori App Development)"
   ];
   const project = projects.find((p) => p.id === projectId);
   if (!project) return;
