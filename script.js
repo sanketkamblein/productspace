@@ -84,8 +84,12 @@ const projects = [
       ],
       links: [
         {
-          title: "Know more",
-          url: "https://www.figma.com/design/pdnXd1oC69rST1wE3ix1Lu/System-All--Configuration--Designator-Template-System-Object-?node-id=5302-113687&t=ZGxJis3DTqehjroH-1",
+          title: "Figma Work",
+          url: "https://www.figma.com/design/aB855BOX9E0VtpMmRn8f4P/Industrial-System-SAP?node-id=0-1&t=JgcOH2sryM686Bb1-1",
+        },
+        {
+          title: "Presentation",
+          url: "https://www.figma.com/slides/KEdOwrtmViPRITHeiq2Duq/Slide-deck---System-Object?node-id=1-107&t=VyYAkT4uwpS8rOUQ-0",
         },
       ],
     },
@@ -926,7 +930,6 @@ function generateProjectContent(project) {
       { key: "productType", label: "Product Type" },
       { key: "domain", label: "Domain" },
       { key: "type", label: "Type" },
-      { key: "ipStatus", label: "IP Status" },
     ]
 
     metadataFields.forEach((field) => {
