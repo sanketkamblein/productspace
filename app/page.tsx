@@ -71,12 +71,6 @@ export default function Portfolio() {
               <span className="ml-1">{details.duration}</span>
             </div>
           )}
-          {details.type && (
-            <div className="flex items-center gap-1">
-              <strong>Type:</strong>
-              <span className="ml-1">{details.type}</span>
-            </div>
-          )}
           {details.context && (
             <div className="flex items-center gap-1">
               <strong>Context:</strong>
@@ -123,6 +117,18 @@ export default function Portfolio() {
             <div className="flex items-center gap-1">
               <strong>Domain:</strong>
               <span className="ml-1">{details.domain}</span>
+            </div>
+          )}
+          {details.ipStatus && (
+            <div className="flex items-center gap-1">
+              <strong>IP Status:</strong>
+              <span className="ml-1">{details.ipStatus}</span>
+            </div>
+          )}
+          {details.type && (
+            <div className="flex items-center gap-1">
+              <strong>Type:</strong>
+              <span className="ml-1">{details.type}</span>
             </div>
           )}
         </div>
@@ -213,7 +219,7 @@ export default function Portfolio() {
         role: "Product Management Trainee",
         duration: "4 Months",
         track: "SAP Ariba",
-        team: "Cross-functional (Developers, Architects)",
+        team: "Cross-functional (Design, Dev, PM)",
         challenge:
           "Sourcing managers in SAP Ariba struggle to decide the next best step during multi-round auction events, especially when supplier bids are competitive or ambiguous. This leads to delays and inconsistent supplier engagement.",
         hypothesis:
@@ -221,6 +227,7 @@ export default function Portfolio() {
         approach: [
           "Identified the problem through conversations with Ariba consultants.",
           "Extended the scope to include AI-based supplier selection suggestions, validating the relevance with sourcing experts.",
+          "Used the HPOM model to structure problem framing, ideation, and feedback.",
         ],
         solution: [
           'AI suggests contextual next steps: "Proceed to next round", "Accept bid", or "Negotiate."',
@@ -252,9 +259,9 @@ export default function Portfolio() {
       image: "/placeholder.svg?height=200&width=300",
       details: {
         role: "UX Product Manager",
-        duration: "2 years, Ongoing",
-        team: "Cross-functional private and public cloud (Design, Dev, PM)",
         context: "SAP Private and Public Cloud | Asset Management (EAM)",
+        duration: "2 years, Ongoing",
+        team: "Cross-functional private+public cloud(Design, Dev, PM)",
         challenge:
           "SAP needed a scalable, consistent UI experience to manage technical systems and objects (like Equipment, Functional Locations) across both Private and Public Cloud deployments. The core challenge was aligning multiple cloud streams while addressing increasing complexity in data structures and user needs.",
         myRole:
@@ -292,9 +299,9 @@ export default function Portfolio() {
       details: {
         role: "Product Lead (joined as co-founder of FlashRad AI)",
         company: "AxonRad AI (formerly Axon Health + FlashRad AI)",
-        team: "ML Developer, Use Case Owner, Product Designer",
         stage: "MVP Built | Status: Pre-incubation | Domain: Radiology, Diagnostic ERP",
         duration: "1 year",
+        team: "ML Developer, Use Case Owner, Product Designer",
         productVision:
           "To transform diagnostic radiology reporting by combining AI-driven clinical summarization with a modular healthcare ERP system, tailored for next-generation diagnostic labs in India.",
         contextAndEvolution:
@@ -325,10 +332,12 @@ export default function Portfolio() {
       description: "Integrated Sensor Monitoring for Sustainable Plant Operations",
       badge: "IIoT + Sustainability",
       year: "2023",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/images/yokogawa.png",
       details: {
+        role: "UX PM",
         productType: "IIoT + Sustainability Dashboard",
-        company: "YOKOGAWA",
+        customer: "Yokogawa",
+        duration: "5 months",
         team: "Sanket Kamble , Sunil Maurya , Mahesh Gonda & Mehul Jain (Development)",
         challenge:
           "Heavy industry manufacturers lack a centralized, user-friendly tool to analyze diverse sensor data—hindering production optimization, proactive maintenance, and sustainability decisions.",
@@ -368,12 +377,12 @@ export default function Portfolio() {
       image: "/placeholder.svg?height=200&width=300",
       details: {
         role: "Product Contributor (UX & AI Collaboration)",
-        company: "Asian Paints",
+        customer: "Asian Paints",
         track: "Hack for Customers Finalist",
+        duration: "5 months",
         team: "Resolver (5 members)",
-        
         challenge:
-          "Asian Paints processes a high volue of vendor invoices in varying formats, making its Accounts Payable (AP) process heavily manual, error-prone, and compliance-sensitive. Despite using rule-based automation, anomalies still slipped through, creating financial risk and audit inconsistencies.",
+          "Asian Paints processes a high volume of vendor invoices in varying formats, making its Accounts Payable (AP) process heavily manual, error-prone, and compliance-sensitive. Despite using rule-based automation, anomalies still slipped through, creating financial risk and audit inconsistencies.",
         solution: [
           "Machine Learning for invoice exception detection",
           "Fiori dashboard to visualize and interact with anomalies",
@@ -411,8 +420,8 @@ export default function Portfolio() {
         role: "Team Lead",
         productType: "Public Health SaaS (Mobile + Web Platform)",
         domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
-        teamSize: "8+ cross-functional members",
-        duration: "10 months",
+        duration: "8 months",
+        teamSize: "8+ cross-functional members (Product team, Engineering, Business)",
         challenge:
           "During the COVID-19 pandemic, patients and their caretakers struggled with disjointed, unreliable, and rapidly outdated information regarding bed availability, admission protocols, plasma donors, and verified consultation—leading to panic, poor decision-making, and systemic stress.",
         solutionDescription: "coviCLOUD is a consolidated, multilingual platform designed to:",
@@ -546,8 +555,8 @@ export default function Portfolio() {
       details: {
         type: "Enterprise Asset Management (EAM) | Private Cloud | Fiori Elements",
         role: "UX Designer (Execution & Delivery Focus)",
-        client: "Deutsche Bahn",
-        duration: "Full delivery cycle (Executional)",
+        customer: "Deutsche Bahn",
+        duration: "1.5 years, ongoing",
         projectContext:
           "This project was part of a customer-specific requirement from Deutsche Bahn, focused on improving Asset Management usability in SAP's Private Cloud. The effort involved building Fiori-based applications around Reference Objects, with strong alignment to SAP's design guidelines.",
         applicationsDelivered: [
