@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio: Intelligent Controls Compliance System | Asian Paints × SAP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ───────────────────────────────────────────
+       EXACT ASIAN PAINTS PRESENTATION PALETTE
+       Extracted from AsianPaints_Invent_Phase2.pptx
+    ─────────────────────────────────────────── */
+    :root {
+      --dk1:        #0C343D;   /* TEXT_1 — primary dark teal */
+      --dk2:        #134F5C;   /* TEXT_2 — medium dark teal */
+      --lt1:        #F3F7F8;   /* BACKGROUND_1 — slide background */
+      --lt2:        #45818E;   /* accent lines, name fills, table numbers */
+      --accent1:    #76A5AF;   /* light teal — box borders, illustrations */
+      --accent2:    #D9EAD3;   /* pale green */
+      --accent3:    #88ADA5;   /* muted teal */
+      --accent4:    #F3F3F3;   /* very light gray */
+      --panel-gray: #F7F7F7;   /* large background panel (arch slide) */
+      --hyperlink:  #0097A7;   /* followed hyperlink teal */
+      --white:      #FFFFFF;
+
+      /* Semantic risk colors (kept minimal, teal-adjacent) */
+      --risk-high:  #8B1A1A;
+      --risk-high-bg: #FDECEA;
+      --risk-med:   #7A4A00;
+      --risk-med-bg: #FFF3E0;
+      --risk-low:   #1B4D3E;
+      --risk-low-bg: #E8F5E9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      background: var(--lt1);
+      color: var(--dk1);
+      line-height: 1.72;
+      font-size: 14px;
+    }
+
+    /* ══════════════════════════════════════
+       COVER SLIDE — mirrors Slide 1 style
+    ══════════════════════════════════════ */
+    .cover {
+      background: var(--lt1);
+      display: flex;
+      align-items: stretch;
+      min-height: 340px;
+      border-bottom: 3px solid var(--lt2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left: geometric illustration panel (teal blocks, replicating cover art) */
+    .cover-art {
+      width: 320px;
+      flex-shrink: 0;
+      background: var(--dk2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cover-art::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(135deg, var(--dk1) 0%, var(--dk2) 50%, var(--lt2) 100%);
+    }
+    /* Geometric blocks replicating the vector illustration palette */
+    .cover-art-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+    .geo { position: absolute; }
+    .geo-1  { width:80px;  height:80px;  top:20px;  left:20px;  background:var(--lt2);    opacity:0.7; }
+    .geo-2  { width:50px;  height:120px; top:20px;  left:110px; background:var(--accent1); opacity:0.5; }
+    .geo-3  { width:120px; height:50px;  top:60px;  left:160px; background:var(--dk1);    opacity:0.9; }
+    .geo-4  { width:60px;  height:60px;  top:140px; left:30px;  background:var(--accent2); opacity:0.8; }
+    .geo-5  { width:90px;  height:40px;  top:160px; left:120px; background:var(--accent3); }
+    .geo-6  { width:40px;  height:90px;  top:200px; left:220px; background:var(--lt2);    opacity:0.6; }
+    .geo-7  { width:100px; height:30px;  top:240px; left:50px;  background:var(--accent1); opacity:0.4; }
+    .geo-8  { width:30px;  height:70px;  top:260px; left:170px; background:var(--dk2);    opacity:0.8; }
+    /* dots */
+    .dot  { border-radius:50%; }
+    .dot-1 { width:14px; height:14px; top:110px; left:80px;  background:var(--accent2); }
+    .dot-2 { width:10px; height:10px; top:180px; left:190px; background:var(--white);   opacity:0.7; }
+    .dot-3 { width:18px; height:18px; top:220px; left:260px; background:var(--accent1); }
+
+    /* Right: text */
+    .cover-text {
+      flex: 1;
+      padding: 48px 52px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    /* The decorative teal line above title (from Slide 1) */
+    .cover-line {
+      width: 280px;
+      height: 2.5px;
+      background: var(--lt2);
+      margin-bottom: 18px;
+    }
+    .cover-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--lt2);
+      margin-bottom: 10px;
+    }
+    .cover-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--dk1);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .cover-subtitle {
+      font-size: 14px;
+      color: var(--dk2);
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+    .cover-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cover-tag {
+      background: var(--dk2);
+      color: var(--lt1);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      /* Sharp rectangles — no border radius, matches presentation */
+    }
+
+    /* ══════════════════════════════════════
+       META STRIP — the 6-field summary bar
+    ══════════════════════════════════════ */
+    .meta-strip {
+      background: var(--dk2);
+      color: var(--lt1);
+    }
+    .meta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .meta-cell {
+      padding: 14px 20px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .meta-cell:last-child { border-right: none; }
+    .meta-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 3px;
+    }
+    .meta-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--lt1);
+    }
+
+    /* ══════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════ */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .main { padding: 48px 0 80px; }
+
+    /* ══════════════════════════════════════
+       SECTION HEADING — mirrors slide header
+    ══════════════════════════════════════ */
+    .section { margin-bottom: 60px; }
+
+    .section-head {
+      border-bottom: 2px solid var(--lt2);
+      padding-bottom: 8px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    /* Circular numbered badge from Slide 6 ovals */
+    .sec-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--dk2);
+      color: var(--lt1);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid var(--lt1);
+      box-shadow: 0 0 0 2px var(--dk2);
+    }
+    .sec-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dk1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sub-headings within sections */
+    h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dk2);
+      margin: 26px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    p { margin-bottom: 12px; font-size: 14px; }
+    ul, ol { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 5px; font-size: 14px; }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+
+    /* ══════════════════════════════════════
+       STAT BLOCKS
+    ══════════════════════════════════════ */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--accent1);
+      border: 1px solid var(--accent1);
+      margin-bottom: 24px;
+    }
+    .stat-cell {
+      background: var(--white);
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--dk2);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--lt2);
+      margin-top: 5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════
+       TABLES — exact Slide 8 table style
+       Teal number column + border dk2
+    ══════════════════════════════════════ */
+    .tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    thead tr {
+      background: var(--dk2);
+      color: var(--lt1);
+    }
+    th {
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 10.5px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border: 1px solid var(--dk2);
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--dk2);
+      vertical-align: top;
+      font-size: 13.5px;
+    }
+    /* Number column — teal fill, white text (Slide 8 table style) */
+    td.num-col {
+      background: var(--lt2);
+      color: var(--lt1);
+      font-weight: 700;
+      font-size: 10px;
+      text-align: center;
+      width: 40px;
+    }
+    tbody tr:nth-child(even) td:not(.num-col) { background: var(--panel-gray); }
+    tbody tr:hover td:not(.num-col) { background: var(--accent2); }
+
+    /* ══════════════════════════════════════
+       CARDS — white panels on lt1 background
+    ══════════════════════════════════════ */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--accent1);
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 680px) { .card-grid { grid-template-columns: 1fr; } }
+
+    /* Teal left border variant */
+    .card-accent {
+      border-left: 4px solid var(--lt2);
+    }
+
+    /* ══════════════════════════════════════
+       BLOCKQUOTE
+    ══════════════════════════════════════ */
+    blockquote {
+      border-left: 4px solid var(--lt2);
+      background: var(--accent2);
+      padding: 14px 20px;
+      margin: 18px 0;
+      font-style: italic;
+      color: var(--dk2);
+      font-size: 14px;
+    }
+    blockquote footer {
+      margin-top: 8px;
+      font-style: normal;
+      font-size: 11px;
+      color: var(--lt2);
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════
+       BADGES
+    ══════════════════════════════════════ */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .badge-high { background: var(--risk-high-bg); color: var(--risk-high); border: 1px solid var(--risk-high); }
+    .badge-med  { background: var(--risk-med-bg);  color: var(--risk-med);  border: 1px solid var(--risk-med);  }
+    .badge-low  { background: var(--risk-low-bg);  color: var(--risk-low);  border: 1px solid var(--risk-low);  }
+    .badge-teal { background: var(--dk2); color: var(--lt1); }
+
+    /* ══════════════════════════════════════
+       ARCHITECTURE BLOCK — Slide 5 style
+       Dark lower panel + light upper panel
+    ══════════════════════════════════════ */
+    .arch-outer {
+      background: var(--panel-gray);
+      border: 1px solid var(--accent1);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .arch-label {
+      background: var(--dk1);
+      color: var(--accent1);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+    }
+    .arch-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .arch-layer {
+      display: flex;
+      align-items: stretch;
+    }
+    .arch-layer-label {
+      background: var(--dk2);
+      color: var(--lt1);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 12px 8px;
+      min-width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .arch-layer-body {
+      flex: 1;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--accent1);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: var(--white);
+    }
+    .arch-layer:last-child .arch-layer-body { border-bottom: none; background: var(--dk1); }
+    .arch-layer:last-child .arch-layer-label { background: var(--dk1); }
+    .arch-chip {
+      background: var(--lt1);
+      border: 1px solid var(--accent1);
+      color: var(--dk2);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+    }
+    .arch-chip-dark {
+      background: var(--dk2);
+      border: 1px solid var(--lt2);
+      color: var(--lt1);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+    }
+    .arch-arrow {
+      color: var(--lt2);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════
+       PIPELINE — Slide 6 user journey style
+       Horizontal numbered ovals + line
+    ══════════════════════════════════════ */
+    .pipeline-h {
+      position: relative;
+      padding: 32px 0 12px;
+      margin-bottom: 24px;
+    }
+    .pipeline-track {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      background: var(--dk1);
+    }
+    .pipeline-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+    .ps {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      gap: 10px;
+    }
+    /* Oval badge from Slide 6 */
+    .ps-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--dk2);
+      color: var(--lt1);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--lt1);
+      box-shadow: 0 0 0 2px var(--dk2);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .ps-body {
+      background: var(--white);
+      border: 1px solid var(--accent1);
+      padding: 10px 12px;
+      font-size: 12px;
+      text-align: center;
+      width: 100%;
+      line-height: 1.4;
+    }
+    .ps-body strong {
+      display: block;
+      color: var(--dk2);
+      margin-bottom: 3px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ══════════════════════════════════════
+       MOSCOW
+    ══════════════════════════════════════ */
+    .moscow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 680px) { .moscow-grid { grid-template-columns: 1fr; } }
+    .moscow-card { padding: 18px 20px; border: 1px solid; }
+    .moscow-must   { background: var(--risk-high-bg);  border-color: #c0a0a0; }
+    .moscow-should { background: var(--risk-med-bg);   border-color: #c0a870; }
+    .moscow-could  { background: var(--accent2);        border-color: var(--accent3); }
+    .moscow-wont   { background: var(--panel-gray);     border-color: var(--accent1); }
+    .moscow-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding: 3px 10px;
+      display: inline-block;
+    }
+    .moscow-must .moscow-label   { background: var(--risk-high); color: #fff; }
+    .moscow-should .moscow-label { background: var(--risk-med);  color: #fff; }
+    .moscow-could .moscow-label  { background: var(--dk2);        color: var(--lt1); }
+    .moscow-wont .moscow-label   { background: var(--lt2);        color: var(--lt1); }
+    .moscow-card ul { padding-left: 16px; font-size: 13px; }
+    .moscow-card li { margin-bottom: 4px; }
+
+    /* ══════════════════════════════════════
+       OKR BLOCKS
+    ══════════════════════════════════════ */
+    .okr-block { margin-bottom: 14px; border: 1px solid var(--dk2); }
+    .okr-obj {
+      background: var(--dk2);
+      color: var(--lt1);
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .okr-krs { background: var(--white); padding: 14px 18px; }
+    .okr-kr {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 9px;
+      align-items: flex-start;
+      font-size: 13.5px;
+    }
+    .okr-kr:last-child { margin-bottom: 0; }
+    .kr-badge {
+      background: var(--lt2);
+      color: var(--lt1);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      white-space: nowrap;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════
+       ROADMAP — teal timeline
+    ══════════════════════════════════════ */
+    .roadmap {
+      border-left: 3px solid var(--lt2);
+      padding-left: 28px;
+      margin-bottom: 16px;
+    }
+    .rm-phase { position: relative; margin-bottom: 28px; }
+    .rm-phase::before {
+      content: '';
+      position: absolute;
+      left: -36px; top: 5px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--dk2);
+      border: 2px solid var(--lt1);
+      box-shadow: 0 0 0 2px var(--dk2);
+    }
+    .rm-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--lt2); margin-bottom: 2px;
+    }
+    .rm-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px; font-weight: 700;
+      color: var(--dk1); margin-bottom: 3px;
+    }
+    .rm-time { font-size: 11px; color: var(--lt2); margin-bottom: 5px; font-weight: 700; }
+    .rm-body  { font-size: 13.5px; margin-bottom: 6px; }
+    .rm-gate {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent2);
+      border: 1px solid var(--accent3);
+      padding: 3px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--risk-low);
+    }
+
+    /* ══════════════════════════════════════
+       DECISION CARDS
+    ══════════════════════════════════════ */
+    .dec-card {
+      border: 1px solid var(--accent1);
+      margin-bottom: 20px;
+      background: var(--white);
+    }
+    .dec-head {
+      background: var(--dk2);
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dec-num {
+      width: 26px; height: 26px;
+      background: var(--lt2);
+      color: var(--lt1);
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .dec-title { font-size: 14px; font-weight: 700; color: var(--lt1); }
+    .dec-body { padding: 16px 18px; }
+    .options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 10px 0;
+    }
+    @media (max-width: 600px) { .options-row { grid-template-columns: 1fr; } }
+    .opt {
+      border: 1px solid var(--accent1);
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+    .opt.selected { border-color: var(--dk2); border-width: 2px; background: var(--accent2); }
+    .opt.rejected { opacity: 0.65; background: var(--panel-gray); }
+    .opt-label {
+      font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 5px; padding: 2px 8px; display: inline-block;
+    }
+    .opt-label.sel { background: var(--dk2); color: var(--lt1); }
+    .opt-label.rej { background: var(--accent1); color: var(--lt1); }
+    .rationale {
+      background: var(--accent2);
+      border-left: 3px solid var(--lt2);
+      padding: 9px 14px;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* ══════════════════════════════════════
+       LESSONS
+    ══════════════════════════════════════ */
+    .lesson {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--accent1);
+      margin-bottom: 10px;
+      background: var(--white);
+    }
+    .lesson-tag {
+      background: var(--lt2);
+      color: var(--lt1);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 12px 7px;
+      min-width: 30px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .lesson-body {
+      padding: 14px 18px;
+      font-size: 13.5px;
+    }
+    .lesson-body strong { color: var(--dk2); display: block; margin-bottom: 3px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ══════════════════════════════════════
+       WIREFRAME MOCKUPS — Slide 5/7 style
+    ══════════════════════════════════════ */
+    .mockup {
+      border: 1px solid var(--accent1);
+      background: var(--panel-gray);
+      margin-bottom: 20px;
+    }
+    .mockup-bar {
+      background: var(--dk1);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mb-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+    .mb-title { color: var(--lt1); font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-left: 6px; text-transform: uppercase; }
+    .mockup-body { padding: 18px 20px; }
+
+    .risk-bar {
+      display: flex;
+      gap: 1px;
+      background: var(--accent1);
+      border: 1px solid var(--accent1);
+      margin-bottom: 14px;
+    }
+    .rb-cell {
+      flex: 1;
+      padding: 14px 10px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .rb-cell.h { background: var(--risk-high-bg); color: var(--risk-high); }
+    .rb-cell.m { background: var(--risk-med-bg);  color: var(--risk-med);  }
+    .rb-cell.l { background: var(--risk-low-bg);  color: var(--risk-low);  }
+    .rb-cell big { display: block; font-family: 'Sora', sans-serif; font-size: 22px; }
+    .rb-cell small { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+
+    .mock-row { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+    .mock-panel {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--accent1);
+      padding: 12px 14px;
+      min-width: 200px;
+    }
+    .mp-title {
+      font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--lt2); margin-bottom: 8px;
+      border-bottom: 1px solid var(--accent1);
+      padding-bottom: 5px;
+    }
+    .mp-list { list-style: none; font-size: 12.5px; }
+    .mp-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--lt1);
+    }
+    .mp-list li:last-child { border-bottom: none; }
+
+    .ai-panel {
+      background: var(--accent2);
+      border: 1px solid var(--accent3);
+      border-left: 4px solid var(--lt2);
+      padding: 12px 14px;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .ai-lbl {
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--dk2); margin-bottom: 6px;
+    }
+
+    .action-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .btn {
+      padding: 7px 16px;
+      font-size: 11.5px; font-weight: 700;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      cursor: pointer; border: none;
+      font-family: 'Lato', sans-serif;
+    }
+    .btn-primary { background: var(--dk2); color: var(--lt1); }
+    .btn-danger  { background: var(--risk-high); color: #fff; }
+    .btn-ghost   { background: transparent; color: var(--dk2); border: 1.5px solid var(--dk2); }
+
+    /* ══════════════════════════════════════
+       JTBD CARDS
+    ══════════════════════════════════════ */
+    .jtbd {
+      border-left: 4px solid var(--lt2);
+      background: var(--white);
+      border-top: 1px solid var(--accent1);
+      border-right: 1px solid var(--accent1);
+      border-bottom: 1px solid var(--accent1);
+      padding: 12px 18px;
+      margin-bottom: 10px;
+    }
+    .jtbd-persona {
+      font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--lt2); margin-bottom: 4px;
+    }
+    .jtbd-text { font-size: 14px; font-style: italic; color: var(--dk1); }
+
+    /* ══════════════════════════════════════
+       GLOSSARY
+    ══════════════════════════════════════ */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--accent1);
+      border: 1px solid var(--accent1);
+    }
+    .gl-item {
+      background: var(--white);
+      padding: 9px 14px;
+      font-size: 13px;
+    }
+    .gl-term { font-weight: 700; color: var(--dk2); }
+
+    /* ══════════════════════════════════════
+       RECOGNITION BANNER — dark teal panel
+    ══════════════════════════════════════ */
+    .recognition {
+      background: var(--dk1);
+      color: var(--lt1);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .rec-icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    .rec-text h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px; font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .rec-text p { font-size: 13px; color: var(--accent1); margin: 0; }
+
+    /* ══════════════════════════════════════
+       FOOTER — matches Thank You slide
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--dk1);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-line {
+      width: 180px; height: 2px;
+      background: var(--lt2);
+    }
+    .footer-text {
+      font-size: 11px;
+      color: var(--accent1);
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════
+       TAGS
+    ══════════════════════════════════════ */
+    .tag {
+      display: inline-block;
+      background: var(--accent2);
+      color: var(--dk2);
+      border: 1px solid var(--accent3);
+      padding: 2px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      margin: 2px;
+    }
+
+    /* section divider — the decorative teal line from slides */
+    .sec-div {
+      height: 2px;
+      background: linear-gradient(to right, var(--lt2) 0%, transparent 100%);
+      margin: 48px 0 0;
+    }
+
+    @media (max-width: 680px) {
+      .cover { flex-direction: column; }
+      .cover-art { width: 100%; min-height: 140px; }
+      .meta-inner { grid-template-columns: repeat(3, 1fr); }
+      .meta-cell { border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .page { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     COVER — Slide 1 visual language
+════════════════════════════════════════ -->
+<div class="cover">
+  <!-- Geometric illustration panel (mirrors the vector art from cover slide) -->
+  <div class="cover-art">
+    <div class="cover-art-inner">
+      <div class="geo geo-1"></div>
+      <div class="geo geo-2"></div>
+      <div class="geo geo-3"></div>
+      <div class="geo geo-4"></div>
+      <div class="geo geo-5"></div>
+      <div class="geo geo-6"></div>
+      <div class="geo geo-7"></div>
+      <div class="geo geo-8"></div>
+      <div class="geo dot dot-1"></div>
+      <div class="geo dot dot-2"></div>
+      <div class="geo dot dot-3"></div>
+    </div>
+  </div>
+
+  <!-- Text content -->
+  <div class="cover-text">
+    <div class="cover-line"></div>
+    <div class="cover-eyebrow">Product Design & Program Management · Portfolio</div>
+    <div class="cover-title">Intelligent Controls<br>Compliance System</div>
+    <div class="cover-subtitle">Asian Paints – SAP Invent for Customers · Team Resolvers</div>
+    <div class="cover-tags">
+      <span class="cover-tag">Product Management</span>
+      <span class="cover-tag">UX Design</span>
+      <span class="cover-tag">SAP AI Core</span>
+      <span class="cover-tag">GenAI / RAG</span>
+      <span class="cover-tag">Accounts Payable</span>
+      <span class="cover-tag">SAP S/4HANA</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     META STRIP
+════════════════════════════════════════ -->
+<div class="meta-strip">
+  <div class="meta-inner">
+    <div class="meta-cell"><div class="meta-label">Client</div><div class="meta-val">Asian Paints Ltd.</div></div>
+    <div class="meta-cell"><div class="meta-label">Domain</div><div class="meta-val">Finance / AP / Logistics</div></div>
+    <div class="meta-cell"><div class="meta-label">Project Type</div><div class="meta-val">AI/ML Innovation → MVP</div></div>
+    <div class="meta-cell"><div class="meta-label">Platform</div><div class="meta-val">SAP BTP · AI Core · S/4HANA</div></div>
+    <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">Product Design & PM</div></div>
+    <div class="meta-cell"><div class="meta-label">Outcome</div><div class="meta-val">Invent 2024 Finalists</div></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════ -->
+<div class="main">
+<div class="page">
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 1: PROBLEM STATEMENT
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">1</div>
+      <div class="sec-title">Problem Statement</div>
+    </div>
+
+    <h3>Business Context</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="stat-num">#1</div><div class="stat-lbl">Paint Co. in India</div></div>
+      <div class="stat-cell"><div class="stat-num">15.02L</div><div class="stat-lbl">Invoices / Year (FY24)</div></div>
+      <div class="stat-cell"><div class="stat-num">20,000+</div><div class="stat-lbl">Active Vendors</div></div>
+      <div class="stat-cell"><div class="stat-num">24M+</div><div class="stat-lbl">SAP Billing Transactions</div></div>
+      <div class="stat-cell"><div class="stat-num">165</div><div class="stat-lbl">Rule-Based Controls Active</div></div>
+      <div class="stat-cell"><div class="stat-num">500–700</div><div class="stat-lbl">Controls Needed (Gap)</div></div>
+    </div>
+
+    <h3>The Core Problem</h3>
+    <p>Asian Paints implemented rule-based automation to filter and check invoices. Despite automating 61% of invoices via IPA, some invoices with errors or manipulations still pass through undetected, leading to financial risks and inefficiencies.</p>
+
+    <blockquote>
+      "Rules can only catch what we already know to look for. When vendors manipulate invoices in novel ways, or when data combinations create edge cases, the rule engine has no answer."
+      <footer>— AP Manager persona · Stakeholder Research</footer>
+    </blockquote>
+
+    <h3>Documented Financial Risks</h3>
+    <div class="card-grid">
+      <div class="card card-accent">
+        <ul>
+          <li>Excess or short payments</li>
+          <li>Duplicate payments (same vendor, invoice, date, FY)</li>
+          <li>Early / delayed payments affecting cash flow</li>
+        </ul>
+      </div>
+      <div class="card card-accent">
+        <ul>
+          <li>Payments to wrong or inactive vendors</li>
+          <li>GST / TDS non-compliance (regulatory exposure)</li>
+          <li>Outright fraud and invoice manipulation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 2: DISCOVERY
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">2</div>
+      <div class="sec-title">Discovery & Research</div>
+    </div>
+
+    <h3>Stakeholder Mapping</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Persona</th><th>Primary Goal</th><th>Key Pain Point</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td><strong>AP Manager</strong></td><td>Release payments with confidence</td><td>Too many exceptions, no prioritization</td></tr>
+          <tr><td class="num-col">2</td><td><strong>Auditor</strong></td><td>Identify risks before payment</td><td>Rules miss novel anomalies; reactive not proactive</td></tr>
+          <tr><td class="num-col">3</td><td><strong>Compliance Manager</strong></td><td>Ensure GST/TDS adherence</td><td>Manual cross-checking at scale is impossible</td></tr>
+          <tr><td class="num-col">4</td><td><strong>Developer</strong></td><td>Execute updated controls</td><td>500+ controls too complex to code manually</td></tr>
+          <tr><td class="num-col">5</td><td><strong>System Admin</strong></td><td>Maintain control configurations</td><td>Constant rule updates, no ML feedback loop</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6-Stage Invoice Lifecycle — Where Risk Accumulates</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Stage</th><th>Controls</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>Qualification for Invoice Generation</td><td>11</td><td><span class="badge badge-low">Low</span></td></tr>
+          <tr><td class="num-col">2</td><td>Invoice Generation &amp; Submission</td><td>29</td><td><span class="badge badge-low">Low</span></td></tr>
+          <tr><td class="num-col">3</td><td>Before Invoice Posting</td><td>18</td><td><span class="badge badge-med">Medium</span></td></tr>
+          <tr><td class="num-col">4</td><td><strong>Invoice Posting ← critical inflection point</strong></td><td><strong>43</strong></td><td><span class="badge badge-high">Highest</span></td></tr>
+          <tr><td class="num-col">5</td><td>After Invoice Posting</td><td>26</td><td><span class="badge badge-med">Medium</span></td></tr>
+          <tr><td class="num-col">6</td><td>Payment Run</td><td>38</td><td><span class="badge badge-high">High</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:var(--lt2);"><strong>Insight:</strong> Any undetected anomaly reaching Stage 6 results in irreversible payment release.</p>
+
+    <h3>Data Landscape Assessment</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Dataset</th><th>Volume</th><th>Usability</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>TIPA Sample Data (Transporter Invoice)</td><td>5,000 rows × 2 files</td><td><span class="badge badge-low">High</span> — direct ML input</td></tr>
+          <tr><td class="num-col">2</td><td>Controls List</td><td>166 rows</td><td><span class="badge badge-low">High</span> — RAG embeddings</td></tr>
+          <tr><td class="num-col">3</td><td>SAP S/4HANA transaction history</td><td>24M+ records / year</td><td><span class="badge badge-low">High</span> — via Data Sphere</td></tr>
+          <tr><td class="num-col">4</td><td>Vendor master data (MDG)</td><td>20,000+ vendors</td><td><span class="badge badge-med">Medium</span> — some stale records</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 3: PRODUCT STRATEGY
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">3</div>
+      <div class="sec-title">Product Strategy</div>
+    </div>
+
+    <h3>Jobs to Be Done</h3>
+    <div class="jtbd">
+      <div class="jtbd-persona">AP Manager</div>
+      <div class="jtbd-text">"When I review 500 exceptions today, I want to know which 10 matter most."</div>
+    </div>
+    <div class="jtbd">
+      <div class="jtbd-persona">Auditor</div>
+      <div class="jtbd-text">"When an anomaly is flagged, I want to understand why and what to do — not just that a rule failed."</div>
+    </div>
+    <div class="jtbd">
+      <div class="jtbd-persona">Developer</div>
+      <div class="jtbd-text">"When the business grows, I don't want to manually code 500 more rules."</div>
+    </div>
+
+    <h3>Our Solution: Two-Pronged AI Architecture</h3>
+    <div class="card-grid">
+      <div class="card" style="border-top: 3px solid var(--dk2);">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--lt2);margin-bottom:8px;">Approach 1</div>
+        <strong style="font-size:14px;color:var(--dk1);">ML Anomaly Detection (Unsupervised)</strong>
+        <ul style="margin-top:10px;">
+          <li>Train on historical invoice data to learn normal patterns</li>
+          <li>Score every new invoice in near-real-time</li>
+          <li>Categorize HIGH / MEDIUM / LOW risk; surface exceptions first</li>
+          <li>Detect anomalies <em>outside</em> predefined rules</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--lt2);">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--lt2);margin-bottom:8px;">Approach 2</div>
+        <strong style="font-size:14px;color:var(--dk1);">GenAI / RAG Explainability Layer</strong>
+        <ul style="margin-top:10px;">
+          <li>Embed 165 control descriptions in HANA Vector DB</li>
+          <li>Retrieve relevant context when anomaly is flagged</li>
+          <li>LLM generates: explanation + resolution steps + new control suggestion</li>
+          <li>Closes the loop: ML finds it, GenAI explains it, humans act on it</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Build vs. Buy vs. Configure</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Component</th><th>Decision</th><th>Rationale</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>ML Training &amp; Serving</td><td><span class="tag">SAP AI Core</span></td><td>Already licensed; enterprise-grade; avoids data egress</td></tr>
+          <tr><td class="num-col">2</td><td>Vector Store</td><td><span class="tag">HANA Vector DB</span></td><td>Native to S/4HANA; zero integration overhead</td></tr>
+          <tr><td class="num-col">3</td><td>Data Lake</td><td><span class="tag">SAP Data Sphere</span></td><td>Existing investment; governed data catalog</td></tr>
+          <tr><td class="num-col">4</td><td>Workflow Routing</td><td><span class="tag">SAP Build Process Automation</span></td><td>Already automating 30% of invoices</td></tr>
+          <tr><td class="num-col">5</td><td>UI Layer</td><td><span class="tag">SAP Fiori</span></td><td>AP team's existing tool; zero training overhead</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 4: SOLUTION DESIGN
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">4</div>
+      <div class="sec-title">Solution Design</div>
+    </div>
+
+    <h3>| Architecture Overview |</h3>
+    <div class="arch-outer">
+      <div class="arch-label">System Architecture — SAP BTP</div>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-label">Visualization</div>
+          <div class="arch-layer-body">
+            <div class="arch-chip">Dashboard (Fiori App)</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">Control Management UI</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">Invoice Lifecycle View</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Intelligence</div>
+          <div class="arch-layer-body">
+            <div class="arch-chip">SAP AI Core (ML Model)</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">GenAI Hub (RAG + LLM)</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">HANA Vector DB</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Automation</div>
+          <div class="arch-layer-body">
+            <div class="arch-chip">SAP Data Sphere / Data Lake</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">ML Feature Engineering</div>
+            <div class="arch-arrow">—</div>
+            <div class="arch-chip">SAP Build Process Automation</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Sources</div>
+          <div class="arch-layer-body">
+            <div class="arch-chip-dark">SAP S/4HANA</div>
+            <div class="arch-chip-dark">SAP Commerce (Hybris)</div>
+            <div class="arch-chip-dark">SAP MDG</div>
+            <div class="arch-chip-dark">Sourcing / SLM / CLM</div>
+            <div style="font-size:9.5px;color:var(--accent1);margin-left:4px;font-style:italic;">— External source (File)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:11px;color:var(--lt2);"><strong>Legends:</strong> --- not in MVP scope</p>
+
+    <h3>User Journey — Invoice to Decision (4 Steps)</h3>
+    <div class="pipeline-h">
+      <div class="pipeline-track"></div>
+      <div class="pipeline-steps">
+        <div class="ps">
+          <div class="ps-num">1</div>
+          <div class="ps-body"><strong>Upload Data</strong>Invoice data sent to HANA Data Lake</div>
+        </div>
+        <div class="ps">
+          <div class="ps-num">2</div>
+          <div class="ps-body"><strong>Trigger ML</strong>Anomaly model scores every invoice</div>
+        </div>
+        <div class="ps">
+          <div class="ps-num">3</div>
+          <div class="ps-body"><strong>See Results</strong>Risk score + AI explanation surfaced</div>
+        </div>
+        <div class="ps">
+          <div class="ps-num">4</div>
+          <div class="ps-body"><strong>Act on Dashboard</strong>AP Manager approves or blocks payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 5: UX DESIGN
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">5</div>
+      <div class="sec-title">UX & Interface Design</div>
+    </div>
+
+    <h3>Design Principles</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Principle</th><th>Application</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td><strong>Exception-first</strong></td><td>Show what needs attention; don't drown users in data they don't need to act on</td></tr>
+          <tr><td class="num-col">2</td><td><strong>Contextual explainability</strong></td><td>Every flagged item shows <em>why</em> it was flagged, not just that it was</td></tr>
+          <tr><td class="num-col">3</td><td><strong>Progressive disclosure</strong></td><td>Summary → drill-down → raw data; don't front-load complexity</td></tr>
+          <tr><td class="num-col">4</td><td><strong>Action-oriented</strong></td><td>Every view ends with a clear next step: approve, block, investigate, escalate</td></tr>
+          <tr><td class="num-col">5</td><td><strong>SAP Fiori consistency</strong></td><td>No new design language for AP team to learn; zero training overhead</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Dashboard — AP Manager View</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mb-dot"></div><div class="mb-dot"></div><div class="mb-dot"></div>
+        <span class="mb-title">Anomaly Detection Dashboard · Accounts Payable</span>
+      </div>
+      <div class="mockup-body">
+        <div class="risk-bar">
+          <div class="rb-cell h"><big>12</big><small>High Risk</small></div>
+          <div class="rb-cell m"><big>47</big><small>Medium</small></div>
+          <div class="rb-cell l"><big>1,204</big><small>Cleared / Low</small></div>
+        </div>
+        <div class="mock-row">
+          <div class="mock-panel">
+            <div class="mp-title">Top Exceptions Today</div>
+            <ul class="mp-list">
+              <li><span>ABC Transporters — Inv #TRP-882</span><span class="badge badge-high">HIGH</span></li>
+              <li><span>Vendor XYZ — Possible duplicate</span><span class="badge badge-high">HIGH</span></li>
+              <li><span>TDS mismatch — 3 invoices</span><span class="badge badge-med">MED</span></li>
+              <li><span>Rate deviation — Freight batch</span><span class="badge badge-med">MED</span></li>
+            </ul>
+          </div>
+          <div class="mock-panel">
+            <div class="mp-title">Payment Pipeline</div>
+            <ul class="mp-list">
+              <li><span>Total Pending</span><strong>₹4.2 Cr</strong></li>
+              <li><span>Blocked (HIGH risk)</span><strong style="color:var(--risk-high)">₹1.1 Cr</strong></li>
+              <li><span>Controls Active</span><strong style="color:var(--risk-low)">165 / 165</strong></li>
+              <li><span>AI Suggestions</span><strong style="color:var(--lt2)">12 new</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Invoice Detail — Auditor / AP Manager View</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mb-dot"></div><div class="mb-dot"></div><div class="mb-dot"></div>
+        <span class="mb-title">Invoice #TRP-88234-B &nbsp;⚠ HIGH RISK · Score: 0.91</span>
+      </div>
+      <div class="mockup-body">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;font-size:13px;">
+          <span><strong>Vendor:</strong> ABC Transporters</span>
+          <span><strong>Amount:</strong> ₹1,84,500</span>
+          <span><strong>Posted:</strong> 14-Apr-2024</span>
+          <span><strong>Type:</strong> TIPA</span>
+        </div>
+        <div class="ai-panel">
+          <div class="ai-lbl">AI-Generated Anomaly Explanation</div>
+          This invoice amount (₹1,84,500) is <strong>2.3σ above</strong> this vendor's 90-day average (₹79,200). Rate per km exceeds contracted rate by <strong>18%</strong>. Possible causes: (1) Rate revision not updated in MDG, (2) Inflated distance claim, (3) Unauthorized surcharge applied.
+        </div>
+        <div style="margin-top:14px;font-size:13px;">
+          <div class="mp-title" style="margin-bottom:8px;">Controls Triggered</div>
+          <div style="margin-bottom:4px;">❌ <strong>CTL-047:</strong> Rate × Distance validation — FAILED</div>
+          <div style="margin-bottom:4px;">❌ <strong>CTL-112:</strong> Vendor pattern deviation — FAILED</div>
+          <div>✅ <strong>CTL-089:</strong> Duplicate check — PASSED</div>
+        </div>
+        <div class="action-row">
+          <button class="btn btn-danger">Block Payment</button>
+          <button class="btn btn-ghost">Approve with Override</button>
+          <button class="btn btn-primary">Escalate</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Key UX Flows</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Flow</th><th>Steps</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="num-col">1</td>
+            <td><strong>High-Risk Invoice Review</strong><br><span style="font-size:11px;color:var(--lt2);">AP Manager</span></td>
+            <td style="font-size:13px;">Dashboard → Exception queue (risk-sorted) → AI explanation → Controls triggered → Block / Approve / Escalate → SAP BPA routes blocked invoice</td>
+          </tr>
+          <tr>
+            <td class="num-col">2</td>
+            <td><strong>New Control Promotion</strong><br><span style="font-size:11px;color:var(--lt2);">Developer</span></td>
+            <td style="font-size:13px;">ML detects recurring pattern → GenAI generates control + confidence score → "AI Suggested" section → Developer reviews → Promote to Active (no code change) → Model retrains</td>
+          </tr>
+          <tr>
+            <td class="num-col">3</td>
+            <td><strong>Exception Lifecycle</strong><br><span style="font-size:11px;color:var(--lt2);">Auditor</span></td>
+            <td style="font-size:13px;">Filtered exception queue → AI explanation → Vendor clarification request → Resolve with category (error / fraud / system gap) → Feeds back into ML training → Compliance report auto-generated</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 6: PM ARTIFACTS
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">6</div>
+      <div class="sec-title">Product Management Artifacts</div>
+    </div>
+
+    <h3>Problem–Solution Canvas</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Problem</th><th>Root Cause</th><th>Solution</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>Novel invoice fraud bypasses rules</td><td>Rules only catch known patterns</td><td>Unsupervised ML detects statistical outliers</td></tr>
+          <tr><td class="num-col">2</td><td>500+ controls too many to maintain</td><td>Manual rule engineering doesn't scale</td><td>AI suggests new controls from detected patterns</td></tr>
+          <tr><td class="num-col">3</td><td>Exceptions lack context for reviewers</td><td>Rules return binary pass/fail only</td><td>GenAI explains each exception in plain language</td></tr>
+          <tr><td class="num-col">4</td><td>High false positive rate slows AP team</td><td>Blunt rules with no pattern learning</td><td>ML refines over time via feedback loop</td></tr>
+          <tr><td class="num-col">5</td><td>Compliance exposure at payment stage</td><td>No early-stage validation</td><td>Pre-posting anomaly scoring before S/4HANA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Prioritized Feature Backlog (MoSCoW)</h3>
+    <div class="moscow-grid">
+      <div class="moscow-card moscow-must">
+        <div class="moscow-label">Must Have — MVP</div>
+        <ul>
+          <li>Unsupervised ML model (TIPA historical data)</li>
+          <li>Real-time anomaly scoring (SAP AI Core)</li>
+          <li>Exception dashboard with risk scoring (Fiori)</li>
+          <li>Invoice detail view with AI explanation</li>
+          <li>Payment block workflow (SAP BPA)</li>
+          <li>Duplicate invoice detection (Rule + ML)</li>
+        </ul>
+      </div>
+      <div class="moscow-card moscow-should">
+        <div class="moscow-label">Should Have — Post-MVP</div>
+        <ul>
+          <li>GenAI Hub integration for resolution guidance</li>
+          <li>AI-suggested controls with confidence scores</li>
+          <li>Control performance analytics</li>
+          <li>Vendor pattern visualization</li>
+          <li>Exception lifecycle tracking (open → audit)</li>
+        </ul>
+      </div>
+      <div class="moscow-card moscow-could">
+        <div class="moscow-label">Could Have — Future</div>
+        <ul>
+          <li>Early validation at Hybris Supplier Portal</li>
+          <li>SAP Data Sphere advanced governance</li>
+          <li>Expansion: insurance claims, customer credit</li>
+          <li>Natural language control authoring</li>
+        </ul>
+      </div>
+      <div class="moscow-card moscow-wont">
+        <div class="moscow-label">Won't Have — Out of Scope</div>
+        <ul>
+          <li>Full replacement of 165 rule-based controls</li>
+          <li>Direct modification of S/4HANA posting logic</li>
+          <li>Cross-company consolidation (Phase 1: India)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>OKRs</h3>
+    <div class="okr-block">
+      <div class="okr-obj">Objective 1: Improve anomaly detection coverage</div>
+      <div class="okr-krs">
+        <div class="okr-kr"><span class="kr-badge">KR 1</span><span>Detect ≥85% of anomalies slipping past existing rule controls (validated on holdout dataset)</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 2</span><span>Surface ≥3 novel anomaly patterns not in existing 165 controls within 90 days of go-live</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 3</span><span>Reduce false positive rate to &lt;10% within 6 months of feedback loop activation</span></div>
+      </div>
+    </div>
+    <div class="okr-block">
+      <div class="okr-obj">Objective 2: Reduce AP team exception handling time</div>
+      <div class="okr-krs">
+        <div class="okr-kr"><span class="kr-badge">KR 1</span><span>Reduce average time-to-decision per exception by 40% vs. current manual review baseline</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 2</span><span>Achieve &gt;80% AP Manager satisfaction score on AI explanation usefulness</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 3</span><span>100% of HIGH risk invoices reviewed before payment release</span></div>
+      </div>
+    </div>
+    <div class="okr-block">
+      <div class="okr-obj">Objective 3: Protect financial outcomes</div>
+      <div class="okr-krs">
+        <div class="okr-kr"><span class="kr-badge">KR 1</span><span>Block ≥1 fraudulent or materially erroneous payment per month (tracked vs. baseline)</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 2</span><span>Zero GST/TDS compliance violations traceable to missed invoice anomalies</span></div>
+        <div class="okr-kr"><span class="kr-badge">KR 3</span><span>Reduce payment exceptions requiring post-payment reversal by 25% in Year 1</span></div>
+      </div>
+    </div>
+
+    <h3>Post MVP — Additional Points to Discuss</h3>
+    <!-- Exact Slide 8 table style -->
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Initiative</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>Integration with SAP Data Sphere (advanced data governance and catalog)</td></tr>
+          <tr><td class="num-col">2</td><td>Enabling anomaly summarization and providing detailed resolution guidance via GenAI Hub</td></tr>
+          <tr><td class="num-col">3</td><td>Scale this solution to handle anomaly detection in general domains (insurance claims, customer credit behaviour)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Go-to-Market Rollout Roadmap</h3>
+    <div class="roadmap">
+      <div class="rm-phase">
+        <div class="rm-label">Phase 0</div>
+        <div class="rm-title">Foundation</div>
+        <div class="rm-time">Month 1–2</div>
+        <div class="rm-body">Data pipeline to Data Sphere; feature engineering; baseline model training on TIPA historical data.</div>
+        <div class="rm-gate">✓ Gate: Model AUC &gt; 0.80 on holdout</div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-label">Phase 1</div>
+        <div class="rm-title">MVP Launch</div>
+        <div class="rm-time">Month 3–4</div>
+        <div class="rm-body">TIPA invoices only. Exception dashboard live. Payment block workflow integrated with SAP BPA.</div>
+        <div class="rm-gate">✓ Gate: 10 AP team users onboarded</div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-label">Phase 2</div>
+        <div class="rm-title">Expand</div>
+        <div class="rm-time">Month 5–6</div>
+        <div class="rm-body">VIPA and DIPA invoice types added. GenAI Hub explanations enabled. AI control suggestions appear in UI.</div>
+        <div class="rm-gate">✓ Gate: AP Manager NPS &gt; 30</div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-label">Phase 3</div>
+        <div class="rm-title">Scale</div>
+        <div class="rm-time">Month 7–9</div>
+        <div class="rm-body">All 6 invoice streams covered. Early validation at Hybris Supplier Portal. Data Sphere governance active.</div>
+        <div class="rm-gate">✓ Gate: 95% invoice coverage</div>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-label">Phase 4</div>
+        <div class="rm-title">Evolve</div>
+        <div class="rm-time">Month 10–12</div>
+        <div class="rm-body">AI-authored controls promoted without code changes. Cross-domain expansion to insurance claims and customer credit.</div>
+        <div class="rm-gate">✓ Gate: 3 AI-suggested controls promoted to production</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 7: IMPACT
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">7</div>
+      <div class="sec-title">Impact & Outcomes</div>
+    </div>
+
+    <h3>Quantified Business Impact</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Metric</th><th>Baseline (FY23-24)</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td class="num-col">1</td><td>Invoices processed annually</td><td>15.02L</td><td>17L+ (14% growth, no headcount increase)</td></tr>
+          <tr><td class="num-col">2</td><td>Touchless processing rate</td><td>87%</td><td>92%+</td></tr>
+          <tr><td class="num-col">3</td><td>Exception review time</td><td>Manual, untracked</td><td><strong>−40%</strong> via AI triage</td></tr>
+          <tr><td class="num-col">4</td><td>Controls operationalized</td><td>165 of 500+ needed</td><td>300+ (AI suggests remainder)</td></tr>
+          <tr><td class="num-col">5</td><td>Novel fraud patterns detected</td><td>0 (rules can't see them)</td><td>≥3 per quarter</td></tr>
+          <tr><td class="num-col">6</td><td>Post-release payment anomalies</td><td>Untracked</td><td>Reduce by 25% in Year 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Strategic Value Delivered</h3>
+    <div class="card card-accent">
+      <ol style="padding-left:18px;">
+        <li style="margin-bottom:9px"><strong>Scalability without headcount:</strong> ML handles control expansion; AP team focuses on judgment calls, not routine checks.</li>
+        <li style="margin-bottom:9px"><strong>Regulatory confidence:</strong> Automated GST/TDS cross-checking across 15L invoices removes compliance exposure.</li>
+        <li style="margin-bottom:9px"><strong>Institutional knowledge capture:</strong> AI-suggested controls encode patterns that auditors currently hold only in their heads.</li>
+        <li style="margin-bottom:9px"><strong>Vendor relationship protection:</strong> Fewer false positives mean fewer wrongful payment delays to good vendors.</li>
+        <li><strong>Platform foundation:</strong> Architecture extends to insurance claims, customer credit, and any document-based anomaly domain.</li>
+      </ol>
+    </div>
+
+    <div class="recognition">
+      <div class="rec-icon">🏆</div>
+      <div class="rec-text">
+        <h4>SAP Invent 2024 Finalists — Selected for Implementation</h4>
+        <p>Shortlisted as finalists at SAP Invent for Customers 2024. Solution design quality and business case strength determined advancement to the implementation phase.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 8: KEY DECISIONS
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">8</div>
+      <div class="sec-title">Key Design & PM Decisions</div>
+    </div>
+
+    <div class="dec-card">
+      <div class="dec-head">
+        <div class="dec-num">1</div>
+        <div class="dec-title">Unsupervised vs. Supervised ML</div>
+      </div>
+      <div class="dec-body">
+        <div class="options-row">
+          <div class="opt rejected">
+            <div class="opt-label rej">Rejected</div>
+            <strong>Supervised (Labeled Fraud Data)</strong><br>High precision — but no labeled fraud dataset existed. 12–18 months of data collection needed before training.
+          </div>
+          <div class="opt selected">
+            <div class="opt-label sel">Selected</div>
+            <strong>Unsupervised (Statistical Anomaly)</strong><br>No labels needed. Learns from all historical invoices immediately. Detects novel patterns.
+          </div>
+        </div>
+        <div class="rationale">Label scarcity is the real-world constraint. Unsupervised delivers value on Day 1.</div>
+      </div>
+    </div>
+
+    <div class="dec-card">
+      <div class="dec-head">
+        <div class="dec-num">2</div>
+        <div class="dec-title">HANA Vector DB vs. External Vector Store</div>
+      </div>
+      <div class="dec-body">
+        <div class="options-row">
+          <div class="opt rejected">
+            <div class="opt-label rej">Rejected</div>
+            <strong>Pinecone / Weaviate</strong><br>Purpose-built, high performance — but invoice data cannot leave SAP infrastructure per enterprise governance policy.
+          </div>
+          <div class="opt selected">
+            <div class="opt-label sel">Selected</div>
+            <strong>HANA Vector DB</strong><br>Native to existing stack. No data egress. SOC2-compliant by default. Performance immaterial at ~500-document scale.
+          </div>
+        </div>
+        <div class="rationale">Choosing SAP-native infrastructure eliminated 4 integration risks and accelerated IT stakeholder buy-in.</div>
+      </div>
+    </div>
+
+    <div class="dec-card">
+      <div class="dec-head">
+        <div class="dec-num">3</div>
+        <div class="dec-title">GenAI Explanations vs. Template-Based Explanations</div>
+      </div>
+      <div class="dec-body">
+        <div class="options-row">
+          <div class="opt rejected">
+            <div class="opt-label rej">Rejected</div>
+            <strong>Template-Based</strong><br>"CTL-047 failed because value exceeds threshold." — Binary, technical, no path to action for AP Managers.
+          </div>
+          <div class="opt selected">
+            <div class="opt-label sel">Selected</div>
+            <strong>LLM-Generated Natural Language</strong><br>Context-rich explanation + resolution steps + new control suggestion. Reduces escalation rate.
+          </div>
+        </div>
+        <div class="rationale">Explainability is the single highest-leverage UX decision. An anomaly score without context is noise.</div>
+      </div>
+    </div>
+
+    <div class="dec-card">
+      <div class="dec-head">
+        <div class="dec-num">4</div>
+        <div class="dec-title">Auto-Block HIGH Risk vs. Flag Only</div>
+      </div>
+      <div class="dec-body">
+        <div class="options-row">
+          <div class="opt rejected">
+            <div class="opt-label rej">Rejected (as sole option)</div>
+            <strong>Flag Only</strong><br>Zero disruption — but reviewers may deprioritize flags; anomalies still release to payment.
+          </div>
+          <div class="opt selected">
+            <div class="opt-label sel">Selected</div>
+            <strong>Risk-Tiered Response</strong><br>LOW → auto-approve. MEDIUM → review queue. HIGH → auto-block + immediate notification.
+          </div>
+        </div>
+        <div class="rationale">One-size-fits-all blocking creates AP team fatigue. Tiered response matches action severity to risk level.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       SECTION 9: LESSONS LEARNED
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num">9</div>
+      <div class="sec-title">Lessons Learned</div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-tag">Stakeholders</div>
+      <div class="lesson-body">
+        <strong>Stakeholder Alignment</strong>
+        AP Managers needed to see <em>what changes for them on Day 1</em> — not the ML architecture. Led with the exception queue UX, not the model design. Adoption velocity correlated directly with personal value visibility.
+      </div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-tag">Data</div>
+      <div class="lesson-body">
+        <strong>Data First</strong>
+        Running feature analysis on TIPA sample data before finalizing model type saved 3+ weeks of rework. The data had more structure than expected, enabling richer features and higher model precision from the start.
+      </div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-tag">Product</div>
+      <div class="lesson-body">
+        <strong>Controls as a Product</strong>
+        Treating the 165 controls as a <em>product backlog</em> — with performance metrics, owners, and a promotion pipeline — reframed the problem from "engineering task" to "product discipline." This framing unlocked buy-in from both AP team and IT.
+      </div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-tag">UX</div>
+      <div class="lesson-body">
+        <strong>Explainability is UX</strong>
+        The decision to invest in GenAI explanations early — even before the core ML model was production-ready — was the single highest-leverage UX decision in the project.
+      </div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-tag">Enterprise</div>
+      <div class="lesson-body">
+        <strong>Enterprise Constraints are Features</strong>
+        Choosing SAP-native infrastructure (HANA Vector DB, AI Core, Data Sphere) eliminated 4 integration risks, simplified data governance, and accelerated stakeholder buy-in from IT teams already managing those platforms.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────
+       APPENDIX: GLOSSARY
+  ───────────────────────────────────── -->
+  <div class="section">
+    <div class="sec-div"></div>
+    <div class="section-head" style="margin-top:36px">
+      <div class="sec-num" style="background:var(--lt2);">A</div>
+      <div class="sec-title">Appendix: Glossary</div>
+    </div>
+    <div class="glossary-grid">
+      <div class="gl-item"><span class="gl-term">TIPA</span> — Transporter Invoice Process Automation</div>
+      <div class="gl-item"><span class="gl-term">VIPA</span> — Vendor Invoice Process Automation</div>
+      <div class="gl-item"><span class="gl-term">DIPA</span> — Detention Invoice Process Automation</div>
+      <div class="gl-item"><span class="gl-term">IPA</span>  — Intelligent Process Automation</div>
+      <div class="gl-item"><span class="gl-term">BPA</span>  — SAP Build Process Automation</div>
+      <div class="gl-item"><span class="gl-term">RAG</span>  — Retrieval-Augmented Generation</div>
+      <div class="gl-item"><span class="gl-term">MDG</span>  — SAP Master Data Governance</div>
+      <div class="gl-item"><span class="gl-term">GST</span>  — Goods and Services Tax (India)</div>
+      <div class="gl-item"><span class="gl-term">TDS</span>  — Tax Deducted at Source (India)</div>
+      <div class="gl-item"><span class="gl-term">PPR</span>  — Proper Purchase Requisition rate</div>
+      <div class="gl-item"><span class="gl-term">RFT</span>  — Right First Time rate</div>
+      <div class="gl-item"><span class="gl-term">AP</span>   — Accounts Payable</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</div><!-- /main -->
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER — mirrors Thank You slide
+════════════════════════════════════════ -->
+<footer>
+  <div class="footer-line"></div>
+  <div class="footer-text">
+    Asian Paints – Team Resolvers · SAP Invent for Customers<br>
+    <span style="opacity:0.6;">Portfolio synthesized from Phase 1 &amp; 2 presentations · FY 2023-24 data</span>
+  </div>
+  <div class="footer-line"></div>
+</footer>
+
+</body>
+</html>
