@@ -4,43 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanket Kamble - Product Professional Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/globals.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Browser Warning Banner (shown only in Safari) -->
+    <div id="safari-warning" style="display:none; position:fixed; top:0; left:0; right:0; z-index:99999; background:#1a0a00; border-bottom:2px solid #ffd700; padding:0.6rem 1.5rem; font-family:'Inter',sans-serif; font-size:0.82rem; color:#ffd700; text-align:center;">
+      ⚠️ &nbsp;For the best experience — including password-protected case studies — please open this portfolio in <strong>Firefox</strong> or <strong>Chrome</strong>.
+      <button onclick="document.getElementById('safari-warning').style.display='none'" style="margin-left:1.5rem; background:rgba(255,215,0,0.15); border:1px solid rgba(255,215,0,0.35); color:#ffd700; border-radius:20px; padding:0.2rem 0.75rem; cursor:pointer; font-size:0.78rem; font-family:'Inter',sans-serif;">Dismiss</button>
+    </div>
+
+    <script>
+      var ua = navigator.userAgent;
+      var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+      if (isSafari) {
+        document.getElementById('safari-warning').style.display = 'block';
+        document.body.style.paddingTop = '42px';
+      }
+    </script>
+
     <!-- Parallax Background -->
     <div class="parallax-bg" id="parallaxBg"></div>
-    
+
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="hero-content">
-            <div class="profile-flip-container">
-                <div class="profile-flip-inner">
-                    <div class="profile-flip-front">
-                        <img src="images/sanket-portrait.png" alt="Sanket Kamble - Geometric Portrait" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="profile-placeholder" style="display: none;">SK</div>
-                    </div>
-                    <div class="profile-flip-back">
-                        <img src="images/sanket-realistic.jpg" alt="Sanket Kamble - Professional Photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="profile-placeholder professional" style="display: none;">👨‍💼</div>
-                    </div>
+        <div class="hero-content" id="heroContent">
+            <!-- Profile: Magnetic Morph -->
+            <div class="profile-morph-container" id="profileMorph">
+                <div class="profile-glow-ring"></div>
+                <div class="profile-morph-inner" id="profileMorphInner">
+                    <img
+                        class="profile-img profile-img-front"
+                        src="images/sanket-portrait.png"
+                        alt="Sanket Kamble - Geometric Portrait"
+                        onerror="this.style.display='none';"
+                        id="profileFront"
+                    >
+                    <img
+                        class="profile-img profile-img-back"
+                        src="images/sanket-realistic.jpg"
+                        alt="Sanket Kamble - Professional Photo"
+                        onerror="this.style.display='none';"
+                        id="profileBack"
+                    >
+                    <!-- Fallback initials -->
+                    <div class="profile-initials" id="profileInitials">SK</div>
                 </div>
+                <!-- Hint label -->
+                <div class="profile-hint">hover me</div>
             </div>
-            <h1>Sanket Kamble</h1>
-            <div class="subtitle">Product Professional | UX Strategist | Builder of Scalable, AI-Driven Enterprise Solutions</div>
-            <div class="location-info">
+
+            <h1 class="hero-name" id="heroName">
+                Sanket Kamble
+                <!-- Animated underline drawn on load -->
+                <svg class="name-underline" viewBox="0 0 260 8" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0,4 Q65,0 130,4 Q195,8 260,4" stroke="#ffd700" stroke-width="3.5" fill="none" stroke-linecap="round" class="name-underline-path"/>
+                </svg>
+            </h1>
+
+            <div class="subtitle hero-anim">Product Professional | UX Strategist | Builder of Scalable, AI-Driven Enterprise Solutions</div>
+            <div class="location-info hero-anim">
                 <div>📍 Bangalore, India • 🎓 IISc Bangalore, SPIT Mumbai</div>
                 <div>🧠 0–1 Product Management • 🌐 ERP • AI • UX • IoT</div>
             </div>
-            <div class="hero-buttons">
+            <div class="hero-buttons hero-anim">
                 <button class="btn btn-primary" onclick="scrollToProjects()">View Projects</button>
                 <button class="btn btn-outline" onclick="scrollToContact()">Get In Touch</button>
-                <a class="btn btn-outline" href="https://sanketkamblein.github.io/sanketux/" target="_blank" rel="noopener noreferrer" style="margin-left:8px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" style="vertical-align:middle;margin-right:6px;"><path d="M10 3L8.59 4.41 13.17 9H3v2h10.17l-4.58 4.59L10 17l7-7-7-7z" fill="#0A66C2"/></svg>
-                    Go to my Design work
-                </a>
             </div>
-            <a href="Resume_SanketKamble.pdf" download="Sanket_Kamble_Resume.pdf" class="resume-link" target="_blank" rel="noopener noreferrer">
+            <a href="Resume_SanketKamble.pdf" download="Sanket_Kamble_Resume.pdf" class="resume-link hero-anim" target="_blank" rel="noopener noreferrer">
                 📄 Download Resume ⬇️
             </a>
         </div>
@@ -49,30 +81,30 @@
     <!-- About Section -->
     <section class="about-section">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title reveal-on-scroll">About Me</h2>
             <div class="about-grid">
-                <div class="about-text">
-                    <p>Product professional with <strong>8+ years of experience</strong> spanning software development, UX design, and early-stage product management. I started my career as a developer (including ABAP at SAP), earned my Master's in Product Design & Management from the Indian Institute of Science (IISc).</p>
+                <div class="about-text reveal-on-scroll">
+                    <p>Product professional with <strong>8+ years of experience</strong> spanning software development, UX design, and early-stage product management. I started my career as a developer (including ABAP at SAP), earned my Master's in Product Design &amp; Management from the Indian Institute of Science (IISc).</p>
                     <p>With a strong UX foundation and deep empathy for users, I've shipped solutions across domains including Supply Chain ERP, Sustainability and Enterprise Asset Management - private and public cloud, Healthcare ERP and Logistics, MarTech, and AI/ML-powered productivity tools.</p>
                     <p>I thrive in <strong>0–1 product spaces</strong>, collaborating with cross-functional teams to turn abstract user needs and business opportunities into real, impactful solutions.</p>
                 </div>
-                <div class="about-skills">
+                <div class="about-skills reveal-on-scroll">
                     <h3>My Expertise</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">• Enterprise UX</div>
-                        <div class="skill-item">• AI-infused SaaS Products</div>
-                        <div class="skill-item">• ERP + Sustainability</div>
-                        <div class="skill-item">• IoT-integrated Tools</div>
-                        <div class="skill-item">• Developer Experience (DevEx)</div>
-                        <div class="skill-item">• Early-stage Product Strategy</div>
+                        <div class="skill-item">Enterprise UX</div>
+                        <div class="skill-item">AI-infused SaaS Products</div>
+                        <div class="skill-item">ERP + Sustainability</div>
+                        <div class="skill-item">IoT-integrated Tools</div>
+                        <div class="skill-item">Developer Experience (DevEx)</div>
+                        <div class="skill-item">Early-stage Product Strategy</div>
                     </div>
                     <div class="education">
                         <h3>Education</h3>
-                        <div class="education-item">
+                        <div class="education-item reveal-on-scroll">
                             <div class="education-title">🎓 Indian Institute of Science, Bangalore</div>
-                            <div class="education-desc">Master of Design (M.Des), Product Design & Management</div>
+                            <div class="education-desc">Master of Design (M.Des), Product Design &amp; Management</div>
                         </div>
-                        <div class="education-item">
+                        <div class="education-item reveal-on-scroll">
                             <div class="education-title">🎓 Sardar Patel Institute of Technology, Mumbai</div>
                             <div class="education-desc">Bachelor of Engineering, Computer Engineering</div>
                         </div>
@@ -85,7 +117,7 @@
     <!-- Projects Section -->
     <section id="projects" class="projects-section">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
+            <h2 class="section-title reveal-on-scroll">Projects</h2>
             <div class="mobile-notice">
                 <div class="notice-header">🖥️ Better Experience Available</div>
                 <p>For the full interactive timeline experience, view this portfolio on a desktop in fullscreen mode.</p>
@@ -93,14 +125,22 @@
             <div class="zigzag-timeline" id="timeline">
                 <svg class="timeline-path" id="timelineSvg" viewBox="0 0 1400 1000">
                     <defs>
-                        <marker id="start-square" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-                            <rect x="0" y="0" width="6" height="6" fill="#330033" />
+                        <marker id="start-square" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <rect x="1" y="1" width="6" height="6" fill="#330033" />
                         </marker>
-                        <marker id="end-circle" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-                            <circle cx="3" cy="3" r="3" fill="#330033" />
+                        <marker id="end-circle" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                            <circle cx="5" cy="5" r="4" fill="#330033" />
                         </marker>
                     </defs>
                     <path id="timelinePath" class="timeline-progress" vectorEffect="non-scaling-stroke" marker-start="url(#start-square)"/>
+                    <!-- Traveling dot -->
+                    <circle id="travelingDot" r="7" fill="#ffd700" filter="url(#dotGlow)" style="display:none;"/>
+                    <defs>
+                        <filter id="dotGlow" x="-80%" y="-80%" width="260%" height="260%">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
                 </svg>
                 <div class="projects-grid" id="projectsGrid">
                     <!-- Projects will be populated by JavaScript -->
@@ -129,8 +169,8 @@
     <!-- Publications Section -->
     <section class="publications-section">
         <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <div class="publication-card">
+            <h2 class="section-title reveal-on-scroll">Publications</h2>
+            <div class="publication-card reveal-on-scroll">
                 <div class="publication-header">
                     <h3>Interaction Study for the Visually Impaired</h3>
                     <p>Peer-reviewed International Journal</p>
@@ -146,21 +186,25 @@
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="contact-title">Let's Connect</h2>
-            <p class="contact-subtitle">Interested in opportunities or collaborations in Enterprise UX, AI-infused SaaS Products, or Early-stage Product Strategy?</p>
-            <div class="contact-buttons">
-                <button class="btn btn-contact" onclick="window.location.href='mailto:sanket.kamble@sap.com'">📧 sanket.kamble@sap.com</button>
-                <button class="btn btn-contact-outline" onclick="window.open('https://www.linkedin.com/in/kamble-sanket-a5997a7b/', '_blank')">
+            <h2 class="contact-title reveal-on-scroll">Let's Connect</h2>
+            <p class="contact-subtitle reveal-on-scroll">Interested in opportunities or collaborations in Enterprise UX, AI-infused SaaS Products, or Early-stage Product Strategy?</p>
+            <div class="contact-buttons reveal-on-scroll">
+                <button class="btn btn-contact particle-btn" onclick="window.location.href='mailto:sanket.kamble@sap.com'">📧 sanket.kamble@sap.com</button>
+                <button class="btn btn-contact-outline particle-btn" onclick="window.open('https://www.linkedin.com/in/kamble-sanket-a5997a7b/', '_blank')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24" fill="#0A66C2">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.841-1.563 3.039 0 3.6 2.001 3.6 4.601v5.595z"/>
                     </svg>
                     LinkedIn
                 </button>
-                <button class="btn btn-contact-outline" onclick="window.open('https://github.com/sanketkamblein', '_blank')">🐙 GitHub</button>
+                <button class="btn btn-contact-outline particle-btn" onclick="window.open('https://github.com/sanketkamblein', '_blank')">🐙 GitHub</button>
             </div>
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script src="data/projects.js"></script>
+    <script src="src/components/ui.js"></script>
+    <script src="src/components/timeline.js"></script>
+    <script src="src/components/modal.js"></script>
+    <script src="src/components/main.js"></script>
 </body>
 </html>
