@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(npm run:*)",
+      "Bash(pnpm install:*)",
+      "Bash(npm install:*)",
+      "Bash(node_modules/.bin/next build:*)",
+      "WebFetch(domain:webflow.com)",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:www.creativebloq.com)",
+      "Bash(node_modules/.bin/next dev:*)",
+      "Bash(wc -l \"/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/src/components/\"*)",
+      "Bash(open index.html)",
+      "Bash(open:*)",
+      "Read(//tmp/**)",
+      "Bash(mv /tmp/globals_trimmed.css \"/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/styles/globals.css\")",
+      "WebFetch(domain:sanketkamblein.github.io)",
+      "Bash(curl -s https://sanketkamblein.github.io/productspace/)",
+      "Bash(curl -s https://sanketkamblein.github.io/productspace/styles/globals.css)",
+      "Bash(curl:*)",
+      "Bash(ls -t \"/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/\"*.png)"
+    ]
+  }
+}

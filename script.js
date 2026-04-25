@@ -12,7 +12,7 @@ const projects = [
       role: "Product Management Trainee",
       duration: "4 Months",
       track: "SAP Ariba",
-      team: "Cross-functional (Developers, Architects)",
+      team: "Cross-functional (Design, Dev, PM)",
       challenge:
         "Sourcing managers in SAP Ariba struggle to decide the next best step during multi-round auction events, especially when supplier bids are competitive or ambiguous. This leads to delays and inconsistent supplier engagement.",
       hypothesis:
@@ -20,6 +20,7 @@ const projects = [
       approach: [
         "Identified the problem through conversations with Ariba consultants.",
         "Extended the scope to include AI-based supplier selection suggestions, validating the relevance with sourcing experts.",
+        "Used the HPOM model to structure problem framing, ideation, and feedback.",
       ],
       solution: [
         'AI suggests contextual next steps: "Proceed to next round", "Accept bid", or "Negotiate."',
@@ -55,9 +56,9 @@ const projects = [
     image: "images/Systems_object.png",
     details: {
       role: "UX Product Manager",
-      duration: "2 years, Ongoing",
-      team: "Cross-functional private and public cloud (Design, Dev, PM)",
       context: "SAP Private and Public Cloud | Asset Management (EAM)",
+      duration: "2 years, Ongoing",
+      team: "Cross-functional private+public cloud(Design, Dev, PM)",
       challenge:
         "SAP needed a scalable, consistent UI experience to manage technical systems and objects (like Equipment, Functional Locations) across both Private and Public Cloud deployments. The core challenge was aligning multiple cloud streams while addressing increasing complexity in data structures and user needs.",
       myRole:
@@ -84,12 +85,8 @@ const projects = [
       ],
       links: [
         {
-          title: "Figma Work",
-          url: "https://www.figma.com/design/aB855BOX9E0VtpMmRn8f4P/Industrial-System-SAP?node-id=0-1&t=JgcOH2sryM686Bb1-1",
-        },
-        {
-          title: "Presentation",
-          url: "https://www.figma.com/slides/KEdOwrtmViPRITHeiq2Duq/Slide-deck---System-Object?node-id=1-107&t=VyYAkT4uwpS8rOUQ-0",
+          title: "Know more",
+          url: "https://www.figma.com/design/pdnXd1oC69rST1wE3ix1Lu/System-All--Configuration--Designator-Template-System-Object-?node-id=5302-113687&t=ZGxJis3DTqehjroH-1",
         },
       ],
     },
@@ -105,9 +102,9 @@ const projects = [
     details: {
       role: "Product Lead (joined as co-founder of FlashRad AI)",
       company: "AxonRad AI (formerly Axon Health + FlashRad AI)",
-      team: "ML Developer, Use Case Owner, Product Designer",
       stage: "MVP Built | Status: Pre-incubation | Domain: Radiology, Diagnostic ERP",
       duration: "1 year",
+      team: "ML Developer, Use Case Owner, Product Designer",
       productVision:
         "To transform diagnostic radiology reporting by combining AI-driven clinical summarization with a modular healthcare ERP system, tailored for next-generation diagnostic labs in India.",
       contextAndEvolution:
@@ -129,12 +126,7 @@ const projects = [
         "Applied knowledge of HIPAA standards, NABH workflows, diagnostic billing flows",
         "Adapted agile delivery in resource-constrained environments, while maintaining clinical quality and scalability",
       ],
-      links: [
-        {
-          title: "Know more",
-          url: "https://axonehealth.com/our-team/"
-        }
-      ],
+      links: [],
     },
   },
   {
@@ -145,8 +137,55 @@ const projects = [
       "Integrated Sensor Monitoring for Sustainable Plant Operations<br><span class='finalist-badge'>SAP Invent finalist</span>",
     badge: "IIoT + Sustainability",
     year: "2023",
-    image: "images/Ariba_usecase.png",
-    // details and links removed for confidentiality
+    image: "images/yokogawa.png",
+    details: {
+      role: "UX PM",
+      productType: "IIoT + Sustainability Dashboard",
+      customer: "Yokogawa",
+      duration: "5 months",
+      team: "Sanket Kamble, Sunil Maurya, Mahesh Gonda & Mehul Jain (Development)",
+      challenge:
+        "Heavy industry manufacturers lack a centralized, user-friendly tool to analyze diverse sensor data—hindering production optimization, proactive maintenance, and sustainability decisions.",
+      solutionDescription: "EcoPulse is a unified platform that:",
+      solution: [
+        "Monitors multi-sensor data (temperature, vibration, pressure, energy)",
+        "Maps equipment to sensors for traceability",
+        "Visualizes real-time data through a comprehensive dashboard",
+        "Triggers preventive maintenance using smart business rules",
+        "Calculates CO₂ footprint by linking energy consumption with emissions",
+      ],
+      keyPersonas: [
+        "Sustainability Manager: Analyzes and acts on carbon data",
+        "Plant Manager: Monitors equipment health and schedules maintenance",
+        "Admin: Manages CO₂ rules, calibration standards, and configuration",
+      ],
+      architectureAndIntegration: [
+        "Sensor data integration via API or file-based ingestion",
+        "Equipment-sensor mapping for efficient tracking",
+        "Customizable admin portal for compliance and rule updates",
+        "Business logic engine for generating alerts and triggering maintenance orders",
+      ],
+      outcome: [
+        "Reduces plant downtime via predictive insights",
+        "Supports CO₂ compliance and environmental audits",
+        "Improves transparency in energy usage and sustainability tracking",
+      ],
+      isFinalist: true,
+      links: [
+        {
+          title: "Know more 1",
+          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/ERKudKR7HGhIq4CQQLu-JbMBgfHiQ9MrxzGWSrv5ck3STg",
+        },
+        {
+          title: "Know more 2",
+          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/ERKudKR7HGhIq4CQQLu-JbMBgfHiQ9MrxzGWSrv5ck3STg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=buhZG1",
+        },
+        {
+          title: "Know more 3",
+          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/EYZ38EnAvkJIiAk7opT0izEBKCxbWcq2lX_vp0JM2NzN1w?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=bTsUNJ",
+        },
+      ],
+    },
   },
   {
     id: 5,
@@ -156,7 +195,44 @@ const projects = [
     badge: "Hack for Customers Finalist",
     year: "2024",
     image: "images/AsianPants.png",
-    // details and links removed for confidentiality
+    details: {
+      role: "Product Contributor (UX & AI Collaboration)",
+      customer: "Asian Paints",
+      track: "Hack for Customers Finalist",
+      duration: "5 months",
+      team: "Resolver (5 members)",
+      challenge:
+        "Asian Paints processes a high volume of vendor invoices in varying formats, making its Accounts Payable (AP) process heavily manual, error-prone, and compliance-sensitive. Despite using rule-based automation, anomalies still slipped through, creating financial risk and audit inconsistencies.",
+      solution: [
+        "Machine Learning for invoice exception detection",
+        "Fiori dashboard to visualize and interact with anomalies",
+        "GenAI integration for summarizing detected irregularities in plain language",
+        "Scalable architecture for future use cases (insurance claims, customer credit behavior)",
+      ],
+      contributions: [
+        "Participated in solution design and user journey definition",
+        "Mapped out the dashboard experience for AP Managers",
+        "Contributed to the architecture planning and ML–GenAI alignment",
+        "Collaborated with team to shape demo and pitch narrative for judges",
+      ],
+      outcome: [
+        "Selected as Finalist in SAP Invent '24 Hack for Customers",
+        "Received positive feedback for real-world relevance, enterprise scalability, and explainability",
+        "Post-MVP roadmap proposed to extend use beyond invoices to broader compliance documents",
+      ],
+      toolsAndSkills: [
+        "SAP BTP Architecture, GenAI Prompting",
+        "UX Journey Mapping, Dashboard Design",
+        "AI + ERP Integration Planning",
+        "Team Pitching, Enterprise Storytelling",
+      ],
+      links: [
+        {
+          title: "Know more",
+          url: "https://sap-my.sharepoint.com/:f:/r/personal/sanket_kamble_sap_com/Documents/Invent%20Asian%20Paints?csf=1&web=1&e=oOMnuL",
+        },
+      ],
+    },
   },
   {
     id: 6,
@@ -170,8 +246,8 @@ const projects = [
       role: "Team Lead",
       productType: "Public Health SaaS (Mobile + Web Platform)",
       domain: "Pandemic Response | Healthcare Accessibility | Patient-Centric Services",
-      teamSize: "8+ cross-functional members",
-      duration: "10 months",
+      duration: "8 months",
+      teamSize: "8+ cross-functional members (Product, Public Health, Engineering, Business)",
       challenge:
         "During the COVID-19 pandemic, patients and their caretakers struggled with disjointed, unreliable, and rapidly outdated information regarding bed availability, admission protocols, plasma donors, and verified consultation—leading to panic, poor decision-making, and systemic stress.",
       solutionDescription: "coviCLOUD is a consolidated, multilingual platform designed to:",
@@ -321,23 +397,23 @@ const projects = [
     year: "2018",
     image: "images/RefEq_Edit.png",
     details: {
-      role: "UX Designer (Execution & Delivery Focus)",
-      client: "Deutsche Bahn",
-      duration: "Full delivery cycle (Executional)",
       type: "Enterprise Asset Management (EAM) | Private Cloud | Fiori Elements",
+      role: "UX Designer (Execution & Delivery Focus)",
+      customer: "Deutsche Bahn",
+      duration: "1.5 years, ongoing",
       projectContext:
         "This project was part of a customer-specific requirement from Deutsche Bahn, focused on improving Asset Management usability in SAP's Private Cloud. The effort involved building Fiori-based applications around Reference Objects, with strong alignment to SAP's design guidelines.",
+      applicationsDelivered: [
+        "Reference Structures App – For managing reusable structural hierarchies across asset types",
+        "Reference Equipment App – Allows users to define template-like equipment entities for faster replication",
+        "Manager Structure App – An administrative view to oversee and manage Reference Structures",
+      ],
       yourRoleAndContribution: [
         "Designed UI/UX using SAP Fiori Elements",
         "Collaborated closely with developers to ensure component-level implementation matched design intent",
         "Managed end-to-end delivery of screens, annotations, and responsiveness patterns",
         "Followed SAP's design standards for private cloud deployment",
         "Coordinated documentation and final handoff for stakeholder validation",
-      ],
-      applicationsDelivered: [
-        "Reference Structures App – For managing reusable structural hierarchies across asset types",
-        "Reference Equipment App – Allows users to define template-like equipment entities for faster replication",
-        "Manager Structure App – An administrative view to oversee and manage Reference Structures",
       ],
       scopeAndLimitations: [
         "No discovery phase involvement due to direct, pre-defined business requirement from Deutsche Bahn",
@@ -353,6 +429,20 @@ const projects = [
         "Successfully delivered three SAP Fiori apps aligned with customer use cases",
         "Enabled Deutsche Bahn to manage and reuse reference objects more efficiently",
         "Strengthened system-wide configuration consistency and reusability in asset management",
+      ],
+      links: [
+        {
+          title: "Know more 1",
+          url: "https://www.figma.com/design/sxlZD6u8Ftsm3ttY8UTmvL/Reference-Structures?node-id=69-2&t=OUp7APA586fEaVlY-1",
+        },
+        {
+          title: "Know more 2",
+          url: "https://www.figma.com/design/WHt8dWDeitbJeTL12rIUzk/Reference-TO?node-id=60-458&t=iCEBgxVD2bMqqeSO-1",
+        },
+        {
+          title: "Know more 3",
+          url: "https://www.figma.com/design/ncX2QLpbRexL9vn6REPxKj/Manage-Structures?node-id=911-34392&t=F6M2lT7EPdwPYVKR-1",
+        },
       ],
     },
   },
@@ -423,27 +513,17 @@ function renderProjects() {
 
   projectsGrid.className = `projects-grid ${gridClass}`
 
-  // Confidential project titles
-  const confidentialTitles = [
-    "SAP Invent 2023: Ecopulse",
-    "SAP Invent '24: Intelligent Controls Compliance System",
-  ];
-
   projects.forEach((project, index) => {
     const projectElement = document.createElement("div")
     projectElement.className = `project-item project-${index + 1}`
     projectElement.onclick = (e) => openProject(project.id, e.currentTarget)
-
-    const isConfidential = confidentialTitles.includes(project.title);
-    const confidentialLabel = isConfidential ? `<div class='confidential-label' style='position:absolute;top:10px;left:10px;background:#fff0f0;border:1px solid #b00;color:#b00;font-weight:700;padding:2px 10px;border-radius:6px;font-size:0.95em;z-index:2;'>Confidential</div>` : "";
 
     const projectTitle = project.isFinalist
       ? `${project.title} <span class="finalist-badge">SAP Invent finalist</span>`
       : project.title
 
     projectElement.innerHTML = `
-    <div class="project-frame" style="position:relative;">
-        ${confidentialLabel}
+    <div class="project-frame">
         <img src="${project.image}" alt="${projectTitle}" onerror="this.src='https://via.placeholder.com/400x200/cccccc/666666?text=Project+Image'">
         <div class="project-title-overlay">
             <h3 class="project-title-text">${projectTitle}</h3>
@@ -733,19 +813,10 @@ function handleTimelineScroll() {
 
 // Project modal functions - Always start from top
 function openProject(projectId, tileElement) {
-  // Confidential project titles
-  const confidentialTitles = [
-    "SAP Invent 2023: Ecopulse",
-    "SAP Invent '24: Intelligent Controls Compliance System",
-  ];
-  const project = projects.find((p) => p.id === projectId);
-  if (!project) return;
-  if (confidentialTitles.includes(project.title)) {
-    alert("This project is confidential and not available.");
-    return;
-  }
-  selectedProject = projectId;
-  clickedTile = tileElement;
+  selectedProject = projectId
+  clickedTile = tileElement
+  const project = projects.find((p) => p.id === projectId)
+  if (!project) return
 
   const modal = document.getElementById("projectModal")
   const modalContent = modal.querySelector(".modal-content")
@@ -773,7 +844,6 @@ function openProject(projectId, tileElement) {
   const modalProjectImage = document.getElementById("modalProjectImage");
   modalProjectImage.src = project.image;
   modalProjectImage.alt = project.title;
-  setupModalImageRectangles(project.image);
 
   // Remove any previous special class from the image itself
   modalProjectImage.classList.remove("modal-image-natural");
@@ -939,26 +1009,6 @@ function prevProject() {
   openProject(projects[prevIndex].id, prevTile)
 }
 
-function setupModalImageRectangles(imageSrc) {
-  const modalImage = document.getElementById("modalImage");
-  if (!modalImage || !imageSrc) return;
-
-  modalImage.querySelectorAll(".modal-screen-rect").forEach((node) => node.remove());
-
-  ["left", "center", "right"].forEach((position) => {
-    const rect = document.createElement("div");
-    rect.className = `modal-screen-rect ${position}`;
-
-    const tileImg = document.createElement("img");
-    tileImg.src = imageSrc;
-    tileImg.alt = `${position} repeated project screenshot`;
-    tileImg.loading = "lazy";
-    rect.appendChild(tileImg);
-
-    modalImage.insertBefore(rect, modalImage.firstChild);
-  });
-}
-
 // Generate project content - Fixed to show all content
 function generateProjectContent(project) {
   let content = `<h2 style="color: #330033; font-size: 2rem; margin-bottom: 1rem; line-height: 1.2;">${project.title}</h2>`
@@ -972,6 +1022,7 @@ function generateProjectContent(project) {
     const metadataFields = [
       { key: "role", label: "Role" },
       { key: "company", label: "Company" },
+      { key: "customer", label: "Customer" },
       { key: "client", label: "Client" },
       { key: "duration", label: "Duration" },
       { key: "team", label: "Team" },
@@ -983,6 +1034,7 @@ function generateProjectContent(project) {
       { key: "productType", label: "Product Type" },
       { key: "domain", label: "Domain" },
       { key: "type", label: "Type" },
+      { key: "ipStatus", label: "IP Status" },
     ]
 
     metadataFields.forEach((field) => {

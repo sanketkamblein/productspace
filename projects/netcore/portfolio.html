@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartech Email Broadcasting — Netcore | Sanket Kamble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a2e; }
+
+    /* ── PASSWORD GATE ── */
+    #gate {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;
+      background: #1a0a30;
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      -webkit-box-pack: center; justify-content: center;
+    }
+    .gate-card {
+      background: #250d40; border: 1px solid #4a2070;
+      border-radius: 16px; padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px; text-align: center;
+    }
+    .gate-lock { font-size: 2.5rem; margin-bottom: 1rem; }
+    .gate-badge {
+      display: inline-block; margin-bottom: 1.5rem;
+      background: rgba(130,60,220,0.2); color: #c084fc;
+      border: 1px solid rgba(130,60,220,0.4);
+      border-radius: 20px; padding: 0.3rem 0.9rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .gate-title { color: #fff; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .gate-sub { color: #9d7ec0; font-size: 0.85rem; margin-bottom: 2rem; line-height: 1.5; }
+    .gate-input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: #1a0a30; border: 1px solid #4a2070;
+      border-radius: 8px; color: #fff; font-size: 1rem;
+      font-family: 'Inter', sans-serif; outline: none; margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .gate-input:focus { border-color: #9333ea; }
+    .gate-input.error { border-color: #e05555; animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .gate-btn {
+      width: 100%; padding: 0.75rem;
+      background: #7c3aed; color: #fff; border: none; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      font-family: 'Inter', sans-serif; transition: background 0.2s;
+    }
+    .gate-btn:hover { background: #6d28d9; }
+    .gate-err { color: #e05555; font-size: 0.8rem; margin-top: 0.75rem; display: none; }
+
+    #portfolio { display: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,10,48,0.96);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #3b1060;
+      padding: 0 2rem; height: 56px;
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      -webkit-box-pack: justify; justify-content: space-between;
+    }
+    .nav-logo { color: #c084fc; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
+    .nav-links { display: -webkit-box; display: -webkit-flex; display: flex; gap: 2rem; }
+    .nav-links a { color: #9d7ec0; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #c084fc; }
+    .back-btn {
+      color: #c084fc; text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      border: 1px solid rgba(192,132,252,0.3); padding: 0.3rem 0.9rem;
+      border-radius: 20px; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(192,132,252,0.08); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding-top: 56px;
+      background: linear-gradient(135deg, #1a0a30 0%, #2e1050 50%, #1a0530 100%);
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 15% 60%, rgba(124,58,237,0.25) 0%, transparent 55%),
+                  radial-gradient(ellipse at 85% 20%, rgba(192,132,252,0.1) 0%, transparent 50%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: 4rem 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow { display: -webkit-box; display: -webkit-flex; display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .tag { border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tag-purple { background: rgba(124,58,237,0.2); color: #c084fc; border: 1px solid rgba(124,58,237,0.35); }
+    .tag-orange { background: rgba(234,88,12,0.15); color: #fb923c; border: 1px solid rgba(234,88,12,0.3); }
+    .tag-teal   { background: rgba(20,184,166,0.12); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.25); }
+    .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.15; margin-bottom: 1rem; color: #fff; }
+    .hero h1 span { color: #c084fc; }
+    .hero-desc { color: #9d7ec0; font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .meta-item { background: rgba(255,255,255,0.05); border: 1px solid #3b1060; border-radius: 10px; padding: 0.75rem 1rem; }
+    .meta-label { color: #6b4a8a; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .meta-value { color: #e8d5ff; font-size: 0.88rem; font-weight: 600; }
+    .hero-img-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.5); border: 1px solid #3b1060; cursor: zoom-in; }
+    .hero-img-wrap img { width: 100%; display: block; }
+
+    /* ── SHARED ── */
+    .container { max-width: 860px; margin: 0 auto; }
+    .section-label { color: #7c3aed; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .section-title { font-size: 1.9rem; font-weight: 700; color: #1a0a30; margin-bottom: 1.25rem; line-height: 1.2; }
+    .body-text { color: #4a3060; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+    .body-text strong { color: #1a0a30; }
+    .divider { border: none; border-top: 1px solid #ede8ff; margin: 0; }
+
+    .usp-list { list-style: none; margin: 1rem 0 1.5rem 0; }
+    .usp-list li { display: -webkit-box; display: -webkit-flex; display: flex; gap: 0.75rem; align-items: flex-start; color: #4a3060; font-size: 0.92rem; line-height: 1.6; padding: 0.4rem 0; }
+    .usp-list li::before { content: '→'; color: #7c3aed; flex-shrink: 0; font-weight: 700; margin-top: 0.05rem; }
+
+    .role-box { background: #f5f0ff; border: 1px solid #ddd0f5; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .role-label { color: #7c3aed; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .role-value { color: #1a0a30; font-size: 0.88rem; font-weight: 500; line-height: 1.5; }
+
+    /* ── SECTIONS ── */
+    .overview { background: #fff; padding: 4rem 2rem; }
+    .before-section { background: #f5f0ff; padding: 4rem 2rem; }
+    .challenges-section { background: #fff; padding: 4rem 2rem; }
+    .process-section { background: #f9f6ff; padding: 4rem 2rem; }
+    .final-section { background: #fff; padding: 4rem 2rem; }
+    .learnings-section { background: #f5f0ff; padding: 4rem 2rem; }
+
+    /* ── SCREEN CARDS ── */
+    .screen-card { background: #fff; border: 1px solid #e8d5ff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,0.08); cursor: zoom-in; transition: transform 0.2s, box-shadow 0.2s; }
+    .screen-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(124,58,237,0.14); }
+    .screen-card img { width: 100%; display: block; }
+    .screen-caption { padding: 0.9rem 1.1rem; border-top: 1px solid #f0e6ff; }
+    .screen-caption h4 { color: #1a0a30; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .screen-caption p { color: #8b6aaa; font-size: 0.78rem; line-height: 1.4; }
+    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+
+    /* ── COMPARISON BOX ── */
+    .comparison-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.35rem 0.8rem; border-radius: 6px 6px 0 0; text-align: center;
+    }
+    .label-before { background: #ffe4e1; color: #b91c1c; }
+    .label-after  { background: #dcfce7; color: #166534; }
+
+    /* ── PROCESS ACCORDION ── */
+    .process-intro { color: #4a3060; font-size: 0.95rem; line-height: 1.8; margin-bottom: 2.5rem; }
+    .accordion { border: 1px solid #e8d5ff; border-radius: 14px; overflow: hidden; }
+    .acc-item { border-bottom: 1px solid #e8d5ff; }
+    .acc-item:last-child { border-bottom: none; }
+    .acc-header {
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      gap: 1rem; padding: 1.1rem 1.4rem; cursor: pointer;
+      background: #fff; transition: background 0.15s;
+      list-style: none; user-select: none;
+    }
+    .acc-header:hover { background: #faf7ff; }
+    .acc-header::-webkit-details-marker { display: none; }
+    details[open] > .acc-header { background: #f5f0ff; }
+    .acc-num { display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: #7c3aed; color: #fff; font-size: 0.75rem; font-weight: 700; }
+    .acc-title { color: #1a0a30; font-size: 0.95rem; font-weight: 600; flex: 1; }
+    .acc-arrow { color: #9d7ec0; font-size: 0.8rem; transition: transform 0.2s; flex-shrink: 0; }
+    details[open] > .acc-header > .acc-arrow { transform: rotate(180deg); }
+    .acc-body { padding: 0 1.4rem 1.4rem; background: #faf7ff; }
+    .acc-body p { color: #4a3060; font-size: 0.9rem; line-height: 1.8; padding-top: 1rem; }
+    .acc-body ul { list-style: none; padding-top: 1rem; }
+    .acc-body ul li { color: #4a3060; font-size: 0.9rem; line-height: 1.6; padding: 0.3rem 0; display: -webkit-box; display: -webkit-flex; display: flex; gap: 0.6rem; align-items: flex-start; }
+    .acc-body ul li::before { content: '—'; color: #c084fc; flex-shrink: 0; }
+    .acc-body .img-wrap { margin-top: 1.25rem; }
+    .acc-body .img-wrap img { width: 100%; border-radius: 10px; display: block; border: 1px solid #e8d5ff; cursor: zoom-in; box-shadow: 0 4px 16px rgba(124,58,237,0.08); }
+    .acc-body .img-caption { color: #8b6aaa; font-size: 0.78rem; margin-top: 0.5rem; text-align: center; line-height: 1.4; font-style: italic; }
+    .acc-body .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
+    .acc-body .img-grid-2 img { width: 100%; border-radius: 8px; display: block; border: 1px solid #e8d5ff; cursor: zoom-in; }
+
+    /* ── FIGMA LINKS ── */
+    .figma-link-card {
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      gap: 1rem; background: #f9f6ff; border: 1.5px solid #ddd0f5;
+      border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem;
+      text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .figma-link-card:hover { border-color: #9333ea; box-shadow: 0 4px 20px rgba(124,58,237,0.12); }
+    .figma-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .figma-info { flex: 1; }
+    .figma-label { color: #7c3aed; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .figma-name { color: #1a0a30; font-size: 0.92rem; font-weight: 600; }
+    .figma-arrow { color: #9d7ec0; font-size: 1.1rem; }
+
+    /* ── LEARNINGS ── */
+    .learning-list { list-style: none; margin-top: 1.5rem; }
+    .learning-list li { display: -webkit-box; display: -webkit-flex; display: flex; gap: 1rem; align-items: flex-start; color: #4a3060; font-size: 0.92rem; line-height: 1.7; padding: 0.75rem 0; border-bottom: 1px solid #e8d5ff; }
+    .learning-list li:last-child { border-bottom: none; }
+    .learning-list li::before { content: '✦'; color: #7c3aed; flex-shrink: 0; font-size: 0.7rem; margin-top: 0.3rem; }
+    .improve-box { background: linear-gradient(135deg, #f5f0ff, #ede8ff); border: 1px solid #c084fc; border-radius: 14px; padding: 2rem; margin-top: 2.5rem; }
+    .improve-box h3 { color: #7c3aed; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .improve-box p { color: #4a3060; font-size: 0.95rem; line-height: 1.7; }
+
+    /* ── SUB-PROJECT POCKET ── */
+    .subproject-section { background: #fdf8ff; padding: 4rem 2rem; border-top: 2px dashed #d8b4fe; }
+    .subproject-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(234,88,12,0.1); color: #c2410c; border: 1px solid rgba(234,88,12,0.25); border-radius: 20px; padding: 0.3rem 0.9rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+    .subproject-intro { color: #4a3060; font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; max-width: 680px; }
+
+    /* Sub-project toggle */
+    .sp-toggle {
+      width: 100%; background: #fff; border: 1.5px solid #ddd0f5; border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center;
+      gap: 1rem; cursor: pointer; transition: background 0.15s, border-color 0.15s;
+      font-family: 'Inter', sans-serif; list-style: none;
+    }
+    .sp-toggle::-webkit-details-marker { display: none; }
+    .sp-toggle:hover { background: #f5f0ff; border-color: #c084fc; }
+    details.sp-detail[open] > .sp-toggle { background: #f0e6ff; border-color: #9333ea; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; }
+    .sp-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .sp-info { flex: 1; text-align: left; }
+    .sp-title { color: #1a0a30; font-size: 1rem; font-weight: 700; }
+    .sp-meta { color: #8b6aaa; font-size: 0.8rem; margin-top: 0.2rem; }
+    .sp-tags { display: -webkit-box; display: -webkit-flex; display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .sp-tag { padding: 0.15rem 0.6rem; border-radius: 12px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; }
+    .sp-tag-orange { background: rgba(234,88,12,0.1); color: #c2410c; border: 1px solid rgba(234,88,12,0.2); }
+    .sp-tag-blue   { background: rgba(37,99,235,0.1); color: #1d4ed8; border: 1px solid rgba(37,99,235,0.2); }
+    .sp-tag-green  { background: rgba(5,150,105,0.1); color: #065f46; border: 1px solid rgba(5,150,105,0.2); }
+    .sp-chevron { color: #9d7ec0; font-size: 0.85rem; transition: transform 0.2s; flex-shrink: 0; }
+    details.sp-detail[open] > .sp-toggle > .sp-chevron { transform: rotate(180deg); }
+
+    /* Sub-project body — reuse same accordion style */
+    .sp-body {
+      background: #fff; border: 1.5px solid #9333ea; border-top: none;
+      border-bottom-left-radius: 14px; border-bottom-right-radius: 14px;
+      padding: 1.5rem;
+    }
+    .sp-body .acc-body { background: #faf7ff; }
+    .sp-body .accordion { border: 1px solid #e8d5ff; border-radius: 14px; overflow: hidden; margin-top: 0; }
+
+    .sp-section-head { color: #7c3aed; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.5rem 0 0.75rem; }
+    .sp-overview { color: #4a3060; font-size: 0.92rem; line-height: 1.8; margin-bottom: 1rem; }
+    .sp-overview strong { color: #1a0a30; }
+
+    .sp-role-box { background: #f5f0ff; border: 1px solid #ddd0f5; border-radius: 10px; padding: 1.25rem; margin: 1rem 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .sp-challenge-list { list-style: none; margin-bottom: 1rem; }
+    .sp-challenge-list li { display: -webkit-box; display: -webkit-flex; display: flex; gap: 0.75rem; align-items: flex-start; color: #4a3060; font-size: 0.9rem; line-height: 1.6; padding: 0.4rem 0; }
+    .sp-challenge-list li::before { content: '⚡'; flex-shrink: 0; }
+
+    .sp-link-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #7c3aed; color: #fff; border-radius: 8px; padding: 0.65rem 1.25rem; font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-top: 1.5rem; transition: background 0.15s; }
+    .sp-link-btn:hover { background: #6d28d9; }
+
+    /* final design screen for surveys */
+    .sp-final-screen { background: #fff; border: 1px solid #e8d5ff; border-radius: 12px; overflow: hidden; cursor: zoom-in; box-shadow: 0 4px 20px rgba(124,58,237,0.08); margin-top: 1rem; transition: transform 0.2s; }
+    .sp-final-screen:hover { transform: translateY(-2px); }
+    .sp-final-screen img { width: 100%; display: block; }
+    .sp-final-screen .sp-cap { padding: 0.7rem 1rem; border-top: 1px solid #f0e6ff; font-size: 0.78rem; color: #8b6aaa; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+      background: rgba(0,0,0,0.93);
+      display: none; -webkit-box-align: center; align-items: center;
+      -webkit-box-pack: center; justify-content: center;
+      padding: 2rem; cursor: zoom-out;
+    }
+    #lightbox.active { display: -webkit-box; display: -webkit-flex; display: flex; }
+    #lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; object-fit: contain; }
+    #lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem; color: #fff; font-size: 1.2rem;
+      cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
+      width: 40px; height: 40px; display: -webkit-box; display: -webkit-flex; display: flex;
+      -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center;
+      border: none; font-family: 'Inter', sans-serif;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #1a0a30; border-top: 1px solid #3b1060; padding: 2rem; text-align: center; }
+    footer p { color: #6b4a8a; font-size: 0.8rem; }
+    footer a { color: #c084fc; text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-img-wrap { order: -1; }
+      .hero h1 { font-size: 2rem; }
+      .img-grid-2, .acc-body .img-grid-2, .role-box, .sp-role-box { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-lock">🔒</div>
+    <div class="gate-badge">UX Case Study</div>
+    <div class="gate-title">Smartech Email Broadcasting</div>
+    <div class="gate-sub">This case study is password protected.<br>Please enter the access code to continue.</div>
+    <input type="password" id="gate-pwd" class="gate-input" placeholder="Enter password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPassword()">Unlock Case Study</button>
+    <div class="gate-err" id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<div id="portfolio">
+
+  <nav>
+    <span class="nav-logo">Sanket Kamble</span>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#before">Before</a>
+      <a href="#process">Process</a>
+      <a href="#final">Final Design</a>
+      <a href="#learnings">Learnings</a>
+    </div>
+    <a href="../../index.html" class="back-btn">← Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="tag tag-purple">UX Design</span>
+          <span class="tag tag-orange">B2B SaaS</span>
+          <span class="tag tag-teal">MarTech</span>
+        </div>
+        <h1>Email<br><span>Broadcasting</span><br>Redesign</h1>
+        <p class="hero-desc">Revamped the Email Campaigning tool at Netcore Smartech — collaborating with PMs, designers, users and developers to improve the end-to-end experience for marketers.</p>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">UX Designer — End to End</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">4 Months</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Team</div>
+            <div class="meta-value">Yogesh Kulkarni (PM) · Sagar Patil (Sr. PM) · Johnson Minj (Sr. Designer)</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Method</div>
+            <div class="meta-value">Design Sprint → MVP</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-img-wrap" onclick="openLightbox(this.querySelector('img'))">
+        <img src="images/hero.jpg" alt="Smartech — a Netcore product overview">
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section id="overview" class="overview">
+    <div class="container">
+      <div class="section-label">Background</div>
+      <h2 class="section-title">The Task Given</h2>
+      <p class="body-text">The product team at Netcore was working on the <strong>Retention of the customer</strong>. As a UX designer I was approached by the Product Manager to re-design the workflow of the Email Campaigning module.</p>
+      <p class="body-text">The team's hypothesis: revamp the entire product — update design patterns and build a brand that caters to <strong>Marketers</strong>, giving an experience that adds value to their strategy.</p>
+
+      <h3 style="color:#1a0a30;font-size:1rem;font-weight:700;margin:1.75rem 0 0.75rem;">USP of the Product</h3>
+      <ul class="usp-list">
+        <li>Artificial intelligence to create strategy on audiences for better conversion rates</li>
+        <li>Templates for marketers to put least effort into crafting content</li>
+      </ul>
+
+      <div class="role-box">
+        <div>
+          <div class="role-label">My Responsibility</div>
+          <div class="role-value">Workflow design and final UI deliverable for the web application</div>
+        </div>
+        <div>
+          <div class="role-label">Decision Boundary</div>
+          <div class="role-value">Email content editor decisions sat with the Senior Designer — I owned end-to-end workflow and UI</div>
+        </div>
+        <div>
+          <div class="role-label">Stakeholder Access</div>
+          <div class="role-value">Worked directly with development manager and real users</div>
+        </div>
+        <div>
+          <div class="role-label">Delivery Method</div>
+          <div class="role-value">Design Sprint to deliver MVP within one quarter</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- BEFORE — old UI -->
+  <section id="before" class="before-section">
+    <div class="container">
+      <div class="section-label">Starting Point</div>
+      <h2 class="section-title">The Old Interface</h2>
+      <p class="body-text">The legacy "Dynamic Broadcast" UI — a multi-section accordion form. All steps collapsed into a single page with minimal visual hierarchy. This is what the redesign set out to improve.</p>
+
+      <div class="img-grid-2">
+        <div>
+          <div class="comparison-label label-before">Before — Legacy Broadcast UI</div>
+          <div class="screen-card" style="border-radius:0 0 12px 12px;" onclick="openLightbox(this.querySelector('img'))">
+            <img src="images/before_legacy_broadcast.png" alt="Legacy Dynamic Broadcast UI — old accordion form design">
+            <div class="screen-caption">
+              <h4>Dynamic Broadcast — Legacy</h4>
+              <p>All sections collapsed on one page, poor hierarchy, 2019 design</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="comparison-label label-after">After — Redesigned Audience Step</div>
+          <div class="screen-card" style="border-radius:0 0 12px 12px;" onclick="openLightbox(this.querySelector('img'))">
+            <img src="images/redesign_audience_segmentation.png" alt="Redesigned segmentation step — new audience workflow">
+            <div class="screen-caption">
+              <h4>New Audience Segmentation</h4>
+              <p>Broken into clear steps (Audience → Content → Setting → Schedule) with summary panel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;">
+        <div class="comparison-label label-after" style="display:inline-block;">After — Single Page Broadcast View</div>
+        <div class="screen-card" style="border-radius:0 12px 12px 12px;" onclick="openLightbox(this.querySelector('img'))">
+          <img src="images/redesign_single_page_broadcast.png" alt="Redesigned single-page broadcast — doesn't break mental model">
+          <div class="screen-caption">
+            <h4>Redesigned Single-Page Broadcast</h4>
+            <p>Inline sections (Audience, Setup, Content, Schedule) — matches the marketer's natural mental model</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROCESS -->
+  <section id="process" class="process-section">
+    <div class="container">
+      <div class="section-label">How I Solved It</div>
+      <h2 class="section-title">The Process</h2>
+      <p class="process-intro">I went with a Design Sprint — creating concepts and retesting until positive feedback within the scheduled time. Deliverable went to the development team within the quarter.</p>
+
+      <div class="accordion">
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">1</span>
+            <span class="acc-title">Research &amp; Interviews</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Spent 2 days for observation and made a hypothesis of the problems observed. Validated those observations through user interviews.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">2</span>
+            <span class="acc-title">Persona Identification</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>The persona varies according to the marketer's role in their team. Identification of personas helped project impact on customer share.</p>
+            <ul>
+              <li><strong>Marketer from Startup</strong> — Spends 3 days for a single campaign; uses most features</li>
+              <li><strong>Marketer from MNC</strong> — Executive who broadcasts 10–20 campaigns a day</li>
+              <li><strong>Marketer from Agencies</strong> — Cannot execute any campaign without client approval</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">3</span>
+            <span class="acc-title">Competitor Analysis</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Benchmarked the following competitors to understand the landscape and identify gaps:</p>
+            <ul>
+              <li>Mailchimp</li>
+              <li>MoEngage</li>
+              <li>WebEngage</li>
+              <li>OptiMonk</li>
+              <li>Clevertap</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">4</span>
+            <span class="acc-title">Empathize / User Journey Mapping</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Spent time with marketers — executed their tasks alongside them to build empathy. Created User Journey Maps to prioritise UI issues found after validation sessions.</p>
+            <div class="img-grid-2">
+              <div>
+                <img src="images/empathy_team_affinity_mapping.png" alt="Team affinity mapping session with post-its on wall" onclick="openLightbox(this)">
+                <div class="img-caption">Affinity mapping session — post-its on wall grouping user pain points</div>
+              </div>
+              <div>
+                <img src="images/ia_user_journey_whiteboard.png" alt="User journey whiteboard — task flow mapping" onclick="openLightbox(this)">
+                <div class="img-caption">User journey mapping on whiteboard — task flows and problem areas</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">5</span>
+            <span class="acc-title">Problem Identification</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Prioritised problems converted into design opportunities:</p>
+            <ul>
+              <li>Aesthetic appeal of the product</li>
+              <li>Time consumed to broadcast a single email campaign</li>
+              <li>User irritation due to backtracking parameters while strategising</li>
+              <li>Use of multiple tools to execute one task</li>
+              <li>Features that increase learning curve but offer better outcomes</li>
+              <li>Fractured task relations and accessibility across different cases</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">6</span>
+            <span class="acc-title">Concept Generation</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Heatmapping for possible concepts done on paper. Worked on task identification, task relationships and their frequencies across edge cases. Concepts evaluated with stakeholders.</p>
+            <div class="img-grid-2">
+              <div>
+                <img src="images/concept_widget_vs_accordion.jpg" alt="Whiteboard: Widget vs Accordion concept comparison" onclick="openLightbox(this)">
+                <div class="img-caption">Widget vs Accordion — comparing layout concepts and their properties on whiteboard</div>
+              </div>
+              <div>
+                <img src="images/ia_paper_wireframes_sprint.png" alt="Paper wireframes laid on table during design sprint" onclick="openLightbox(this)">
+                <div class="img-caption">Paper wireframes from design sprint — task flows laid out for review</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">7</span>
+            <span class="acc-title">Information Architecture</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>IA wire-framing to define structure. A clickable wireframe was created to understand micro-interactions and validate task flows before moving to high-fidelity.</p>
+            <div class="img-grid-2">
+              <div>
+                <img src="images/ia_task_heatmap_postits.png" alt="IA task heatmap — yellow post-its mapping task hierarchy" onclick="openLightbox(this)">
+                <div class="img-caption">Task hierarchy mapped with post-its — left side task list, right side create campaign flow</div>
+              </div>
+              <div>
+                <img src="images/ia_information_flow_diagram.png" alt="Information Flow diagram — three user roles, three iterations" onclick="openLightbox(this)">
+                <div class="img-caption">Information Flow — three iterations with users, covering both Executor roles and Company admin</div>
+              </div>
+            </div>
+            <div class="img-wrap" style="margin-top:1.25rem;">
+              <img src="images/usability_test_wireframes.png" alt="Grid of whiteboard wireframe sketches from usability testing" onclick="openLightbox(this)">
+              <div class="img-caption">Clickable wireframe sketches — used to understand micro-interactions and test with users</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary class="acc-header">
+            <span class="acc-num">8</span>
+            <span class="acc-title">Usability Testing</span>
+            <span class="acc-arrow">▼</span>
+          </summary>
+          <div class="acc-body">
+            <p>Testing conducted with the in-house marketing team. Conversations were recorded for further evaluation with stakeholders. Three iterations were done testing with users before finalising the information flow.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FINAL DESIGN -->
+  <section id="final" class="final-section">
+    <div class="container">
+      <div class="section-label">Output</div>
+      <h2 class="section-title">Final Design</h2>
+      <p class="body-text">The final high-fidelity design was built in Sketch and imported to Figma. A clickable IA wireframe prototype was also produced for micro-interaction validation before handoff to development.</p>
+
+      <a href="https://www.figma.com/file/uMKRdDeSGjjypeDX4aLW4W/Email-Wireframe-5.1-2?node-id=0%3A4091" target="_blank" rel="noopener noreferrer" class="figma-link-card">
+        <span class="figma-icon">🎨</span>
+        <div class="figma-info">
+          <div class="figma-label">Figma — Final High-Fidelity Design</div>
+          <div class="figma-name">Email Wireframe 5.1-2 → View Screens</div>
+        </div>
+        <span class="figma-arrow">↗</span>
+      </a>
+
+      <a href="https://www.figma.com/file/PjU0bqgdmpAhmzFQLiFrub/New-Email-Flow-3" target="_blank" rel="noopener noreferrer" class="figma-link-card">
+        <span class="figma-icon">🔗</span>
+        <div class="figma-info">
+          <div class="figma-label">Figma — IA Clickable Wireframe Prototype</div>
+          <div class="figma-name">New Email Flow 3 → Micro-interaction Prototype</div>
+        </div>
+        <span class="figma-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- LEARNINGS -->
+  <section id="learnings" class="learnings-section">
+    <div class="container">
+      <div class="section-label">Reflection</div>
+      <h2 class="section-title">Learnings</h2>
+      <ul class="learning-list">
+        <li>The B2B business has a customer who expects particular functionality over aesthetic appeal or a trending UI</li>
+        <li>Documentation of every progress or milestone is very important</li>
+        <li>Being proactive doesn't mean following up with the task — it also means finding problems that aren't found by other stakeholders and making an action for the same</li>
+        <li>No matter what type of stakeholder — they don't understand a wireframe. It should be at least a low-fidelity mock-up</li>
+      </ul>
+      <div class="improve-box">
+        <h3>What I'd Change Now</h3>
+        <p>I would try to bring greater flexibility in the UI which was not given then — particularly allowing marketers to personalise their workflow sequence without compromising system-wide consistency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SUB-PROJECT POCKET: Web-Messages Survey ═══ -->
+  <section class="subproject-section">
+    <div class="container">
+      <div class="subproject-pill">+ Related Work</div>
+      <h2 class="section-title" style="margin-bottom:0.5rem;">More from Netcore</h2>
+      <p class="subproject-intro">A companion project done alongside the Email Redesign — a brand-new Survey type added to Smartech's Web-Message campaigning suite.</p>
+
+      <details class="sp-detail">
+        <summary class="sp-toggle">
+          <span class="sp-icon">📊</span>
+          <div class="sp-info">
+            <div class="sp-title">Web-Messages Campaigning — Survey Builder</div>
+            <div class="sp-meta">Nov 2021 · 3 weeks · UX/UI Design · Netcore Smartech</div>
+            <div class="sp-tags">
+              <span class="sp-tag sp-tag-orange">Visual Design</span>
+              <span class="sp-tag sp-tag-blue">Interaction Design</span>
+              <span class="sp-tag sp-tag-green">Design Systems</span>
+            </div>
+          </div>
+          <span class="sp-chevron">▼</span>
+        </summary>
+
+        <div class="sp-body">
+
+          <!-- Overview -->
+          <p class="sp-overview">It was my project at Netcore where I worked on a design with an available design system but the concept was new. A new type of web-message — <strong>Survey</strong> — was being added to Smartech because of market trends. I worked with PM Saurav Majumdar and Senior Designer Johnson Minj.</p>
+
+          <div class="sp-role-box">
+            <div>
+              <div class="role-label">Role</div>
+              <div class="role-value">UX / UI Designer</div>
+            </div>
+            <div>
+              <div class="role-label">Duration</div>
+              <div class="role-value">3 Weeks</div>
+            </div>
+            <div>
+              <div class="role-label">Task</div>
+              <div class="role-value">Add Surveys as a new campaign type for web-messages</div>
+            </div>
+            <div>
+              <div class="role-label">Constraint</div>
+              <div class="role-value">Must work within existing design system</div>
+            </div>
+          </div>
+
+          <!-- Challenges -->
+          <div class="sp-section-head">The Challenges</div>
+          <ul class="sp-challenge-list">
+            <li>Working with an existing design system for a product type never tested before</li>
+            <li>Multiple questions and multiple pages — components and conditional interactions had to be designed from scratch within constraints</li>
+            <li>Translating complex dynamic page logic for marketers — I imposed deliberate limitations to reduce cognitive load while creating surveys</li>
+          </ul>
+
+          <!-- Process collapsibles -->
+          <div class="sp-section-head">The Process</div>
+          <div class="accordion">
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">1</span>
+                <span class="acc-title">Competitors Analysis</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <p>Benchmarked the following to understand what existed:</p>
+                <ul>
+                  <li>Google's Form Builder</li>
+                  <li>Survey Monkey</li>
+                  <li>MoEngage</li>
+                  <li>Clevertap</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">2</span>
+                <span class="acc-title">User Empathy</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <p>Questions I explored to build empathy:</p>
+                <ul>
+                  <li>Why does a survey appearing on Google Maps seem hassle-free?</li>
+                  <li>Why would I, as a user, convert for a survey?</li>
+                  <li>What would I, as a marketer, like to put surveys out for?</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">3</span>
+                <span class="acc-title">Problem Identification</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <ul>
+                  <li>Forms / surveys are supposed to be minimalist and aesthetically appealing</li>
+                  <li>Survey campaigns are modal-sized on desktop and can have multiple questions</li>
+                  <li>Marketers need to build dynamic surveys where answers change the UI</li>
+                  <li>Surveys should be minimalist but still grab the user's attention</li>
+                </ul>
+              </div>
+            </details>
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">4</span>
+                <span class="acc-title">Concept Generation</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <p>Studied different types of surveys. Made several concepts to understand what the builder needed — Ratings, Forms for research, Feedback. Concepts were created and evaluated with stakeholders.</p>
+                <div class="img-grid-2">
+                  <div>
+                    <img src="images/surveys/survey_concept_heart_rating_light.png" alt="Survey concept — heart-shaped rating, light blue theme" onclick="openLightbox(this)">
+                    <div class="img-caption">Concept A — Heart rating scale, light theme</div>
+                  </div>
+                  <div>
+                    <img src="images/surveys/survey_concept_heart_rating_selected.png" alt="Survey concept — heart rating selected state" onclick="openLightbox(this)">
+                    <div class="img-caption">Concept A — Selected state (rating 5)</div>
+                  </div>
+                </div>
+                <div class="img-grid-2" style="margin-top:1rem;">
+                  <div>
+                    <img src="images/surveys/survey_dark_multi_slider_ratings.png" alt="Survey concept — dark theme, multi-question slider ratings" onclick="openLightbox(this)">
+                    <div class="img-caption">Concept B — Dark theme, multi-question dot-slider ratings</div>
+                  </div>
+                  <div>
+                    <img src="images/surveys/survey_emoji_rating_minimal_dark.png" alt="Survey concept — emoji rating in dark modal" onclick="openLightbox(this)">
+                    <div class="img-caption">Concept C — Emoji rating scale, minimal dark modal</div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">5</span>
+                <span class="acc-title">Final Design</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <p>The final survey builder supports multi-page surveys with conditional routing — e.g. answer 1–2 on page 1 routes to page 2, answer 3–5 routes to page 3. Three theme options. Worked within the existing Smartech design system.</p>
+                <div class="img-grid-2">
+                  <div>
+                    <img src="images/surveys/survey_builder_multiquestion_desktop.png" alt="Final survey builder — desktop, multi-question with theme options" onclick="openLightbox(this)">
+                    <div class="img-caption">Final Survey Builder — desktop editor, multi-question, three theme options in panel</div>
+                  </div>
+                  <div>
+                    <img src="images/surveys/survey_emoji_rating_conditional_routing.png" alt="Final survey — emoji rating with conditional page routing" onclick="openLightbox(this)">
+                    <div class="img-caption">Conditional routing — emoji rating routes user to different follow-up pages</div>
+                  </div>
+                </div>
+                <div class="img-grid-2" style="margin-top:1rem;">
+                  <div>
+                    <img src="images/surveys/survey_text_feedback_page2.png" alt="Final survey — text feedback follow-up on page 2" onclick="openLightbox(this)">
+                    <div class="img-caption">Page 2 — open text feedback after rating, with character limit control</div>
+                  </div>
+                  <div>
+                    <img src="images/surveys/survey_mobile_warm_toggle_answers.png" alt="Final survey — mobile modal, warm theme, toggle-style answers" onclick="openLightbox(this)">
+                    <div class="img-caption">Mobile modal — warm brown theme, toggle-style multi-select answers</div>
+                  </div>
+                </div>
+                <div class="img-grid-2" style="margin-top:1rem;">
+                  <div>
+                    <img src="images/surveys/survey_dark_checkbox_answers.png" alt="Final survey — dark modal, checkbox-style answers" onclick="openLightbox(this)">
+                    <div class="img-caption">Dark modal — checkbox-style answer layout, multi-select</div>
+                  </div>
+                  <div>
+                    <img src="images/surveys/survey_text_feedback_minimal_dark.png" alt="Final survey — minimal dark text feedback page" onclick="openLightbox(this)">
+                    <div class="img-caption">Minimal dark feedback page — open text input, standalone</div>
+                  </div>
+                </div>
+
+                <a href="https://www.figma.com/file/AmaLBwWV1ECTLOTDHuaFtd/Web-message-part-03-V2?node-id=0%3A37101" target="_blank" rel="noopener noreferrer" class="sp-link-btn">
+                  ↗ View Figma Prototype
+                </a>
+              </div>
+            </details>
+
+            <details>
+              <summary class="acc-header">
+                <span class="acc-num">6</span>
+                <span class="acc-title">Usability Testing</span>
+                <span class="acc-arrow">▼</span>
+              </summary>
+              <div class="acc-body">
+                <p>Testing done with the in-house marketing team. Conversations recorded for evaluation with stakeholders.</p>
+              </div>
+            </details>
+
+          </div><!-- /accordion -->
+
+          <!-- Learnings -->
+          <div class="sp-section-head" style="margin-top:2rem;">Learnings</div>
+          <ul class="learning-list">
+            <li>Setting up a Usability Testing process for a brand-new feature type</li>
+            <li>Trade between flexibility of the design system and new elements — where to push boundaries vs. stay consistent</li>
+          </ul>
+          <div class="improve-box" style="margin-top:1.5rem;">
+            <h3>What I'd Change Now</h3>
+            <p>I would have checked the impact of surveys in web pop-up campaigning before building and pushed the boundaries more for dynamic multi-page flows.</p>
+          </div>
+
+        </div><!-- /sp-body -->
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <p>Sanket Kamble · UX Designer · Netcore / Smartech Email Redesign &nbsp;|&nbsp; <a href="../../index.html">← Back to Portfolio</a></p>
+  </footer>
+
+</div><!-- /portfolio -->
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function checkPassword() {
+    var input = document.getElementById('gate-pwd');
+    var err   = document.getElementById('gate-err');
+    if (input.value === 'hello') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('portfolio').style.display = 'block';
+    } else {
+      input.classList.add('error');
+      err.style.display = 'block';
+      setTimeout(function(){ input.classList.remove('error'); }, 400);
+      input.value = '';
+      input.focus();
+    }
+  }
+  document.getElementById('gate-pwd').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  function openLightbox(img) {
+    var lb = document.getElementById('lightbox-img');
+    lb.src = '';
+    lb.src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+  // Close only when clicking the backdrop, not the image itself
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.getElementById('lightbox-img').addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+  document.getElementById('lightbox-close').addEventListener('click', function(e) {
+    e.stopPropagation();
+    closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

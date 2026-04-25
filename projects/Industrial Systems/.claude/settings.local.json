@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open:*)",
+      "Bash(pdftotext \"/Users/i568228/Documents/SAP Resume/Portfolio/Industrial Systems/Information-modelling-framework-V1.pdf\" -)",
+      "Bash(pdftotext \"/Users/i568228/Documents/SAP Resume/Portfolio/Industrial Systems/INTERNATIONAL STANDARD NORME INTERNATIONALE.pdf\" -)",
+      "Bash(grep -A 15 \"^4\\\\.5.*Function$\")",
+      "Bash(mdls \"System concept_architectureofrelated apps.pdf\")",
+      "Bash(sips -s format png \"System concept_architectureofrelated apps.pdf\" --out /tmp/system_concept.png)",
+      "Bash(sips:*)",
+      "WebFetch(domain:sanketkamblein.github.io)"
+    ]
+  }
+}
