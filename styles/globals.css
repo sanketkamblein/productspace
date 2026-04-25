@@ -630,17 +630,18 @@ html { scroll-behavior: smooth; }
 }
 
 .projects-grid.desktop {
-  grid-template-columns: repeat(3, 1fr);
+  /* column widths are set to explicit px by timeline.js to ensure
+     identical tile sizes across Firefox, Chrome, Safari, and Edge */
 }
 
 .projects-grid.tablet {
-  grid-template-columns: repeat(2, 1fr);
+  /* column widths set to explicit px by fixGridColumns() in main.js */
   gap: 24px;
   row-gap: 72px;
 }
 
 .projects-grid.mobile {
-  grid-template-columns: repeat(2, 1fr);
+  /* column widths set to explicit px by fixGridColumns() in main.js */
   gap: 16px;
   padding: 16px;
 }
@@ -1321,7 +1322,7 @@ html { scroll-behavior: smooth; }
   .timeline-path { display: block; }
 
   .projects-grid.tablet {
-    grid-template-columns: repeat(2, 1fr);
+    /* explicit px columns set by fixGridColumns() */
     gap: 24px;
     row-gap: 32px;
   }
@@ -1360,7 +1361,7 @@ html { scroll-behavior: smooth; }
   }
 
   .projects-grid.mobile {
-    grid-template-columns: repeat(2, 1fr);
+    /* explicit px columns set by fixGridColumns() */
     gap: 12px;
     padding: 12px;
   }

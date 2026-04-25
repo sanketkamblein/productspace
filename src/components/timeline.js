@@ -30,12 +30,17 @@ function calculatePath() {
   const containerW   = timeline.offsetWidth
   const gutter       = Math.round(containerW * GUTTER_RATIO)
 
-  // Apply gutter to the grid so CSS layout matches SVG expectations
+  // Apply gutter to the grid so CSS layout matches SVG expectations.
+  // Use explicit px column widths instead of 1fr to guarantee identical sizing
+  // across Firefox, Chrome, Safari, and Edge (1fr + inline padding can resolve
+  // differently in Blink/WebKit, making the left column wider).
   const grid = document.getElementById("projectsGrid")
   if (grid && grid.classList.contains("desktop")) {
-    grid.style.padding    = `${gutter}px`
-    grid.style.columnGap  = `${gutter}px`
-    grid.style.rowGap     = `${gutter * 2}px`  // row-gap = 2× gutter so half-gap = gutter = y
+    const colWidth = Math.floor((containerW - gutter * 2 - gutter * 2) / 3)
+    grid.style.padding              = `${gutter}px`
+    grid.style.columnGap            = `${gutter}px`
+    grid.style.rowGap               = `${gutter * 2}px`
+    grid.style.gridTemplateColumns  = `repeat(3, ${colWidth}px)`
   }
 
   // ── After applying CSS, measure tile positions relative to SVG origin ──

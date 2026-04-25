@@ -23,16 +23,50 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     calculatePath()
     handleTimelineScroll()
+    fixGridColumns()
   }, 300)
 
   // Re-measure after images load — tile heights settle
   window.addEventListener("load", () => {
     calculatePath()
     handleTimelineScroll()
+    fixGridColumns()
   })
 
   updateParallax()
 })
+
+// ============================================================
+// FIX GRID COLUMNS — explicit px widths for cross-browser consistency
+// (Chrome/Safari/Edge resolve 1fr differently than Firefox when the
+//  grid container has asymmetric or JS-injected padding)
+// ============================================================
+function fixGridColumns() {
+  const grid = document.getElementById("projectsGrid")
+  if (!grid) return
+
+  // Read actual computed padding so we handle any media-query value correctly
+  const cs          = getComputedStyle(grid)
+  const padLeft     = parseFloat(cs.paddingLeft)  || 0
+  const padRight    = parseFloat(cs.paddingRight) || 0
+  const colGap      = parseFloat(cs.columnGap)    || 0
+
+  if (grid.classList.contains("tablet")) {
+    const available = grid.offsetWidth - padLeft - padRight - colGap
+    const colWidth  = Math.floor(available / 2)
+    grid.style.gridTemplateColumns = `repeat(2, ${colWidth}px)`
+
+  } else if (grid.classList.contains("mobile")) {
+    if (window.innerWidth > 540) {
+      const available = grid.offsetWidth - padLeft - padRight - colGap
+      const colWidth  = Math.floor(available / 2)
+      grid.style.gridTemplateColumns = `repeat(2, ${colWidth}px)`
+    } else {
+      grid.style.gridTemplateColumns = "1fr"
+    }
+  }
+  // Desktop columns are set by calculatePath() in timeline.js
+}
 
 // ============================================================
 // RENDER PROJECTS
@@ -131,7 +165,12 @@ function handleResize() {
     setTimeout(() => {
       calculatePath()
       handleTimelineScroll()
+      fixGridColumns()
     }, 150)
+  } else {
+    // Same breakpoint but viewport width changed — recompute explicit column widths
+    fixGridColumns()
+    calculatePath()
   }
 }
 

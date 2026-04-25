@@ -86,7 +86,8 @@ const projects = [
       links: [
         {
           title: "Know more",
-          url: "https://www.figma.com/design/aB855BOX9E0VtpMmRn8f4P/Industrial-System-SAP?node-id=0-1&t=ImKcOPAknUfnlJMb-1",
+          url: "https://www.figma.com/design/aB855BOX9E0VtpMmRn8f4P/Industrial-System-SAP?node-id=0-1&t=3vXAwntgMqS8ykI1-1",
+          noProtectedBadge: true,
         },
       ],
     },

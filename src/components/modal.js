@@ -289,7 +289,7 @@ function generateProjectContent(project) {
           const isFigma = link.url.includes("figma.com")
           const isSharePoint = link.url.includes("sharepoint.com")
 
-          if (link.isProtected || isFigma || isSharePoint) {
+          if (!link.noProtectedBadge && (link.isProtected || isFigma || isSharePoint)) {
             let platformIcon = ""
             let platformBadge = ""
             let badgeBg = "rgba(255,215,0,0.15)"
@@ -307,7 +307,10 @@ function generateProjectContent(project) {
 
             content += `<a href="${link.url}" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #330033; color: #ffd700; text-decoration: none; border-radius: 4px; border: 1px solid rgba(255,215,0,0.4); font-weight: 600; font-size: 0.88rem; transition: all 0.3s ease;">${platformIcon}${link.title} ${platformBadge}</a>`
           } else {
-            content += `<a href="${link.url}" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 8px 16px; background: #f8f9fa; color: #330033; text-decoration: none; border-radius: 4px; border: 1px solid #dee2e6; font-weight: 500; transition: all 0.3s ease;">🔗 ${link.title}</a>`
+            const linkIcon = isFigma
+              ? `<svg width="14" height="14" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;vertical-align:middle;"><path d="M19 28.5C19 23.8056 22.8056 20 27.5 20C32.1944 20 36 23.8056 36 28.5C36 33.1944 32.1944 37 27.5 37C22.8056 37 19 33.1944 19 28.5Z" fill="#1ABCFE"/><path d="M2 47C2 42.3056 5.80558 38.5 10.5 38.5H19V47C19 51.6944 15.1944 55.5 10.5 55.5C5.80558 55.5 2 51.6944 2 47Z" fill="#0ACF83"/><path d="M19 1.5V20H27.5C32.1944 20 36 16.1944 36 11.5C36 6.80558 32.1944 3 27.5 3H19V1.5Z" fill="#FF7262"/><path d="M2 11.5C2 16.1944 5.80558 20 10.5 20H19V3H10.5C5.80558 3 2 6.80558 2 11.5Z" fill="#F24E1E"/><path d="M2 28.5C2 33.1944 5.80558 37 10.5 37H19V20H10.5C5.80558 20 2 23.8056 2 28.5Z" fill="#A259FF"/></svg>`
+              : `🔗`
+            content += `<a href="${link.url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f8f9fa; color: #330033; text-decoration: none; border-radius: 4px; border: 1px solid #dee2e6; font-weight: 500; transition: all 0.3s ease;">${linkIcon} ${link.title}</a>`
           }
         }
       })
