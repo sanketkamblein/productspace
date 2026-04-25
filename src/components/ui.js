@@ -99,6 +99,45 @@ function setupScrollReveal() {
 }
 
 // ============================================================
+// STICKY NAV — scrolled class + active link highlighting
+// ============================================================
+function setupStickyNav() {
+  const nav = document.getElementById("siteNav")
+  if (!nav) return
+
+  // Add .scrolled class once user scrolls past ~60px
+  function updateNavScrolled() {
+    if (window.scrollY > 60) {
+      nav.classList.add("scrolled")
+    } else {
+      nav.classList.remove("scrolled")
+    }
+  }
+
+  // Highlight the nav link whose section is currently in view
+  const sections = ["hero", "about", "projects", "contact"]
+  function updateActiveLink() {
+    const scrollMid = window.scrollY + window.innerHeight * 0.4
+    let current = "hero"
+    sections.forEach(id => {
+      const el = document.getElementById(id)
+      if (el && el.offsetTop <= scrollMid) current = id
+    })
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.classList.toggle("active", link.dataset.section === current)
+    })
+  }
+
+  window.addEventListener("scroll", () => {
+    updateNavScrolled()
+    updateActiveLink()
+  }, { passive: true })
+
+  updateNavScrolled()
+  updateActiveLink()
+}
+
+// ============================================================
 // PARTICLE BURST — contact buttons
 // ============================================================
 function setupParticleButtons() {

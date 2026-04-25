@@ -25,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     handleTimelineScroll()
   }, 300)
 
+  // Re-measure after images load — tile heights settle
+  window.addEventListener("load", () => {
+    calculatePath()
+    handleTimelineScroll()
+  })
+
   updateParallax()
 })
 
