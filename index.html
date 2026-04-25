@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanket Kamble - Product Professional Portfolio</title>
     <link rel="stylesheet" href="styles/globals.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -28,7 +28,7 @@
     <div class="parallax-bg" id="parallaxBg"></div>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <div class="hero-content" id="heroContent">
             <!-- Profile: Magnetic Morph -->
             <div class="profile-morph-container" id="profileMorph">
@@ -79,37 +79,34 @@
     </section>
 
     <!-- About Section -->
-    <section class="about-section">
+    <section class="about-section" id="about">
         <div class="container">
             <h2 class="section-title reveal-on-scroll">About Me</h2>
             <div class="about-grid">
+
                 <div class="about-text reveal-on-scroll">
-                    <p>Product professional with <strong>8+ years of experience</strong> spanning software development, UX design, and early-stage product management. I started my career as a developer (including ABAP at SAP), earned my Master's in Product Design &amp; Management from the Indian Institute of Science (IISc).</p>
-                    <p>With a strong UX foundation and deep empathy for users, I've shipped solutions across domains including Supply Chain ERP, Sustainability and Enterprise Asset Management - private and public cloud, Healthcare ERP and Logistics, MarTech, and AI/ML-powered productivity tools.</p>
-                    <p>I thrive in <strong>0–1 product spaces</strong>, collaborating with cross-functional teams to turn abstract user needs and business opportunities into real, impactful solutions.</p>
+                    <p>Hi — I'm Sanket. Before I was a product manager or a designer, I was a painter, a musician, and a software developer. I have always been drawn to the edges where disciplines meet and bleed into each other.</p>
+                    <p>I paint and sketch — mostly human portraits. When I draw someone, I am not just observing their features. I am trying to understand what they are feeling, what they are holding back. That practice of <strong>deep empathy</strong> is inseparable from how I do design and product work.</p>
+                    <p>Music has been with me since school — performing, not just listening. Both painting and music taught me that there is <strong>a language beyond words</strong>, one that connects directly to how people think and feel without being spoken aloud. I look for that language in everything I build.</p>
+                    <p>At <strong>IISc Bangalore</strong>, studying M.Des opened up something I hadn't expected — I became a researcher. I started seeing the hidden threads connecting art, science, and design. That curiosity hasn't left me. I am still following it.</p>
+                    <p>Professionally, I have <strong>8+ years</strong> across ABAP development at SAP, UX design, and early-stage product management — working on Supply Chain ERP, Sustainability, Healthcare, MarTech, and AI-powered tools. I thrive in <strong>0–1 spaces</strong> where the problem isn't defined yet.</p>
                 </div>
+
                 <div class="about-skills reveal-on-scroll">
-                    <h3>My Expertise</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">Enterprise UX</div>
-                        <div class="skill-item">AI-infused SaaS Products</div>
-                        <div class="skill-item">ERP + Sustainability</div>
-                        <div class="skill-item">IoT-integrated Tools</div>
-                        <div class="skill-item">Developer Experience (DevEx)</div>
-                        <div class="skill-item">Early-stage Product Strategy</div>
-                    </div>
                     <div class="education">
                         <h3>Education</h3>
-                        <div class="education-item reveal-on-scroll">
+                        <div class="education-item">
                             <div class="education-title">🎓 Indian Institute of Science, Bangalore</div>
-                            <div class="education-desc">Master of Design (M.Des), Product Design &amp; Management</div>
+                            <div class="education-desc">M.Des — Product Design &amp; Management</div>
                         </div>
-                        <div class="education-item reveal-on-scroll">
+                        <div class="education-item">
                             <div class="education-title">🎓 Sardar Patel Institute of Technology, Mumbai</div>
-                            <div class="education-desc">Bachelor of Engineering, Computer Engineering</div>
+                            <div class="education-desc">B.E. — Computer Engineering</div>
                         </div>
                     </div>
+                    <a href="other-side.html" class="other-side-link" target="_blank" rel="noopener noreferrer">Sanket, unfiltered →</a>
                 </div>
+
             </div>
         </div>
     </section>
@@ -132,7 +129,9 @@
                             <circle cx="5" cy="5" r="4" fill="#330033" />
                         </marker>
                     </defs>
-                    <path id="timelinePath" class="timeline-progress" vectorEffect="non-scaling-stroke" marker-start="url(#start-square)"/>
+                    <path id="timelinePath" class="timeline-progress" marker-start="url(#start-square)"/>
+                    <!-- End dot -->
+                    <circle id="timelineEndDot" r="6" class="timeline-end-dot" style="display:none;"/>
                     <!-- Traveling dot -->
                     <circle id="travelingDot" r="7" fill="#ffd700" filter="url(#dotGlow)" style="display:none;"/>
                     <defs>
@@ -156,7 +155,11 @@
                 <button class="close-button" onclick="closeProject()">✕</button>
             </div>
             <div class="modal-image" id="modalImage">
-                <img src="" alt="Project Image" id="modalProjectImage">
+                <div class="modal-gallery" id="modalGallery">
+                    <img src="" alt="" class="modal-gallery-img" id="modalImg0">
+                    <img src="" alt="" class="modal-gallery-img" id="modalImg1">
+                    <img src="" alt="" class="modal-gallery-img" id="modalImg2">
+                </div>
                 <button class="nav-button prev" onclick="prevProject()">‹</button>
                 <button class="nav-button next" onclick="nextProject()">›</button>
             </div>
