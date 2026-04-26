@@ -903,11 +903,12 @@ html { scroll-behavior: smooth; }
   backdrop-filter: blur(6px);
 }
 
+/* Fixed height so header/footer stay anchored; description scrolls */
 .modal-content {
   position: relative;
   width: 100%;
   max-width: 1000px;
-  max-height: 90vh;
+  height: 90vh;
   background: white;
   border-radius: var(--radius);
   overflow: hidden;
@@ -924,16 +925,17 @@ html { scroll-behavior: smooth; }
   transform: scale(1);
 }
 
+/* Close button — absolute, always on top regardless of scroll */
 .modal-header {
   position: absolute;
-  top: 14px; right: 14px;
-  z-index: 10;
+  top: 12px; right: 12px;
+  z-index: 20;
 }
 
 .close-button {
   width: 36px; height: 36px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.6);
   color: white;
   border: none;
   cursor: pointer;
@@ -941,123 +943,96 @@ html { scroll-behavior: smooth; }
   align-items: center;
   justify-content: center;
   font-size: 17px;
-  transition: all 0.25s ease;
+  transition: background 0.25s ease, transform 0.25s ease;
   backdrop-filter: blur(4px);
 }
 
 .close-button:hover {
-  background: rgba(0,0,0,0.82);
+  background: rgba(0,0,0,0.88);
   transform: scale(1.1) rotate(90deg);
 }
 
-.project-modal .modal-image {
-  position: relative;
-  width: 100%;
-  min-height: 200px;
-  max-height: 320px;
-  background-color: #1a001a;
-  overflow: hidden;
-  border-radius: var(--radius) var(--radius) 0 0;
+/* ── IMAGE STRIP: horizontal peek, 3 app-screen tiles ── */
+.modal-image-strip {
+  flex-shrink: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  gap: 12px;
+  padding: 20px 24px 16px;
+  overflow-x: auto;
+  background: #1a001a;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.modal-image-strip::-webkit-scrollbar { display: none; }
+
+.modal-screen-tile {
+  flex-shrink: 0;
+  width: 260px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+  scroll-snap-align: start;
+  border: 2px solid rgba(255,255,255,0.08);
+  background: #2a0040;
 }
 
-/* 3-image gallery strip */
-.modal-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
+.modal-screen-tile img {
   width: 100%;
   height: 100%;
-  min-height: 200px;
-  max-height: 320px;
-}
-
-.modal-gallery-img {
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-  max-height: 320px;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
 }
 
-.modal-gallery-img:first-child {
-  border-radius: var(--radius) 0 0 0;
-}
-.modal-gallery-img:last-child {
-  border-radius: 0 var(--radius) 0 0;
-}
-
-.modal-gallery-img:hover {
+.modal-screen-tile:hover img {
   transform: scale(1.04);
-  z-index: 1;
-  position: relative;
 }
 
-.project-modal .modal-image img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
+/* ── DESCRIPTION: scrollable middle ── */
 .modal-description {
   flex-grow: 1;
   overflow-y: auto;
   padding: 28px 36px;
-  max-height: calc(90vh - 300px);
   -webkit-overflow-scrolling: touch;
+}
+
+/* ── NAV FOOTER: always pinned to bottom of modal ── */
+.modal-nav-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid #ececec;
+  background: #fafafa;
   border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .nav-button {
-  position: absolute;
-  background-color: rgba(0,0,0,0.48);
-  color: white;
+  background-color: #330033;
+  color: #ffd700;
   border: none;
-  border-radius: 50%;
-  width: 40px; height: 40px;
-  font-size: 1.5rem;
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: background-color 0.25s ease;
-  backdrop-filter: blur(4px);
+  gap: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.02em;
 }
 
 .nav-button:hover {
-  background: rgba(255,255,255,0.95);
-  color: #333;
-  transform: translateY(-50%) scale(1.12);
+  background: #5a005a;
+  transform: scale(1.04);
 }
 
-.nav-button.prev {
-  position: absolute; left: 16px; top: 50%;
-  transform: translateY(-50%);
-  border: none; border-radius: 50%;
-  width: 40px; height: 40px; font-size: 24px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  transition: background 0.25s, transform 0.25s;
-}
-
-.nav-button.next {
-  position: absolute; right: 16px; top: 50%;
-  transform: translateY(-50%);
-  border: none; border-radius: 50%;
-  width: 40px; height: 40px; font-size: 24px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  transition: background 0.25s, transform 0.25s;
-}
+.nav-button.prev { }
+.nav-button.next { }
 
 /* ============================================================
    PUBLICATIONS SECTION
@@ -1332,7 +1307,6 @@ html { scroll-behavior: smooth; }
   .project-frame { height: 210px; }
 
   .modal-content { max-width: 90vw; }
-  .modal-image { max-height: 280px; }
 }
 
 /* ============================================================
@@ -1383,14 +1357,10 @@ html { scroll-behavior: smooth; }
     padding: 16px;
     font-size: 0.9rem;
   }
-  .modal-image {
-    height: clamp(160px, 40vw, 220px);
-    max-height: 220px;
-  }
-  .modal-description { max-height: calc(95vh - 220px - 52px); }
-  .modal-gallery { max-height: 220px; }
+  .modal-image-strip { padding: 14px 16px 12px; }
+  .modal-screen-tile { width: 200px; height: 140px; }
 
-  .nav-button { width: 40px; height: 40px; font-size: 18px; }
+  .nav-button { padding: 7px 14px; font-size: 0.82rem; }
 
   .project-title-text { font-size: 10px; letter-spacing: 0.4px; }
 

@@ -152,17 +152,17 @@
             <div class="modal-header">
                 <button class="close-button" onclick="closeProject()">✕</button>
             </div>
-            <div class="modal-image" id="modalImage">
-                <div class="modal-gallery" id="modalGallery">
-                    <img src="" alt="" class="modal-gallery-img" id="modalImg0">
-                    <img src="" alt="" class="modal-gallery-img" id="modalImg1">
-                    <img src="" alt="" class="modal-gallery-img" id="modalImg2">
-                </div>
-                <button class="nav-button prev" onclick="prevProject()">‹</button>
-                <button class="nav-button next" onclick="nextProject()">›</button>
+            <div class="modal-image-strip" id="modalImageStrip">
+                <div class="modal-screen-tile"><img src="" alt="" id="modalImg0"></div>
+                <div class="modal-screen-tile"><img src="" alt="" id="modalImg1"></div>
+                <div class="modal-screen-tile"><img src="" alt="" id="modalImg2"></div>
             </div>
             <div class="modal-description" id="modalDescription">
                 <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-nav-footer">
+                <button class="nav-button prev" onclick="prevProject()">‹ Previous</button>
+                <button class="nav-button next" onclick="nextProject()">Next ›</button>
             </div>
         </div>
     </div>

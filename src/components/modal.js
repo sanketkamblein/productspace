@@ -7,97 +7,77 @@ function openProject(projectId, tileElement) {
   const project = projects.find((p) => p.id === projectId)
   if (!project) return
 
-  const modal          = document.getElementById("projectModal")
-  const modalContent   = modal.querySelector(".modal-content")
-  const modalImage     = document.getElementById("modalImage")
-  const modalDescription = document.getElementById("modalDescription")
+  const modal             = document.getElementById("projectModal")
+  const modalContent      = modal.querySelector(".modal-content")
+  const modalDescription  = document.getElementById("modalDescription")
 
   const tileRect = tileElement.getBoundingClientRect()
 
-  modalContent.style.position   = "fixed"
-  modalContent.style.left       = tileRect.left + "px"
-  modalContent.style.top        = tileRect.top + "px"
-  modalContent.style.width      = tileRect.width + "px"
-  modalContent.style.height     = tileRect.height + "px"
-  modalContent.style.maxWidth   = "none"
-  modalContent.style.maxHeight  = "none"
-  modalContent.style.transform  = "scale(1)"
-  modalContent.style.opacity    = "1"
+  // Start from tile position
+  modalContent.style.transition   = "none"
+  modalContent.style.position     = "fixed"
+  modalContent.style.left         = tileRect.left + "px"
+  modalContent.style.top          = tileRect.top + "px"
+  modalContent.style.width        = tileRect.width + "px"
+  modalContent.style.height       = tileRect.height + "px"
+  modalContent.style.maxWidth     = "none"
+  modalContent.style.maxHeight    = "none"
+  modalContent.style.transform    = "scale(1)"
+  modalContent.style.opacity      = "1"
   modalContent.style.borderRadius = "12px"
-  modalContent.style.transition = "none"
 
-  // Populate 3-image gallery
-  const imgs = [
-    document.getElementById("modalImg0"),
-    document.getElementById("modalImg1"),
-    document.getElementById("modalImg2"),
-  ]
-  // Use project.images[] if defined, else repeat project.image
-  const srcList = (project.images && project.images.length)
-    ? project.images
-    : [project.image, project.image, project.image]
-
-  imgs.forEach((el, i) => {
-    el.src = srcList[i] || srcList[0] || ""
+  // Populate 3 screen tiles with the same image
+  const imgSrc = (project.images && project.images.length) ? project.images[0] : (project.image || "")
+  ;["modalImg0", "modalImg1", "modalImg2"].forEach(id => {
+    const el = document.getElementById(id)
+    el.src = imgSrc
     el.alt = project.title
   })
 
-  // Keep backward-compat class logic on first image
-  imgs[0].classList.remove("modal-image-natural", "modal-image-fit", "modal-image-top")
-
   modalDescription.innerHTML = generateProjectContent(project)
-  modalDescription.scrollTop = 0
 
   modal.style.display    = "flex"
-  modal.style.background = "rgba(0, 0, 0, 0)"
+  modal.style.background = "rgba(0,0,0,0)"
   document.body.style.overflow = "hidden"
 
-  modalContent.offsetHeight
+  modalContent.offsetHeight // force reflow
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      const viewportWidth  = window.innerWidth
-      const viewportHeight = window.innerHeight
-      const finalWidth  = Math.min(1000, viewportWidth - 40)
-      const finalHeight = Math.min(viewportHeight * 0.9, 700)
-      const centerX = viewportWidth / 2
-      const centerY = viewportHeight / 2
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const finalWidth = Math.min(1000, vw - 40)
+      const finalLeft  = (vw - finalWidth) / 2
+      const finalTop   = vh * 0.05
 
-      modalContent.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-      modalContent.style.left       = centerX - finalWidth / 2 + "px"
-      modalContent.style.top        = centerY - finalHeight / 2 + "px"
-      modalContent.style.width      = finalWidth + "px"
-      modalContent.style.height     = finalHeight + "px"
-      modalContent.style.maxWidth   = finalWidth + "px"
-      modalContent.style.maxHeight  = finalHeight + "px"
+      modalContent.style.transition   = "all 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      modalContent.style.left         = finalLeft + "px"
+      modalContent.style.top          = finalTop + "px"
+      modalContent.style.width        = finalWidth + "px"
+      modalContent.style.height       = (vh * 0.9) + "px"
+      modalContent.style.maxWidth     = finalWidth + "px"
+      modalContent.style.maxHeight    = "none"
       modalContent.style.borderRadius = "16px"
 
-      modal.style.transition = "background-color 0.6s ease"
-      modal.style.background = "rgba(0, 0, 0, 0.9)"
+      modal.style.transition = "background-color 0.55s ease"
+      modal.style.background = "rgba(0,0,0,0.88)"
       modal.classList.add("active")
 
-      if (projectScrollPositions[projectId] !== undefined && projectId === selectedProject) {
-        modalDescription.scrollTop = projectScrollPositions[projectId]
-      } else {
-        modalDescription.scrollTop = 0
-      }
+      modalContent.scrollTop = 0
+      modalDescription.scrollTop = 0
     })
   })
 }
 
 function closeProject() {
-  if (!selectedProject || !clickedTile) return
-
-  const modalDescription = document.getElementById("modalDescription")
-  if (modalDescription && selectedProject !== null) {
-    projectScrollPositions[selectedProject] = modalDescription.scrollTop
-  }
-
   const modal        = document.getElementById("projectModal")
   const modalContent = modal.querySelector(".modal-content")
-  const tileRect     = clickedTile.getBoundingClientRect()
 
-  modalContent.style.transition   = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+  if (!selectedProject || !clickedTile) return
+
+  const tileRect = clickedTile.getBoundingClientRect()
+
+  modalContent.style.transition   = "all 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
   modalContent.style.left         = tileRect.left + "px"
   modalContent.style.top          = tileRect.top + "px"
   modalContent.style.width        = tileRect.width + "px"
@@ -106,22 +86,22 @@ function closeProject() {
   modalContent.style.maxHeight    = "none"
   modalContent.style.borderRadius = "12px"
 
-  modal.style.transition = "background-color 0.6s ease"
-  modal.style.background = "rgba(0, 0, 0, 0)"
+  modal.style.transition = "background-color 0.55s ease"
+  modal.style.background = "rgba(0,0,0,0)"
   modal.classList.remove("active")
 
   setTimeout(() => {
-    modal.style.display    = "none"
+    modal.style.display = "none"
     document.body.style.overflow = "auto"
 
-    modalContent.style.position   = "relative"
-    modalContent.style.left       = "auto"
-    modalContent.style.top        = "auto"
-    modalContent.style.width      = "100%"
-    modalContent.style.height     = "auto"
-    modalContent.style.maxWidth   = "1000px"
-    modalContent.style.maxHeight  = "90vh"
-    modalContent.style.transition = ""
+    modalContent.style.position     = "relative"
+    modalContent.style.left         = "auto"
+    modalContent.style.top          = "auto"
+    modalContent.style.width        = "100%"
+    modalContent.style.height       = "90vh"
+    modalContent.style.maxWidth     = "1000px"
+    modalContent.style.maxHeight    = "none"
+    modalContent.style.transition   = ""
     modalContent.style.borderRadius = "16px"
 
     selectedProject = null

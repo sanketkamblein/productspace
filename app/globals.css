@@ -405,7 +405,7 @@ a[download]:active {
   max-height: 90vh; /* Allow modal to be taller, up to 90% of viewport height */
   background: white;
   border-radius: 12px;
-  overflow: hidden; /* Important: child elements will handle their own scroll */
+  overflow-y: auto; /* Single scroll for the entire modal */
   display: flex;
   flex-direction: column;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -449,8 +449,7 @@ a[download]:active {
 }
 
 .modal-description {
-  flex-grow: 1; /* Allows this to take remaining space */
-  overflow-y: auto; /* Allows scrolling for its own content */
+  flex-grow: 1;
   padding: 24px 32px; /* Adjusted padding */
 }
 
@@ -504,6 +503,7 @@ a[download]:active {
   .modal-content {
     width: 95%;
     max-height: 90vh; /* Can be quite tall on mobile */
+    overflow-y: auto;
   }
   .modal-image {
     max-height: 240px; /* Smaller max-height for image on mobile */
