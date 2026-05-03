@@ -27,6 +27,9 @@
     <!-- Parallax Background -->
     <div class="parallax-bg" id="parallaxBg"></div>
 
+    <!-- Portfolio Logo (top-right, fixed, no link) -->
+    <img src="images/logo.png" alt="Portfolio Logo" class="portfolio-logo-img">
+
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
         <div class="hero-content" id="heroContent">
@@ -148,6 +151,8 @@
 
     <!-- Project Modal -->
     <div class="project-modal" id="projectModal">
+        <!-- Prev/Next float outside modal content, flanking it -->
+        <button class="modal-float-nav modal-float-prev" onclick="prevProject()" aria-label="Previous project">&#8249;</button>
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close-button" onclick="closeProject()">✕</button>
@@ -160,11 +165,8 @@
             <div class="modal-description" id="modalDescription">
                 <!-- Content will be populated by JavaScript -->
             </div>
-            <div class="modal-nav-footer">
-                <button class="nav-button prev" onclick="prevProject()">‹ Previous</button>
-                <button class="nav-button next" onclick="nextProject()">Next ›</button>
-            </div>
         </div>
+        <button class="modal-float-nav modal-float-next" onclick="nextProject()" aria-label="Next project">&#8250;</button>
     </div>
 
     <!-- Publications Section -->

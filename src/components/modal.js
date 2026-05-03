@@ -59,6 +59,25 @@ function openProject(projectId, tileElement) {
       modalContent.style.maxHeight    = "none"
       modalContent.style.borderRadius = "16px"
 
+      // Position float nav buttons flanking the modal content
+      const btnTop = (vh * 0.5) + "px"
+      const prevBtn = modal.querySelector(".modal-float-prev")
+      const nextBtn = modal.querySelector(".modal-float-next")
+      if (prevBtn) {
+        prevBtn.style.position = "fixed"
+        prevBtn.style.top      = btnTop
+        prevBtn.style.left     = Math.max(8, finalLeft - 64) + "px"
+        prevBtn.style.transform = "translateY(-50%)"
+        prevBtn.style.display  = "flex"
+      }
+      if (nextBtn) {
+        nextBtn.style.position = "fixed"
+        nextBtn.style.top      = btnTop
+        nextBtn.style.left     = (finalLeft + finalWidth + 16) + "px"
+        nextBtn.style.transform = "translateY(-50%)"
+        nextBtn.style.display  = "flex"
+      }
+
       modal.style.transition = "background-color 0.55s ease"
       modal.style.background = "rgba(0,0,0,0.88)"
       modal.classList.add("active")
@@ -85,6 +104,12 @@ function closeProject() {
   modalContent.style.maxWidth     = "none"
   modalContent.style.maxHeight    = "none"
   modalContent.style.borderRadius = "12px"
+
+  // Hide float nav buttons immediately on close
+  const prevBtn = modal.querySelector(".modal-float-prev")
+  const nextBtn = modal.querySelector(".modal-float-next")
+  if (prevBtn) prevBtn.style.display = "none"
+  if (nextBtn) nextBtn.style.display = "none"
 
   modal.style.transition = "background-color 0.55s ease"
   modal.style.background = "rgba(0,0,0,0)"

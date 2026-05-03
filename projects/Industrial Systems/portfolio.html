@@ -334,9 +334,7 @@
       background: var(--tag-bg); color: var(--tag-text);
       border-radius: 100px; padding: 4px 14px;
       font-size: .78rem; font-weight: 600;
-      transition: background .2s, color .2s;
     }
-    .tag:hover { background: rgba(51,0,51,.08); color: var(--purple); }
     .tag--teal  { background: var(--teal-soft); color: #0A8080; }
     .tag--gray  { background: #F0F0F5; color: var(--ink-mid); }
     .tag--gold  { background: rgba(255,215,0,.15); color: var(--gold-dark); border: 1px solid rgba(255,215,0,.4); }
@@ -658,7 +656,7 @@
 <!-- ══════════════════════ NAV ══════════════════════════════ -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">Portfolio <span>/ UX·PM</span></div>
+    <div class="nav-logo">Industrial <span>Systems</span></div>
     <div class="nav-links">
       <a href="#challenge">Challenge</a>
       <a href="#process">Process</a>
@@ -763,7 +761,7 @@
   <div class="container">
 
     <!-- Concept toggle button -->
-    <button id="conceptToggle" aria-expanded="false" aria-controls="conceptBody" style="
+    <button id="conceptToggle" aria-expanded="true" aria-controls="conceptBody" style="
       display: flex; align-items: center; gap: 14px;
       background: linear-gradient(135deg, #0A0F2C 0%, #1B2A5E 60%, #0D3A5F 100%);
       border: 1.5px solid rgba(11,192,192,.45);
@@ -782,14 +780,14 @@
         <span style="display:block; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:2px;">The Concept</span>
         <span style="font-size:.95rem; font-weight:700; color:#fff;">Why Industrial Systems? &nbsp;·&nbsp; Aspect Model &nbsp;·&nbsp; ISO 81346</span>
       </span>
-      <span id="conceptArrow" style="font-size:.8rem; color:var(--teal); transition: transform .3s; flex-shrink:0;">▼</span>
+      <span id="conceptArrow" style="font-size:.8rem; color:var(--teal); transition: transform .3s; flex-shrink:0; transform: rotate(180deg);">▼</span>
     </button>
 
-    <!-- Collapsible body -->
+    <!-- Collapsible body — open by default -->
     <div id="conceptBody" style="
-      overflow: hidden; max-height: 0;
+      overflow: hidden; max-height: 9999px;
       transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .4s;
-      opacity: 0;
+      opacity: 1;
     ">
       <div style="padding-top: 32px;">
 

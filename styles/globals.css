@@ -998,41 +998,36 @@ html { scroll-behavior: smooth; }
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── NAV FOOTER: always pinned to bottom of modal ── */
-.modal-nav-footer {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  border-top: 1px solid #ececec;
-  background: #fafafa;
-  border-radius: 0 0 var(--radius) var(--radius);
-}
-
-.nav-button {
-  background-color: #330033;
+/* ── FLOATING NAV ARROWS: fixed-positioned flanking the modal ── */
+.modal-float-nav {
+  display: none; /* shown via JS when modal opens */
+  position: fixed;
+  z-index: 1010;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(51,0,51,0.85);
   color: #ffd700;
-  border: none;
-  border-radius: 24px;
-  padding: 8px 20px;
-  font-size: 0.88rem;
-  font-weight: 600;
+  border: 1.5px solid rgba(255,215,0,0.45);
+  font-size: 1.8rem;
+  line-height: 1;
   cursor: pointer;
-  display: flex;
   align-items: center;
-  gap: 6px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  letter-spacing: 0.02em;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
-.nav-button:hover {
-  background: #5a005a;
-  transform: scale(1.04);
+.modal-float-nav:hover {
+  background: rgba(90,0,90,0.95);
+  box-shadow: 0 4px 20px rgba(255,215,0,0.25);
 }
 
-.nav-button.prev { }
-.nav-button.next { }
+@media (max-width: 768px) {
+  .modal-float-prev { left: 6px !important; }
+  .modal-float-next { right: 6px !important; left: auto !important; }
+}
 
 /* ============================================================
    PUBLICATIONS SECTION
@@ -1360,8 +1355,6 @@ html { scroll-behavior: smooth; }
   .modal-image-strip { padding: 14px 16px 12px; }
   .modal-screen-tile { width: 200px; height: 140px; }
 
-  .nav-button { padding: 7px 14px; font-size: 0.82rem; }
-
   .project-title-text { font-size: 10px; letter-spacing: 0.4px; }
 
   .about-section { padding: 4rem 0 3rem; }
@@ -1502,4 +1495,27 @@ html { scroll-behavior: smooth; }
 .other-side-link:hover {
   color: var(--plum);
   border-color: var(--plum-mid);
+}
+
+/* ── Portfolio Logo (top-right, fixed/sticky, tiny) ──── */
+.portfolio-logo-img {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  z-index: 9999;
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 8px;
+  opacity: 1;
+  box-shadow: none;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .portfolio-logo-img {
+    width: 22px;
+    height: 22px;
+    top: 12px;
+    right: 12px;
+  }
 }
