@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>co.weCLOUD — Pandemic Solution India | Sanket Kamble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1565C0;
+      --blue-light: #1976D2;
+      --orange: #F57C00;
+      --red: #D32F2F;
+      --dark: #0d1117;
+      --card-bg: #161b22;
+      --border: rgba(255,255,255,0.08);
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0a1628 0%, #1a2744 50%, #0f2040 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(21,101,192,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(21,101,192,0.25);
+      border: 1px solid rgba(21,101,192,0.5);
+      color: #64b5f6;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .hero h1 span { color: #F57C00; }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #90caf9;
+      margin-bottom: 8px;
+    }
+    .hero-tagline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .hero-slide {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(21,101,192,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .hero-slide img { width: 100%; display: block; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-block;
+      padding: 24px;
+      color: #64b5f6;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .back-link:hover { color: #fff; }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .section-title span { color: var(--orange); }
+    .section-divider {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    /* ── SLIDE CARD ── */
+    .slide-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .slide-card:hover { border-color: rgba(21,101,192,0.4); }
+    .slide-card img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+    .slide-caption {
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── SLIDE GRID ── */
+    .slide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .slide-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 640px) {
+      .slide-grid, .slide-grid.cols-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── SECTION DIVIDER SLIDE ── */
+    .divider-slide {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(21,101,192,0.25);
+    }
+    .divider-slide img { width: 100%; display: block; }
+
+    /* ── INFO BLOCK ── */
+    .info-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .info-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #64b5f6;
+      margin-bottom: 12px;
+    }
+    .info-block p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+    .info-block p:last-child { margin-bottom: 0; }
+    .info-block ul {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding-left: 20px;
+    }
+    .info-block ul li { margin-bottom: 5px; }
+
+    /* ── ACCORDION ── */
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    details[open] { border-color: rgba(21,101,192,0.4); }
+    summary {
+      padding: 16px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '▶';
+      color: var(--blue-light);
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      min-width: 14px;
+    }
+    details[open] > summary::before { transform: rotate(90deg); }
+    .accordion-body {
+      padding: 0 20px 20px;
+    }
+    .accordion-body img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .accordion-body p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    /* ── PASSWORD POCKET ── */
+    .pocket-wrapper {
+      background: var(--card-bg);
+      border: 1px solid rgba(245,124,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .pocket-toggle {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffb74d;
+      user-select: none;
+    }
+    .pocket-toggle .lock-icon { font-size: 1.1rem; }
+    .pocket-gate {
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(245,124,0,0.15);
+    }
+    .pocket-gate p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      margin-top: 16px;
+    }
+    .pocket-input-row {
+      display: flex;
+      gap: 10px;
+    }
+    .pocket-input {
+      flex: 1;
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      outline: none;
+    }
+    .pocket-input:focus { border-color: var(--orange); }
+    .pocket-unlock-btn {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pocket-error {
+      color: #f87171;
+      font-size: 0.82rem;
+      margin-top: 8px;
+      display: none;
+    }
+    .pocket-content {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(245,124,0,0.15);
+    }
+    .pocket-content.unlocked { display: block; }
+    .pocket-note {
+      background: rgba(245,124,0,0.08);
+      border: 1px solid rgba(245,124,0,0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      color: #ffb74d;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    }
+
+    /* ── TEAM GRID ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .team-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .team-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin: 0 auto 10px;
+      color: #fff;
+    }
+    .team-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .team-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── PROBLEM CARDS ── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .problem-card .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    .label-a { background: rgba(33,150,243,0.15); color: #64b5f6; }
+    .label-b { background: rgba(233,30,99,0.15); color: #f48fb1; }
+    .label-c { background: rgba(3,169,244,0.15); color: #81d4fa; }
+    .label-d { background: rgba(255,152,0,0.15); color: #ffcc80; }
+    .problem-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .problem-card p { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── IMPACT STRIP ── */
+    .impact-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) { .impact-strip { grid-template-columns: 1fr; } }
+    .impact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .impact-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .impact-card ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .impact-card ul li { margin-bottom: 4px; }
+    .impact-card.stakeholders .impact-label { color: #64b5f6; }
+    .impact-card.offering .impact-label { color: #ef5350; }
+    .impact-card.impact .impact-label { color: var(--orange); }
+
+    /* ── STAT HIGHLIGHT ── */
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .stat-box {
+      flex: 1;
+      min-width: 140px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── COMPARISON TABLE ── */
+    .comp-table-wrap {
+      overflow-x: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      color: var(--text);
+      min-width: 600px;
+    }
+    .comp-table th {
+      background: rgba(21,101,192,0.2);
+      color: #90caf9;
+      font-weight: 600;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .comp-table th.our { color: #4caf50; }
+    .comp-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table td:first-child { color: var(--text); font-weight: 500; }
+    .badge-yes { color: #4caf50; font-weight: 600; }
+    .badge-no { color: #ef5350; font-weight: 600; }
+    .badge-partial { color: #ff9800; font-weight: 600; }
+    .badge-uncertain { color: #90caf9; font-weight: 600; }
+
+    /* ── ROADMAP ── */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+    @media (max-width: 640px) { .roadmap-grid { grid-template-columns: 1fr; } }
+    .roadmap-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .roadmap-card h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #64b5f6;
+      margin-bottom: 10px;
+    }
+    .roadmap-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .roadmap-card .bench {
+      font-size: 0.75rem;
+      color: var(--orange);
+      margin-top: 8px;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    #lightbox.active { opacity: 1; pointer-events: all; }
+    #lightbox-img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+    #lightbox-close {
+      position: fixed;
+      top: 18px; right: 22px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .footer a { color: #64b5f6; text-decoration: none; }
+
+    /* ── INDEX NAV ── */
+    .index-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .index-nav a {
+      background: rgba(21,101,192,0.15);
+      border: 1px solid rgba(21,101,192,0.3);
+      color: #90caf9;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: background 0.2s;
+    }
+    .index-nav a:hover { background: rgba(21,101,192,0.3); color: #fff; }
+
+    .sep { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+    /* ── MOBILE MOCKUP DISPLAY ── */
+    .mockup-frame {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .mockup-frame img { width: 100%; display: block; cursor: pointer; }
+    .mockup-label {
+      padding: 14px 18px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- BACK -->
+<a class="back-link" href="../../index.html">← Back to Portfolio</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">IISc Bangalore · Academic Project · 2021</div>
+  <h1>co.we<span>CLOUD</span></h1>
+  <div class="hero-subtitle">Pandemic Solution India — COVID-19 Information Platform</div>
+  <div class="hero-tagline">A consolidated, verified, and accessible digital platform for COVID-19 patients, caretakers, and healthcare providers across India.</div>
+  <div class="hero-tags">
+    <span class="tag">Product Design</span>
+    <span class="tag">UX Research</span>
+    <span class="tag">Healthcare</span>
+    <span class="tag">COVID-19</span>
+    <span class="tag">0→1 Product</span>
+    <span class="tag">IISc M.Des</span>
+    <span class="tag">Team of 8</span>
+  </div>
+  <div class="hero-slide">
+    <img src="images/slide-01.png" alt="co.weCLOUD — Pandemic Solutions India" onclick="openLightbox(this)">
+  </div>
+</section>
+
+<!-- INDEX NAV -->
+<div class="section" style="padding-bottom: 0;">
+  <div class="index-nav">
+    <a href="#team">Team</a>
+    <a href="#problem">Problem</a>
+    <a href="#secondary-research">Secondary Research</a>
+    <a href="#primary-research">Primary Research</a>
+    <a href="#analysis">Analysis</a>
+    <a href="#concept">Concept</a>
+    <a href="#app-screens">App Screens</a>
+    <a href="#last-mile">Last Mile</a>
+    <a href="#impact-factors">Impact Factors</a>
+    <a href="#go-to-market">Go to Market</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#validation">Validation</a>
+    <a href="#re-analysis">Re-analysis</a>
+    <a href="#competition">Competition</a>
+    <a href="#prototype">Prototype</a>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="section" id="team">
+  <h2 class="section-title">The <span>Team</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-02.png" alt="Team Slide" onclick="openLightbox(this)">
+    <div class="slide-caption">A cross-functional team of 8 from IISc Bangalore tackling COVID-19 information gaps — Sanket Kamble, Arbaz Baig, Shreya Rajasekar, Shufan Li, Vinodh Kumar, Aditya Gupta, Dr. Sunrankar Datta, Sagar Samrat Mohanty</div>
+  </div>
+</div>
+
+<!-- PROBLEM STATEMENT -->
+<div class="section" id="problem">
+  <h2 class="section-title">Problem <span>Statement</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-03.png" alt="Problem — Hospital Admission during COVID Pandemic" onclick="openLightbox(this)">
+    <div class="slide-caption">Hospital admission during COVID pandemic: the usual journey — from symptoms → call doctor → test → get reports → find hospital → follow health officials → check dashboard → check cost of bed → wait for admission</div>
+  </div>
+  <div class="info-block" style="margin-top: 20px;">
+    <p>COVID-19 patients and caretakers are unable to access information that is crucial and specific to their needs. Information is fragmented across multiple sources, difficult to verify, and rapidly changing — creating confusion, anxiety, and poor decision-making during a health crisis.</p>
+  </div>
+</div>
+
+<!-- INDEX -->
+<div class="section" id="index">
+  <div class="slide-card">
+    <img src="images/slide-04.png" alt="Project Index" onclick="openLightbox(this)">
+    <div class="slide-caption">Project index — 8 phases: Research · Analysis · Concept · Impact Factors · Validation of Idea · Re-Analysis · Concept (Prototype) · Learnings</div>
+  </div>
+</div>
+
+<!-- SECONDARY RESEARCH -->
+<div class="section" id="secondary-research">
+  <h2 class="section-title">Secondary <span>Research</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-05.png" alt="Secondary Research — News and Media" onclick="openLightbox(this)">
+    <div class="slide-caption">Secondary research — news articles from Pune, Asia Pacific, India Today, Deccan Herald, Mumbai Mirror and The Science Wire highlighting COVID-19 bed unavailability and hospital admission crises</div>
+  </div>
+</div>
+
+<!-- PRIMARY RESEARCH -->
+<div class="section" id="primary-research">
+  <div class="divider-slide">
+    <img src="images/slide-06.png" alt="Research — Primary Research" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title">Primary <span>Research</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-07.png" alt="Primary Stakeholders" onclick="openLightbox(this)">
+    <div class="slide-caption">Primary stakeholders assumed according to observation and knowledge of Mumbai and Chennai: COVID +ve Patients, Health Care Officials, Medical Staff, Hospital Management</div>
+  </div>
+  <div class="info-block" style="margin-top: 20px;">
+    <h3>Primary Stakeholders</h3>
+    <p><strong>End Users (A):</strong> Both asymptomatic and symptomatic patients, customer care, testing labs, doctors, nurses, staff admin in hospitals</p>
+    <p><strong>Influencer (B):</strong> Healthcare providers, doctors, hospital staff</p>
+    <p><strong>Decision Maker (C):</strong> Government, hospital administrators</p>
+  </div>
+
+  <!-- RESEARCH INTERVIEWS — PASSWORD PROTECTED -->
+  <div style="margin-top: 28px;">
+    <h3 style="font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 12px;">Research Interviews</h3>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">We conducted 47 customer discovery interviews (3 face-to-face, 34 telephone, 3 video) with COVID patients, caretakers, and healthcare providers. The detailed interview findings are protected to respect the privacy of research participants.</p>
+
+    <div class="slide-card" style="margin-bottom: 16px;">
+      <img src="images/slide-08.png" alt="Interview — Dr. Ketki" onclick="openLightbox(this)">
+      <div class="slide-caption">Interview — Dr. Ketki · Disease Surveillance Team · B.d.s, working since 2016. Primary data collected as survey data. COVID severity has fixed parameters defined by WHO — 3 categories change with respect to symptoms. Divisions (CCC, DHC) made w.r.t. severity.</div>
+    </div>
+
+    <div class="pocket-wrapper" id="interviewPocket">
+      <div class="pocket-toggle" onclick="togglePocketGate()">
+        <span class="lock-icon">🔒</span>
+        <span>More Research Interviews — Identity Protected</span>
+      </div>
+      <div class="pocket-gate" id="pocketGate" style="display:none;">
+        <p>Enter the password to view detailed research interview notes. Participant identities are protected.</p>
+        <div class="pocket-input-row">
+          <input class="pocket-input" type="password" id="pocketPassword" placeholder="Enter password..." onkeydown="if(event.key==='Enter') unlockPocket()">
+          <button class="pocket-unlock-btn" onclick="unlockPocket()">Unlock</button>
+        </div>
+        <div class="pocket-error" id="pocketError">Incorrect password. Please try again.</div>
+      </div>
+      <div class="pocket-content" id="pocketContent">
+        <div class="pocket-note">⚠️ Research participant details are shown here for portfolio review only. Please treat this information with respect and confidentiality.</div>
+        <div class="slide-grid" style="margin-top: 12px;">
+          <div class="slide-card">
+            <img src="images/slide-09.png" alt="Interview — Dr. Ankita Tathe" onclick="openLightbox(this)">
+            <div class="slide-caption">Interview — Dr. Ankita Tathe · 2020–MD 1st year, BMC Hospital. Hospital has 6-hour shift for staff. Every person has a dedicated GPO. Bed and service handled differently based on severity.</div>
+          </div>
+          <div class="slide-card">
+            <img src="images/slide-10.png" alt="Interview — Dr. Shukla" onclick="openLightbox(this)">
+            <div class="slide-caption">Interview — Dr. Shukla · MBBS, working since 2016. Works on alternate day basis and manages patients via teleconsultation. Patients in mild cases take initiative to go for admission. Lab data released simultaneously to patient and hospital.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSIS -->
+<div class="section" id="analysis">
+  <h2 class="section-title"><span>Analysis</span> — Prioritization of Requirements</h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-15.png" alt="Prioritization of Requirements" onclick="openLightbox(this)">
+    <div class="slide-caption">Prioritization of requirements — ranked by Demand/Wishes and Priority. Top requirements: real-time availability of hospital beds, platform to share critical health data, digital patient records, scalable data visualization, separate dashboards for patients and healthcare officials.</div>
+  </div>
+
+  <div class="slide-card" style="margin-top: 16px;">
+    <img src="images/slide-16.png" alt="Problems Identified" onclick="openLightbox(this)">
+    <div class="slide-caption">Problems identified — 4 key gaps: Beds/Hospitals availability · Plasma donors · Data visualization · Asymptomatic patient needs</div>
+  </div>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="label label-a">Problem 01</span>
+      <h4>Beds / Hospitals Availability</h4>
+      <p>Data isn't visible for available hospitals / wards and the beds for admission at one place.</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-b">Problem 02</span>
+      <h4>Plasma Donors</h4>
+      <p>No consolidated place where people can request or show availability to donate blood and plasma cells.</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-c">Problem 03</span>
+      <h4>Data Visualization</h4>
+      <p>Need for a dashboard with data analysis where time is saved for data comprehension.</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-d">Problem 04</span>
+      <h4>Asymptomatic Patients</h4>
+      <p>Specific needs of asymptomatic COVID patients remain unaddressed by existing platforms.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPT -->
+<div class="section" id="concept">
+  <div class="divider-slide">
+    <img src="images/slide-17.png" alt="Concept — Ideation & Wireframing" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title"><span>Concept</span> — Brainstorming & Ideation</h2>
+  <div class="section-divider"></div>
+
+  <div class="slide-card">
+    <img src="images/slide-18.png" alt="Brainstorming — 20 mins" onclick="openLightbox(this)">
+    <div class="slide-caption">Brainstorming session (20 mins) — ideas spanning mental counselling, financial background questions, hospital rating systems, daily SoS family alerts, plasma donor leaderboards, interactive chatbot, online campaigns, automated SoS for positive patients, simulated walkthrough of treatment plan, patient testimony pages and more.</div>
+  </div>
+
+  <div class="slide-card" style="margin-top: 16px;">
+    <img src="images/slide-19.png" alt="Ideation — Incentivise Patient Onboarding" onclick="openLightbox(this)">
+    <div class="slide-caption">Ideation — Incentivise patient for completing onboarding questionnaire: fee concession, leaderboard, free counselling, VIP hospital access, quicker admission ETA, insurance on day of admission, tokens to share onboarding experience, volunteers</div>
+  </div>
+
+  <div class="slide-card" style="margin-top: 16px;">
+    <img src="images/slide-20.png" alt="Solution Mind Map" onclick="openLightbox(this)">
+    <div class="slide-caption">Solution mind map — co.weCLOUD as a healthcare service platform and information aggregator for COVID-19. Version 1: consultation, protocols, consolidated data. Version 2: hospital admission, interactive interface.</div>
+  </div>
+  <div class="info-block" style="margin-top: 8px;">
+    <h3>Our Solution</h3>
+    <ul>
+      <li>A healthcare service platform for patients which serves as an information aggregator for the COVID-19 pandemic.</li>
+      <li>Version 1 features: right consultation, guidance for protocols, consolidated data.</li>
+      <li>Version 2 features: easy access to hospital admission, interactive interface.</li>
+      <li>We uniquely provide an accessible solution accumulating everything people are concerned about, as opposed to existing platforms.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- APP SCREENS — MOBILE MOCKUPS (kept as images) -->
+<div class="section" id="app-screens">
+  <h2 class="section-title">co.we<span>CLOUD</span> — App Screens</h2>
+  <div class="section-divider"></div>
+  <div class="info-block">
+    <p>The co.weCLOUD mobile application designed with a Self Check flow, test result updates, nearby hospital finder, plasma donor request, and volunteer network. Mobile mockups below show the app screens as designed.</p>
+  </div>
+  <div class="mockup-frame" style="margin-top: 20px;">
+    <img src="images/slide-21.png" alt="co.weCLOUD Mobile App — Self Check and Test Report screens" onclick="openLightbox(this)">
+    <div class="mockup-label">Mobile screen mockups — Self Check (Have you tested COVID positive?), Test Report updates for family members</div>
+  </div>
+  <div class="mockup-frame">
+    <img src="images/slide-22.png" alt="co.weCLOUD Mobile App — Nearby Hospitals, Reserve Bed, Facilities" onclick="openLightbox(this)">
+    <div class="mockup-label">Mobile screen mockups — Gateway to nearby hospitals/doctors · Helpline for healthcare representative · Opt for volunteering · Reserve a hospital bed · Real-time facilities (Equipments, Insurance, User Reviews)</div>
+  </div>
+</div>
+
+<!-- LAST MILE CONNECTIVITY -->
+<div class="section" id="last-mile">
+  <h2 class="section-title">Last Mile <span>Connectivity</span></h2>
+  <div class="section-divider"></div>
+  <div class="mockup-frame">
+    <img src="images/slide-23.png" alt="Last Mile Connectivity — Reaching Every Patient" onclick="openLightbox(this)">
+    <div class="mockup-label">Reaching every patient — Vernacular users via Google Translate API · Feature phone users via a toll-free call service · USSD feature for basic phones</div>
+  </div>
+  <div class="info-block" style="margin-top: 8px;">
+    <p><strong>For Vernacular Users:</strong> Language selection screen using Google Translate API — supporting Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Odia, Punjabi, Assamese, Kannada and more.</p>
+    <p><strong>For Feature Phone Users:</strong> A toll-free call service for those without smartphones. Also USSD feature of the phone is possible.</p>
+  </div>
+</div>
+
+<!-- COMPETITIVE LANDSCAPE -->
+<div class="section" id="competitive-landscape">
+  <h2 class="section-title">Competitive <span>Landscape</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-24.png" alt="Competitive Landscape — Who else?" onclick="openLightbox(this)">
+  </div>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="our">co.weCLOUD</th>
+          <th>Aarogya Setu</th>
+          <th>Delhi Corona</th>
+          <th>Swasth</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vacancy of Beds and ICUs</td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Real Time Updates on Hospital Facilities</td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Reservation of Beds in Private Hospitals</td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Native Language Support</td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Service for Non Smartphone Users</td>
+          <td><span class="badge-yes">✓</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+          <td><span class="badge-no">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- IMPACT FACTORS -->
+<div class="section" id="impact-factors">
+  <div class="divider-slide">
+    <img src="images/slide-27.png" alt="Impact Factors — Using Business Model Canvas" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title">Impact <span>Factors</span></h2>
+  <div class="section-divider"></div>
+
+  <div class="slide-grid">
+    <div class="slide-card">
+      <img src="images/slide-28.png" alt="Business Model Canvas — Value proposition NOT validated" onclick="openLightbox(this)">
+      <div class="slide-caption">Business Model Canvas — when value proposition was NOT yet validated. Value Propositions: hospital info, bed availability, cost of service &amp; doctors at crucial point of time; services for rural &amp; semi-rural population via IVR; reservation of beds in Covid Centre.</div>
+    </div>
+    <div class="slide-card">
+      <img src="images/slide-29.png" alt="Business Model Canvas — Value proposition GOT validated" onclick="openLightbox(this)">
+      <div class="slide-caption">Business Model Canvas — after value proposition was validated. Refined customer segments and value propositions based on 47 interviews.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GO TO MARKET -->
+<div class="section" id="go-to-market">
+  <h2 class="section-title">Go to <span>Market</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-25.png" alt="Go to Market — Expenditure and Revenue" onclick="openLightbox(this)">
+    <div class="slide-caption">Go to Market — assuming 500,000 users. Expenditure: Software Development INR 4,38,000 · Marketing &amp; Operations INR 6,24,000/month · Miscellaneous &amp; Overhead INR 5,00,000. Revenue blended approach: 40–50% In-App Advertisement (INR 860,000) · 30–40% Service fee (INR 412,800) · 10–20% Partnerships &amp; Others (INR 190,000).</div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="section" id="roadmap">
+  <h2 class="section-title">The <span>Roadmap</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-26.png" alt="The Roadmap — Business and Product stages" onclick="openLightbox(this)">
+  </div>
+  <div class="roadmap-grid" style="margin-top: 20px;">
+    <div class="roadmap-card">
+      <h4>Business — Stage I</h4>
+      <p>Software Dev, Training &amp; HR, Hospital onboarding, Pilot Launch (Delhi)</p>
+      <p class="bench">Benchmark I: Sustenance in Delhi — 500,000 Users</p>
+    </div>
+    <div class="roadmap-card">
+      <h4>Business — Stage II</h4>
+      <p>Maintenance, Service, Data Acquisition, Upgrade</p>
+      <p class="bench">Benchmark II: ROI, 20% Coverage — 1,230,000 Users</p>
+    </div>
+    <div class="roadmap-card">
+      <h4>Business — Stage III</h4>
+      <p>Scaling and Expansion, Integration across States</p>
+      <p class="bench">National scale-out</p>
+    </div>
+    <div class="roadmap-card">
+      <h4>Product — Version 1</h4>
+      <p>Real-time data for Beds, Hospitals, Costs &amp; Plasma donors (1–2 months)</p>
+    </div>
+    <div class="roadmap-card">
+      <h4>Product — Version 2</h4>
+      <p>Add different specialities that would also work as inventory list (8–10 months)</p>
+    </div>
+    <div class="roadmap-card">
+      <h4>Product — Version 3</h4>
+      <p>Telemedicine, Reaching out to doctors, HCPs etc. (future)</p>
+    </div>
+  </div>
+</div>
+
+<!-- VALIDATION -->
+<div class="section" id="validation">
+  <div class="divider-slide">
+    <img src="images/slide-30.png" alt="Validation — Primary Research with the customer segments" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title">Interview <span>Validations</span></h2>
+  <div class="section-divider"></div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-number">47</div>
+      <div class="stat-label">Total interviews conducted</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">60%</div>
+      <div class="stat-label">Approx. validated our assumptions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">34</div>
+      <div class="stat-label">Telephone interviews</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Face-to-face interviews</div>
+    </div>
+  </div>
+
+  <div class="slide-grid" style="margin-top: 24px;">
+    <div class="slide-card">
+      <img src="images/slide-31.png" alt="Interview Validations — Data table" onclick="openLightbox(this)">
+      <div class="slide-caption">Interview validation breakdown — 60% approx. validated assumptions. Interview count by type: Face-to-face 3, Telephone 34, Video 3. All potential users and stakeholders include these 47 people — they intersect within categories.</div>
+    </div>
+    <div class="slide-card">
+      <img src="images/slide-32.png" alt="Interview Validations — Breakdown by type" onclick="openLightbox(this)">
+      <div class="slide-caption">Distribution by user type — A: End User (A1 Symptomatic, A2 Asymptomatic, A3 Home quarantine, A4 Hospital recovery, A5 Caretakers, A6 Symptoms unknown) · B: Influencer · C: Decision maker</div>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-top: 20px;">
+    <h3>Key Findings from Validation</h3>
+    <p>Majority of interviewees (&gt;30%) were Symptomatic COVID patients who opted for home isolation. Over 25% were asymptomatic COVID patients where the majority got assistance from central/local government platforms (Apthamitra, BBMP, etc.).</p>
+    <p>All potential users and other stakeholders include these 47 people. They do intersect within categories.</p>
+  </div>
+</div>
+
+<!-- RE-ANALYSIS -->
+<div class="section" id="re-analysis">
+  <div class="divider-slide">
+    <img src="images/slide-33.png" alt="Re-analysis — Re-define · Re-design · Re-evaluate" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title">Re-analysis — <span>Re-define · Re-design · Re-evaluate</span></h2>
+  <div class="section-divider"></div>
+
+  <div class="slide-grid">
+    <div class="slide-card">
+      <img src="images/slide-34.png" alt="Learnings and Insights — 4 Problems" onclick="openLightbox(this)">
+      <div class="slide-caption">Learnings and Insights — 4 core problems identified from validation round</div>
+    </div>
+    <div class="slide-card">
+      <img src="images/slide-35.png" alt="Problem Re-defined" onclick="openLightbox(this)">
+      <div class="slide-caption">Problem re-defined: COVID-19 patients and caretakers unable to access information crucial and specific to each of them. The problem centered around symptomatic COVID patients increasing who needed hospital admission while hospitals expanded their beds in response.</div>
+    </div>
+  </div>
+
+  <div class="problem-grid" style="margin-top: 20px;">
+    <div class="problem-card">
+      <span class="label label-a">Problem A</span>
+      <h4>Lack of Consolidation (where to find it?)</h4>
+      <p>Crucial information in different places. Who: Symptomatic patients (A1), home quarantined (A3), caretakers (A5), potential patients (A6).</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-b">Problem B</span>
+      <h4>Lack of Reliability (should I trust it?)</h4>
+      <p>Hard to determine whether a piece of information comes from a credible source. Who: Asymptomatic patients (A2) mainly, all A1–A6.</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-c">Problem C</span>
+      <h4>Lack of Scalability (should I trust it?)</h4>
+      <p>Things change quickly — information may be outdated and no longer reliable. Who: Asymptomatic patients (A2) mainly, all A1–A6.</p>
+    </div>
+    <div class="problem-card">
+      <span class="label label-d">Problem D</span>
+      <h4>Lack of Clarity (what does it mean?)</h4>
+      <p>Guidelines, timelines, procedures can be misleading, confusing or contradictory. Who: Positive tested patients (A1, A2), caretakers (A5).</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEARNINGS AND INSIGHTS — IMPACT -->
+<div class="section">
+  <h2 class="section-title">Learnings &amp; Insights — <span>IMPACT</span></h2>
+  <div class="section-divider"></div>
+
+  <div class="slide-grid">
+    <div class="slide-card">
+      <img src="images/slide-36.png" alt="Learnings and Insights — IMPACT diagram" onclick="openLightbox(this)">
+      <div class="slide-caption">Learnings &amp; Insights — IMPACT (Solvency model)</div>
+    </div>
+    <div class="slide-card">
+      <img src="images/slide-37.png" alt="Learnings and Insights — IMPACT 10 lakh" onclick="openLightbox(this)">
+      <div class="slide-caption">IMPACT: 10 lakh people are getting tested every day. Out of 41 interviewees, 22 faced an issue with misinformation and misconception.</div>
+    </div>
+  </div>
+
+  <div class="impact-strip">
+    <div class="impact-card stakeholders">
+      <div class="impact-label">Stakeholders</div>
+      <ul>
+        <li>Suspected Patients</li>
+        <li>Cured Patients</li>
+        <li>Ordinary healthy Individuals</li>
+      </ul>
+    </div>
+    <div class="impact-card offering">
+      <div class="impact-label">Our Offering</div>
+      <ul>
+        <li>Consolidated information in one place</li>
+        <li>Fact-checked updates on latest development</li>
+        <li>Facilitating appropriate consultation</li>
+      </ul>
+    </div>
+    <div class="impact-card impact">
+      <div class="impact-label">Impact</div>
+      <ul>
+        <li>Reduced misinformation, confusion and anxiety</li>
+        <li>Better decision-making</li>
+        <li>Everyone is on the same page</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-top: 20px;">
+    <h3>Consequences of NOT solving the problem</h3>
+    <ul>
+      <li>People will have to use multiple information sources before making a decision</li>
+      <li>They will consult multiple doctors before deciding a treatment</li>
+      <li>Wrong decision based on non-accurate information</li>
+      <li>Increased spread due to misconception</li>
+    </ul>
+  </div>
+</div>
+
+<!-- COMPETITION (Re-analysis) -->
+<div class="section" id="competition">
+  <h2 class="section-title">Competition <span>Analysis</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-38.png" alt="Competition Analysis — detailed table" onclick="openLightbox(this)">
+  </div>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="our">Cloud7HC</th>
+          <th>Apthamitra</th>
+          <th>Sanjivani</th>
+          <th>BMC</th>
+          <th>BBMP</th>
+          <th>Delhi Corona</th>
+          <th>DocOn</th>
+          <th>Practo</th>
+          <th>Apollo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Forum</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+        </tr>
+        <tr>
+          <td>Reviews of facility (cost, quality)</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Accuracy</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">High</span></td>
+          <td><span class="badge-yes">High</span></td>
+          <td><span class="badge-yes">High</span></td>
+          <td><span class="badge-uncertain">Uncertain</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-uncertain">Uncertain</span></td>
+          <td><span class="badge-uncertain">Uncertain</span></td>
+          <td><span class="badge-uncertain">Uncertain</span></td>
+        </tr>
+        <tr>
+          <td>Native language</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Consolidated data</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-partial">Partial</span></td>
+          <td><span class="badge-partial">Partial</span></td>
+          <td><span class="badge-partial">Partial</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+        </tr>
+        <tr>
+          <td>Consultation for treatment</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Non-covid patients consideration</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Hospital / Covid room admission</td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-yes">Yes</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+          <td><span class="badge-no">No</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PROTOTYPE -->
+<div class="section" id="prototype">
+  <div class="divider-slide">
+    <img src="images/slide-39.png" alt="Concept — Prototype" onclick="openLightbox(this)">
+  </div>
+  <h2 class="section-title">Ideation &amp; <span>Product Plan</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-40.png" alt="Ideation and Product Plan — feature prioritization and user flow" onclick="openLightbox(this)">
+    <div class="slide-caption">Ideation &amp; product plan — feature prioritization (low / medium / high priority) and full user flow mapping in Miro</div>
+  </div>
+
+  <h2 class="section-title" style="margin-top: 48px;">The <span>Prototype</span></h2>
+  <div class="section-divider"></div>
+  <div class="slide-card">
+    <img src="images/slide-41.png" alt="Prototype — Web and Mobile Interface" onclick="openLightbox(this)">
+    <div class="slide-caption">Web app: consolidated information from verified resources, identifies fake news, multi-language support, services nearby (COVID centres, hospitals, fever clinics, toll-free, BBMP), doctors nearby, map view. Mobile interface: notification-first app giving updates on new guidelines with real-time timestamped UPDATE feed.</div>
+  </div>
+  <div class="info-block" style="margin-top: 20px;">
+    <h3>Web App — Consolidated Information from Verified Resources</h3>
+    <p>The website gives consolidated information from verified resources and helps identify fake news. Features: multi-language support, services nearby (COVID centres, hospitals, fever clinics, toll-free, BBMP), doctors nearby, map view, and real-time updates feed.</p>
+    <h3 style="margin-top: 16px;">Mobile Interface — Notification-first</h3>
+    <p>The application requires a mobile interface over web. The app gives notifications of new updates and required information for guidelines — with a real-time UPDATE feed showing timestamped, source-attributed COVID news and policy changes.</p>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="slide-card">
+    <img src="images/slide-42.png" alt="Closing — Thank You" onclick="openLightbox(this)">
+    <div class="slide-caption">"A Forum Layout and a Hospital connection for reservation of bed and medication to a patient is required for any coming pandemic" — There is more to work and more to go through to make the difference.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>co.weCLOUD · IISc Bangalore Academic Project · 2021</p>
+  <p style="margin-top: 8px;"><a href="../../index.html">← Back to Sanket Kamble's Portfolio</a></p>
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(img) {
+    var lb = document.getElementById('lightbox-img');
+    lb.src = '';
+    lb.src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.getElementById('lightbox-img').addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+  document.getElementById('lightbox-close').addEventListener('click', function(e) {
+    e.stopPropagation();
+    closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Password pocket
+  var pocketGateVisible = false;
+  function togglePocketGate() {
+    pocketGateVisible = !pocketGateVisible;
+    document.getElementById('pocketGate').style.display = pocketGateVisible ? 'block' : 'none';
+  }
+  function unlockPocket() {
+    var pw = document.getElementById('pocketPassword').value;
+    var errEl = document.getElementById('pocketError');
+    if (pw === 'hello') {
+      document.getElementById('pocketGate').style.display = 'none';
+      document.getElementById('pocketContent').classList.add('unlocked');
+      var toggle = document.querySelector('.pocket-toggle');
+      toggle.innerHTML = '<span class="lock-icon">🔓</span><span>Research Interviews — Unlocked</span>';
+      toggle.style.cursor = 'default';
+      toggle.onclick = null;
+    } else {
+      errEl.style.display = 'block';
+      document.getElementById('pocketPassword').value = '';
+      setTimeout(function() { errEl.style.display = 'none'; }, 3000);
+    }
+  }
+</script>
+</body>
+</html>

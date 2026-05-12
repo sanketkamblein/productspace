@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3)",
+      "Bash(ls -lh *pptx *mp4)",
+      "Bash(unzip -l \"_________________Invent_Phase1.pptx\")",
+      "Bash(find . -type f -exec ls -lh {} \\\\;)",
+      "Read(//private/tmp/**)",
+      "Bash(unzip -q \"/Users/i568228/Documents/SAP Resume/Portfolio/Anomoly Detection for logistics/AsianPaints_Invent_Phase2.pptx\" -d pptx_extract)"
+    ]
+  }
+}

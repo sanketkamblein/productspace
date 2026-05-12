@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference Objects — SAP Fiori | Sanket Kamble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── PASSWORD GATE ── */
+    #gate {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;
+      background: #0d0d14;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .gate-card {
+      background: #16161f;
+      border: 1px solid #2a2a3a;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px;
+      text-align: center;
+    }
+    .gate-lock { font-size: 2.5rem; margin-bottom: 1rem; }
+    .gate-title { color: #fff; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .gate-sub { color: #888; font-size: 0.85rem; margin-bottom: 2rem; line-height: 1.5; }
+    .gate-input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: #0d0d14; border: 1px solid #2a2a3a;
+      border-radius: 8px; color: #fff; font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      outline: none; margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .gate-input:focus { border-color: #ffd700; }
+    .gate-input.error { border-color: #e05555; animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .gate-btn {
+      width: 100%; padding: 0.75rem;
+      background: #ffd700; color: #1a0a00;
+      border: none; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-err { color: #e05555; font-size: 0.8rem; margin-top: 0.75rem; display: none; }
+    .gate-badge {
+      display: inline-block; margin-bottom: 1.5rem;
+      background: rgba(255,215,0,0.1); color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 20px; padding: 0.3rem 0.9rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── PORTFOLIO (hidden until unlocked) ── */
+    #portfolio { display: none; font-family: 'Inter', sans-serif; background: #0d0d14; color: #e8e8ec; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,20,0.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1e1e2a;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: #ffd700; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: #aaa; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #ffd700; }
+    .back-btn {
+      color: #ffd700; text-decoration: none; font-size: 0.82rem;
+      font-weight: 600; border: 1px solid rgba(255,215,0,0.3);
+      padding: 0.3rem 0.9rem; border-radius: 20px; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,215,0,0.08); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding-top: 56px;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0d0d14 0%, #110d1a 50%, #0a1020 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(51,0,51,0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(0,80,100,0.2) 0%, transparent 50%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: 4rem 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .tag {
+      background: rgba(255,215,0,0.1); color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 20px; padding: 0.25rem 0.75rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .tag.blue { background: rgba(0,120,180,0.15); color: #4db8e8; border-color: rgba(0,120,180,0.3); }
+    .tag.green { background: rgba(0,160,80,0.12); color: #4dcc88; border-color: rgba(0,160,80,0.25); }
+    .hero h1 {
+      font-size: 2.6rem; font-weight: 700;
+      line-height: 1.15; margin-bottom: 1rem; color: #fff;
+    }
+    .hero h1 span { color: #ffd700; }
+    .hero-desc { color: #aaa; font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .meta-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    }
+    .meta-item {
+      background: rgba(255,255,255,0.04); border: 1px solid #1e1e2a;
+      border-radius: 10px; padding: 0.75rem 1rem;
+    }
+    .meta-label { color: #555; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .meta-value { color: #e8e8ec; font-size: 0.88rem; font-weight: 600; }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-screen {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid #2a2a3a;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+    .hero-screen img { width: 100%; display: block; }
+    .fps-badge {
+      position: absolute; top: -12px; right: -12px;
+      background: #ffd700; color: #1a0a00;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem;
+      border-radius: 20px; box-shadow: 0 4px 12px rgba(255,215,0,0.4);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      color: #ffd700; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 2rem; font-weight: 700;
+      color: #fff; margin-bottom: 1rem; line-height: 1.2;
+    }
+    .section-desc { color: #888; font-size: 0.95rem; line-height: 1.7; max-width: 640px; }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid #1e1e2a; margin: 0; }
+
+    /* ── CONTEXT ── */
+    .context-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    .context-card {
+      background: #16161f; border: 1px solid #1e1e2a; border-radius: 14px; padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .context-card:hover { border-color: rgba(255,215,0,0.25); }
+    .context-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .context-card h3 { color: #fff; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .context-card p { color: #888; font-size: 0.85rem; line-height: 1.6; }
+
+    /* ── PHASE HEADER ── */
+    .phase-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .phase-pill {
+      background: #ffd700; color: #1a0a00;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .phase-pill.fps2 { background: #4db8e8; color: #001520; }
+    .phase-line { flex: 1; height: 1px; background: #1e1e2a; }
+    .phase-title { color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .phase-desc { color: #888; font-size: 0.9rem; line-height: 1.6; max-width: 700px; margin-bottom: 2rem; }
+
+    /* ── SCREEN SHOWCASE ── */
+    .screens-section { background: #0a0a12; }
+    .screen-group { margin-bottom: 4rem; }
+    .screen-group:last-child { margin-bottom: 0; }
+
+    .screen-flow {
+      display: grid; gap: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .screen-flow.cols-2 { grid-template-columns: 1fr 1fr; }
+    .screen-flow.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .screen-flow.cols-1 { grid-template-columns: 1fr; }
+
+    .screen-card {
+      background: #16161f; border: 1px solid #1e1e2a; border-radius: 12px;
+      overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      cursor: zoom-in;
+    }
+    .screen-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      border-color: rgba(255,215,0,0.2);
+    }
+    .screen-img { width: 100%; display: block; }
+    .screen-caption {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid #1e1e2a;
+    }
+    .screen-caption h4 { color: #e8e8ec; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .screen-caption p { color: #666; font-size: 0.75rem; line-height: 1.4; }
+
+    /* ── FLOW LABEL ── */
+    .flow-label {
+      color: #ffd700; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 1rem; padding-left: 0.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .flow-label::before {
+      content: ''; width: 20px; height: 2px; background: #ffd700; border-radius: 2px;
+    }
+    .flow-label.blue { color: #4db8e8; }
+    .flow-label.blue::before { background: #4db8e8; }
+    .flow-label-green { color: #4dcc88; }
+    .flow-label-green::before { background: #4dcc88; }
+
+    /* ── CONTRIBUTIONS ── */
+    .contributions-section { background: #0d0d14; }
+    .contrib-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+    }
+    .contrib-card {
+      background: #16161f; border: 1px solid #1e1e2a; border-radius: 14px; padding: 1.5rem;
+    }
+    .contrib-card h3 {
+      color: #ffd700; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .contrib-list { list-style: none; }
+    .contrib-list li {
+      color: #aaa; font-size: 0.88rem; line-height: 1.5;
+      padding: 0.5rem 0; border-bottom: 1px solid #1e1e2a;
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+    .contrib-list li:last-child { border-bottom: none; }
+    .contrib-list li::before { content: '→'; color: #ffd700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+
+    /* ── TOOLS ── */
+    .tools-section { background: #0a0a12; }
+    .tools-grid {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem;
+    }
+    .tool-chip {
+      background: rgba(255,255,255,0.05); border: 1px solid #1e1e2a;
+      color: #ccc; border-radius: 8px; padding: 0.5rem 1rem;
+      font-size: 0.82rem; font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d0d14; border-top: 1px solid #1e1e2a;
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: #555; font-size: 0.8rem; }
+    footer a { color: #ffd700; text-decoration: none; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+      background: rgba(0,0,0,0.95);
+      display: none; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center;
+      padding: 2rem; cursor: zoom-out;
+    }
+    #lightbox.active { display: -webkit-box; display: -webkit-flex; display: flex; }
+    #lightbox img {
+      max-width: 100%; max-height: 100%;
+      border-radius: 8px; box-shadow: 0 0 80px rgba(0,0,0,0.8);
+      object-fit: contain;
+    }
+    #lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      color: #fff; font-size: 1.5rem; cursor: pointer;
+      background: rgba(255,255,255,0.1); border-radius: 50%;
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      border: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { order: -1; }
+      .context-grid { grid-template-columns: 1fr; }
+      .contrib-grid { grid-template-columns: 1fr; }
+      .screen-flow.cols-2, .screen-flow.cols-3 { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-lock">🔒</div>
+    <div class="gate-badge">Private Cloud Work</div>
+    <div class="gate-title">Reference Objects — SAP Fiori</div>
+    <div class="gate-sub">This case study is password protected.<br>Please enter the access code to continue.</div>
+    <input type="password" id="gate-pwd" class="gate-input" placeholder="Enter password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPassword()">Unlock Case Study</button>
+    <div class="gate-err" id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<div id="portfolio">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">SK · Portfolio</div>
+    <div class="nav-links">
+      <a href="#context">Context</a>
+      <a href="#fps1">FPS1</a>
+      <a href="#fps2">FPS2</a>
+      <a href="#contributions">Contributions</a>
+    </div>
+    <a href="../../index.html" class="back-btn">← Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="tag">SAP Private Cloud</span>
+          <span class="tag blue">Fiori Elements</span>
+          <span class="tag green">EAM · Deutsche Bahn</span>
+        </div>
+        <h1>Reference Objects<br><span>in Private Cloud</span></h1>
+        <p class="hero-desc">
+          End-to-end UX design of three SAP Fiori applications enabling Deutsche Bahn to manage
+          Reference Equipment and Reference Structures — reusable technical object templates
+          for Enterprise Asset Management in SAP Private Cloud.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">UX Designer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Customer</div>
+            <div class="meta-value">Deutsche Bahn</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">1.5 years, ongoing</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Phases</div>
+            <div class="meta-value">FPS1 + FPS2</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="fps-badge">FPS1 · Fiori Launchpad</div>
+        <div class="hero-screen">
+          <img src="images/fps1_launchpad.png" alt="SAP Fiori Launchpad — Reference Technical Object">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CONTEXT -->
+  <section id="context">
+    <div class="container">
+      <div class="section-label">Background</div>
+      <h2 class="section-title">The Challenge</h2>
+      <p class="section-desc">
+        Deutsche Bahn required a scalable way to define and reuse technical object templates across
+        its vast asset portfolio. Rather than creating individual equipment records from scratch,
+        Reference Objects act as master templates — defining shared structures, classifications,
+        and attributes that can be instantiated across the network. The UX challenge was making
+        this powerful but complex data model feel approachable in SAP Fiori Elements.
+      </p>
+      <div class="context-grid">
+        <div class="context-card">
+          <div class="context-icon">🏗️</div>
+          <h3>Reference Equipment</h3>
+          <p>Template-like equipment entities that define reusable characteristics, classes, partners,
+          and measuring points — used as blueprints for real technical objects across the asset network.</p>
+        </div>
+        <div class="context-card">
+          <div class="context-icon">🌳</div>
+          <h3>Reference Structures</h3>
+          <p>Hierarchical structural templates that can be reused across multiple plant locations.
+          Includes Consistency Check workflows and Bill of Material views for configuration validation.</p>
+        </div>
+        <div class="context-card">
+          <div class="context-icon">📋</div>
+          <h3>Manage Structures</h3>
+          <p>Administrative view for overseeing and managing Reference Structures across the system —
+          with import/export capabilities and downstream consistency verification.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FPS1 SCREENS -->
+  <section id="fps1" class="screens-section">
+    <div class="container">
+      <div class="phase-header">
+        <span class="phase-pill">FPS1</span>
+        <div class="phase-line"></div>
+      </div>
+      <h2 class="phase-title">Feature Pack Stack 1 — Reference Equipment</h2>
+      <p class="phase-desc">
+        FPS1 covered the foundational UX for Manage Reference Equipment — from the Fiori Launchpad
+        entry point through List Report, filter bar, and the full Object Page with all tabs
+        (General Information, Structure, Classes, Characteristics, Partners, BOM, and more).
+      </p>
+
+      <!-- Launchpad -->
+      <div class="screen-group">
+        <div class="flow-label">Entry Point</div>
+        <div class="screen-flow cols-1">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_launchpad.png" alt="Fiori Launchpad">
+            <div class="screen-caption">
+              <h4>Fiori Launchpad — Technical Object Group</h4>
+              <p>Entry point showing Manage Reference Equipment and Manage Reference Structure tiles with live count badges.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- List + Filter -->
+      <div class="screen-group">
+        <div class="flow-label">List Report</div>
+        <div class="screen-flow cols-1">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_list.png" alt="Reference Equipment List">
+            <div class="screen-caption">
+              <h4>Manage Reference Equipment — List Report</h4>
+              <p>Standard Fiori List Report with filter bar (Reference Equipment, Category, Maintenance Planning Plant, Work Center, Status). Table shows all reference equipment records with inline status indicators.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Object Page Edit States -->
+      <div class="screen-group">
+        <div class="flow-label">Object Page — Edit Screens</div>
+        <div class="screen-flow cols-2">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_edit1.png" alt="Reference Equipment Edit 1">
+            <div class="screen-caption">
+              <h4>Object Page — General Information (View)</h4>
+              <p>Object header with key attributes, tabbed navigation, and structured Basic Details panel. Administrative Information panel on the right.</p>
+            </div>
+          </div>
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_edit2.png" alt="Reference Equipment Edit 2">
+            <div class="screen-caption">
+              <h4>Object Page — Edit Mode with Language Support</h4>
+              <p>Edit state showing Description table with language rows, Language Support section with multi-language entries, and "Has Long Text" indicator.</p>
+            </div>
+          </div>
+        </div>
+        <div class="screen-flow cols-2" style="margin-top:1.5rem;">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_edit3.png" alt="Reference Equipment Edit 3">
+            <div class="screen-caption">
+              <h4>Object Page — Additional Tab States</h4>
+              <p>Further edit state variations covering additional attribute tabs and inline section editing patterns.</p>
+            </div>
+          </div>
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps1_rds.png" alt="RDS Library Edit">
+            <div class="screen-caption">
+              <h4>RDS Library — Edit View</h4>
+              <p>Reference Designation System library edit screen — used for assigning RDS codes to reference equipment, aligning with ISO 81346 structure conventions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FPS2 SCREENS -->
+  <section id="fps2" class="screens-section" style="background:#0d0d14;">
+    <div class="container">
+      <div class="phase-header">
+        <span class="phase-pill fps2">FPS2</span>
+        <div class="phase-line"></div>
+      </div>
+      <h2 class="phase-title">Feature Pack Stack 2 — Enhanced Flows</h2>
+      <p class="phase-desc">
+        FPS2 extended the design with additional entry points, an improved filter experience,
+        RDS Library editing, and a Floating Footer pattern for save/discard confirmations.
+        Also introduced Manage Reference Structure screens with consistency checks and BOM views.
+      </p>
+
+      <!-- FPS2 Launchpad -->
+      <div class="screen-group">
+        <div class="flow-label blue">Updated Entry Point</div>
+        <div class="screen-flow cols-2">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_launchpad.png" alt="FPS2 Launchpad">
+            <div class="screen-caption">
+              <h4>FPS2 Fiori Launchpad</h4>
+              <p>Updated launchpad tile group for FPS2 with revised navigation structure.</p>
+            </div>
+          </div>
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_filter.png" alt="FPS2 Filter">
+            <div class="screen-caption">
+              <h4>Reference Equipment — Filter Panel</h4>
+              <p>Expanded filter panel with advanced filter fields for Maintenance Planning Plant, Authorisation Group, Work Center, and Status filters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FPS2 List + RDS -->
+      <div class="screen-group">
+        <div class="flow-label blue">List & Library</div>
+        <div class="screen-flow cols-2">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_list.png" alt="FPS2 List">
+            <div class="screen-caption">
+              <h4>Reference Equipment List — FPS2 State</h4>
+              <p>Updated list report with refined column structure and enriched data display for the FPS2 scope.</p>
+            </div>
+          </div>
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_rds.png" alt="FPS2 RDS Library">
+            <div class="screen-caption">
+              <h4>RDS Library Edit — FPS2</h4>
+              <p>Detailed RDS Library edit screen showing Engine for Railway Vehicles (15380-4) with Classification, Language Support, and full tab navigation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FPS2 Edit + Footer -->
+      <div class="screen-group">
+        <div class="flow-label blue">Object Page & Save Pattern</div>
+        <div class="screen-flow cols-2">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_edit1.png" alt="FPS2 Object Page">
+            <div class="screen-caption">
+              <h4>Object Page — FPS2 View State</h4>
+              <p>Refined object page view state for FPS2 with updated header layout and improved information hierarchy.</p>
+            </div>
+          </div>
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/fps2_edit_footer.png" alt="FPS2 Floating Footer">
+            <div class="screen-caption">
+              <h4>Object Page — Floating Footer (Edit)</h4>
+              <p>Floating footer pattern introduced in FPS2 for Save / Discard confirmation. Ensures persistent action bar during long-form editing without losing scroll position.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reference Structures from rs_ images -->
+      <div class="screen-group" style="margin-top:3rem;">
+        <div class="phase-header" style="margin-bottom:1.5rem;">
+          <span class="phase-pill" style="background:#4dcc88;color:#001a08;">Manage Structures</span>
+          <div class="phase-line"></div>
+        </div>
+        <div class="flow-label flow-label-green">Consistency Check & BOM Flows</div>
+
+        <div class="screen-flow cols-1" style="margin-bottom:1.5rem;">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/rs_1683.png" alt="Consistency Check and BOM">
+            <div class="screen-caption">
+              <h4>Reference Structures — Consistency Check + Bill of Material</h4>
+              <p>Two key flows: Consistency Check (top row — 4 progressive states showing validation results across reference structures) and Bill of Material view (bottom — BOM table with component hierarchy).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-flow cols-1">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/rs_1695.png" alt="Import File Flow">
+            <div class="screen-caption">
+              <h4>Manage Reference Structures — Import File Flow</h4>
+              <p>End-to-end import flow: Export Template → Upload File → Import. Six-step screen sequence showing the full import journey with file selection dialog and confirmation states.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-flow cols-1" style="margin-top:1.5rem;">
+          <div class="screen-card" onclick="openLightbox(this)">
+            <img class="screen-img" src="images/ms_1558.png" alt="Manage Structures Overview">
+            <div class="screen-caption">
+              <h4>Manage Reference Structures — Full Screen Set</h4>
+              <p>Complete overview of all Manage Structures screens: initial empty state, standard list view, detail views with structure hierarchy, and multiple selection + action states.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CONTRIBUTIONS -->
+  <section id="contributions" class="contributions-section">
+    <div class="container">
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Scope & Contributions</h2>
+      <p class="section-desc" style="margin-bottom:0;">
+        This was a delivery-focused engagement — requirements came pre-defined from Deutsche Bahn.
+        My ownership was in translating them into precise, developer-ready Fiori designs.
+      </p>
+      <div class="contrib-grid">
+        <div class="contrib-card">
+          <h3>FPS1 Deliverables</h3>
+          <ul class="contrib-list">
+            <li>Designed end-to-end UX for Manage Reference Equipment (List Report + Object Page)</li>
+            <li>Built Fiori Launchpad entry point with tile configuration</li>
+            <li>Designed all Object Page tabs: General Info, Structure, Classes, Characteristics, Partners, BOM, Reference Measuring Points, Where Used</li>
+            <li>Delivered RDS Library edit screens aligned with ISO 81346</li>
+            <li>Created full annotation-ready Figma handoff for development team</li>
+          </ul>
+        </div>
+        <div class="contrib-card">
+          <h3>FPS2 Deliverables</h3>
+          <ul class="contrib-list">
+            <li>Extended filter bar with advanced filter panel design</li>
+            <li>Introduced Floating Footer pattern for save/discard in edit mode</li>
+            <li>Refined RDS Library edit flow with additional detail states</li>
+            <li>Designed Manage Reference Structure: Import File, Consistency Check, BOM views</li>
+            <li>Developer coordination for annotation accuracy and responsiveness patterns</li>
+            <li>Stakeholder validation and documentation for final handoff</li>
+          </ul>
+        </div>
+        <div class="contrib-card">
+          <h3>Design Process</h3>
+          <ul class="contrib-list">
+            <li>Worked strictly within SAP Fiori Elements guidelines and private cloud constraints</li>
+            <li>Collaborated closely with developers to validate annotation feasibility</li>
+            <li>Iterated on edge cases: empty states, error handling, multi-language support</li>
+            <li>Reviewed implementation against design specs during sprint deliveries</li>
+          </ul>
+        </div>
+        <div class="contrib-card">
+          <h3>Scope & Context</h3>
+          <ul class="contrib-list">
+            <li>Customer-driven project — no independent discovery phase</li>
+            <li>Requirements sourced directly from Deutsche Bahn's asset management team</li>
+            <li>Three applications delivered: Manage Reference Equipment, Manage Reference Structure, Manage Structures</li>
+            <li>Strengthened system-wide reusability and configuration consistency in EAM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TOOLS -->
+  <section class="tools-section">
+    <div class="container">
+      <div class="section-label">Tools & Skills Applied</div>
+      <h2 class="section-title">Technology & Methods</h2>
+      <div class="tools-grid">
+        <span class="tool-chip">SAP Fiori Elements</span>
+        <span class="tool-chip">Figma</span>
+        <span class="tool-chip">UI Annotations</span>
+        <span class="tool-chip">SAP UX Guidelines — Private Cloud</span>
+        <span class="tool-chip">List Report Floorplan</span>
+        <span class="tool-chip">Object Page Floorplan</span>
+        <span class="tool-chip">ISO 81346 (RDS)</span>
+        <span class="tool-chip">Developer Handoff</span>
+        <span class="tool-chip">Jira</span>
+        <span class="tool-chip">Git-based Systems</span>
+        <span class="tool-chip">Design QA</span>
+        <span class="tool-chip">Enterprise Asset Management</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Sanket Kamble · UX Designer · SAP Private Cloud &nbsp;|&nbsp; <a href="../../index.html">← Back to Portfolio</a></p>
+  </footer>
+
+</div><!-- /portfolio -->
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // ── Password gate ──
+  function checkPassword() {
+    const input = document.getElementById('gate-pwd');
+    const err   = document.getElementById('gate-err');
+    if (input.value === 'hello') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('portfolio').style.display = 'block';
+    } else {
+      input.classList.add('error');
+      err.style.display = 'block';
+      setTimeout(() => input.classList.remove('error'), 400);
+      input.value = '';
+      input.focus();
+    }
+  }
+  document.getElementById('gate-pwd').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // ── Lightbox ──
+  function openLightbox(card) {
+    const img = card.querySelector('.screen-img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>

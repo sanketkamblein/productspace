@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanket Kamble — EffiSource AI · Ariba</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sap-blue:  #0070f2;
+      --sap-dark:  #032d60;
+      --sap-teal:  #00a3a3;
+      --sap-light: #e8f4fd;
+      --gray-50:   #f8fafc;
+      --gray-100:  #f1f5f9;
+      --gray-200:  #e2e8f0;
+      --gray-600:  #475569;
+      --gray-700:  #334155;
+      --gray-900:  #0f172a;
+      --accent:    #f59e0b;
+      --green:     #10b981;
+      --red:       #e11d48;
+      --radius:    12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--gray-700);
+      background: var(--gray-50);
+      line-height: 1.6;
+    }
+    a { color: var(--sap-blue); text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand { font-weight: 700; font-size: .95rem; color: var(--sap-dark); display: flex; align-items: center; gap: .5rem; }
+    .nav-brand span { background: var(--sap-blue); color: #fff; padding: 2px 8px; border-radius: 6px; font-size: .72rem; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      font-size: .83rem; color: var(--gray-600); font-weight: 500;
+      padding: .5rem .85rem; border-radius: 6px;
+      position: relative; transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--sap-blue); background: var(--sap-light); }
+    .nav-links a.active {
+      color: var(--sap-blue); font-weight: 700;
+      background: var(--sap-light);
+    }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 12px; right: 12px;
+      height: 2px; background: var(--sap-blue); border-radius: 2px 2px 0 0;
+    }
+    @media (max-width: 720px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--sap-dark) 0%, #003d99 55%, var(--sap-teal) 100%);
+      color: #fff; padding: 6rem 2rem 5rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
+      color: #fff; padding: .35rem 1rem; border-radius: 100px;
+      font-size: .78rem; font-weight: 600; letter-spacing: .05em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 em { font-style: normal; color: #7dd3fc; }
+    .hero p { max-width: 680px; margin: 0 auto 2rem; font-size: 1.1rem; color: rgba(255,255,255,.82); }
+    .hero-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: .85rem; color: rgba(255,255,255,.65); }
+    .hero-meta strong { color: #fff; }
+
+    /* SECTIONS */
+    section { padding: 5rem 0; }
+    section:nth-child(even) { background: #fff; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+    .section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--sap-blue); margin-bottom: .45rem; }
+    .section-title { font-size: clamp(1.4rem, 3vw, 2.1rem); font-weight: 800; color: var(--gray-900); margin-bottom: .65rem; line-height: 1.2; }
+    .section-sub { font-size: .95rem; color: var(--gray-600); max-width: 640px; margin-bottom: 2.75rem; }
+
+    /* STATS STRIP */
+    .stats-strip { background: #fff; border-bottom: 1px solid var(--gray-200); padding: 2rem 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 1.5rem; text-align: center; }
+    .stat-item strong { display: block; font-size: 1.9rem; font-weight: 800; color: var(--sap-blue); }
+    .stat-item span { font-size: .82rem; color: var(--gray-600); }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* TAGS */
+    .tag-list { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+    .tag { background: var(--sap-light); color: var(--sap-blue); font-size: .72rem; font-weight: 600; padding: .2rem .6rem; border-radius: 100px; }
+    .tag.red   { background: #fee2e2; color: #9b1c1c; }
+    .tag.amber { background: #fef3c7; color: #92400e; }
+    .tag.green { background: #d1fae5; color: #065f46; }
+    .tag.gray  { background: var(--gray-100); color: var(--gray-600); }
+
+    /* VISION CARDS */
+    .vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1rem; }
+    .vision-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); }
+    .vision-label { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sap-teal); margin-bottom: .4rem; }
+    .vision-card h3 { font-size: .95rem; font-weight: 700; color: var(--gray-900); margin-bottom: .45rem; }
+    .vision-card p { font-size: .825rem; color: var(--gray-600); }
+
+    /* DATA FLOW */
+    .flow-row { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .flow-box { background: #fff; border-radius: var(--radius); padding: 1.1rem 1.25rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); flex: 1; min-width: 150px; }
+    .flow-box h4 { font-size: .82rem; font-weight: 700; color: var(--gray-900); margin-bottom: .25rem; }
+    .flow-box p { font-size: .75rem; color: var(--gray-600); }
+    .flow-arrow { display: flex; align-items: center; padding: 0 .4rem; font-size: 1.1rem; color: var(--sap-blue); flex-shrink: 0; }
+
+    /* NUMBERED STEPS */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1rem; }
+    .step { background: #fff; border-radius: var(--radius); padding: 1.3rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); display: flex; gap: .8rem; align-items: flex-start; }
+    .step-num { min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: .82rem; flex-shrink: 0; }
+    .step h4 { font-size: .875rem; font-weight: 700; color: var(--gray-900); margin-bottom: .2rem; }
+    .step p { font-size: .8rem; color: var(--gray-600); }
+
+    /* REQUIREMENT BLOCK */
+    .req-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.25rem; }
+    .req-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); border-top: 4px solid var(--sap-blue); }
+    .req-card.r2 { border-top-color: var(--sap-teal); }
+    .req-card.r3 { border-top-color: var(--green); }
+    .req-card.r4 { border-top-color: var(--accent); }
+    .req-num { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-600); margin-bottom: .35rem; }
+    .req-card h3 { font-size: .95rem; font-weight: 700; color: var(--gray-900); margin-bottom: .5rem; }
+    .req-card .pain { font-size: .82rem; color: var(--red); font-style: italic; margin-bottom: .75rem; border-left: 3px solid #fecdd3; padding-left: .65rem; }
+    .req-card ul { list-style: none; display: flex; flex-direction: column; gap: .3rem; }
+    .req-card li { font-size: .82rem; color: var(--gray-700); display: flex; gap: .5rem; }
+    .req-card li::before { content: '→'; color: var(--sap-blue); font-weight: 700; flex-shrink: 0; }
+
+    /* MOSCOW */
+    .moscow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .moscow-card { border-radius: var(--radius); padding: 1.35rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); }
+    .moscow-card h4 { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .65rem; }
+    .moscow-card ul { list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+    .moscow-card li { font-size: .8rem; color: var(--gray-700); display: flex; gap: .45rem; align-items: flex-start; }
+    .moscow-card li::before { content: '·'; font-weight: 900; flex-shrink: 0; }
+
+    /* METRICS ROW */
+    .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .metric-card { background: #fff; border-radius: var(--radius); padding: 1.35rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); text-align: center; }
+    .metric-card .big { font-size: 2rem; font-weight: 800; color: var(--sap-blue); line-height: 1; margin-bottom: .3rem; }
+    .metric-card .label { font-size: .78rem; color: var(--gray-600); }
+
+    /* ROADMAP */
+    .roadmap-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    .roadmap-table th { background: var(--sap-dark); color: #fff; padding: .65rem 1rem; text-align: left; font-weight: 600; font-size: .78rem; }
+    .roadmap-table td { padding: .65rem 1rem; border-bottom: 1px solid var(--gray-200); color: var(--gray-700); }
+    .roadmap-table tr:last-child td { border-bottom: none; }
+    .roadmap-table tr:nth-child(odd) td { background: var(--gray-50); }
+    .p-badge { display: inline-block; padding: .15rem .5rem; border-radius: 100px; font-size: .7rem; font-weight: 700; }
+    .p1 { background: #fee2e2; color: #9b1c1c; }
+    .p2 { background: #fef3c7; color: #92400e; }
+    .p3 { background: #d1fae5; color: #065f46; }
+    .p4 { background: var(--sap-light); color: var(--sap-blue); }
+
+    /* GTM */
+    .gtm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; }
+    .gtm-card { background: #fff; border-radius: var(--radius); padding: 1.4rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); border-left: 4px solid var(--sap-blue); }
+    .gtm-card.g2 { border-left-color: var(--sap-teal); }
+    .gtm-card.g3 { border-left-color: var(--green); }
+    .gtm-card .phase-tag { font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--gray-600); margin-bottom: .3rem; }
+    .gtm-card h4 { font-size: .92rem; font-weight: 700; color: var(--gray-900); margin-bottom: .45rem; }
+    .gtm-card p { font-size: .8rem; color: var(--gray-600); }
+
+    /* TEAM */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 1rem; }
+    .team-card { background: #fff; border-radius: var(--radius); padding: 1.1rem 1.25rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: .7rem; }
+    .team-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 800; color: #fff; }
+    .team-card h4 { font-size: .845rem; font-weight: 700; color: var(--gray-900); }
+    .team-card p { font-size: .76rem; color: var(--gray-600); }
+
+    /* ARTIFACTS */
+    .artifacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1rem; }
+    .artifact { background: #fff; border-radius: var(--radius); padding: 1.1rem 1.25rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); display: flex; gap: .65rem; align-items: flex-start; }
+    .artifact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
+    .artifact h4 { font-size: .845rem; font-weight: 700; color: var(--gray-900); margin-bottom: .15rem; }
+    .artifact p { font-size: .76rem; color: var(--gray-600); }
+
+    /* REFLECTION */
+    .reflection-card { background: linear-gradient(135deg, var(--sap-dark), #003d99); border-radius: var(--radius); padding: 2.25rem 2rem; color: #fff; }
+    .reflection-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
+    .ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 1.1rem; margin-top: 1.25rem; }
+    .ref-item { background: rgba(255,255,255,.1); border-radius: 10px; padding: 1.1rem; border: 1px solid rgba(255,255,255,.14); }
+    .ref-item h4 { font-size: .875rem; font-weight: 700; margin-bottom: .3rem; color: #7dd3fc; }
+    .ref-item p { font-size: .8rem; color: rgba(255,255,255,.78); }
+
+    /* SOLUTION SCREENS */
+    .solution-tabs { display: flex; gap: .5rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+    .sol-tab {
+      padding: .45rem 1.1rem; border-radius: 100px; font-size: .8rem; font-weight: 600;
+      border: 1.5px solid var(--gray-200); background: #fff; color: var(--gray-600);
+      cursor: pointer; transition: all .2s;
+    }
+    .sol-tab:hover { border-color: var(--sap-blue); color: var(--sap-blue); }
+    .sol-tab.active { background: var(--sap-blue); color: #fff; border-color: var(--sap-blue); }
+    .sol-screen { display: none; }
+    .sol-screen.active { display: block; }
+
+    .screen-frame {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.13);
+      border: 1px solid var(--gray-200);
+    }
+    .screen-frame img { width: 100%; height: auto; display: block; }
+    .screen-caption { font-size: .8rem; color: var(--gray-600); margin-top: .65rem; line-height: 1.5; }
+
+    .joule-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .joule-step { display: flex; flex-direction: column; gap: .5rem; }
+    .joule-step-label {
+      font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--sap-blue);
+    }
+    .joule-step img {
+      width: 100%; height: auto; display: block;
+      border-radius: 10px; border: 1px solid var(--gray-200);
+      box-shadow: 0 4px 16px rgba(0,0,0,.09);
+    }
+    @media (max-width: 860px) { .joule-flow { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 560px) { .joule-flow { grid-template-columns: repeat(2, 1fr); } }
+
+    /* FOOTER */
+    footer { background: var(--gray-900); color: rgba(255,255,255,.55); padding: 2.25rem; text-align: center; font-size: .82rem; }
+    footer strong { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    Sanket Kamble <span>EffiSource AI · Ariba</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#gtm">GTM</a></li>
+    <li><a href="#poc">POC</a></li>
+    <li><a href="#reflection">Learnings</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">SAP ISBN · Ariba · Team 14 · Use Case 09 · Use Case Owner: Chia, Jia Yi</div>
+  <h1>Recommendations for<br><em>Guided Buying</em> in Multi-Round Auction</h1>
+  <p>
+    EffiSource AI — an Agentic AI POC built on SAP Ariba and BTP that automates multi-round
+    auction decisions, surfaces pricing history, and scores supplier bids so procurement teams
+    move from weeks of manual work to data-driven decisions in days.
+  </p>
+  <div class="hero-meta">
+    <div><strong>Role</strong> — PM Trainee</div>
+    <div><strong>Product</strong> — EffiSource AI</div>
+    <div><strong>Platform</strong> — SAP Ariba + BTP + AI Core</div>
+    <div><strong>Team</strong> — SAP ISBN Team 14</div>
+  </div>
+</header>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><strong>80%</strong><span>Faster bid evaluation</span></div>
+      <div class="stat-item"><strong>3</strong><span>MVP Requirements prioritised</span></div>
+      <div class="stat-item"><strong>5</strong><span>BTP services integrated</span></div>
+      <div class="stat-item"><strong>10</strong><span>Cross-functional team members</span></div>
+      <div class="stat-item"><strong>$150B</strong><span>SAM — SAP Ariba enterprises</span></div>
+      <div class="stat-item"><strong>8</strong><span>Deliverables shipped</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VISION -->
+<section id="vision" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Vision and Goals</div>
+    <h2 class="section-title">Why EffiSource AI</h2>
+    <p class="section-sub">
+      Procurement teams running multi-round supplier auctions on SAP Ariba have no AI assistance
+      at any step — they compare bids manually, rely on intuition for negotiation decisions,
+      and rarely leverage historical pricing data. EffiSource AI closes that gap.
+    </p>
+
+    <div class="vision-grid">
+
+      <div class="vision-card fade-in">
+        <div class="vision-label">Core Vision</div>
+        <h3>Recommend the Next Step in a Multi-Round Auction</h3>
+        <p>An AI Agent monitors live sourcing events and recommends whether to open a new round,
+        accept a bid, or push for a lower BAFO — powered by historical pricing, event profiles,
+        and real-time market benchmarks.</p>
+        <div class="tag-list">
+          <span class="tag">Agentic AI</span>
+          <span class="tag">BAFO Analysis</span>
+          <span class="tag">Multi-Round Auction</span>
+        </div>
+      </div>
+
+      <div class="vision-card fade-in">
+        <div class="vision-label">Strategic Priority</div>
+        <h3>Non-Codified Item Detection</h3>
+        <p>Many purchase items lack standard codes or serial numbers. The agent uses ML and LLM
+        text analysis to identify non-codified items and map them to historical records, unlocking
+        pricing insights that would otherwise be invisible.</p>
+        <div class="tag-list">
+          <span class="tag">ML Detection</span>
+          <span class="tag">LLM Text Analysis</span>
+          <span class="tag red">Current Pain</span>
+        </div>
+      </div>
+
+      <div class="vision-card fade-in">
+        <div class="vision-label">Strategic Priority</div>
+        <h3>Negotiation Support</h3>
+        <p>AI analyses negotiation patterns and recommends counteroffers, concessions, and
+        trade-offs. It predicts the likelihood of acceptance for a given strategy — helping
+        sourcing specialists maximise contract value on every deal.</p>
+        <div class="tag-list">
+          <span class="tag">Counteroffer Analysis</span>
+          <span class="tag">Trade-off Modelling</span>
+        </div>
+      </div>
+
+      <div class="vision-card fade-in">
+        <div class="vision-label">Strategic Priority</div>
+        <h3>Auction Design Intelligence</h3>
+        <p>Learns from past auctions to recommend the most suitable format, starting price,
+        increment, and duration — so each new sourcing event benefits from every prior one.</p>
+        <div class="tag-list">
+          <span class="tag">Auction Format</span>
+          <span class="tag">Historical Learning</span>
+          <span class="tag">Parameter Optimisation</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Personas -->
+    <h3 style="font-size:1rem;font-weight:700;margin-top:2.5rem;margin-bottom:.65rem;color:var(--gray-900);">Target Personas</h3>
+    <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:1rem;">Decision maker buyers: CFOs, CPOs, and Heads of Procurement evaluate the ROI story — cost savings, efficiency gains, and risk reduction.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.65rem;margin-bottom:2rem;">
+      <span class="tag" style="font-size:.82rem;padding:.3rem .85rem;">Procurement Managers</span>
+      <span class="tag" style="font-size:.82rem;padding:.3rem .85rem;">Sourcing Specialists</span>
+      <span class="tag" style="font-size:.82rem;padding:.3rem .85rem;">Strategic Sourcing Teams</span>
+      <span class="tag gray" style="font-size:.82rem;padding:.3rem .85rem;">Manufacturing</span>
+      <span class="tag gray" style="font-size:.82rem;padding:.3rem .85rem;">Retail</span>
+      <span class="tag gray" style="font-size:.82rem;padding:.3rem .85rem;">Healthcare</span>
+      <span class="tag gray" style="font-size:.82rem;padding:.3rem .85rem;">IT Services</span>
+    </div>
+
+    <!-- Pain Points -->
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:.65rem;color:var(--gray-900);">Persona Pain Points &amp; Context</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:2rem;">
+      <div style="background:#fff0f0;border-radius:var(--radius);padding:1.25rem;border:1px solid #fecdd3;" class="fade-in">
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9b1c1c;margin-bottom:.5rem;">Pain Points</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.4rem;">
+          <li style="font-size:.82rem;color:#7f1d1d;display:flex;gap:.5rem;"><span style="color:#e11d48;font-weight:700;flex-shrink:0;">✗</span>Not confident on the current bidding outcome</li>
+          <li style="font-size:.82rem;color:#7f1d1d;display:flex;gap:.5rem;"><span style="color:#e11d48;font-weight:700;flex-shrink:0;">✗</span>Missing best deals — could get lower price if pushed harder</li>
+          <li style="font-size:.82rem;color:#7f1d1d;display:flex;gap:.5rem;"><span style="color:#e11d48;font-weight:700;flex-shrink:0;">✗</span>Sourcing agents may have poor track records that aren't visible</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);padding:1.25rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);" class="fade-in">
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sap-blue);margin-bottom:.5rem;">What the AI Needs to Know ("How")</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.3rem;">
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Sourcing location &amp; commodity type</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Sourcer profile &amp; budget (baseline spend + target savings)</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Price given for material and maintenance</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Reaction on previous bids</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Category (e.g. Oil / Market price) &amp; commodity</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Price expectation &amp; qualification status</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>RFP approval type (qualitative / quantitative)</li>
+          <li style="font-size:.8rem;color:var(--gray-700);display:flex;gap:.45rem;"><span style="color:var(--sap-blue);font-weight:700;">→</span>Message / instruction document after RFP</li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf4;border-radius:var(--radius);padding:1.25rem;border:1px solid #bbf7d0;" class="fade-in">
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#065f46;margin-bottom:.5rem;">How EffiSource AI Solves It</div>
+        <p style="font-size:.82rem;color:#064e3b;line-height:1.6;">Recommends the next step during the auction using <strong>pricing history</strong>, supplier's past behaviour for similar items, current supplier grade, <strong>market trend</strong> of the expected content, and event profile — so every decision is data-backed rather than instinct-driven.</p>
+      </div>
+    </div>
+
+    <!-- Use Case Owner -->
+    <div style="background:var(--sap-light);border-radius:var(--radius);padding:1rem 1.25rem;border-left:4px solid var(--sap-blue);display:flex;align-items:center;gap:1rem;" class="fade-in">
+      <div style="font-size:1.5rem;">👤</div>
+      <div>
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sap-blue);">Use Case Owner — Sales Dept</div>
+        <div style="font-size:.92rem;font-weight:700;color:var(--gray-900);">Chia, Jia Yi</div>
+        <div style="font-size:.8rem;color:var(--gray-600);">Sponsored the use case and defined the core problem: recommending opening a new sourcing round based on event profiles and BAFO patterns.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="container">
+    <div class="section-label">User Journey</div>
+    <h2 class="section-title">Sourcing Process for Guided Buying</h2>
+    <p class="section-sub">
+      The current multi-round auction flow — from sourcing request to deal close — is entirely manual.
+      Every step below is a candidate for AI intervention.
+    </p>
+
+    <!-- Current Scenario -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Current State — Manual Task Flow</h3>
+    <div style="background:linear-gradient(135deg,var(--sap-dark),#003d99);border-radius:var(--radius);padding:1.75rem 2rem;color:#fff;margin-bottom:2.5rem;" class="fade-in">
+      <p style="font-size:.88rem;color:rgba(255,255,255,.8);margin-bottom:1.75rem;">
+        "As a sourcing consultant, I want to ensure cost-effective and high-quality procurement
+        while managing multiple supplier bids." — No AI assistance at any of these steps today.
+      </p>
+
+      <!-- ① LINEAR PROCESS — top chevron strip -->
+      <div style="margin-bottom:.6rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem;">Sourcing Process for Guided Buying</div>
+        <div style="overflow-x:auto;">
+        <svg viewBox="0 0 860 52" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;min-width:600px;height:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+
+          <!-- 5 chevron stages — each is a parallelogram with a pointed right edge -->
+          <!-- Stage 1 -->
+          <polygon points="0,4 152,4 168,26 152,48 0,48" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+          <text x="76" y="23" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="600">Suppliers requested</text>
+          <text x="76" y="36" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.75)">for sourcing</text>
+
+          <!-- Stage 2 -->
+          <polygon points="172,4 324,4 340,26 324,48 172,48" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+          <text x="256" y="23" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="600">Sourcing Bid</text>
+          <text x="256" y="36" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.75)">from Suppliers</text>
+
+          <!-- Stage 3 — highlighted (User Journey zone starts) -->
+          <polygon points="344,4 496,4 512,26 496,48 344,48" fill="rgba(11,163,163,.25)" stroke="#00a3a3" stroke-width="1.2"/>
+          <text x="428" y="30" text-anchor="middle" font-size="8.5" fill="#7dd3fc" font-weight="700">Compare</text>
+
+          <!-- Stage 4 — highlighted -->
+          <polygon points="516,4 668,4 684,26 668,48 516,48" fill="rgba(11,163,163,.25)" stroke="#00a3a3" stroke-width="1.2"/>
+          <text x="600" y="30" text-anchor="middle" font-size="8.5" fill="#7dd3fc" font-weight="700">Analysis</text>
+
+          <!-- Stage 5 — highlighted -->
+          <polygon points="688,4 840,4 856,26 840,48 688,48" fill="rgba(11,163,163,.25)" stroke="#00a3a3" stroke-width="1.2"/>
+          <text x="772" y="30" text-anchor="middle" font-size="8.5" fill="#7dd3fc" font-weight="700">Decision</text>
+
+          <!-- Bracket label under stages 3–5 -->
+          <line x1="344" y1="51" x2="856" y2="51" stroke="rgba(11,163,163,.6)" stroke-width="1"/>
+          <line x1="344" y1="48" x2="344" y2="54" stroke="rgba(11,163,163,.6)" stroke-width="1"/>
+          <line x1="856" y1="48" x2="856" y2="54" stroke="rgba(11,163,163,.6)" stroke-width="1"/>
+        </svg>
+        </div>
+        <div style="font-size:.68rem;color:rgba(11,192,192,.8);font-weight:600;letter-spacing:.06em;margin-top:.35rem;padding-left:40%;">↑ User Journey for Multi-Round Auction</div>
+      </div>
+
+      <!-- ② TASK FLOW IMAGE — the branching design space from the slide -->
+      <div style="margin-top:1.25rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem;">Task Flow — Where Design Occurs</div>
+        <div style="border-radius:8px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+          <img src="slide4_process.png" alt="Task Flow — Sourcing Requests branching through Compare, Strategise, Multiple Actions to Lock / Freeze / Close / Second Round"
+               style="width:100%;height:auto;display:block;"/>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AI Intervention -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Where EffiSource AI Steps In</h3>
+    <div class="steps-grid">
+      <div class="step fade-in">
+        <div class="step-num" style="background:var(--sap-blue);">1</div>
+        <div>
+          <h4>Detect &amp; Match Non-Codified Items</h4>
+          <p>Uses ML and LLM text analysis on purchase order items to identify non-codified items and map them to historical records in HANA.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num" style="background:var(--sap-teal);">2</div>
+        <div>
+          <h4>Rank Suppliers by History</h4>
+          <p>Scores suppliers on historical performance, past rewards/discounts, delivery record, and compliance — removing selection bias.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num" style="background:var(--green);">3</div>
+        <div>
+          <h4>Recommend Next Move</h4>
+          <p>Benchmarks current bid against market price and historical data. Outputs a "Reward" or "Bargain" recommendation with full reasoning.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num" style="background:var(--accent);">4</div>
+        <div>
+          <h4>Grade Supplier Authenticity</h4>
+          <p>Validates vendor location, past auction behaviour, and anomaly signals to ensure the graded comparison is accurate and fraud-resistant.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Prioritised Requirements</div>
+    <h2 class="section-title">Problem Statement &amp; MVP Scope</h2>
+    <p class="section-sub">
+      Four requirements surfaced from the sourcing process analysis. The first three formed the MVP.
+      Requirement 5 (Supplier Risk) was scoped to post-MVP based on complexity and delivery risk.
+    </p>
+
+    <!-- Jobs to be Done Framework -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Jobs-to-be-Done — Category Manager for One Event / Auction</h3>
+    <div style="overflow-x:auto;margin-bottom:2.5rem;" class="fade-in">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:900px;">
+        <thead>
+          <tr>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Selection</th>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Strategy of Auction Creation</th>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Comparison</th>
+            <th style="background:#9b1c1c;color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">⭐ Next Step After Bidding Round 1</th>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Acceptance of Suppliers</th>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Pricing History</th>
+            <th style="background:var(--sap-dark);color:#fff;padding:.6rem .8rem;text-align:left;font-size:.72rem;">Documents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Manually identifying and qualifying potential suppliers is time-consuming and prone to human error, leading to missed opportunities</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Manually identifying and qualifying potential suppliers is time-consuming and prone to human error, leading to missed opportunities</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Comparing complex bids across multiple criteria is labour-intensive and can result in inconsistent evaluations, impacting decision quality</td>
+            <td style="padding:.6rem .8rem;border:1px solid #fecdd3;vertical-align:top;color:#7f1d1d;background:#fff5f5;font-weight:600;">Lack of data-driven insights makes negotiations inefficient, leading to suboptimal agreements that fail to maximise value</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Identifying and mitigating risks associated with suppliers is challenging without comprehensive, real-time data analysis</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Learning from past auctions to improve future processes is often haphazard, leading to stagnant performance and lost optimisation opportunities</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;color:var(--gray-700);">Manual processes are insufficient for detecting sophisticated fraudulent activities, threatening the integrity of auctions</td>
+          </tr>
+          <tr style="background:var(--gray-50);">
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">Supplier Selection — AI can analyse and rank potential suppliers based on their financial health, past performance, compliance records, and other criteria to streamline the selection process</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">Auction Design — AI can recommend the most suitable auction format, starting price, bid increment, and duration based on historical data, commodity category, market conditions, and other factors such as starting price, price increment, acceptability, and duration</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">Bid Evaluation — AI can assist in evaluating bids based on multiple criteria (price, quality, delivery terms, and more) and provide recommendations for the most cost-effective option, making it easier for sourcing specialists to make decisions</td>
+            <td style="padding:.6rem .8rem;border:1px solid #fecdd3;vertical-align:top;font-size:.72rem;color:#9b1c1c;background:#fff5f5;">Negotiation Support — AI can analyse negotiation patterns and recommend counteroffers, concessions, and trade-offs. It can help predict the likelihood of acceptance for a particular negotiation strategy and also guide specific negotiations</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">Risk Management — AI can identify and assess risks associated with suppliers, including financial instability, geopolitical risks, operational disruptions, or compliance risks. It can also predict future risks and alert sourcing strategies and help in contingency planning</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">7 Fraud Detection — AI can identify anomalies or suspicious bidding patterns or behaviour and alert sourcing teams to potential fraud, ensuring transparent auction processes</td>
+            <td style="padding:.6rem .8rem;border:1px solid var(--gray-200);vertical-align:top;font-size:.72rem;color:var(--gray-600);">5. Continuous improvement — By evaluating auction outcomes, AI can provide insights and recommendations to improve future auction processes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="req-grid">
+
+      <div class="req-card fade-in">
+        <div class="req-num">Requirement 1 — MVP · P1</div>
+        <h3>Assistance for Multi-Round Auction</h3>
+        <div class="pain">"Lack of data-driven insights makes negotiations inefficient, leading to suboptimal agreements that fail to maximise value."</div>
+        <ul>
+          <li>Archive and access historical pricing data</li>
+          <li>Assess Supplier Bids &amp; BAFO patterns</li>
+          <li>Evaluate current market conditions</li>
+          <li>Review event metrics in context</li>
+          <li>Recommend next move (Reward / Bargain / Open Round)</li>
+        </ul>
+      </div>
+
+      <div class="req-card r2 fade-in">
+        <div class="req-num">Requirement 2 — MVP · P1</div>
+        <h3>Pricing History</h3>
+        <div class="pain">"Learning from past auctions to improve future processes is often haphazard, leading to stagnant performance and lost opportunities for optimisation."</div>
+        <ul>
+          <li>Identify non-codified items via ML text detection</li>
+          <li>Access past pricing for the same or similar items</li>
+          <li>Evaluate current vs. historical market trends</li>
+          <li>Consolidate priority score for each supplier's bid</li>
+        </ul>
+      </div>
+
+      <div class="req-card r3 fade-in">
+        <div class="req-num">Requirement 3 — MVP · P2</div>
+        <h3>Bid Comparison</h3>
+        <div class="pain">"Comparing complex bids across multiple criteria is labour-intensive and can result in inconsistent evaluations, impacting decision quality."</div>
+        <ul>
+          <li>Side-by-side multi-supplier analysis for the same event</li>
+          <li>Multi-attribute scoring: price, quality, delivery, compliance</li>
+          <li>Apply auction strategy logic to rank partial orders</li>
+        </ul>
+      </div>
+
+      <div class="req-card r4 fade-in">
+        <div class="req-num">Requirement 5 — Post-MVP</div>
+        <h3>Supplier Review &amp; Risk</h3>
+        <div class="pain">"Identifying and mitigating risks associated with suppliers is challenging without comprehensive, real-time data analysis."</div>
+        <ul>
+          <li>Real-time supplier risk signals</li>
+          <li>Geopolitical and financial exposure analysis</li>
+          <li>Fraud and anomaly detection in bidding patterns</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- MoSCoW -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-top:2.75rem;margin-bottom:1.1rem;color:var(--gray-900);">Feature Prioritisation — MoSCoW</h3>
+    <div class="moscow-grid">
+      <div class="moscow-card fade-in" style="background:#fff0f0;border-color:#fecdd3;">
+        <h4 style="color:#9b1c1c;">Must Have</h4>
+        <ul>
+          <li style="color:#7f1d1d;">Historical Auction Data Analysis</li>
+          <li style="color:#7f1d1d;">Multi-Round Auction Optimisation</li>
+          <li style="color:#7f1d1d;">Bid Evaluation &amp; Scoring</li>
+          <li style="color:#7f1d1d;">Negotiation Insights on UI</li>
+        </ul>
+      </div>
+      <div class="moscow-card fade-in" style="background:#fffbeb;border-color:#fde68a;">
+        <h4 style="color:#92400e;">Should Have</h4>
+        <ul>
+          <li style="color:#78350f;">Dynamic Pricing Models</li>
+          <li style="color:#78350f;">Real-time Risk Assessment</li>
+          <li style="color:#78350f;">Supplier Authenticity Grading</li>
+        </ul>
+      </div>
+      <div class="moscow-card fade-in" style="background:#f0fdf4;border-color:#bbf7d0;">
+        <h4 style="color:#065f46;">Could Have</h4>
+        <ul>
+          <li style="color:#064e3b;">Fraud Detection</li>
+          <li style="color:#064e3b;">AI-Driven Supplier Selection</li>
+          <li style="color:#064e3b;">Automated Compliance Checks</li>
+        </ul>
+      </div>
+      <div class="moscow-card fade-in" style="background:var(--gray-100);border-color:var(--gray-200);">
+        <h4 style="color:var(--gray-600);">Won't Have</h4>
+        <ul>
+          <li style="color:var(--gray-600);">Blockchain-Based Supplier Verification</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PRD Roadmap -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Product Roadmap (PRD)</h3>
+    <div style="overflow-x:auto;" class="fade-in">
+      <table class="roadmap-table">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Feature</th>
+            <th>Why Build This</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="p-badge p1">P1</span></td>
+            <td>Detection of Past Purchase Order</td>
+            <td>Items lack codes/serial numbers — ML detects them from text</td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td><span class="p-badge p1">P1</span></td>
+            <td>Rank Supplier by History</td>
+            <td>Makes comparison easy; surfaces historical performance fast</td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td><span class="p-badge p2">P2</span></td>
+            <td>Recommend Next Step in Multi-Round Auction</td>
+            <td>Reward / Bargain recommendation with market price reasoning</td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td><span class="p-badge p3">P3</span></td>
+            <td>Comparison for Multiple Supplier Partial Orders</td>
+            <td>Accurate cross-supplier comparison for split-order scenarios</td>
+            <td>Q1 2026</td>
+          </tr>
+          <tr>
+            <td><span class="p-badge p4">P4</span></td>
+            <td>Supplier Authenticity &amp; Grading</td>
+            <td>Vendor location + past rewards/discounts = accurate grading</td>
+            <td>Q2 2026</td>
+          </tr>
+          <tr>
+            <td><span class="p-badge p4">Post</span></td>
+            <td>Real-time Risk &amp; Fraud Detection</td>
+            <td>Geopolitical signals + anomaly detection for supplier risk</td>
+            <td>Q2 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2 class="section-title">POC Architecture on SAP BTP</h2>
+    <p class="section-sub">
+      Entirely on SAP BTP — Ariba Open API ingests live bid and market data into SAP HANA Cloud,
+      where AI Core and AI PAL run the grading model. OpenAI GPT handles NLP-based negotiation
+      insights. ReactJS surfaces recommendations directly in the procurement workflow.
+    </p>
+
+    <!-- Tech Stack -->
+    <div style="background:var(--gray-100);border-radius:var(--radius);padding:1.35rem 1.5rem;margin-bottom:2.5rem;border:1px solid var(--gray-200);" class="fade-in">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.75rem;">Tech Stack</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP Ariba Open API</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP HANA Cloud DB</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP AI Core</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP AI PAL</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP AI Launchpad — HANA Model</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">OpenAI GPT (NLP)</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">Vector DB (HANA-based)</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">ReactJS</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">Node.js</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP BTP</span>
+      </div>
+    </div>
+
+    <!-- Data Flow -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Data Flow</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2.5rem;">
+
+      <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.25rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);border-top:3px solid var(--sap-blue);">
+        <div style="font-size:1.4rem;margin-bottom:.5rem;">📡</div>
+        <h4 style="font-size:.875rem;font-weight:700;color:var(--gray-900);margin-bottom:.3rem;">Ariba Open API</h4>
+        <p style="font-size:.78rem;color:var(--gray-600);">Pulls real-time bid data, market demand, commodity trends, and supplier details from live sourcing events.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.25rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);border-top:3px solid var(--sap-teal);">
+        <div style="font-size:1.4rem;margin-bottom:.5rem;">🗄️</div>
+        <h4 style="font-size:.875rem;font-weight:700;color:var(--gray-900);margin-bottom:.3rem;">SAP HANA Cloud DB</h4>
+        <p style="font-size:.78rem;color:var(--gray-600);">Stores baseline prices, historical bidding event records for similar items and suppliers, and vector embeddings for semantic search.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.25rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);border-top:3px solid var(--green);">
+        <div style="font-size:1.4rem;margin-bottom:.5rem;">🤖</div>
+        <h4 style="font-size:.875rem;font-weight:700;color:var(--gray-900);margin-bottom:.3rem;">AI Core / AI PAL + GPT</h4>
+        <p style="font-size:.78rem;color:var(--gray-600);">Runs the grading model, detects BAFO patterns, and generates Reward / Bargain recommendations with reasoning. GPT handles NLP-based negotiation insights.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.25rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);border-top:3px solid var(--accent);">
+        <div style="font-size:1.4rem;margin-bottom:.5rem;">📊</div>
+        <h4 style="font-size:.875rem;font-weight:700;color:var(--gray-900);margin-bottom:.3rem;">Comparison Layer</h4>
+        <p style="font-size:.78rem;color:var(--gray-600);">Surfaces side-by-side supplier scoring with profit margin, market trend delta, and baseline price context on a ReactJS dashboard.</p>
+      </div>
+
+    </div>
+
+    <!-- Architecture Decision -->
+    <div class="fade-in" style="background:var(--sap-light);border-radius:var(--radius);padding:1.35rem 1.5rem;border-left:4px solid var(--sap-blue);">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sap-blue);margin-bottom:.4rem;">Key Architecture Decision</div>
+      <p style="font-size:.875rem;color:var(--gray-700);">
+        <strong>TASK-2:</strong> Build an Analysis model based on the Instruction Document provided in each sourcing event —
+        using bidding event history for similar objects and suppliers to generate context-aware recommendations
+        directly within the Ariba workflow. Frontend inputs: Purchase Order Item, Quantity, Amount, and Supplier selection.
+        Output: a recommendation with the full reason for "Reward" or "Bargain" on the next round.
+      </p>
+    </div>
+
+    <!-- Architecture Evolution -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-top:2.75rem;margin-bottom:1.1rem;color:var(--gray-900);">Architecture Evolution — From Concept to RAG Pipeline</h3>
+
+    <!-- Arch 3: Recommendation Engine Logic -->
+    <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.5rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);margin-bottom:1.25rem;">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sap-teal);margin-bottom:.75rem;">Recommendation Engine — Data Flow Logic</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.75rem;align-items:center;">
+        <div style="background:var(--gray-50);border-radius:10px;padding:1rem;border:1px solid var(--gray-200);">
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-600);margin-bottom:.5rem;">History Inputs</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.25rem;">
+            <li style="font-size:.75rem;color:var(--gray-700);">• Bidding event for similar object &amp; supplier</li>
+            <li style="font-size:.75rem;color:var(--gray-700);">• Time spent</li>
+            <li style="font-size:.75rem;color:var(--gray-700);">• Content details</li>
+          </ul>
+        </div>
+        <div style="font-size:1.2rem;color:var(--sap-blue);">→</div>
+        <div style="background:var(--sap-light);border-radius:10px;padding:1rem;border:1px solid #bfdbfe;text-align:center;">
+          <div style="font-size:.8rem;font-weight:700;color:var(--sap-blue);">History Data</div>
+          <div style="margin:.4rem 0;font-size:1rem;color:var(--sap-teal);">+</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--sap-blue);">Current Data</div>
+        </div>
+        <div style="font-size:1.2rem;color:var(--sap-blue);">→</div>
+        <div style="background:#f0fdf4;border-radius:10px;padding:1rem;border:1px solid #bbf7d0;">
+          <div style="font-size:.72rem;font-weight:700;color:#065f46;margin-bottom:.5rem;">AI Recommendation Output</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.25rem;">
+            <li style="font-size:.75rem;color:#064e3b;">• Trend Overall</li>
+            <li style="font-size:.75rem;color:#064e3b;">• Trend for each item</li>
+            <li style="font-size:.75rem;color:#064e3b;">• Freeze / Close</li>
+            <li style="font-size:.75rem;color:#064e3b;">• Next Round / Surrogate</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:.75rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <div style="background:var(--gray-50);border-radius:8px;padding:.5rem .85rem;border:1px solid var(--gray-200);">
+          <span style="font-size:.72rem;color:var(--gray-600);">Current Inputs: </span>
+          <span style="font-size:.72rem;font-weight:600;color:var(--gray-700);">Market Demand / Market Trend · Grade for Terms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arch 4: RAG Pipeline -->
+    <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.5rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);margin-bottom:1.25rem;">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:.75rem;">RAG Pipeline — HANA Vector DB Architecture</div>
+      <div style="display:grid;grid-template-columns:auto auto 1fr;gap:1rem;align-items:start;">
+        <div style="display:flex;flex-direction:column;gap:.5rem;align-items:center;">
+          <div style="background:#fef3c7;border-radius:8px;padding:.5rem .85rem;font-size:.8rem;font-weight:700;color:#92400e;border:1px solid #fde68a;">CSV</div>
+          <div style="font-size:1rem;color:var(--sap-blue);">↓</div>
+          <div style="background:#d1fae5;border-radius:8px;padding:.5rem .85rem;font-size:.8rem;font-weight:700;color:#065f46;border:1px solid #bbf7d0;text-align:center;">SAP System</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:1.2rem;color:var(--sap-blue);padding-top:1.5rem;">→</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+          <div style="background:#d1fae5;border-radius:10px;padding:1rem;border:1px solid #bbf7d0;grid-column:1/-1;text-align:center;">
+            <div style="font-size:.9rem;font-weight:800;color:#065f46;">RAG — HANA Vector DB</div>
+            <div style="font-size:.75rem;color:#047857;margin-top:.2rem;">Semantic search over historical pricing &amp; event data</div>
+          </div>
+          <div style="background:var(--gray-50);border-radius:10px;padding:.85rem;border:1px solid var(--gray-200);">
+            <div style="font-size:.72rem;font-weight:700;color:var(--sap-blue);margin-bottom:.4rem;">Model 1 — Item Matching</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:.2rem;">
+              <li style="font-size:.75rem;color:var(--gray-700);">• Description</li>
+              <li style="font-size:.75rem;color:var(--gray-700);">• Material Group</li>
+              <li style="font-size:.75rem;color:var(--gray-700);">• HSN Code</li>
+            </ul>
+          </div>
+          <div style="background:var(--gray-50);border-radius:10px;padding:.85rem;border:1px solid var(--gray-200);">
+            <div style="font-size:.72rem;font-weight:700;color:var(--sap-teal);margin-bottom:.4rem;">Model 2 — Market Context</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:.2rem;">
+              <li style="font-size:.75rem;color:var(--gray-700);">• Market Trend</li>
+              <li style="font-size:.75rem;color:var(--gray-700);">• Created Date</li>
+              <li style="font-size:.75rem;color:var(--gray-700);">• Amount</li>
+              <li style="font-size:.75rem;color:var(--gray-700);">• Location</li>
+            </ul>
+          </div>
+          <div style="background:var(--sap-light);border-radius:10px;padding:.85rem;border:1px solid #bfdbfe;grid-column:1/-1;">
+            <div style="font-size:.72rem;font-weight:700;color:var(--sap-blue);margin-bottom:.3rem;">Interface Inputs (from UI)</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.35rem;">
+              <span class="tag">Amount</span><span class="tag">Description</span><span class="tag">Material Group</span><span class="tag">HSN Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution Tech Stack -->
+    <div class="fade-in" style="background:var(--gray-100);border-radius:var(--radius);padding:1.35rem 1.5rem;border:1px solid var(--gray-200);margin-bottom:1.25rem;">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.75rem;">Solution Implementation Stack</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.85rem;">
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">Java · Spring Boot</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">Python</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP Data Intelligence</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">HANA Vector DB (RAG)</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">Ariba Open API</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">External Data API (Market Trends)</span>
+        <span style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.3rem .85rem;font-size:.8rem;font-weight:600;color:var(--gray-700);box-shadow:var(--shadow-sm);">SAP Form · SAC for Business Insights</span>
+      </div>
+      <div style="font-size:.8rem;color:var(--gray-600);border-top:1px solid var(--gray-200);padding-top:.75rem;">
+        <strong style="color:var(--gray-700);">Must Haves:</strong> Market Trends &amp; Supplier Data → Data Integration → Pre-processing → Feature Engineering → Model Training → Model Deployment → SAP Form/SAC for Business Insights (contextual menu)
+      </div>
+    </div>
+
+    <!-- ITC Context -->
+    <div class="fade-in" style="background:#fff;border-radius:var(--radius);padding:1.35rem 1.5rem;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;">ITC Pilot Context — Enterprise System Integration</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+        <div>
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;">Source Systems</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.25rem;">
+            <li style="font-size:.78rem;color:var(--gray-700);">• Oracle iPMK ECC</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">• Oracle System</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">• SAP Ariba</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;">Item Enrichment</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.25rem;">
+            <li style="font-size:.78rem;color:var(--gray-700);">• Location · Frequency · Codified flag</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">• Insights for codified items</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">• Identify procurement category</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">• Show top 5 vendors</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;">Joule Query Examples</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.25rem;">
+            <li style="font-size:.78rem;color:var(--gray-700);">Q: Guided Bump?</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">Q: Top 3 vendor list</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">Q: Best deal?</li>
+            <li style="font-size:.78rem;color:var(--gray-700);">→ Purchase order created</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- TEAM -->
+<section>
+  <div class="container">
+    <div class="section-label">Team</div>
+    <h2 class="section-title">SAP ISBN Team 14</h2>
+    <p class="section-sub">10-person cross-functional team spanning product, development, and QA — PRD and SDD co-authored by Sanket Kamble and Sukumar Batchu.</p>
+    <div class="team-grid">
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:var(--sap-blue);">SK</div>
+        <div><h4>Sanket Kamble</h4><p>PM Trainee</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:#6366f1;">MT</div>
+        <div><h4>Meenakumari Thanikanti</h4><p>Product Manager</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:var(--sap-teal);">AS</div>
+        <div><h4>Aditya Shrivastav</h4><p>Team Lead &amp; Architect</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:var(--green);">SB</div>
+        <div><h4>Sukumar Batchu</h4><p>Developer · SDD Co-Author</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:#0891b2;">BR</div>
+        <div><h4>Bindu Ramchandran</h4><p>Developer</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:var(--accent);">AK</div>
+        <div><h4>Abhinav Kumar</h4><p>Developer</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:#7c3aed;">SR</div>
+        <div><h4>HR Srinidhi</h4><p>Developer</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:#be185d;">RM</div>
+        <div><h4>Rahul Mishra</h4><p>Developer</p></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar" style="background:#059669;">DN</div>
+        <div><h4>Devraj Naveen Kumar</h4><p>Developer</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Deliverables</div>
+    <h2 class="section-title">What Was Shipped</h2>
+    <p class="section-sub">Seven documented artefacts produced across the programme — from initial research through to a live POC with three demo recordings.</p>
+    <div class="artifacts-grid">
+      <div class="artifact fade-in">
+        <div class="artifact-icon">📊</div>
+        <div><h4>Presentation.pptx</h4><p>8-slide product pitch covering vision, journey, requirements, and architecture</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">🎯</div>
+        <div><h4>Recommendation Ariba Sourcing (2026)</h4><p>11-slide deep-dive covering problem statement, JTBD framework, persona pain points, architecture evolution (RAG pipeline, HANA Vector DB, Model 1 &amp; 2), solution stack, and ITC pilot context — authored by Use Case Owner Chia, Jia Yi</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">💡</div>
+        <div><h4>Agentic AI Idea.pptx</h4><p>EffiSource AI concept deep-dive — agentic flow, NLP bid processing, and UI interaction</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">📋</div>
+        <div><h4>PRD</h4><p>Full product requirements: MoSCoW, roadmap, success metrics, risk &amp; mitigation, Figma link</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">🏗️</div>
+        <div><h4>SDD (Software Design Description)</h4><p>Architecture, data flow, microservices design, API contracts, and integration with Ariba</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">🚀</div>
+        <div><h4>GTM Draft</h4><p>Three-phase go-to-market, pricing tiers, TAM/SAM/SOM, KPIs, and competitive positioning</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">🔬</div>
+        <div><h4>Background Research</h4><p>Problem analysis, market context, and pain-point synthesis that grounded all requirement decisions</p></div>
+      </div>
+      <div class="artifact fade-in">
+        <div class="artifact-icon">🎬</div>
+        <div>
+          <h4>3 Demo Videos</h4>
+          <p>Use case walkthrough · Detection demo · Bid analysis &amp; wireframe tour (900 MB total)</p>
+          <div style="margin-top:.65rem;padding:.6rem .85rem;background:#fff8e1;border-radius:8px;border:1px solid #fde68a;display:inline-flex;align-items:flex-start;gap:.5rem;">
+            <span style="font-size:.75rem;">🔒</span>
+            <span style="font-size:.72rem;color:#92400e;font-weight:600;">SAP employees only</span>
+          </div>
+          <div style="margin-top:.5rem;display:flex;flex-direction:column;gap:.35rem;">
+            <a href="https://sap-my.sharepoint.com/:f:/r/personal/sanket_kamble_sap_com/Documents/ISBN%20Use%20Case/DEMO?csf=1&web=1&e=6Vs9ox"
+               target="_blank"
+               style="font-size:.78rem;font-weight:600;color:var(--sap-blue);display:inline-flex;align-items:center;gap:.3rem;">
+              📁 All Demo Videos (SharePoint folder) ↗
+            </a>
+            <a href="https://sap-my.sharepoint.com/:v:/r/personal/sanket_kamble_sap_com/Documents/ISBN%20Use%20Case/DEMO/3AnalysisandWireframeDemo.mov?csf=1&web=1&e=XvtDY9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D"
+               target="_blank"
+               style="font-size:.78rem;font-weight:600;color:var(--sap-blue);display:inline-flex;align-items:center;gap:.3rem;">
+              ▶ Demo 3 — Analysis &amp; Wireframe Walkthrough ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Solution Design</div>
+    <h2 class="section-title">EffiSource AI — Screen Designs</h2>
+    <p class="section-sub">
+      Figma wireframes for the POC — Guided Events dashboard, Event detail with supplier analysis, and the Joule AI assistant conversation flow.
+    </p>
+
+    <!-- Tab switcher -->
+    <div class="solution-tabs">
+      <button class="sol-tab active" onclick="switchScreen('screen-events', this)">Guided Events</button>
+      <button class="sol-tab" onclick="switchScreen('screen-event-detail', this)">Event Detail</button>
+      <button class="sol-tab" onclick="switchScreen('screen-joule', this)">Joule AI Assistant</button>
+    </div>
+
+    <!-- ── SCREEN 1: Guided Events Dashboard ── -->
+    <div class="sol-screen active" id="screen-events">
+      <div class="screen-frame">
+        <img src="screens/screen-ListReport.png" alt="Guided Events — AI Recommendations Dashboard" />
+      </div>
+      <p class="screen-caption">Guided Events list view showing AI-recommended next actions (Multi-Round Bidding, Award) with profit opportunity indicators per event.</p>
+    </div>
+
+    <!-- ── SCREEN 2: Event Detail + Suppliers Analysis ── -->
+    <div class="sol-screen" id="screen-event-detail">
+      <div class="screen-frame">
+        <img src="screens/screen-Frame1.png" alt="Event Detail — General Information and Supplier Bids" />
+      </div>
+      <p class="screen-caption">Event 11212 detail view — General Information tab showing selected suppliers with AI recommendation labels (Premium, Closer to Market) and bid values.</p>
+      <div class="screen-frame" style="margin-top:1.25rem;">
+        <img src="screens/screen-Frame1511076960.png" alt="Suppliers Analysis — AI Recommendation Panel" />
+      </div>
+      <p class="screen-caption">Suppliers Analysis tab — AI recommendation panel advising to proceed to next round of bidding with specific per-supplier guidance.</p>
+    </div>
+
+    <!-- ── SCREEN 3: Joule AI Assistant Flow ── -->
+    <div class="sol-screen" id="screen-joule">
+      <p style="font-size:.82rem;color:var(--gray-600);margin-bottom:1.25rem;">Joule AI assistant conversation — user asks for top 3 suppliers in Event1212. The agent searches vendors, checks product availability, fetches best prices, then surfaces a ranked supplier list with pricing and delivery details.</p>
+      <div class="joule-flow">
+        <div class="joule-step">
+          <div class="joule-step-label">1 — Query</div>
+          <img src="screens/screen-2.png" alt="Joule: user sends query" />
+        </div>
+        <div class="joule-step">
+          <div class="joule-step-label">2 — Searching</div>
+          <img src="screens/screen-5.png" alt="Joule: searching vendors" />
+        </div>
+        <div class="joule-step">
+          <div class="joule-step-label">3 — Checking</div>
+          <img src="screens/screen-6.png" alt="Joule: checking products" />
+        </div>
+        <div class="joule-step">
+          <div class="joule-step-label">4 — Pricing</div>
+          <img src="screens/screen-7.png" alt="Joule: getting best prices" />
+        </div>
+        <div class="joule-step">
+          <div class="joule-step-label">5 — Results</div>
+          <img src="screens/screen-9.png" alt="Joule: top 3 suppliers ranked" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Links row: Figma + Demo Videos -->
+    <div style="margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:stretch;">
+
+      <!-- Figma link -->
+      <div style="display:flex;align-items:center;gap:.6rem;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:.7rem 1rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray-400);flex-shrink:0;"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
+        <span style="font-size:.78rem;color:var(--gray-600);">Designs in Figma —</span>
+        <a href="https://www.figma.com/design/lVc15kJllhdwngzmYPjISt/POC%7C-Ariba?node-id=89-46661" target="_blank" style="font-size:.78rem;font-weight:600;color:var(--sap-blue);">POC | Ariba · Wireframes ↗</a>
+      </div>
+
+      <!-- Demo Videos — SAP employees only -->
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:.7rem 1rem;display:flex;flex-direction:column;gap:.5rem;">
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <span style="font-size:.8rem;">🎬</span>
+          <span style="font-size:.78rem;font-weight:700;color:var(--gray-900);">Demo Videos</span>
+          <span style="background:#fef3c7;border:1px solid #fde68a;border-radius:100px;padding:.1rem .55rem;font-size:.65rem;font-weight:700;color:#92400e;letter-spacing:.04em;">🔒 SAP EMPLOYEES ONLY</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.3rem;">
+          <a href="https://sap-my.sharepoint.com/:f:/r/personal/sanket_kamble_sap_com/Documents/ISBN%20Use%20Case/DEMO?csf=1&web=1&e=6Vs9ox"
+             target="_blank"
+             style="font-size:.78rem;font-weight:600;color:var(--sap-blue);display:inline-flex;align-items:center;gap:.3rem;">
+            📁 All Demo Videos — SharePoint folder ↗
+          </a>
+          <a href="https://sap-my.sharepoint.com/:v:/r/personal/sanket_kamble_sap_com/Documents/ISBN%20Use%20Case/DEMO/3AnalysisandWireframeDemo.mov?csf=1&web=1&e=XvtDY9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D"
+             target="_blank"
+             style="font-size:.78rem;font-weight:600;color:var(--sap-blue);display:inline-flex;align-items:center;gap:.3rem;">
+            ▶ Demo 3 — Analysis &amp; Wireframe Walkthrough ↗
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GTM -->
+<section id="gtm" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Go-To-Market Strategy</div>
+    <h2 class="section-title">From POC to Market</h2>
+    <p class="section-sub">
+      Three-phase GTM targeting SAP Ariba enterprise customers — starting with PoC validation,
+      moving to SAP Store listing, and scaling through the SAP partner ecosystem.
+    </p>
+
+    <!-- Impact Metrics -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">Projected Business Impact</h3>
+    <div class="metrics-row">
+      <div class="metric-card fade-in">
+        <div class="big">80%</div>
+        <div class="label">Faster bid evaluation (2–3 days vs. weeks)</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="big">>25%</div>
+        <div class="label">Increase in decision accuracy (AI vs. manual scoring)</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="big">>30%</div>
+        <div class="label">Reduction in manual supplier qualification effort</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="big">>15%</div>
+        <div class="label">Improvement in contract value via AI negotiation support</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="big">$500B</div>
+        <div class="label">Global TAM — procurement &amp; auction market</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="big">$150B</div>
+        <div class="label">SAM — enterprises on SAP Ariba</div>
+      </div>
+    </div>
+
+    <!-- GTM Phases -->
+    <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:var(--gray-900);">GTM Phases</h3>
+    <div class="gtm-grid">
+
+      <div class="gtm-card fade-in">
+        <div class="phase-tag">Phase 1 · Q2 2025</div>
+        <h4>Awareness &amp; PoC Validation</h4>
+        <p>Launch thought leadership content, webinars, and whitepapers. Engage early adopters from the SAP ISBN network to validate the PoC with real procurement teams.</p>
+        <div class="tag-list"><span class="tag">Thought Leadership</span><span class="tag">Early Adopters</span></div>
+      </div>
+
+      <div class="gtm-card g2 fade-in">
+        <div class="phase-tag">Phase 2 · Q3 2025</div>
+        <h4>Early Adoption &amp; SAP Store</h4>
+        <p>Convert PoC users to paying customers. Initiate SAP Store listing and SAP certification process. LinkedIn Ads targeting CPOs and Procurement Heads.</p>
+        <div class="tag-list"><span class="tag">SAP Store</span><span class="tag">Paid Customers</span></div>
+      </div>
+
+      <div class="gtm-card g3 fade-in">
+        <div class="phase-tag">Phase 3 · Q4 2025 – Q2 2026</div>
+        <h4>Ecosystem Expansion</h4>
+        <p>Scale through SAP implementation partner resellers and procurement consultants. Introduce AI enhancements (fraud detection, risk scoring) based on user feedback.</p>
+        <div class="tag-list"><span class="tag green">Partner Resellers</span><span class="tag">AI Enhancements</span></div>
+      </div>
+
+    </div>
+
+    <!-- Pricing -->
+    <div class="fade-in" style="background:var(--gray-100);border-radius:var(--radius);padding:1.35rem 1.5rem;border:1px solid var(--gray-200);margin-top:2rem;">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.75rem;">Pricing Model</div>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+        <div style="background:#fff;border-radius:10px;padding:1rem 1.25rem;border:1px solid var(--gray-200);flex:1;min-width:160px;">
+          <div style="font-size:.72rem;font-weight:700;color:var(--sap-blue);margin-bottom:.3rem;">BASIC</div>
+          <div style="font-size:.82rem;color:var(--gray-700);">AI Supplier Selection + Bid Analysis</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:1rem 1.25rem;border:1px solid var(--sap-blue);flex:1;min-width:160px;">
+          <div style="font-size:.72rem;font-weight:700;color:var(--sap-blue);margin-bottom:.3rem;">PROFESSIONAL</div>
+          <div style="font-size:.82rem;color:var(--gray-700);">Basic + Fraud Detection + Risk Assessment</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:1rem 1.25rem;border:1px solid var(--sap-teal);flex:1;min-width:160px;">
+          <div style="font-size:.72rem;font-weight:700;color:var(--sap-teal);margin-bottom:.3rem;">ENTERPRISE</div>
+          <div style="font-size:.82rem;color:var(--gray-700);">Full feature set · Dedicated support · Custom integrations</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:1rem 1.25rem;border:1px solid var(--gray-200);flex:1;min-width:160px;">
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-600);margin-bottom:.3rem;">PAY-PER-USE</div>
+          <div style="font-size:.82rem;color:var(--gray-700);">Transaction-based for high-volume procurement users</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- POC -->
+<section id="poc">
+  <div class="container">
+    <div class="section-label">POC</div>
+    <h2 class="section-title">Proof of Concept</h2>
+    <div class="fade-in" style="background:linear-gradient(135deg,var(--sap-dark),#003d99);border-radius:var(--radius);padding:2rem 2.25rem;color:#fff;max-width:760px;">
+      <p style="font-size:1rem;font-weight:600;margin-bottom:.75rem;color:#7dd3fc;">This was a POC (Proof of Concept)</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.82);line-height:1.7;">
+        EffiSource AI was developed as a time-boxed proof of concept within the SAP ISBN programme.
+        The team built and demonstrated the core AI recommendation engine — bid grading, pricing history lookup,
+        BAFO pattern detection, and multi-round auction guidance — entirely on SAP BTP with a live Ariba Open API
+        integration. The POC validated end-to-end feasibility across three structured demo recordings before
+        any production commitment, and produced a complete set of artefacts (PRD, SDD, GTM) ready for a
+        potential productisation decision.
+      </p>
+      <div class="tag-list" style="margin-top:1rem;">
+        <span class="tag" style="background:rgba(255,255,255,.15);color:#fff;">POC — Feasibility Validated</span>
+        <span class="tag" style="background:rgba(255,255,255,.15);color:#fff;">SAP ISBN Programme</span>
+        <span class="tag" style="background:rgba(255,255,255,.15);color:#fff;">SAP BTP · AI Core</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Learnings</div>
+    <h2 class="section-title">What I Took Away</h2>
+    <p class="section-sub">
+      Key PM skills built through driving this initiative — from use case brief to shipped POC
+      with a full product artefact suite.
+    </p>
+    <div class="reflection-card">
+      <h3>Skills Developed as PM Trainee on EffiSource AI</h3>
+      <div class="ref-grid">
+        <div class="ref-item">
+          <h4>Discovery &amp; Synthesis</h4>
+          <p>Extracted signal from stakeholder conversations and translated pain points into three MVP requirements with clear rationale backed by PRD documentation.</p>
+        </div>
+        <div class="ref-item">
+          <h4>Requirement Prioritisation</h4>
+          <p>Applied MoSCoW to scope the MVP — keeping Supplier Risk for post-MVP based on delivery complexity — and built the roadmap with phased P1–P4 priority tiers.</p>
+        </div>
+        <div class="ref-item">
+          <h4>Technical Fluency</h4>
+          <p>Co-authored the SDD with the lead developer. Worked across the BTP stack — HANA DB, AI Core, AI PAL, Ariba Open API, Vector DB — to ensure requirements were technically grounded.</p>
+        </div>
+        <div class="ref-item">
+          <h4>User Journey Mapping</h4>
+          <p>Documented the current-state 5-step manual auction flow to identify precisely where AI adds the most leverage — directly informing the four AI intervention points.</p>
+        </div>
+        <div class="ref-item">
+          <h4>GTM Thinking</h4>
+          <p>Produced a full GTM strategy — TAM/SAM/SOM sizing, three-phase rollout, subscription pricing model, and competitive positioning against the SAP Ariba ecosystem.</p>
+        </div>
+        <div class="ref-item">
+          <h4>End-to-End Ownership</h4>
+          <p>Owned the product from the first use case brief through architecture decisions, PRD, GTM, POC delivery, and three live demo recordings — 7 artefacts in total.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>Sanket Kamble</strong> — PM Trainee, SAP ISBN Team 14 ·
+    EffiSource AI · SAP Ariba Use Case 09 · Guided Buying in Multi-Round Auction
+  </p>
+  <p style="margin-top:.5rem;">
+    Artefacts: Presentation.pptx · Recommendation Ariba Sourcing · Agentic AI_Idea.pptx · Background Research · PRD · SDD · GTM Strategy · 3 Demo Videos
+  </p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Nav scroll-spy — uses .active class so CSS handles all styling
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  let scrollLocked = false;
+
+  function updateNav() {
+    if (scrollLocked) return;
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    links.forEach(a => {
+      const isActive = a.getAttribute('href') === '#' + cur;
+      a.classList.toggle('active', isActive);
+    });
+  }
+
+  // On nav click: immediately set active + suppress scroll-spy for 800ms
+  links.forEach(a => {
+    a.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      a.classList.add('active');
+      scrollLocked = true;
+      setTimeout(() => { scrollLocked = false; updateNav(); }, 800);
+    });
+  });
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Solution screen tab switcher
+  function switchScreen(id, el) {
+    document.querySelectorAll('.sol-screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sol-tab').forEach(b => b.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    if (el) el.classList.add('active');
+  }
+</script>
+</body>
+</html>
