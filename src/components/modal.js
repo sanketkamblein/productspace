@@ -28,6 +28,14 @@ function openProject(projectId, tileElement) {
 
   // Populate 3 screen tiles with the same image
   const imgSrc = (project.images && project.images.length) ? project.images[0] : (project.image || "")
+  const strip = document.getElementById("modalImageStrip")
+  strip.style.padding = ""
+  strip.style.gap = ""
+  strip.style.background = ""
+  strip.innerHTML = `
+    <div class="modal-screen-tile"><img src="" alt="" id="modalImg0"></div>
+    <div class="modal-screen-tile"><img src="" alt="" id="modalImg1"></div>
+    <div class="modal-screen-tile"><img src="" alt="" id="modalImg2"></div>`
   ;["modalImg0", "modalImg1", "modalImg2"].forEach(id => {
     const el = document.getElementById(id)
     el.src = imgSrc

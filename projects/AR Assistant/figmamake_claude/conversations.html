@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversations — Joule Engagement Layer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page-container">
+  <!-- Vertical Nav injected by nav.js -->
+
+  <!-- Main Panel -->
+  <div class="main-panel">
+    <!-- Left: Conversations List -->
+    <div class="sub-nav">
+      <div class="sub-nav-header">
+        <span class="sub-nav-title">Conversations</span>
+        <div class="sub-nav-actions">
+          <button class="icon-btn" title="Search">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="7" cy="7" r="5" stroke="#556B82" stroke-width="1.5"/>
+              <path d="M11 11l3 3" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn" title="Filter">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <a href="conversations.html" class="new-btn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        New Conversation
+      </a>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterConvs('all', this)">All</button>
+        <button class="filter-tab" onclick="filterConvs('ar', this)">AR &amp; Receivables</button>
+        <button class="filter-tab" onclick="filterConvs('analysis', this)">Analysis</button>
+      </div>
+
+      <div class="sub-nav-list" id="convList">
+        <!-- Conversations injected by JS -->
+      </div>
+    </div>
+
+    <!-- Right: Conversation Content -->
+    <div class="content-area">
+      <header class="content-header">
+        <div class="flex items-center gap-12">
+          <a href="conversations.html" class="icon-btn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 3L4 8l6 5" stroke="#131E29" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <h1 class="content-header-title" id="convTitle">Cash Flow Analysis</h1>
+        </div>
+        <div class="flex items-center gap-8">
+          <button class="btn-secondary" style="font-size:13px">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M7 1l6 6-6 6" stroke="#0070F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Share
+          </button>
+          <button class="icon-btn">
+            <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
+              <circle cx="2" cy="2" r="1.5" fill="#848484"/>
+              <circle cx="8" cy="2" r="1.5" fill="#848484"/>
+              <circle cx="14" cy="2" r="1.5" fill="#848484"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Messages -->
+      <div class="chat-container scrollable" id="chatContainer">
+        <!-- Messages rendered by JS -->
+      </div>
+
+      <!-- Joule Input -->
+      <div class="joule-input-wrapper">
+        <div class="joule-input-box">
+          <div class="joule-input-text-row">
+            <input class="joule-input-field" type="text" placeholder="Ask Joule or create anything" id="jouleInput">
+          </div>
+          <div class="joule-input-icons">
+            <div class="joule-input-icons-left">
+              <button class="input-action-btn" title="Attach">
+                <img src="assets/attachments-button.svg" width="20" height="20" alt="Attach">
+              </button>
+              <button class="input-action-btn" title="Tools">
+                <img src="assets/tools-button.svg" width="20" height="20" alt="Tools">
+              </button>
+            </div>
+            <div class="joule-input-icons-right">
+              <button class="input-action-btn" title="Voice">
+                <img src="assets/mic.svg" width="20" height="20" alt="Mic">
+              </button>
+              <button class="input-action-btn" title="Send" id="sendBtn" onclick="handleSend()">
+                <img src="assets/send-button.svg" width="20" height="20" alt="Send">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+// ── Data ─────────────────────────────────────────────────────────
+const CONVERSATIONS = [
+  {
+    id: 'cash-flow',
+    title: 'Cash Flow Analysis',
+    preview: 'What is our current cash flow variance vs. forecast this quarter?',
+    time: '2h ago',
+    category: 'analysis',
+    tag: 'Analysis'
+  },
+  {
+    id: 'dso-analysis',
+    title: 'DSO Trend Analysis',
+    preview: 'Why did our DSO increase from 42 to 51 days this quarter?',
+    time: '5h ago',
+    category: 'ar',
+    tag: 'AR'
+  },
+  {
+    id: 'meridian-dispute',
+    title: 'Meridian Holding Dispute',
+    preview: 'Help me resolve the open dispute with Meridian Holding for €14,580.',
+    time: '1d ago',
+    category: 'ar',
+    tag: 'AR'
+  },
+  {
+    id: 'collections-strategy',
+    title: 'Collections Strategy',
+    preview: 'Build a dunning strategy for overdue accounts above €10K.',
+    time: '2d ago',
+    category: 'ar',
+    tag: 'AR'
+  },
+  {
+    id: 'budget-variance',
+    title: 'Q4 Budget vs Actuals',
+    preview: 'Create a Q4 budget vs actuals variance report template.',
+    time: '3d ago',
+    category: 'analysis',
+    tag: 'Analysis'
+  },
+  {
+    id: 'working-capital',
+    title: 'Working Capital Dashboard',
+    preview: 'Build a working capital dashboard with DSO, DPO, and cash conversion.',
+    time: '4d ago',
+    category: 'analysis',
+    tag: 'Analysis'
+  },
+  {
+    id: 'compliance-check',
+    title: 'AR Compliance Review',
+    preview: 'Run a compliance check on AR processes vs. SOX requirements.',
+    time: '1w ago',
+    category: 'ar',
+    tag: 'Compliance'
+  },
+  {
+    id: 'process-automation',
+    title: 'Invoice Reminder Automation',
+    preview: 'Design an automated reminder workflow for overdue invoices.',
+    time: '1w ago',
+    category: 'ar',
+    tag: 'Automation'
+  }
+];
+
+const HISTORIES = {
+  'cash-flow': [
+    { sender: 'user', text: 'What is our current cash flow variance vs. forecast this quarter?', time: '10:32 AM' },
+    { sender: 'joule', text: 'Based on the latest SAP S/4HANA data, Q3 cash flow shows a **-8.2% variance** versus forecast. Key drivers:\n\n• Collections shortfall: €420K due to 3 disputed invoices\n• Early payment discounts taken unexpectedly: €85K\n• FX impact on EUR/USD receivables: €62K adverse\n\nThe largest single impact is the Meridian Holding dispute (€14,580) combined with TechPartner AG (€22,450).', time: '10:32 AM' },
+    { sender: 'user', text: 'What should we prioritize to close the gap?', time: '10:35 AM' },
+    { sender: 'joule', text: 'I recommend focusing on these 3 actions to close the €570K gap:\n\n**1. Resolve Meridian Holding dispute** (€14,580)\n→ SEPA mandate expired Feb 15 — draft renewal email now\n\n**2. Escalate TechPartner AG** (€22,450)\n→ 67 days overdue, no response to last 2 emails\n\n**3. Apply early settlement offers to top 5 accounts** (€180K+ potential)\n→ 2% 10/net 30 offer historically yields 68% take-up\n\nShould I draft the outreach emails for Meridian and TechPartner?', time: '10:35 AM' },
+    { sender: 'user', text: 'Yes, draft the Meridian email please.', time: '10:37 AM' },
+    { sender: 'joule', text: 'Here is a draft email for Meridian Holding:\n\n---\n**Subject**: SEPA Direct Debit Mandate Renewal Required — Account #MH-2024-0847\n\nDear Meridian Holding Finance Team,\n\nWe noticed our SEPA direct debit mandate (Ref: SDD-MH-291) expired on February 15, 2026. As a result, payment for Invoice INV-2026-0392 (€14,580 due March 1) could not be processed.\n\nTo resume automatic payments, please complete the attached mandate renewal form and return it within **5 business days**.\n\nFor questions, contact: ar-team@company.com\n\nBest regards,\nAR Collections Team\n\n---\n\nShall I send this or make any edits?', time: '10:38 AM' }
+  ],
+  'dso-analysis': [
+    { sender: 'user', text: 'Why did our DSO increase from 42 to 51 days this quarter?', time: '8:15 AM' },
+    { sender: 'joule', text: 'DSO increased **9 days** (from 42 to 51) in Q3. The root causes by contribution:\n\n| Factor | Impact |\n|--------|--------|\n| 3 large disputed invoices (>€10K) | +4.2 days |\n| Shift in customer mix (more net-60 terms) | +2.8 days |\n| Manual processing delays (understaffing) | +1.5 days |\n| Seasonal payment slowdown (Aug holidays) | +0.5 days |\n\nThe dispute backlog is the single largest driver and the most actionable.', time: '8:15 AM' },
+    { sender: 'user', text: 'What is the target DSO we should set?', time: '8:20 AM' },
+    { sender: 'joule', text: 'Based on your industry benchmark (B2B Finance, EUR market), a realistic target is **44 days** by end of Q4. This is achievable by:\n\n• Clearing the 5 high-value disputes: recovers ~3.5 days\n• Automating dunning reminders at days 10/20/30: ~1.5 days improvement\n• Offering early payment incentives to top 10 accounts: ~1 day\n\nAt €2.85M outstanding, each day of DSO reduction = ~€67K in cash recovery.', time: '8:21 AM' }
+  ],
+  'meridian-dispute': [
+    { sender: 'user', text: 'Help me resolve the open dispute with Meridian Holding for €14,580.', time: '2:00 PM' },
+    { sender: 'joule', text: 'I\'ve analyzed the Meridian Holding dispute (Case #20847). Here\'s the situation:\n\n**Root Cause**: SEPA mandate expired Feb 15, 2026\n**Invoice**: INV-2026-0392, €14,580, due March 1\n**Days overdue**: 47 days\n**Previous contact**: 2 emails sent, no response\n\n**Recommended Action**: Send SEPA mandate renewal request with a 5-business-day deadline before escalating to collections.\n\nWould you like me to draft the renewal request or view the full dispute details?', time: '2:00 PM' },
+    { sender: 'user', text: 'View full dispute details.', time: '2:02 PM' },
+    { sender: 'joule', text: 'Opening the Meridian Holding dispute workspace. You can see the full timeline, contact history, and recommended actions in the Spaces panel.', time: '2:02 PM' }
+  ],
+  'collections-strategy': [
+    { sender: 'user', text: 'Build a dunning strategy for overdue accounts above €10K.', time: '9:00 AM' },
+    { sender: 'joule', text: 'Here is a **4-level dunning strategy** for accounts >€10K:\n\n| Level | Trigger | Action | Tone |\n|-------|---------|--------|------|\n| L1 | Day 10 overdue | Auto email reminder | Friendly |\n| L2 | Day 20 overdue | Email + phone call | Firm |\n| L3 | Day 35 overdue | Formal notice letter | Urgent |\n| L4 | Day 50 overdue | Escalate to collections agency | Final |\n\nFor your current portfolio, **12 accounts** qualify (total: €387K). Shall I generate the outreach list?', time: '9:00 AM' }
+  ],
+  'budget-variance': [
+    { sender: 'user', text: 'Create a Q4 budget vs. actuals variance report template.', time: '11:00 AM' },
+    { sender: 'joule', text: 'I\'ve created a Q4 Budget vs. Actuals Variance Report template. It includes:\n\n• Revenue by segment (Budget / Actual / Variance / Variance %)\n• OPEX breakdown with explanations for variances >5%\n• AR/AP summary with DSO and DPO\n• Cash flow reconciliation\n• Executive commentary section\n\nThe template is linked to your SAP cost center hierarchy. Want me to populate it with Q3 actuals as a reference baseline?', time: '11:01 AM' }
+  ]
+};
+
+let currentConv = 'cash-flow';
+let allConvs = [...CONVERSATIONS];
+
+function renderConvList(filter) {
+  const list = document.getElementById('convList');
+  const filtered = filter === 'all' ? allConvs : allConvs.filter(c => c.category === filter);
+  list.innerHTML = filtered.map(c => `
+    <a href="#" class="conv-item ${c.id === currentConv ? 'active' : ''}" onclick="loadConv('${c.id}', this); return false;">
+      <div class="conv-item-title">${c.title}</div>
+      <div class="conv-item-preview">${c.preview}</div>
+      <div class="conv-item-meta">
+        <span class="conv-item-time">${c.time}</span>
+        <span class="conv-item-tag">${c.tag}</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+function loadConv(id, el) {
+  currentConv = id;
+  document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  const conv = CONVERSATIONS.find(c => c.id === id);
+  document.getElementById('convTitle').textContent = conv ? conv.title : 'Conversation';
+  renderMessages(id);
+}
+
+function renderMessages(id) {
+  const history = HISTORIES[id] || [];
+  const container = document.getElementById('chatContainer');
+
+  if (!history.length) {
+    container.innerHTML = `
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; color:#8a9ba8; text-align:center;">
+        <img src="assets/Joule_icon.svg" width="60" alt="Joule" style="margin-bottom:16px; opacity:0.5">
+        <p style="font-size:18px; font-weight:700; color:#556b82; margin-bottom:8px;">Start a conversation</p>
+        <p style="font-size:14px">Ask Joule anything about your AR, cash flow, or business analytics.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = history.map(msg => `
+    <div class="message ${msg.sender}">
+      ${msg.sender === 'joule' ? `
+        <div class="joule-avatar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" fill="white"/>
+          </svg>
+        </div>
+      ` : ''}
+      <div>
+        <div class="message-bubble">${formatText(msg.text)}</div>
+        <div class="message-time">${msg.time}</div>
+        ${msg.sender === 'joule' ? `
+          <div class="flex gap-8" style="margin-top:6px">
+            <button class="icon-btn" title="Copy" style="width:24px;height:24px">
+              <img src="assets/action-copy.svg" width="14" alt="Copy">
+            </button>
+            <button class="icon-btn" title="Like" style="width:24px;height:24px">
+              <img src="assets/action-like.svg" width="14" alt="Like">
+            </button>
+            <button class="icon-btn" title="Dislike" style="width:24px;height:24px">
+              <img src="assets/action-dislike.svg" width="14" alt="Dislike">
+            </button>
+            <button class="icon-btn" title="Refresh" style="width:24px;height:24px">
+              <img src="assets/action-refresh.svg" width="14" alt="Refresh">
+            </button>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  container.scrollTop = container.scrollHeight;
+}
+
+function formatText(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>')
+    .replace(/---/g, '<hr style="border:none;border-top:1px solid #e5e5e5;margin:10px 0">')
+    .replace(/\|(.+?)\|(.+?)\|(.+?)\|/g, (m) => {
+      // Simple table rendering
+      const cells = m.split('|').filter(c => c.trim() && !c.match(/^-+$/));
+      return '<span style="display:inline-block;font-family:monospace;font-size:12px">' + m + '</span>';
+    });
+}
+
+function filterConvs(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderConvList(cat);
+}
+
+function handleSend() {
+  const input = document.getElementById('jouleInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const container = document.getElementById('chatContainer');
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+  container.insertAdjacentHTML('beforeend', `
+    <div class="message user">
+      <div>
+        <div class="message-bubble">${text}</div>
+        <div class="message-time">${now}</div>
+      </div>
+    </div>
+  `);
+
+  input.value = '';
+  container.scrollTop = container.scrollHeight;
+
+  // Simulate Joule response
+  setTimeout(() => {
+    container.insertAdjacentHTML('beforeend', `
+      <div class="message joule">
+        <div class="joule-avatar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="message-bubble">I'm analyzing your request across the SAP data landscape. Based on current AR data, I can help you with that. Would you like me to pull a detailed report or take a specific action?</div>
+          <div class="message-time">${now}</div>
+        </div>
+      </div>
+    `);
+    container.scrollTop = container.scrollHeight;
+  }, 1000);
+}
+
+document.getElementById('jouleInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') handleSend();
+});
+
+// Init
+renderConvList('all');
+renderMessages('cash-flow');
+</script>
+</body>
+</html>

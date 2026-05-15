@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spaces — Joule Engagement Layer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .dispute-split {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      gap: 0;
+      height: 100%;
+    }
+
+    .dispute-main {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 0 0 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .dispute-chat {
+      width: 380px;
+      flex-shrink: 0;
+      height: 100%;
+      background: white;
+      border-left: 1px solid #e5e5e5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dispute-chat.hidden {
+      display: none;
+    }
+
+    .chat-toggle-btn {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 52px;
+      height: 52px;
+      background: #5d36ff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(93,54,255,0.3);
+      transition: all 0.2s;
+      z-index: 20;
+    }
+
+    .chat-toggle-btn:hover {
+      transform: scale(1.05);
+      background: #4a2acc;
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .chat-input-area {
+      padding: 12px 16px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .chat-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f5f6f7;
+      border-radius: 24px;
+      padding: 8px 12px;
+    }
+
+    .chat-input-row input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 13px;
+      color: #556b82;
+      font-family: inherit;
+    }
+
+    .analyze-tag {
+      background: linear-gradient(135deg, #ede8ff, #d0e7f5);
+      color: #5d36ff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: none;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  <div class="main-panel">
+    <!-- Left Sub-Nav: Spaces List -->
+    <div class="sub-nav">
+      <div class="sub-nav-header">
+        <span class="sub-nav-title">Spaces</span>
+        <div class="sub-nav-actions">
+          <button class="icon-btn" title="Search">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="7" cy="7" r="5" stroke="#556B82" stroke-width="1.5"/>
+              <path d="M11 11l3 3" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn" title="Filter">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="new-btn" onclick="alert('Create new space')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        New Space
+      </button>
+
+      <div class="sub-nav-list">
+        <!-- Spaces -->
+        <a href="dispute-20847.html" class="space-item active" id="sp-20847">
+          <div class="space-item-header">
+            <span class="space-item-title">Meridian Holding</span>
+            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
+          </div>
+          <div class="space-item-desc">SEPA mandate expired — €14,580 collection pending, 47 days overdue</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€14,580</span>
+            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Open</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-20848" class="space-item" onclick="loadSpace('20848', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">TechPartner AG</span>
+            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
+          </div>
+          <div class="space-item-desc">Pricing dispute on PO #8821 — 67 days overdue, no response to 2 emails</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€22,450</span>
+            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Escalated</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-20849" class="space-item" onclick="loadSpace('20849', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">Global Supplies Ltd</span>
+            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
+          </div>
+          <div class="space-item-desc">Invoice quantity discrepancy — customer claims delivery was short by 12 units</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€8,740</span>
+            <span class="badge badge-neutral" style="font-size:11px;padding:2px 8px">Under Review</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-C001" class="space-item" onclick="loadSpace('C001', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">Meridian Holding — Profile</span>
+            <span class="space-item-subtitle" style="background:#e8f0fe;color:#0070F2">Customer</span>
+          </div>
+          <div class="space-item-desc">Key enterprise account — €1.2M revenue YTD, 3 open items</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€1.2M YTD</span>
+            <span class="badge badge-blue" style="font-size:11px;padding:2px 8px">Active</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-C002" class="space-item" onclick="loadSpace('C002', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">Nordic Systems AB</span>
+            <span class="space-item-subtitle" style="background:#e8f0fe;color:#0070F2">Customer</span>
+          </div>
+          <div class="space-item-desc">New account, first invoice overdue — establishing payment relationship</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€5,200</span>
+            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Overdue</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-20850" class="space-item" onclick="loadSpace('20850', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">Axis Corp</span>
+            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
+          </div>
+          <div class="space-item-desc">Duplicate billing — customer received 2 invoices for the same delivery</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€11,320</span>
+            <span class="badge badge-neutral" style="font-size:11px;padding:2px 8px">Pending</span>
+          </div>
+        </a>
+
+        <a href="spaces.html#sp-20851" class="space-item" onclick="loadSpace('20851', this); return false;">
+          <div class="space-item-header">
+            <span class="space-item-title">Veronika Supplies</span>
+            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
+          </div>
+          <div class="space-item-desc">Credit memo not applied — customer paid but deducted credit not reflected</div>
+          <div class="space-item-footer">
+            <span class="space-item-amount">€6,890</span>
+            <span class="badge badge-up" style="font-size:11px;padding:2px 8px">Resolved</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Dispute Detail + Chat -->
+    <div class="dispute-split" id="disputeSplit">
+      <!-- Dispute Content -->
+      <div class="dispute-main">
+        <div class="dispute-panel" id="disputeContent">
+          <!-- Header -->
+          <div style="padding:20px;border-bottom:1px solid #e5e5e5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-12">
+                <button class="icon-btn" onclick="history.back()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 3L4 8l6 5" stroke="#131E29" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div>
+                  <h1 id="disputeTitle" style="font-size:20px;font-weight:700;color:#131e29;line-height:normal">Dispute 20847 – Meridian Holding</h1>
+                </div>
+              </div>
+              <div class="flex items-center gap-8">
+                <button class="btn-secondary">
+                  <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+                    <path d="M1 1h12v8H1z" stroke="#0064D9" stroke-width="1.3" fill="none" rx="1"/>
+                    <path d="M4 5h6M4 7h4" stroke="#0064D9" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  Insights
+                </button>
+                <button class="icon-btn">
+                  <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
+                    <circle cx="2" cy="2" r="1.5" fill="#0064D9"/><circle cx="8" cy="2" r="1.5" fill="#0064D9"/><circle cx="14" cy="2" r="1.5" fill="#0064D9"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div id="disputeBody" style="padding:20px">
+            <!-- OVERVIEW SECTION -->
+            <div class="accordion-section">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Overview</span>
+                <svg class="accordion-chevron open" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1l4 4 4-4" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="accordion-content" style="display:block">
+                <div class="cards-row" id="overviewCards">
+                  <!-- Recommendations Card -->
+                  <div class="detail-card">
+                    <div class="flex items-start gap-12 mb-16">
+                      <div class="detail-card-icon purple">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M10 2l2 5h5l-4 3 1.5 5L10 12l-4.5 3 1.5-5-4-3h5z" fill="#5D36FF"/>
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Recommendations</h3>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+                      <div>
+                        <div class="field-label">Proposed Action</div>
+                        <div class="field-value">Request SEPA mandate renewal</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Reasoning</div>
+                        <div class="field-value"><strong>SEPA Mandate expired</strong> on Feb 15, 2026</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Estimated Resolution</div>
+                        <div class="field-value">5–7 business days after new mandate received</div>
+                      </div>
+                    </div>
+                    <button class="btn-primary" style="width:100%" onclick="toggleChat()">Draft Email to Customer</button>
+                  </div>
+
+                  <!-- Dispute Overview Card -->
+                  <div class="detail-card">
+                    <div class="flex items-start gap-12 mb-16">
+                      <div class="detail-card-icon blue">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <rect x="3" y="3" width="14" height="14" rx="2" stroke="#0064D9" stroke-width="1.5" fill="none"/>
+                          <path d="M7 7h6M7 10h4M7 13h3" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Dispute Overview</h3>
+                      </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                      <div>
+                        <div class="field-label">Case ID</div>
+                        <div class="field-value bold" id="caseId">20847</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Amount</div>
+                        <div class="field-value bold" id="disputeAmount">€14,580</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Invoice</div>
+                        <div class="field-value" id="invoiceNum">INV-2026-0392</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Due Date</div>
+                        <div class="field-value" id="dueDate">March 1, 2026</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Days Overdue</div>
+                        <div class="field-value bold text-danger" id="daysOverdue">47 days</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Status</div>
+                        <div><span class="badge badge-orange" id="disputeStatus">Open</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contact Card -->
+                  <div class="detail-card">
+                    <div class="flex items-start gap-12 mb-16">
+                      <div class="detail-card-icon green">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <circle cx="10" cy="8" r="4" stroke="#1b7b47" stroke-width="1.5" fill="none"/>
+                          <path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#1b7b47" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Customer Contact</h3>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                      <div>
+                        <div class="field-label">Company</div>
+                        <div class="field-value bold" id="customerName">Meridian Holding GmbH</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Contact Person</div>
+                        <div class="field-value" id="contactPerson">Hans Müller (CFO)</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Email</div>
+                        <div class="field-value text-blue" id="contactEmail">h.mueller@meridian.de</div>
+                      </div>
+                      <div>
+                        <div class="field-label">Last Contact</div>
+                        <div class="field-value" id="lastContact">Feb 28, 2026 (no reply)</div>
+                      </div>
+                    </div>
+                    <div class="flex gap-8" style="margin-top:14px">
+                      <button class="btn-secondary" style="flex:1;justify-content:center">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M2 2h10a1 1 0 011 1v7a1 1 0 01-1 1H5l-3 3V3a1 1 0 011-1z" stroke="#0070F2" stroke-width="1.3" fill="none"/>
+                        </svg>
+                        Email
+                      </button>
+                      <button class="btn-secondary" style="flex:1;justify-content:center">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M3 1c0 0 2 0 2.5 2.5S4 6 4 6s2 4 6 6c0 0 2 0 2.5-1.5S11 8 11 8L9 7" stroke="#0070F2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        Call
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ANALYZE SECTION -->
+            <div class="accordion-section" style="margin-top:8px">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Analysis</span>
+                <span class="analyze-tag">AI Analysis</span>
+                <svg class="accordion-chevron open" style="margin-left:8px" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1l4 4 4-4" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="accordion-content" style="display:block">
+                <div class="cards-row">
+                  <!-- Payment History -->
+                  <div class="detail-card">
+                    <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:14px">Payment History</h3>
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                      <div class="flex items-center justify-between">
+                        <span style="font-size:13px;color:#556b82">Jan 2026</span>
+                        <div class="flex items-center gap-8">
+                          <span style="font-size:13px;color:#131e29">€12,400</span>
+                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <span style="font-size:13px;color:#556b82">Dec 2025</span>
+                        <div class="flex items-center gap-8">
+                          <span style="font-size:13px;color:#131e29">€18,950</span>
+                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <span style="font-size:13px;color:#556b82">Nov 2025</span>
+                        <div class="flex items-center gap-8">
+                          <span style="font-size:13px;color:#131e29">€9,800</span>
+                          <span class="badge badge-orange" style="font-size:11px;padding:2px 6px">7 days late</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <span style="font-size:13px;color:#556b82">Oct 2025</span>
+                        <div class="flex items-center gap-8">
+                          <span style="font-size:13px;color:#131e29">€14,200</span>
+                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:14px;padding:10px;background:#f8f9fa;border-radius:10px">
+                      <p style="font-size:12px;color:#556b82;line-height:1.5">Customer has a generally good payment history (92% on-time). The current delay is unusual and likely tied to the expired SEPA mandate rather than financial distress.</p>
+                    </div>
+                  </div>
+
+                  <!-- Timeline Card -->
+                  <div class="detail-card">
+                    <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:14px">Case Timeline</h3>
+                    <div style="position:relative;padding-left:20px">
+                      <div style="position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:#e5e5e5"></div>
+
+                      <div style="position:relative;margin-bottom:14px">
+                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#0070F2"></div>
+                        <div style="font-size:13px;font-weight:700;color:#131e29">Apr 17, 2026</div>
+                        <div style="font-size:12px;color:#556b82">Case assigned to AR team</div>
+                      </div>
+                      <div style="position:relative;margin-bottom:14px">
+                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#ff9800"></div>
+                        <div style="font-size:13px;font-weight:700;color:#131e29">Feb 28, 2026</div>
+                        <div style="font-size:12px;color:#556b82">2nd reminder sent — no response</div>
+                      </div>
+                      <div style="position:relative;margin-bottom:14px">
+                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#ff9800"></div>
+                        <div style="font-size:13px;font-weight:700;color:#131e29">Feb 15, 2026</div>
+                        <div style="font-size:12px;color:#556b82">SEPA mandate SDD-MH-291 expired</div>
+                      </div>
+                      <div style="position:relative;margin-bottom:14px">
+                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#f44336"></div>
+                        <div style="font-size:13px;font-weight:700;color:#131e29">Mar 1, 2026</div>
+                        <div style="font-size:12px;color:#556b82">Payment failed — mandate expired</div>
+                      </div>
+                      <div style="position:relative;">
+                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#e5e5e5"></div>
+                        <div style="font-size:13px;font-weight:700;color:#8a9ba8">Invoice issued</div>
+                        <div style="font-size:12px;color:#8a9ba8">Feb 1, 2026 — net 30 terms</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Panel -->
+      <div class="dispute-chat hidden" id="disputeChat">
+        <div class="chat-header">
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#131e29">Ask Joule</div>
+            <div style="font-size:12px;color:#556b82">Dispute #20847 context loaded</div>
+          </div>
+          <button class="icon-btn" onclick="toggleChat()" title="Close">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 1l12 12M13 1L1 13" stroke="#131E29" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="chat-messages scrollable" id="disputeChatMsgs">
+          <div class="message joule">
+            <div class="joule-avatar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1l1.3 3.9L12 6l-3.7 1.3L7 11l-1.3-3.7L2 6l3.7-1.1z" fill="white"/>
+              </svg>
+            </div>
+            <div>
+              <div class="message-bubble" style="background:#f5f6f7;color:#131e29;font-size:13px">I've loaded the context for Dispute #20847 (Meridian Holding, €14,580). The root cause is an expired SEPA mandate.<br><br>Shall I draft the renewal email?</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <div class="chat-input-row">
+            <button class="input-action-btn" style="width:24px;height:24px">
+              <img src="assets/attachments-button.svg" width="16" alt="Attach">
+            </button>
+            <input type="text" placeholder="Ask about this dispute..." id="disputeChatInput" onkeypress="sendDisputeMsg(event)">
+            <button class="input-action-btn" style="width:24px;height:24px" onclick="sendDisputeMsgBtn()">
+              <img src="assets/send-button.svg" width="16" alt="Send">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Toggle Button (when chat is closed) -->
+    <button class="chat-toggle-btn" id="chatToggleBtn" onclick="toggleChat()">
+      <img src="assets/JouleIcon.svg" width="24" alt="Joule">
+    </button>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+let chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const chatPanel = document.getElementById('disputeChat');
+  const toggleBtn = document.getElementById('chatToggleBtn');
+  if (chatOpen) {
+    chatPanel.classList.remove('hidden');
+    toggleBtn.style.display = 'none';
+  } else {
+    chatPanel.classList.add('hidden');
+    toggleBtn.style.display = 'flex';
+  }
+}
+
+function toggleAccordion(btn) {
+  const content = btn.nextElementSibling;
+  const chevron = btn.querySelector('.accordion-chevron');
+  const isOpen = content.style.display !== 'none';
+  content.style.display = isOpen ? 'none' : 'block';
+  chevron.classList.toggle('open', !isOpen);
+}
+
+const DISPUTE_DATA = {
+  '20847': { title: 'Dispute 20847 – Meridian Holding', caseId: '20847', amount: '€14,580', invoice: 'INV-2026-0392', due: 'March 1, 2026', overdue: '47 days', status: 'Open', customer: 'Meridian Holding GmbH', contact: 'Hans Müller (CFO)', email: 'h.mueller@meridian.de', lastContact: 'Feb 28, 2026 (no reply)' },
+  '20848': { title: 'Dispute 20848 – TechPartner AG', caseId: '20848', amount: '€22,450', invoice: 'INV-2026-0441', due: 'Feb 15, 2026', overdue: '61 days', status: 'Escalated', customer: 'TechPartner AG', contact: 'Greta Schulz (Finance)', email: 'g.schulz@techpartner.de', lastContact: 'Mar 5, 2026 (no reply)' },
+  '20849': { title: 'Dispute 20849 – Global Supplies Ltd', caseId: '20849', amount: '€8,740', invoice: 'INV-2026-0380', due: 'Mar 15, 2026', overdue: '33 days', status: 'Under Review', customer: 'Global Supplies Ltd', contact: 'Mark Wilson (AP Manager)', email: 'm.wilson@globalsupplies.com', lastContact: 'Apr 1, 2026' },
+  'C001': { title: 'Customer Analysis – Meridian Holding', caseId: 'C-MH-001', amount: '€1.2M YTD', invoice: 'Multiple', due: 'Various', overdue: '47 days (1 item)', status: 'Active', customer: 'Meridian Holding GmbH', contact: 'Hans Müller (CFO)', email: 'h.mueller@meridian.de', lastContact: 'Feb 28, 2026' },
+};
+
+function loadSpace(id, el) {
+  document.querySelectorAll('.space-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+
+  const data = DISPUTE_DATA[id];
+  if (!data) return;
+
+  document.getElementById('disputeTitle').textContent = data.title;
+  document.getElementById('caseId').textContent = data.caseId;
+  document.getElementById('disputeAmount').textContent = data.amount;
+  document.getElementById('invoiceNum').textContent = data.invoice;
+  document.getElementById('dueDate').textContent = data.due;
+  document.getElementById('daysOverdue').textContent = data.overdue;
+  document.getElementById('disputeStatus').textContent = data.status;
+  document.getElementById('customerName').textContent = data.customer;
+  document.getElementById('contactPerson').textContent = data.contact;
+  document.getElementById('contactEmail').textContent = data.email;
+  document.getElementById('lastContact').textContent = data.lastContact;
+
+  // Scroll to top
+  document.getElementById('disputeBody').scrollTop = 0;
+}
+
+function sendDisputeMsg(e) {
+  if (e.key === 'Enter') sendDisputeMsgBtn();
+}
+
+function sendDisputeMsgBtn() {
+  const input = document.getElementById('disputeChatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const msgs = document.getElementById('disputeChatMsgs');
+  msgs.insertAdjacentHTML('beforeend', `
+    <div class="message user" style="flex-direction:row-reverse">
+      <div><div class="message-bubble" style="background:#5d36ff;color:white;font-size:13px">${text}</div></div>
+    </div>
+  `);
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+  setTimeout(() => {
+    msgs.insertAdjacentHTML('beforeend', `
+      <div class="message joule">
+        <div class="joule-avatar"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.3 3.9L12 6l-3.7 1.3L7 11l-1.3-3.7L2 6l3.7-1.1z" fill="white"/></svg></div>
+        <div><div class="message-bubble" style="background:#f5f6f7;color:#131e29;font-size:13px">Based on the dispute context, I recommend drafting a SEPA mandate renewal request as the first step. This has a high probability of resolving the issue within 7 days. Shall I draft it now?</div></div>
+      </div>
+    `);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 800);
+}
+</script>
+</body>
+</html>

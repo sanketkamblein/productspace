@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs — Joule Engagement Layer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .jobs-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 20px 20px 0 0;
+      margin: 12px 12px 0 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .jobs-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 20px 100px;
+    }
+
+    .jobs-content-scroll::-webkit-scrollbar { width: 6px; }
+    .jobs-content-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+
+    .run-history-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 12px;
+    }
+
+    .run-history-row:last-child { border-bottom: none; }
+
+    .definition-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .definition-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  <div class="main-panel">
+    <!-- Left: Jobs List -->
+    <div class="sub-nav">
+      <div class="sub-nav-header">
+        <div class="flex items-center gap-8">
+          <span class="sub-nav-title">Jobs</span>
+          <svg width="12" height="12" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1l5 5 5-5" stroke="#556B82" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sub-nav-actions">
+          <button class="icon-btn" title="Search">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="7" cy="7" r="5" stroke="#556B82" stroke-width="1.5"/>
+              <path d="M11 11l3 3" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn" title="Filter">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn" title="Add">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6" stroke="#0070F2" stroke-width="1.5"/>
+              <path d="M8 5v6M5 8h6" stroke="#0070F2" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Filters -->
+      <div class="filter-tabs" style="padding:8px 12px;flex-wrap:nowrap;overflow-x:auto;gap:6px">
+        <button class="filter-tab active" onclick="filterJobs('attention', this)" style="white-space:nowrap;font-size:12px">Attention</button>
+        <button class="filter-tab" onclick="filterJobs('active', this)" style="white-space:nowrap;font-size:12px">Active</button>
+        <button class="filter-tab" onclick="filterJobs('completed', this)" style="white-space:nowrap;font-size:12px">Completed</button>
+        <button class="filter-tab" onclick="filterJobs('all', this)" style="white-space:nowrap;font-size:12px">All</button>
+      </div>
+
+      <div class="sub-nav-list" id="jobsList">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Right: Job Detail -->
+    <div class="jobs-content">
+      <!-- Header -->
+      <div id="jobHeader" class="content-header" style="flex-direction:column;align-items:flex-start;gap:8px;padding:16px 20px 0">
+        <div class="flex items-center justify-between w-full">
+          <div>
+            <h1 class="content-header-title" id="jobTitle">Collections Email Outreach Job</h1>
+            <div class="flex items-center gap-8" style="margin-top:4px">
+              <span id="jobAgent" style="font-size:12px;color:#556b82;background:#f0f0f0;padding:3px 10px;border-radius:12px">Customer Outreach Agent</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-6">
+            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.5" fill="#848484"/><circle cx="8" cy="8" r="1.5" fill="#848484"/><circle cx="8" cy="12" r="1.5" fill="#848484"/></svg></button>
+            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="8" r="2" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M11 3a2 2 0 110 4 2 2 0 010-4zM11 10a2 2 0 110 4 2 2 0 010-4z" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M8 7l2-1.5M8 9l2 1.5" stroke="#848484" stroke-width="1.3"/></svg></button>
+            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M5 5h6M5 8h6M5 11h4" stroke="#848484" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Status Row -->
+        <div class="flex items-center justify-between w-full" style="padding-bottom:12px">
+          <div class="flex items-center gap-8">
+            <span class="badge badge-orange" id="jobStatusBadge">Attention Required</span>
+            <span style="font-size:13px;color:#556b82" id="jobStatus">2 decisions required</span>
+          </div>
+          <span style="font-size:12px;color:#556b82;max-width:300px;text-align:right" id="jobPurpose">
+            Automate collection emails to overdue customers
+          </span>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="job-tabs">
+        <button class="job-tab active" onclick="switchJobTab('live', this)">Live Status</button>
+        <button class="job-tab" onclick="switchJobTab('history', this)">Run History</button>
+        <button class="job-tab" onclick="switchJobTab('definition', this)">Job Definition</button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="jobs-content-scroll" id="jobTabContent">
+        <!-- rendered by JS -->
+      </div>
+
+      <!-- Joule Input -->
+      <div class="joule-input-wrapper">
+        <div class="joule-input-box">
+          <div class="joule-input-text-row">
+            <input class="joule-input-field" type="text" placeholder="Ask Joule about this job...">
+          </div>
+          <div class="joule-input-icons">
+            <div class="joule-input-icons-left">
+              <button class="input-action-btn"><img src="assets/attachments-button.svg" width="20" alt="Attach"></button>
+              <button class="input-action-btn"><img src="assets/tools-button.svg" width="20" alt="Tools"></button>
+            </div>
+            <div class="joule-input-icons-right">
+              <button class="input-action-btn"><img src="assets/mic.svg" width="20" alt="Mic"></button>
+              <button class="input-action-btn"><img src="assets/send-button.svg" width="20" alt="Send"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+const JOBS = [
+  { id: 'collections-email', title: 'Collections Email Outreach', subtitle: 'Customer Outreach Agent', meta: '2 decisions required', tab: 'attention', agent: 'Customer Outreach Agent', status: '2 decisions required', statusType: 'attention', purpose: 'Automate the sending of collection emails to customers with overdue receivable items, reducing manual effort for Collection Specialist while maintaining quality and compliance.', emails: 3, decisions: 2, outreach: 'Collections Autonomous Outreach', showMissingContact: true },
+  { id: 'invoice-reminder', title: 'Invoice Reminder Campaign', subtitle: 'Customer Outreach Agent', meta: '48 emails sent this cycle', tab: 'active', agent: 'Customer Outreach Agent', status: '48 emails sent this cycle', statusType: 'active', purpose: 'Automatically send invoice reminders to customers with outstanding invoices to improve DSO and reduce manual follow-up time.', emails: 48, decisions: 0, outreach: 'Invoice Reminder Outreach', showMissingContact: false },
+  { id: 'payment-followup', title: 'Payment Follow-Up Outreach', subtitle: 'Customer Outreach Agent', meta: '120 contacts processed', tab: 'active', agent: 'Customer Outreach Agent', status: '120 contacts processed', statusType: 'active', purpose: 'Follow up with customers on pending payments using a tiered escalation strategy, reducing collection cycle times.', emails: 120, decisions: 0, outreach: 'Payment Follow-Up Run', showMissingContact: false },
+  { id: 'cash-flow-drift', title: 'Cash Flow Forecast Drift', subtitle: 'Finance Analytics Agent', meta: 'Variance stable (±1.8%)', tab: 'active', agent: 'Finance Analytics Agent', status: 'Forecast variance stable (±1.8%)', statusType: 'active', purpose: 'Detect and report cash flow forecast deviations in real time, enabling proactive corrections before month-end close.', emails: 0, decisions: 0, outreach: 'Cash Flow Analysis Run', showMissingContact: false },
+  { id: 'month-end-readiness', title: 'Month-End Close Readiness', subtitle: 'Compliance Verification Agent', meta: 'Accrual completeness passed', tab: 'completed', agent: 'Compliance Verification Agent', status: 'Accrual completeness check passed', statusType: 'completed', purpose: 'Verify accrual completeness, journal entry approvals, and reconciliation status ahead of month-end close to prevent delays.', emails: 0, decisions: 0, outreach: 'Close Readiness Check', showMissingContact: false },
+  { id: 'monitor-blocked-payments', title: 'Monitor Failed Payments', subtitle: 'Finance Monitoring Agent', meta: '0 new blocked payments', tab: 'completed', agent: 'Finance Monitoring Agent', status: '0 new blocked payments detected', statusType: 'completed', purpose: 'Continuously monitor payment runs for blocked or failed transactions, alerting the team and logging issues for immediate resolution.', emails: 0, decisions: 0, outreach: 'Payment Monitoring Run', showMissingContact: false },
+];
+
+let currentTab = 'live';
+let currentJob = JOBS[0];
+
+function filterJobs(tab, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = tab === 'all' ? JOBS : JOBS.filter(j => j.tab === tab);
+  renderJobsList(filtered);
+}
+
+function renderJobsList(jobs) {
+  const list = document.getElementById('jobsList');
+  list.innerHTML = jobs.map(j => `
+    <a href="#" class="job-item ${j.tab === 'attention' ? 'attention' : ''} ${j.id === currentJob.id ? 'active' : ''}"
+       onclick="loadJob('${j.id}', this); return false;">
+      <div class="job-item-title">${j.title}</div>
+      <div class="job-item-subtitle">${j.subtitle}</div>
+      <div style="margin-top:4px"><span class="badge ${j.tab === 'attention' ? 'badge-orange' : j.tab === 'active' ? 'badge-up' : 'badge-neutral'}" style="font-size:11px;padding:2px 8px">${j.meta}</span></div>
+    </a>
+  `).join('');
+}
+
+function loadJob(id, el) {
+  const job = JOBS.find(j => j.id === id);
+  if (!job) return;
+  currentJob = job;
+
+  document.querySelectorAll('.job-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  document.getElementById('jobTitle').textContent = job.title;
+  document.getElementById('jobAgent').textContent = job.agent;
+  document.getElementById('jobStatus').textContent = job.status;
+  document.getElementById('jobPurpose').textContent = job.purpose.substring(0, 80) + '...';
+
+  const badge = document.getElementById('jobStatusBadge');
+  badge.className = 'badge';
+  if (job.statusType === 'attention') { badge.classList.add('badge-orange'); badge.textContent = 'Attention Required'; }
+  else if (job.statusType === 'active') { badge.classList.add('badge-up'); badge.textContent = 'Active'; }
+  else { badge.classList.add('badge-neutral'); badge.textContent = 'Completed'; }
+
+  renderJobTab(currentTab);
+}
+
+function switchJobTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.job-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderJobTab(tab);
+}
+
+function renderJobTab(tab) {
+  const content = document.getElementById('jobTabContent');
+  const job = currentJob;
+
+  if (tab === 'live') {
+    if (job.showMissingContact) {
+      content.innerHTML = `
+        <div class="missing-contact-card">
+          <div class="missing-contact-header">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 1L1 15h16L9 1z" fill="#fff3e0" stroke="#bf6900" stroke-width="1.3"/>
+              <path d="M9 7v4M9 13v1" stroke="#bf6900" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span style="font-size:14px;font-weight:700;color:#131e29">Missing Contact Information</span>
+            <span class="badge badge-orange" style="margin-left:auto;font-size:11px">Action Required</span>
+          </div>
+          <div class="missing-contact-body">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:6px">TechPartner AG — No email on file</div>
+              <div style="font-size:13px;color:#556b82;margin-bottom:12px">The outreach agent cannot send a collection email for Invoice INV-2026-0441 (€22,450) because no contact email is available for this customer.</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div class="flex items-center gap-8">
+                  <span style="font-size:12px;color:#8a9ba8;width:100px">Invoice</span>
+                  <span style="font-size:13px;font-weight:700;color:#131e29">INV-2026-0441 · €22,450</span>
+                </div>
+                <div class="flex items-center gap-8">
+                  <span style="font-size:12px;color:#8a9ba8;width:100px">Customer ID</span>
+                  <span style="font-size:13px;color:#131e29">TECH-AG-2024</span>
+                </div>
+                <div class="flex items-center gap-8">
+                  <span style="font-size:12px;color:#8a9ba8;width:100px">Overdue</span>
+                  <span style="font-size:13px;font-weight:700;color:#aa0808">61 days</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+              <button class="btn-primary" style="white-space:nowrap" onclick="alert('Opening customer profile to add contact...')">Add Contact Email</button>
+              <button class="btn-secondary" style="justify-content:center" onclick="alert('Skipping this contact...')">Skip for Now</button>
+            </div>
+          </div>
+        </div>
+        <div style="background:#f8f9fa;border-radius:12px;padding:16px;margin-top:16px">
+          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Run Summary</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#0070F2">${job.emails}</div>
+              <div style="font-size:12px;color:#556b82">Emails Queued</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#bf6900">${job.decisions}</div>
+              <div style="font-size:12px;color:#556b82">Decisions Needed</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#256f3a">0</div>
+              <div style="font-size:12px;color:#556b82">Errors</div>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      content.innerHTML = `
+        <div style="background:#dff0e8;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="width:36px;height:36px;border-radius:50%;background:#256f3a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M3 9l4.5 4.5L15 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#131e29">Running normally</div>
+            <div style="font-size:13px;color:#556b82">${job.status}</div>
+          </div>
+        </div>
+        <div style="background:#f8f9fa;border-radius:12px;padding:16px">
+          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Current Run — ${new Date().toLocaleDateString()}</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#0070F2">${job.emails}</div>
+              <div style="font-size:12px;color:#556b82">Emails Sent</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#256f3a">${job.decisions}</div>
+              <div style="font-size:12px;color:#556b82">Decisions</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#256f3a">0</div>
+              <div style="font-size:12px;color:#556b82">Errors</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:#556b82;line-height:1.5">${job.purpose}</p>
+        </div>
+      `;
+    }
+  } else if (tab === 'history') {
+    const runs = [
+      { date: 'Apr 17, 2026', count: job.emails || 12, status: 'Completed', duration: '4m 12s' },
+      { date: 'Apr 10, 2026', count: 18, status: 'Completed', duration: '3m 55s' },
+      { date: 'Apr 3, 2026', count: 24, status: 'Completed', duration: '5m 02s' },
+      { date: 'Mar 27, 2026', count: 8, status: 'Completed', duration: '2m 41s' },
+      { date: 'Mar 20, 2026', count: 31, status: 'Completed w/ warnings', duration: '6m 18s' },
+      { date: 'Mar 13, 2026', count: 15, status: 'Completed', duration: '3m 28s' },
+    ];
+    content.innerHTML = `
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <h3 style="font-size:16px;font-weight:700;color:#131e29">Run History</h3>
+          <span class="badge badge-blue" style="font-size:12px">${runs.length} runs</span>
+        </div>
+        ${runs.map(run => `
+          <div class="run-history-row">
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;color:#131e29">${run.date}</div>
+              <div style="font-size:12px;color:#556b82">${run.count} ${job.emails !== undefined ? 'emails' : 'actions'} · ${run.duration}</div>
+            </div>
+            <span class="badge ${run.status.includes('warning') ? 'badge-orange' : 'badge-up'}" style="font-size:11px">${run.status}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else if (tab === 'definition') {
+    content.innerHTML = `
+      <div>
+        <h3 style="font-size:16px;font-weight:700;color:#131e29;margin-bottom:16px">Job Definition</h3>
+        <div class="definition-grid">
+          <div class="definition-item">
+            <div class="field-label">Job Name</div>
+            <div class="field-value bold">${job.title}</div>
+          </div>
+          <div class="definition-item">
+            <div class="field-label">Agent Type</div>
+            <div class="field-value">${job.agent}</div>
+          </div>
+          <div class="definition-item">
+            <div class="field-label">Schedule</div>
+            <div class="field-value">Weekly (Thursdays, 7:00 AM)</div>
+          </div>
+          <div class="definition-item">
+            <div class="field-label">Outreach Name</div>
+            <div class="field-value">${job.outreach}</div>
+          </div>
+          <div class="definition-item">
+            <div class="field-label">Max Emails Per Run</div>
+            <div class="field-value">50</div>
+          </div>
+          <div class="definition-item">
+            <div class="field-label">Human-in-Loop</div>
+            <div class="field-value">Required for >€10K invoices</div>
+          </div>
+          <div class="definition-item" style="grid-column:span 2">
+            <div class="field-label">Purpose</div>
+            <div class="field-value">${job.purpose}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Init
+filterJobs('attention', document.querySelector('.filter-tab.active'));
+loadJob('collections-email', null);
+</script>
+</body>
+</html>

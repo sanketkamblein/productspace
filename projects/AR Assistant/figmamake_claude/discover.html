@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover — Joule Engagement Layer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .discover-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 24px 100px;
+      background: linear-gradient(150deg, rgb(247, 252, 255) 0%, rgb(235, 237, 255) 100%);
+    }
+    .discover-content::-webkit-scrollbar { width: 6px; }
+    .discover-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  <!-- nav injected -->
+  <div class="main-panel" style="background:transparent; padding:12px 12px 0 0; border-radius:20px 20px 0 0; overflow:hidden">
+    <div class="discover-content">
+      <div style="max-width:1300px; margin:0 auto">
+        <h1 style="font-size:24px; font-weight:700; color:#131e29; margin-bottom:32px">Daily Work</h1>
+
+        <!-- 12-col grid: 8 left + 4 right -->
+        <div class="discover-grid">
+          <!-- LEFT COLUMN -->
+          <div class="discover-left">
+
+            <!-- Increased Outstanding Balance Card -->
+            <div class="card">
+              <div class="card-header">
+                <div class="flex items-center gap-12">
+                  <div style="width:24px;height:24px;display:flex;align-items:center;justify-content:center">
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+                      <path d="M8 0L0 4V8C0 11.5 3 15 8 16C13 15 16 11.5 16 8V4L8 0Z" fill="#F53232"/>
+                    </svg>
+                  </div>
+                  <h2 class="card-title">Increased Outstanding Balance</h2>
+                </div>
+                <button class="icon-btn">
+                  <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
+                    <circle cx="2" cy="2" r="1.5" fill="#848484"/><circle cx="8" cy="2" r="1.5" fill="#848484"/><circle cx="14" cy="2" r="1.5" fill="#848484"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="card-body">
+                <p class="metric-label">Outstanding Balance</p>
+                <div class="flex items-center gap-12 mb-4">
+                  <span class="metric-value">2.85</span>
+                  <span class="metric-unit">M EUR</span>
+                  <span class="badge badge-up">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M5 8V2M5 2L3 4M5 2L7 4" stroke="#256f3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    +12%
+                  </span>
+                </div>
+                <p style="font-size:12px;color:#8a9ba8;margin-bottom:16px">Balance vs Last Month</p>
+                <hr class="divider">
+                <div class="flex items-start gap-12">
+                  <div style="background:#ded3ff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <circle cx="9" cy="9" r="7" stroke="#5D36FF" stroke-width="1.5" fill="none"/>
+                      <path d="M9 5v4l3 3" stroke="#5D36FF" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:4px">Issue Overview</h3>
+                    <p style="font-size:14px;color:#131e29;margin-bottom:12px;line-height:1.5">
+                      <strong>High amount disputes cause the most problems</strong> — 5 disputes above EUR 10K account for 45% of all dispute amounts.
+                    </p>
+                    <div class="flex gap-12">
+                      <a href="spaces.html" class="btn-secondary" style="font-size:13px">View Details</a>
+                      <a href="spaces.html" class="btn-primary" style="font-size:13px;text-decoration:none;display:inline-flex;align-items:center">Show Top 5 Disputes</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Receivable Aging Chart Card -->
+            <div class="card">
+              <div class="card-header">
+                <div class="flex items-center gap-12">
+                  <div style="width:24px;height:24px;display:flex;align-items:center;justify-content:center">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <rect x="2" y="8" width="3" height="6" rx="1" fill="#5D36FF"/>
+                      <rect x="7" y="5" width="3" height="9" rx="1" fill="#0070F2"/>
+                      <rect x="12" y="2" width="3" height="12" rx="1" fill="#a100c2"/>
+                    </svg>
+                  </div>
+                  <h2 class="card-title">Receivable Aging</h2>
+                </div>
+                <div class="flex items-center gap-8">
+                  <span class="badge badge-neutral">Q3 2026</span>
+                  <button class="icon-btn">
+                    <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
+                      <circle cx="2" cy="2" r="1.5" fill="#848484"/><circle cx="8" cy="2" r="1.5" fill="#848484"/><circle cx="14" cy="2" r="1.5" fill="#848484"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Bar chart -->
+                <div style="display:flex;align-items:flex-end;gap:12px;height:90px;margin-bottom:8px">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:100%;background:linear-gradient(180deg,#0070F2,#5D36FF);border-radius:4px 4px 0 0;height:70px"></div>
+                    <div style="font-size:11px;color:#8a9ba8">0-30d</div>
+                    <div style="font-size:11px;font-weight:700;color:#131e29">€1.2M</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:100%;background:linear-gradient(180deg,#5D36FF,#a100c2);border-radius:4px 4px 0 0;height:50px"></div>
+                    <div style="font-size:11px;color:#8a9ba8">31-60d</div>
+                    <div style="font-size:11px;font-weight:700;color:#131e29">€680K</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:100%;background:linear-gradient(180deg,#ff9800,#f44336);border-radius:4px 4px 0 0;height:35px"></div>
+                    <div style="font-size:11px;color:#8a9ba8">61-90d</div>
+                    <div style="font-size:11px;font-weight:700;color:#131e29">€320K</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:100%;background:linear-gradient(180deg,#f44336,#b71c1c);border-radius:4px 4px 0 0;height:20px"></div>
+                    <div style="font-size:11px;color:#8a9ba8">91-120d</div>
+                    <div style="font-size:11px;font-weight:700;color:#131e29">€185K</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+                    <div style="width:100%;background:linear-gradient(180deg,#b71c1c,#7f0000);border-radius:4px 4px 0 0;height:12px"></div>
+                    <div style="font-size:11px;color:#8a9ba8">&gt;120d</div>
+                    <div style="font-size:11px;font-weight:700;color:#131e29">€110K</div>
+                  </div>
+                </div>
+                <hr class="divider" style="margin:8px 0 12px">
+                <!-- Dunning actions -->
+                <h3 style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:10px">Active Dunning Actions</h3>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-8">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0070F2">L1</div>
+                      <span style="font-size:13px;color:#131e29">Reminder (10 days)</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <span style="font-size:12px;color:#556b82">34 accounts</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">€420K</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-8">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#fff3e0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#bf6900">L2</div>
+                      <span style="font-size:13px;color:#131e29">Formal Notice (30 days)</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <span style="font-size:12px;color:#556b82">18 accounts</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">€285K</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-8">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#fce9e9;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#aa0808">L3</div>
+                      <span style="font-size:13px;color:#131e29">Legal Warning (60 days)</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <span style="font-size:12px;color:#556b82">7 accounts</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">€142K</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-8">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#4a4a4a">L4</div>
+                      <span style="font-size:13px;color:#131e29">Collections Agency</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <span style="font-size:12px;color:#556b82">3 accounts</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">€88K</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Agent Monitor Card -->
+            <div class="card">
+              <div class="card-header">
+                <div class="flex items-center gap-12">
+                  <div style="width:24px;height:24px;border-radius:6px;background:#ded3ff;display:flex;align-items:center;justify-content:center">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle cx="7" cy="7" r="5" stroke="#5D36FF" stroke-width="1.5" fill="none"/>
+                      <path d="M4 7l2 2 4-4" stroke="#5D36FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h2 class="card-title">Agent Monitor</h2>
+                </div>
+                <a href="jobs.html" class="btn-secondary" style="font-size:12px;padding:4px 10px">View All Jobs</a>
+              </div>
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div style="background:#f8f9fa;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:2px">Collections Email Outreach</div>
+                      <div style="font-size:12px;color:#556b82">Customer Outreach Agent · 2 decisions required</div>
+                    </div>
+                    <span class="badge badge-orange">Attention</span>
+                  </div>
+                  <div style="background:#f8f9fa;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:2px">Invoice Reminder Campaign</div>
+                      <div style="font-size:12px;color:#556b82">Customer Outreach Agent · 48 emails sent</div>
+                    </div>
+                    <span class="badge badge-up">Active</span>
+                  </div>
+                  <div style="background:#f8f9fa;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:2px">Cash Flow Forecast Drift</div>
+                      <div style="font-size:12px;color:#556b82">Finance Analytics Agent · Variance ±1.8%</div>
+                    </div>
+                    <span class="badge badge-blue">Monitoring</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div class="discover-right">
+
+            <!-- DSO KPI Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Key Metrics</h2>
+                <span class="badge badge-neutral">Live</span>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+                <div>
+                  <div class="metric-label">Days Sales Outstanding</div>
+                  <div class="flex items-center gap-8">
+                    <span style="font-size:28px;font-weight:700;color:#131e29">51</span>
+                    <span style="font-size:14px;color:#556b82">days</span>
+                    <span class="badge badge-down">+9 days</span>
+                  </div>
+                  <div style="font-size:11px;color:#8a9ba8">Target: 44 days by Q4</div>
+                </div>
+                <hr class="divider">
+                <div>
+                  <div class="metric-label">Collection Rate</div>
+                  <div class="flex items-center gap-8">
+                    <span style="font-size:28px;font-weight:700;color:#131e29">87.3</span>
+                    <span style="font-size:14px;color:#556b82">%</span>
+                    <span class="badge badge-down">-2.1%</span>
+                  </div>
+                  <div style="font-size:11px;color:#8a9ba8">vs 89.4% last quarter</div>
+                </div>
+                <hr class="divider">
+                <div>
+                  <div class="metric-label">Active Disputes</div>
+                  <div class="flex items-center gap-8">
+                    <span style="font-size:28px;font-weight:700;color:#131e29">8</span>
+                    <span class="badge badge-orange">4 critical</span>
+                  </div>
+                  <div style="font-size:11px;color:#8a9ba8">€387K total disputed</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bank Recon Donut Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Reconciliation Status</h2>
+                <button class="icon-btn">
+                  <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
+                    <circle cx="2" cy="2" r="1.5" fill="#848484"/><circle cx="8" cy="2" r="1.5" fill="#848484"/><circle cx="14" cy="2" r="1.5" fill="#848484"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="flex items-center gap-16">
+                  <!-- SVG Donut -->
+                  <div class="donut-container">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                      <!-- Background circle -->
+                      <circle cx="50" cy="50" r="36" fill="none" stroke="#f0f0f0" stroke-width="12"/>
+                      <!-- 78.2% auto-matched (green) -->
+                      <circle cx="50" cy="50" r="36" fill="none" stroke="#0070F2" stroke-width="12"
+                        stroke-dasharray="175.9 226.2" stroke-dashoffset="56.5" transform="rotate(-90 50 50)"/>
+                      <!-- 16% manual (orange) -->
+                      <circle cx="50" cy="50" r="36" fill="none" stroke="#ff9800" stroke-width="12"
+                        stroke-dasharray="36.2 226.2" stroke-dashoffset="-119.4" transform="rotate(-90 50 50)"/>
+                      <!-- 3.8% unreconciled (red) -->
+                      <circle cx="50" cy="50" r="36" fill="none" stroke="#f44336" stroke-width="12"
+                        stroke-dasharray="8.6 226.2" stroke-dashoffset="-155.6" transform="rotate(-90 50 50)"/>
+                    </svg>
+                    <div class="donut-center-text">
+                      <div class="donut-pct">78%</div>
+                      <div class="donut-sub">matched</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+                    <div class="flex items-center gap-8">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#0070F2;flex-shrink:0"></div>
+                      <span style="font-size:12px;color:#556b82;flex:1">Auto-matched</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">78.2%</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#ff9800;flex-shrink:0"></div>
+                      <span style="font-size:12px;color:#556b82;flex:1">Manual review</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">16.0%</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#f44336;flex-shrink:0"></div>
+                      <span style="font-size:12px;color:#556b82;flex:1">Unreconciled</span>
+                      <span style="font-size:12px;font-weight:700;color:#aa0808">3.8%</span>
+                    </div>
+                    <div class="flex items-center gap-8">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#f0f0f0;flex-shrink:0"></div>
+                      <span style="font-size:12px;color:#556b82;flex:1">Pending</span>
+                      <span style="font-size:12px;font-weight:700;color:#131e29">2.0%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Quick Actions</h2>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
+                <a href="conversations.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f8f9fa;text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#f8f9fa'">
+                  <div style="width:32px;height:32px;border-radius:8px;background:#ede8ff;display:flex;align-items:center;justify-content:center">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M3 3h10a1 1 0 011 1v5a1 1 0 01-1 1H6l-3 3V4a1 1 0 011-1z" stroke="#5d36ff" stroke-width="1.3" fill="none"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#131e29">Ask Joule</div>
+                    <div style="font-size:11px;color:#556b82">Start a new conversation</div>
+                  </div>
+                </a>
+                <a href="spaces.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f8f9fa;text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#f8f9fa'">
+                  <div style="width:32px;height:32px;border-radius:8px;background:#e8f0fe;display:flex;align-items:center;justify-content:center">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <rect x="2" y="2" width="5" height="5" rx="1" stroke="#0070F2" stroke-width="1.3" fill="none"/>
+                      <rect x="9" y="2" width="5" height="5" rx="1" stroke="#0070F2" stroke-width="1.3" fill="none"/>
+                      <rect x="2" y="9" width="5" height="5" rx="1" stroke="#0070F2" stroke-width="1.3" fill="none"/>
+                      <path d="M9 11.5h4M11.5 9v5" stroke="#0070F2" stroke-width="1.3" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#131e29">View Disputes</div>
+                    <div style="font-size:11px;color:#556b82">8 open disputes · €387K</div>
+                  </div>
+                </a>
+                <a href="jobs.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f8f9fa;text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#f8f9fa'">
+                  <div style="width:32px;height:32px;border-radius:8px;background:#fff3e0;display:flex;align-items:center;justify-content:center">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="5.5" stroke="#bf6900" stroke-width="1.3" fill="none"/>
+                      <path d="M8 5v3.5l2 2" stroke="#bf6900" stroke-width="1.3" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#131e29">Review Jobs</div>
+                    <div style="font-size:11px;color:#556b82">1 job needs attention</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Joule Input -->
+    <div class="joule-input-wrapper">
+      <div class="joule-input-box">
+        <div class="joule-input-text-row">
+          <input class="joule-input-field" type="text" placeholder="Ask Joule about your daily work...">
+        </div>
+        <div class="joule-input-icons">
+          <div class="joule-input-icons-left">
+            <button class="input-action-btn"><img src="assets/attachments-button.svg" width="20" alt="Attach"></button>
+            <button class="input-action-btn"><img src="assets/tools-button.svg" width="20" alt="Tools"></button>
+          </div>
+          <div class="joule-input-icons-right">
+            <button class="input-action-btn"><img src="assets/mic.svg" width="20" alt="Mic"></button>
+            <button class="input-action-btn"><img src="assets/send-button.svg" width="20" alt="Send"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -258,6 +258,91 @@
     footer { background: var(--text-1); color: rgba(255,255,255,.55); padding: 2.25rem; text-align: center; font-size: .82rem; }
     footer strong { color: #fff; }
 
+    /* ── DESIGN JOURNEY ── */
+    .journey-phase { border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+    .journey-phase-header {
+      padding: 1.25rem 1.75rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      position: relative;
+    }
+    .journey-phase-header::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: rgba(255,255,255,.15);
+    }
+    .jp-phase-badge {
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+      border-radius: 100px; padding: .2rem .75rem;
+      font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      white-space: nowrap; flex-shrink: 0; margin-top: .2rem;
+    }
+    .jp-header-text h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: .3rem; }
+    .jp-header-text p { font-size: .82rem; opacity: .78; line-height: 1.5; }
+    .journey-phase-body { padding: 1.5rem 1.75rem; background: var(--bg-1); }
+    .jp-scope-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: .75rem; margin-bottom: 1.25rem; }
+    .jp-scope-item {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
+      padding: .65rem .9rem; font-size: .8rem; color: var(--text-2); display: flex; align-items: flex-start; gap: .5rem;
+    }
+    .jp-scope-icon { flex-shrink: 0; font-size: .9rem; margin-top: .05rem; }
+    .jp-scope-label { font-weight: 700; color: var(--text-1); font-size: .8rem; }
+    .jp-scope-desc { font-size: .74rem; color: var(--text-2); margin-top: .1rem; }
+    .jp-wireframes { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .jp-wireframe-chip {
+      background: #f0f4ff; border: 1px solid #c7d7f7; border-radius: 6px;
+      padding: .3rem .8rem; font-size: .74rem; font-weight: 600; color: #2e4da0;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .jp-wireframe-chip.el { background: var(--joule-bg); border-color: rgba(93,54,255,.2); color: var(--joule); }
+    .jp-wireframe-chip.gtm { background: #e8f5e9; border-color: #a5d6a7; color: #1b5e20; }
+    .jp-insight {
+      background: linear-gradient(135deg, #f8f9ff, #f0f4ff);
+      border: 1px solid #dde3f5; border-left: 3px solid var(--joule);
+      border-radius: 8px; padding: .9rem 1.1rem;
+      font-size: .83rem; color: var(--text-2); line-height: 1.6;
+      margin-top: 1rem;
+    }
+    .jp-insight strong { color: var(--joule); }
+    .jp-constraint {
+      background: #fff8f0; border: 1px solid #fcd9a0; border-left: 3px solid var(--amber);
+      border-radius: 8px; padding: .9rem 1.1rem;
+      font-size: .83rem; color: var(--text-2); line-height: 1.6;
+      margin-top: .75rem;
+    }
+    .jp-constraint strong { color: var(--amber); }
+
+    /* phase header colors */
+    .jp-phase-1 { background: linear-gradient(135deg, #032d60, #0070f2); color: #fff; }
+    .jp-phase-2 { background: linear-gradient(135deg, #3b0764, #7c3aed); color: #fff; }
+    .jp-phase-3 { background: linear-gradient(135deg, #0c4a6e, #0284c7); color: #fff; }
+    .jp-phase-4 { background: linear-gradient(135deg, #14532d, #16a34a); color: #fff; }
+
+    /* connector between phases */
+    .journey-connector {
+      display: flex; align-items: center; justify-content: center;
+      gap: .75rem; margin: -1rem 0 1rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--text-3);
+    }
+    .journey-connector::before, .journey-connector::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* GTM flows */
+    .gtm-flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px,1fr)); gap: .85rem; margin-top: 1rem; }
+    .gtm-flow-card {
+      background: var(--bg-1); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.1rem; border-top: 3px solid var(--joule);
+      box-shadow: var(--shadow-sm);
+    }
+    .gtm-flow-card.c2 { border-top-color: var(--sap-blue); }
+    .gtm-flow-card.c3 { border-top-color: #7c3aed; }
+    .gtm-flow-card.c4 { border-top-color: var(--green); }
+    .gtm-flow-card.c5 { border-top-color: var(--amber); }
+    .gtm-flow-num { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: .3rem; }
+    .gtm-flow-card h4 { font-size: .85rem; font-weight: 700; color: var(--text-1); margin-bottom: .35rem; }
+    .gtm-flow-card p { font-size: .76rem; color: var(--text-2); }
+
+    @media (max-width: 640px) { #prototype .proto-grid { grid-template-columns: 1fr !important; } }
+
     /* ── CALLOUT ── */
     .callout {
       background: linear-gradient(135deg, #040d1a, #071a2e);
@@ -285,17 +370,18 @@
     <li><a href="#architecture">Architecture</a></li>
     <li><a href="#impact">Impact</a></li>
     <li><a href="#reflection">Learnings</a></li>
+    <li><a href="#design-journey">Design Journey</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-badge">Delivering at SAP Sapphire 2025 · Private &amp; Public Cloud · 8 Months</div>
+  <div class="hero-badge">Delivering at SAP TechEd 2025 → Sapphire 2026 · 1.5 Years</div>
   <h1>Accounts Receivable<br><em>Assistant for Joule</em></h1>
   <p>
     Designing the Engagement Layer for SAP's AI-powered AR Assistant — an orchestrated multi-agent
     system that transforms how AR Accountants and Collection Specialists manage overdue receivables,
-    disputes, and cash flow. Delivered in collaboration across Private and Public Cloud teams.
+    disputes, and cash flow. Led by Private Cloud, extended in collaboration with the Public Cloud design and dev team.
   </p>
   <div class="hero-cta">
     <a href="#problem" class="btn btn-primary">Read Case Study</a>
@@ -305,7 +391,7 @@
     <div><strong>Role</strong> — UX Designer</div>
     <div><strong>Platform</strong> — SAP S/4HANA + Joule + BTP</div>
     <div><strong>Domain</strong> — Finance / Accounts Receivable</div>
-    <div><strong>GTM</strong> — SAP Sapphire 2025</div>
+    <div><strong>GTM</strong> — TechEd 2025 → Sapphire 2026</div>
   </div>
 </header>
 
@@ -328,10 +414,12 @@
     <div class="callout fade-in" style="background:linear-gradient(135deg,#032d60,#0a3d62); border-color:rgba(103,232,249,.25);">
       <div class="callout-icon">🎯</div>
       <div>
-        <h3>Delivering at SAP Sapphire 2025</h3>
+        <h3>Delivering at SAP Sapphire 2026</h3>
         <p>
           The AR Assistant is being delivered as a flagship GTM solution at SAP Sapphire — SAP's largest
-          annual customer event. This is a cross-cloud collaboration between Private and Public Cloud teams,
+          annual customer event. The AR Agent was built solely by the Private Cloud team for TechEd 2025.
+          The AR Assistant is a cross-cloud collaboration — led by Private Cloud, with the Public Cloud
+          design and dev team joining to extend the scope and build the Engagement Layer.
           positioning the Engagement Layer as a showcase of what Joule-powered agentic AI looks like in
           enterprise Finance.
         </p>
@@ -356,13 +444,13 @@
       <div class="evo-step">
         <div class="evo-label">Phase 1</div>
         <h3>AR Agent</h3>
-        <p>Joule-only · Private Cloud<br>Customer account analysis</p>
+        <p>Joule-only · Private Cloud<br>Sole Private Cloud delivery</p>
       </div>
       <div class="evo-arrow">→</div>
       <div class="evo-step">
         <div class="evo-label">Phase 2</div>
         <h3>AR Assistant</h3>
-        <p>Multi-agent orchestration<br>Engagement Layer · Composite UI</p>
+        <p>Multi-agent orchestration<br>Private + Public Cloud collab</p>
       </div>
       <div class="evo-arrow">→</div>
       <div class="evo-step">
@@ -492,7 +580,7 @@
 <section id="journey">
   <div class="container">
     <div class="section-label">Project Journey</div>
-    <h2 class="section-title">8 Months: From Concept to Working Solution</h2>
+    <h2 class="section-title">1.5 Years: From Concept to Working Solution</h2>
     <p class="section-sub">
       This work progressed from an early Joule experiment for Private Cloud customers to a
       fully orchestrated multi-agent assistant — spanning idea pitching, customer validation,
@@ -502,7 +590,7 @@
 
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
-        <div class="tl-phase">Phase 1 · Discovery</div>
+        <div class="tl-phase">Phase 1 · Discovery → TechEd 2025</div>
         <h3>AR Agent — Joule for Private Cloud</h3>
         <p>
           The initial scope: a single Joule agent for SAP S/4HANA Cloud Private Edition
@@ -514,8 +602,9 @@
         <div class="tag-list">
           <span class="tag">Customer Engagement Sessions</span>
           <span class="tag">Idea Pitching</span>
-          <span class="tag amber">Private Cloud Scope</span>
+          <span class="tag amber">Private Cloud Only</span>
           <span class="tag">S/4HANA 2023 FPS1</span>
+          <span class="tag amber">SAP TechEd 2025</span>
         </div>
       </div>
 
@@ -532,7 +621,7 @@
         <div class="tag-list">
           <span class="tag">Agent Orchestration Design</span>
           <span class="tag">Engagement Layer Concept</span>
-          <span class="tag amber">Composite UI for Joule</span>
+          <span class="tag amber">Private Cloud Led · Public Cloud Joined</span>
         </div>
       </div>
 
@@ -773,119 +862,96 @@
 <section id="prototype" style="background:var(--bg-1);">
   <div class="container">
     <div class="section-label">Working Prototype</div>
-    <h2 class="section-title">The Engagement Layer — Built, Not Mocked</h2>
+    <h2 class="section-title">Figma Make — Design to HTML in One Step</h2>
     <p class="section-sub">
-      Rather than static wireframes, the AR Assistant Engagement Layer was validated with a working
-      HTML prototype using the real SAP Joule design system (72 font, Joule purple tokens, Fiori component patterns).
-      Two AR-specific Spaces are live and interactive.
+      Instead of static wireframes, the Engagement Layer concept was validated as a working HTML prototype
+      exported directly from Figma using Figma Make. Layout, spacing, and nav structure came through —
+      the starting point from which Claude then iterated to add real AR content and interactions.
     </p>
 
-    <!-- Joule input bar replica — shows the actual EL input pattern -->
-    <div style="background:linear-gradient(119.36deg, rgb(237,247,255) 0%, rgb(235,237,255) 100%); border-radius:var(--radius); padding:2rem; margin-bottom:2rem; display:flex; align-items:center; justify-content:center;">
-      <div style="background:white; border:1px solid rgba(93,54,255,.4); border-radius:40px; padding:10px 18px; display:flex; align-items:center; gap:10px; box-shadow:0px 0px 2px rgba(120,88,255,.16),0px 8px 16px rgba(120,88,255,.10); width:100%; max-width:600px;">
-        <div style="width:28px;height:28px;background:#eaecee;border-radius:200px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M2 4.5l5-3.5 5 3.5M2 9.5l5 3.5 5-3.5" stroke="#556b82" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- Single prototype card — full width -->
+    <div class="fade-in" style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:2rem;">
+      <div style="background:linear-gradient(135deg,#1a0a4a,#3a1a8a);padding:1.1rem 1.75rem;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
+        <div>
+          <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.3rem;">Figma Make Export</div>
+          <div style="font-size:1rem;font-weight:800;">Engagement Layer — First Draft</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.65);margin-top:.2rem;">Overview · Spaces · Jobs · Conversations</div>
         </div>
-        <span style="flex:1;font-family:'72',sans-serif;font-size:13px;color:#8a9ba8;font-style:italic;">Ask Joule — e.g. "Which customers are at risk of credit breach?" or "Show DSO trend for Acme"</span>
-        <div style="width:28px;height:28px;background:#5d36ff;border-radius:200px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5H11M11 6.5L7.5 3M11 6.5L7.5 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="figmamake_claude/index.html" target="_blank"
+           style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:.5rem 1.2rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:600;white-space:nowrap;">
+          Open Local Export →
+        </a>
+        <a href="https://www.figma.com/make/bLtUKNXXXq7NPX2IWHptn6/EL-AR--not-reviewed-?fullscreen=1&t=iJa65hZZGI4BTnaG-1&code-node-id=0-9" target="_blank"
+           style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);padding:.5rem 1.2rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:600;white-space:nowrap;">
+          View in Figma Make ↗
+        </a>
+      </div>
+      <div style="background:#f0f2f7;overflow:hidden;height:340px;position:relative;">
+        <iframe
+          src="figmamake_claude/index.html"
+          style="width:160%;height:160%;transform:scale(0.625);transform-origin:top left;border:none;pointer-events:none;"
+          title="Figma Make prototype"
+          loading="lazy">
+        </iframe>
+        <div style="position:absolute;bottom:10px;right:12px;background:rgba(0,0,0,.45);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;letter-spacing:.04em;">LIVE PREVIEW</div>
+      </div>
+      <div style="padding:1.25rem 1.75rem;background:var(--bg-1);display:flex;align-items:flex-start;gap:2rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:.78rem;color:var(--text-2);line-height:1.6;">
+            Figma Make converted the EL design frames directly to HTML/CSS — the full shell including
+            Overview, Spaces, Jobs, and Conversations. A real browser-renderable starting point, not a mockup.
+          </div>
+        </div>
+        <div class="tag-list" style="flex-shrink:0;">
+          <span class="tag">Figma → HTML</span>
+          <span class="tag amber">First Draft</span>
+          <span class="tag">Pure HTML · No Build Step</span>
         </div>
       </div>
     </div>
 
-    <div class="cards-grid">
-
-      <div class="card fade-in" style="border-top:3px solid var(--joule); padding:0; overflow:hidden;">
-        <div style="background:linear-gradient(119.36deg,rgb(237,247,255) 0%,rgb(235,237,255) 100%); padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="background:#f6f6fa;border:1px solid rgba(255,255,255,.6);border-radius:100px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:13px;font-weight:600;color:#0064d9;">Customer Analysis</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="#0064d9" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-          <div style="width:28px;height:28px;background:#F5F3FF;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#5d36ff" stroke-width="1.4"/><path d="M5.5 8.5L7 10L10.5 7" stroke="#5d36ff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- What changed between iterations -->
+    <div style="background:var(--bg-2);border-radius:var(--radius);padding:1.5rem 1.75rem;border:1px solid var(--border);margin-bottom:1.5rem;" class="fade-in">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem;">What Figma Make gave — and what still needed building</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+        <div style="display:flex;gap:.65rem;align-items:flex-start;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--joule);flex-shrink:0;margin-top:.45rem;"></div>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Shell structure came through well</div>
+            <div style="font-size:.76rem;color:var(--text-2);">Layout, nav, spacing, and the four EL sections (Overview, Spaces, Jobs, Conversations) were all in place</div>
           </div>
         </div>
-        <div style="padding:1.25rem 1.5rem;">
-          <h3 style="font-size:.95rem;font-weight:700;color:var(--text-1);margin-bottom:.5rem;">AR Customer Analysis Space</h3>
-          <p style="font-size:.82rem;color:var(--text-2);margin-bottom:1rem;">Aging buckets, payment behavior trend chart, risk-filtered customer table with DSO, credit utilization, and dispute counts. Joule input bar for natural language queries.</p>
-          <div class="tag-list">
-            <span class="tag">KPI Strip</span>
-            <span class="tag">Aging Chart</span>
-            <span class="tag">Risk Filter</span>
-            <span class="tag green">Live HTML</span>
-          </div>
-          <a href="EL-AR (not reviewed)/EngagementLayerNew/design-system/space-ar-customer-analysis.html"
-             target="_blank"
-             style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;background:var(--joule);color:white;padding:.5rem 1.2rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:600;">
-            Open Space →
-          </a>
-        </div>
-      </div>
-
-      <div class="card fade-in" style="border-top:3px solid #c62828; padding:0; overflow:hidden;">
-        <div style="background:linear-gradient(119.36deg,rgb(237,247,255) 0%,rgb(235,237,255) 100%); padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="background:#f6f6fa;border:1px solid rgba(255,255,255,.6);border-radius:100px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:13px;font-weight:600;color:#0064d9;">AR Disputes</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="#0064d9" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-          <div style="width:28px;height:28px;background:#F5F3FF;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#5d36ff" stroke-width="1.4"/><path d="M5.5 8.5L7 10L10.5 7" stroke="#5d36ff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div style="display:flex;gap:.65rem;align-items:flex-start;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--joule);flex-shrink:0;margin-top:.45rem;"></div>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">AR content still needed building</div>
+            <div style="font-size:.76rem;color:var(--text-2);">Customer Analysis, Disputes, real aging data, overdue amounts — none of this existed in the Figma Make export</div>
           </div>
         </div>
-        <div style="padding:1.25rem 1.5rem;">
-          <h3 style="font-size:.95rem;font-weight:700;color:var(--text-1);margin-bottom:.5rem;">AR Disputes Space</h3>
-          <p style="font-size:.82rem;color:var(--text-2);margin-bottom:1rem;">Full disputes table with status/priority filters, click-to-detail side panel showing dispute amount, reason, assignee, notes, and inline actions: Resolve, Escalate, Request Credit Memo.</p>
-          <div class="tag-list">
-            <span class="tag">Disputes Table</span>
-            <span class="tag">Detail Panel</span>
-            <span class="tag red">Success + Failure States</span>
-            <span class="tag green">Live HTML</span>
+        <div style="display:flex;gap:.65rem;align-items:flex-start;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--joule);flex-shrink:0;margin-top:.45rem;"></div>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">No interactive states</div>
+            <div style="font-size:.76rem;color:var(--text-2);">Hover, click, side panels, filter states — Figma Make exports static structure only; interactions were built with Claude</div>
           </div>
-          <a href="EL-AR (not reviewed)/EngagementLayerNew/design-system/space-ar-disputes.html"
-             target="_blank"
-             style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;background:var(--joule);color:white;padding:.5rem 1.2rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:600;">
-            Open Space →
-          </a>
+        </div>
+        <div style="display:flex;gap:.65rem;align-items:flex-start;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--joule);flex-shrink:0;margin-top:.45rem;"></div>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Design tokens extracted from here</div>
+            <div style="font-size:.76rem;color:var(--text-2);">The Figma Make output was the source for hardening the exact Joule CSS tokens — reused across all subsequent iterations</div>
+          </div>
         </div>
       </div>
-
-      <div class="card fade-in" style="border-top:3px solid var(--sap-blue); padding:0; overflow:hidden;">
-        <div style="background:linear-gradient(119.36deg,rgb(237,247,255) 0%,rgb(235,237,255) 100%); padding:1.25rem 1.5rem; border-bottom:1px solid var(--border);">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="background:#f6f6fa;border:1px solid rgba(255,255,255,.6);border-radius:100px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:13px;font-weight:600;color:#0064d9;">Engagement Layer</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="#0064d9" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-        </div>
-        <div style="padding:1.25rem 1.5rem;">
-          <h3 style="font-size:.95rem;font-weight:700;color:var(--text-1);margin-bottom:.5rem;">Full Engagement Layer Shell</h3>
-          <p style="font-size:.82rem;color:var(--text-2);margin-bottom:1rem;">The complete Joule Engagement Layer — Conversations, Spaces, Discover, Assistants catalog. The AR spaces are embedded within this shell with full left nav, Joule panel, and space switcher.</p>
-          <div class="tag-list">
-            <span class="tag">Joule Shell</span>
-            <span class="tag">Conversations</span>
-            <span class="tag">Spaces Navigation</span>
-            <span class="tag green">Live HTML</span>
-          </div>
-          <a href="EL-AR (not reviewed)/EngagementLayerNew/design-system/spaces.html"
-             target="_blank"
-             style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;background:var(--joule);color:white;padding:.5rem 1.2rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:600;">
-            Open Shell →
-          </a>
-        </div>
-      </div>
-
     </div>
 
-    <div style="margin-top:1.5rem;background:var(--joule-bg);border-radius:var(--radius);padding:1.25rem 1.5rem;border-left:4px solid var(--joule);display:flex;align-items:flex-start;gap:.75rem;">
+    <div style="background:var(--joule-bg);border-radius:var(--radius);padding:1.1rem 1.4rem;border-left:4px solid var(--joule);display:flex;align-items:flex-start;gap:.75rem;" class="fade-in">
       <span style="font-size:1.1rem;flex-shrink:0;">💡</span>
-      <p style="font-size:.85rem;color:var(--text-2);line-height:1.6;">
-        <strong style="color:var(--joule);">Design token alignment:</strong>
-        The portfolio you're reading uses the same design tokens as the prototype — Joule purple (#5d36ff), SAP 72 font family, the EL background gradient, border colours, and shadow values — extracted directly from the Figma → CSS system in the EL-AR codebase.
+      <p style="font-size:.84rem;color:var(--text-2);line-height:1.6;">
+        <strong style="color:var(--joule);">The workflow:</strong>
+        Figma → Figma Make → raw HTML → Claude iterations. Each pass tightened fidelity, added
+        real content, and revealed what the design actually needed vs. what looked right in Figma.
+        Code as a design tool — not a handoff artefact.
       </p>
     </div>
   </div>
@@ -1188,7 +1254,7 @@
   <div class="container">
     <div class="section-label">My UX Process</div>
     <h2 class="section-title">How I Drove the Design</h2>
-    <p class="section-sub">My specific contributions across the 8-month delivery — from customer engagement to design.</p>
+    <p class="section-sub">My specific contributions across the 1.5-year delivery — from customer engagement to design.</p>
     <div class="ux-steps">
       <div class="ux-step fade-in">
         <div class="ux-step-num" style="background:var(--sap-blue);">1</div>
@@ -1272,7 +1338,7 @@
 <section id="reflection" style="background:var(--bg-1);">
   <div class="container">
     <div class="section-label">Learnings &amp; Reflection</div>
-    <h2 class="section-title">What I Learned Over 8 Months</h2>
+    <h2 class="section-title">What I Learned Over 1.5 Years</h2>
     <p class="section-sub">
       Working at the frontier of enterprise AI — designing for autonomous agents, Joule orchestration,
       and a brand-new Engagement Layer concept — surfaced lessons that shaped both the product and my approach.
@@ -1311,6 +1377,329 @@
         <div class="ref-item">
           <h4>Designing for agents is a new UX discipline</h4>
           <p>You don't just design for the user — you design for how the agent communicates with the user. Success states are easy. Failure states are where most agent UX breaks down. Explicitly designing both — what the agent says when it can't complete a task, how it recovers, what it asks the user — reduces complexity and builds trust faster than any onboarding flow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN JOURNEY -->
+<section id="design-journey" style="background:var(--bg-2);">
+  <div class="container">
+    <div class="section-label">Design Journey</div>
+    <h2 class="section-title">From Joule Experiment to Engagement Layer — The Full Story</h2>
+    <p class="section-sub">
+      This work unfolded in distinct phases over 1.5 years — from a focused Joule prototype built solely
+      by the Private Cloud team for TechEd 2025, through a cross-cloud AR Assistant where Public Cloud
+      design and dev joined to build the Engagement Layer, to a GTM strategy for SAP Sapphire 2026.
+      The project was led by Private Cloud throughout.
+    </p>
+
+    <!-- PHASE 1 -->
+    <div class="journey-phase fade-in">
+      <div class="journey-phase-header jp-phase-1">
+        <div class="jp-phase-badge">Phase 1</div>
+        <div class="jp-header-text">
+          <h3>AR Agent — Private Cloud · Sole Delivery · TechEd 2025</h3>
+          <p>
+            Built entirely by the Private Cloud team. A single Joule assistant for SAP S/4HANA Cloud
+            Private Edition, accessed through the existing Joule side-panel chat interface. No new UI —
+            just a conversation with an intelligent AR agent, delivered for SAP TechEd 2025.
+          </p>
+        </div>
+      </div>
+      <div class="journey-phase-body">
+        <div class="jp-scope-grid">
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">📋</div>
+            <div>
+              <div class="jp-scope-label">Worklist</div>
+              <div class="jp-scope-desc">Daily prioritised account list, AI-ranked by exposure and risk</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">🔎</div>
+            <div>
+              <div class="jp-scope-label">Account Analysis</div>
+              <div class="jp-scope-desc">360° view of overdue items, balance, payment history in one conversation</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">⚖️</div>
+            <div>
+              <div class="jp-scope-label">Dispute Analysis</div>
+              <div class="jp-scope-desc">Agent reviews dispute cases and proposes resolutions autonomously</div>
+            </div>
+          </div>
+          <div class="jp-scope-item" style="opacity:.55;">
+            <div class="jp-scope-icon">🔔</div>
+            <div>
+              <div class="jp-scope-label" style="color:var(--text-2);">Dunning &amp; Credit (Out of Scope)</div>
+              <div class="jp-scope-desc">Deliberately de-scoped to keep Phase 1 focused and deliverable</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;">Wireframes &amp; Design Artefacts</div>
+        <div class="jp-wireframes">
+          <div class="jp-wireframe-chip">🗂 Joule Worklist Flow</div>
+          <div class="jp-wireframe-chip">📊 Account Analysis Cards</div>
+          <div class="jp-wireframe-chip">⚖️ Dispute Analysis Conversation</div>
+          <div class="jp-wireframe-chip">📋 AR Agent · Joule Design (Figma)</div>
+          <div class="jp-wireframe-chip amber" style="background:#fff3e0;border-color:#fcd9a0;color:#b45309;">🎯 Delivered at SAP TechEd 2025</div>
+        </div>
+        <div class="jp-constraint">
+          <strong>Platform constraint discovered:</strong> Private Cloud volume limits meant the LLM context window
+          couldn't hold all open items for Smart Clearing or large worklists — forcing architecture decisions
+          (chunking, prioritisation cutoffs) that directly shaped UX scope in this phase and the next.
+        </div>
+        <div class="jp-insight">
+          <strong>Key insight from validation:</strong> Users asked Joule great analytical questions, but needed
+          to take action on the results — and the Joule chat interface had no structured way to surface
+          recommended actions inline. This friction became the seed of the Engagement Layer concept.
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-connector">Evolved into new UI concept</div>
+
+    <!-- PHASE 2 -->
+    <div class="journey-phase fade-in">
+      <div class="journey-phase-header jp-phase-2">
+        <div class="jp-phase-badge">Phase 2</div>
+        <div class="jp-header-text">
+          <h3>Engagement Layer — Public Cloud Joins · Cross-Cloud Collaboration Begins</h3>
+          <p>
+            As scope expanded beyond TechEd, the Public Cloud design and dev team joined the project.
+            This phase defined the Engagement Layer concept — a composite UI sitting on top of Fiori —
+            with the Collection Specialist persona as the primary new focus. Private Cloud continued
+            to lead; Public Cloud brought additional capacity and the EL development track.
+          </p>
+        </div>
+      </div>
+      <div class="journey-phase-body">
+
+        <div style="font-size:.82rem;font-weight:700;color:var(--text-1);margin-bottom:.75rem;">The 4 Core EL Features</div>
+        <div class="jp-scope-grid">
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">🏠</div>
+            <div>
+              <div class="jp-scope-label">Overview</div>
+              <div class="jp-scope-desc">Personalised landing surface — daily priorities, agent activity, KPI snapshots</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">📦</div>
+            <div>
+              <div class="jp-scope-label">Spaces</div>
+              <div class="jp-scope-desc">Domain-specific workspaces (e.g. AR Space, Disputes Space) — structured views with embedded AI</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">⚙️</div>
+            <div>
+              <div class="jp-scope-label">Jobs</div>
+              <div class="jp-scope-desc">Background agent task runner — autonomous actions with HITL review points</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">💬</div>
+            <div>
+              <div class="jp-scope-label">Conversation</div>
+              <div class="jp-scope-desc">Joule-powered natural language interface — context is carried from Spaces and Jobs</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--joule-bg);border-radius:8px;padding:1rem 1.1rem;border:1px solid rgba(93,54,255,.15);margin-bottom:1rem;">
+          <div style="font-size:.78rem;font-weight:700;color:var(--joule);margin-bottom:.4rem;letter-spacing:.04em;text-transform:uppercase;">Architecture note</div>
+          <p style="font-size:.82rem;color:var(--text-2);line-height:1.6;">
+            The Engagement Layer was designed as a separate React tab / app — it does not natively pass context
+            from Fiori to EL. This was a known gap: a user viewing a customer in Fiori would get no carry-over
+            when switching to EL. Designing around this constraint — and proposing how contextual data passing
+            <em>should</em> work in a future-state — was a significant part of the EL design thinking work.
+          </p>
+        </div>
+
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;">Design Thinking Artefacts — Collection Specialist Focus</div>
+        <div class="jp-wireframes">
+          <div class="jp-wireframe-chip el">🎨 EL Structure Overview (Figma)</div>
+          <div class="jp-wireframe-chip el">📋 Collections Specialist Flows (Figma)</div>
+          <div class="jp-wireframe-chip el">🖥 Overview · Spaces · Jobs screens (Figma)</div>
+          <div class="jp-wireframe-chip el">📐 EL Component Library (Fluid)</div>
+          <div class="jp-wireframe-chip el">🔗 Agent Acceleration × EL Kickoff (Figma)</div>
+        </div>
+        <div style="font-size:.75rem;color:var(--text-3);margin-top:.45rem;font-style:italic;">
+          Note: No dedicated UI kit existed for the Engagement Layer at this stage — designed using the SAP Fluid component library
+          as a foundation, with new EL-specific patterns proposed alongside.
+        </div>
+
+        <div class="jp-insight">
+          <strong>Why Collections Specialist was the focus:</strong> The AR Accountant persona was established
+          from Phase 1. The Collection Specialist was a new persona the team had not previously designed for —
+          requiring fresh research, journey mapping, and validation. The EL's action-first, surface-recommendations
+          approach proved a natural fit for a specialist who needs to move fast across 200+ accounts daily.
+        </div>
+        <div class="jp-constraint">
+          <strong>The hard EL constraint:</strong> The current developed EL is a separate React tab — it doesn't
+          contextually pass data from Fiori to EL. This is actively limiting the "seamless workflow" promise of
+          the Engagement Layer. Proposed new scoping and interaction patterns to bridge this gap are part of the
+          Phase 3 design work.
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-connector">Extended scope · AR Accountant re-centred</div>
+
+    <!-- PHASE 3 -->
+    <div class="journey-phase fade-in">
+      <div class="journey-phase-header jp-phase-3">
+        <div class="jp-phase-badge">Phase 3</div>
+        <div class="jp-header-text">
+          <h3>AR Assistant — New Scope, Dual Persona, Joule as Dev Scaffold</h3>
+          <p>
+            Phase 3 is the current scope — an expanded AR Assistant that equally serves both the AR Accountant
+            and Collection Specialist. The design work here focuses on the AR Accountant workflows that were
+            underserved in Phase 2, and on defining how the EL and Joule conversation layer should work together.
+            Engineering began by building a conversation-first version in Joule — a scaffold the design then enriches.
+          </p>
+        </div>
+      </div>
+      <div class="journey-phase-body">
+        <div class="jp-scope-grid">
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">💼</div>
+            <div>
+              <div class="jp-scope-label">AR Accountant Focus</div>
+              <div class="jp-scope-desc">Account Analysis, Smart Clearing, Dispute resolution — full Accountant workflows in EL</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">📞</div>
+            <div>
+              <div class="jp-scope-label">Collection Specialist (continued)</div>
+              <div class="jp-scope-desc">Worklist, 360° view, dunning actions — flows refined based on validation feedback</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">💬</div>
+            <div>
+              <div class="jp-scope-label">Joule Conversation Scaffold</div>
+              <div class="jp-scope-desc">Dev team built a Joule-only version first — conversational, limited visuals. Design provided the richer EL target state alongside.</div>
+            </div>
+          </div>
+          <div class="jp-scope-item">
+            <div class="jp-scope-icon">🔗</div>
+            <div>
+              <div class="jp-scope-label">Context Passing (new)</div>
+              <div class="jp-scope-desc">Proposed interaction model for how Fiori context should flow into EL — a new design challenge not solved in prior phases</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;margin-top:.5rem;">Design Artefacts — AR Assistant (New Scope)</div>
+        <div class="jp-wireframes">
+          <div class="jp-wireframe-chip">🖥 AR Assistant · EL Screens (Figma)</div>
+          <div class="jp-wireframe-chip">💼 AR Accountant · Account View</div>
+          <div class="jp-wireframe-chip">📊 Smart Clearing HITL Flow</div>
+          <div class="jp-wireframe-chip">💬 Joule Conversation Scaffold (Figma)</div>
+          <div class="jp-wireframe-chip">🔗 Fiori → EL Context Passing Proposal</div>
+        </div>
+
+        <div class="jp-insight">
+          <strong>Two tracks in parallel:</strong> Engineering built the Joule conversation version with its inherent
+          UI limitations (text-heavy, no rich visualisations). Design ran in parallel producing the EL target state —
+          giving the team both a shippable near-term version and an aspirational high-fidelity target. This dual-track
+          approach allowed demos to happen early while the richer experience matured.
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-connector">GTM strategy · SAP Sapphire 2026</div>
+
+    <!-- PHASE 4 — GTM -->
+    <div class="journey-phase fade-in">
+      <div class="journey-phase-header jp-phase-4">
+        <div class="jp-phase-badge">Phase 4 · GTM</div>
+        <div class="jp-header-text">
+          <h3>GTM Strategy — 5 Defined Flows for SAP Sapphire 2026</h3>
+          <p>
+            A Go-To-Market strategy was defined for the Joule AR use case — five end-to-end flows that demonstrate
+            the full value of the AR Assistant at SAP Sapphire 2026, SAP's flagship annual customer event.
+            These flows are designed to show both the autonomous agent orchestration and the Engagement Layer
+            UX in a compelling, customer-facing demonstration format.
+          </p>
+        </div>
+      </div>
+      <div class="journey-phase-body">
+        <div style="font-size:.82rem;font-weight:700;color:var(--text-1);margin-bottom:.85rem;">The 5 GTM Flows</div>
+        <div class="gtm-flow-grid">
+          <div class="gtm-flow-card">
+            <div class="gtm-flow-num">Flow 01</div>
+            <h4>Worklist Prioritisation</h4>
+            <p>AI-generated daily worklist — ranked by financial exposure, credit risk, and payment behaviour. Specialist reviews and confirms priorities.</p>
+          </div>
+          <div class="gtm-flow-card c2">
+            <div class="gtm-flow-num">Flow 02</div>
+            <h4>360° Customer Account View</h4>
+            <p>Collection Specialist gets a full account picture — overdue items, disputes, promises to pay, dunning history — in a single Joule conversation.</p>
+          </div>
+          <div class="gtm-flow-card c3">
+            <div class="gtm-flow-num">Flow 03</div>
+            <h4>Autonomous Dispute Resolution</h4>
+            <p>Dispute agent autonomously validates a billing error claim against source documents, proposes a credit memo, triggers Billing Adjustment Agent.</p>
+          </div>
+          <div class="gtm-flow-card c4">
+            <div class="gtm-flow-num">Flow 04</div>
+            <h4>Smart Clearing — HITL</h4>
+            <p>AR Accountant reviews AI-proposed invoice-payment matches after auto-clearing. Approves matches; patterns feed rule generation.</p>
+          </div>
+          <div class="gtm-flow-card c5">
+            <div class="gtm-flow-num">Flow 05</div>
+            <h4>EL Collections Flow</h4>
+            <p>End-to-end Collection Specialist flow through the Engagement Layer — from worklist to 360° view to action (Promise to Pay / dunning block) — all without leaving EL.</p>
+          </div>
+        </div>
+
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-top:1.25rem;margin-bottom:.5rem;">GTM Artefacts</div>
+        <div class="jp-wireframes">
+          <div class="jp-wireframe-chip gtm">📊 GTM Flow Diagrams (PPT)</div>
+          <div class="jp-wireframe-chip gtm">🎯 SAP Sapphire 2026 Demo Script</div>
+          <div class="jp-wireframe-chip gtm">🔗 EL GTM Flow (Figma)</div>
+          <div class="jp-wireframe-chip gtm">💡 Joule Use Case Proposal (PPT)</div>
+        </div>
+
+        <div class="jp-insight">
+          <strong>GTM shaped design scope:</strong> Defining the five flows for Sapphire forced prioritisation decisions
+          on both the product and design side. Flows that couldn't be demo-ready by the event deadline were de-scoped or
+          deferred — creating a hard forcing function that prevented over-engineering and kept the team focused on
+          the highest-value customer-facing moments.
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY SUMMARY -->
+    <div style="background:linear-gradient(135deg,#032d60,#3b0764);border-radius:var(--radius);padding:2rem 2.25rem;color:#fff;margin-top:1.5rem;" class="fade-in">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.65rem;">Journey Summary</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;">
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#67e8f9;line-height:1;">4</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.75);margin-top:.25rem;">Distinct design phases</div>
+        </div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#a78bfa;line-height:1;">3</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.75);margin-top:.25rem;">Figma projects + 3 PPT decks</div>
+        </div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#86efac;line-height:1;">2</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.75);margin-top:.25rem;">Primary personas, both equally prioritised</div>
+        </div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#fbbf24;line-height:1;">5</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.75);margin-top:.25rem;">GTM flows for SAP Sapphire 2026</div>
+        </div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#f9a8d4;line-height:1;">1</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.75);margin-top:.25rem;">Engagement Layer — new gen UX on top of Fiori</div>
         </div>
       </div>
     </div>

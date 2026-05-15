@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joule Engagement Layer — AR & Finance</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .landing-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 24px 24px 0 0;
+      margin: 12px 12px 0 0;
+      overflow: hidden;
+    }
+
+    .landing-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .add-btn {
+      width: 40px;
+      height: 40px;
+      background: #5d36ff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .add-btn:hover { transform: scale(1.05); }
+
+    .landing-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0 60px 32px;
+      overflow-y: auto;
+    }
+
+    .joule-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 0 20px;
+    }
+
+    .joule-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .categories-container {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 8px;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+
+    .category-chip {
+      background: rgba(93, 54, 255, 0.08);
+      border: none;
+      border-radius: 24px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #5d36ff;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .category-chip:hover { background: rgba(93, 54, 255, 0.14); }
+
+    .prompts-container {
+      width: 65%;
+      background: rgba(116, 88, 255, 0.04);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin: 0 auto 24px;
+      display: none;
+      align-self: center;
+    }
+
+    .prompts-container.visible { display: block; }
+
+    .prompts-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .prompts-category {
+      font-size: 18px;
+      font-weight: 600;
+      color: #5d36ff;
+    }
+
+    .prompt-btn {
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+
+    .prompt-btn:hover { background: rgba(93, 54, 255, 0.05); }
+    .prompt-btn.selected { background: rgba(93, 54, 255, 0.08); }
+
+    .prompt-text {
+      font-size: 15px;
+      line-height: 1.45;
+      color: #223548;
+      flex: 1;
+    }
+
+    .deep-research {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5d36ff;
+      white-space: nowrap;
+      display: none;
+    }
+
+    .prompt-btn.selected .deep-research { display: block; }
+
+    .input-section {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      align-self: center;
+      margin-bottom: 12px;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      background: white;
+      border: 1px solid rgba(93, 54, 255, 0.25);
+      border-radius: 28px;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 0 1px rgba(120, 88, 255, 0.08), 0 4px 10px rgba(120, 88, 255, 0.05);
+    }
+
+    .input-text-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .main-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      color: #556b82;
+      background: transparent;
+      font-family: inherit;
+    }
+
+    .main-input::placeholder { color: #8a9ba8; font-style: italic; }
+
+    .input-icons-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .input-icons-left, .input-icons-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  <!-- nav injected -->
+
+  <main class="landing-main">
+    <header class="landing-header">
+      <div class="flex items-center gap-12">
+        <a href="conversations.html" class="icon-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 3h12a1 1 0 011 1v8a1 1 0 01-1 1H6l-4 4V4a1 1 0 011-1z" stroke="#131E29" stroke-width="1.5" fill="none"/>
+          </svg>
+        </a>
+        <h1 style="font-size:18px;font-weight:700;color:#131e29">New Conversation</h1>
+      </div>
+      <button class="add-btn" onclick="window.location.href='conversations.html'">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 3v12M3 9h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="landing-content">
+      <div class="joule-section">
+        <!-- Joule Icon -->
+        <img src="assets/Joule_icon.svg" alt="Joule" class="joule-icon"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div style="display:none;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);align-items:center;justify-content:center">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M18 4l3.5 10.5L32 18l-10.5 3.5L18 32l-3.5-10.5L4 18l10.5-3.5z" fill="white"/>
+          </svg>
+        </div>
+
+        <!-- Input -->
+        <div class="input-section">
+          <div class="input-wrapper">
+            <div class="input-text-row">
+              <input type="text" class="main-input" placeholder="Ask Joule or create anything" id="mainInput">
+            </div>
+            <div class="input-icons-row">
+              <div class="input-icons-left">
+                <button class="input-action-btn">
+                  <img src="assets/attachments-button.svg" width="22" alt="Attach">
+                </button>
+                <button class="input-action-btn">
+                  <img src="assets/tools-button.svg" width="22" alt="Tools">
+                </button>
+              </div>
+              <div class="input-icons-right">
+                <button class="input-action-btn">
+                  <img src="assets/mic.svg" width="22" alt="Mic">
+                </button>
+                <button class="input-action-btn">
+                  <img src="assets/sound.svg" width="22" alt="Sound">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Chips -->
+        <div class="categories-container" id="categoriesRow">
+          <button class="category-chip" onclick="showPrompts('Analysis &amp; Reporting', this)">Analysis &amp; Reporting</button>
+          <button class="category-chip" onclick="showPrompts('AR &amp; Receivables', this)">AR &amp; Receivables</button>
+          <button class="category-chip" onclick="showPrompts('Process Automation', this)">Process Automation</button>
+          <button class="category-chip" onclick="showPrompts('Compliance &amp; Controls', this)">Compliance &amp; Controls</button>
+          <button class="category-chip" onclick="showPrompts('Strategic Planning', this)">Strategic Planning</button>
+        </div>
+      </div>
+
+      <!-- Prompts Panel (hidden until chip clicked) -->
+      <div class="prompts-container" id="promptsContainer">
+        <div class="prompts-header">
+          <span class="prompts-category" id="promptsTitle">Analysis &amp; Reporting</span>
+          <button class="icon-btn" onclick="closePrompts()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 1l12 12M13 1L1 13" stroke="#5d36ff" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div id="promptsList" style="display:flex;flex-direction:column;gap:4px">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="nav.js"></script>
+<script>
+const CATEGORY_PROMPTS = {
+  'Analysis & Reporting': [
+    { text: 'Why did our DSO increase from 42 to 51 days this quarter?', deep: true, icon: 'chat.svg' },
+    { text: 'Create a Q4 budget vs. actuals variance report template', deep: false, icon: 'cal.svg' },
+    { text: 'Build a working capital dashboard with DSO, DPO, and cash conversion cycle', deep: true, icon: 'ai.svg' },
+    { text: 'Monitor weekly AR aging and flag overdue accounts >€50K', deep: false, icon: null },
+  ],
+  'AR & Receivables': [
+    { text: 'Show me all disputes above €10K open more than 30 days', deep: true, icon: 'chat.svg' },
+    { text: 'Draft a collections email for Meridian Holding — SEPA mandate expired', deep: false, icon: 'cal.svg' },
+    { text: 'What is our current collection rate and how does it compare to benchmark?', deep: true, icon: 'ai.svg' },
+    { text: 'Which customers have the highest dispute frequency this year?', deep: false, icon: null },
+  ],
+  'Process Automation': [
+    { text: 'Set up an automated dunning workflow for net-30 overdue accounts', deep: true, icon: 'ai.svg' },
+    { text: 'Create a recurring reminder for all invoices 10 days before due date', deep: false, icon: 'cal.svg' },
+    { text: 'Automate SEPA mandate renewal notifications when mandates expire', deep: true, icon: 'chat.svg' },
+    { text: 'Build a cash application rule set to auto-match bank transactions', deep: true, icon: null },
+  ],
+  'Compliance & Controls': [
+    { text: 'Run a SOX compliance check on our AR processes', deep: true, icon: 'ai.svg' },
+    { text: 'Identify accounts with missing VAT numbers for tax compliance', deep: false, icon: 'chat.svg' },
+    { text: 'Generate an audit trail for all disputed invoices this quarter', deep: true, icon: 'cal.svg' },
+    { text: 'Check for duplicate invoices across all customer accounts', deep: false, icon: null },
+  ],
+  'Strategic Planning': [
+    { text: 'Forecast our cash position for the next 90 days', deep: true, icon: 'ai.svg' },
+    { text: 'Which customer segments have the highest payment risk this quarter?', deep: true, icon: 'chat.svg' },
+    { text: 'Build a scenario analysis: what if DSO improves from 51 to 44 days?', deep: true, icon: 'cal.svg' },
+    { text: 'Identify the top 10 accounts for early payment discount negotiations', deep: false, icon: null },
+  ],
+};
+
+function showPrompts(category, btn) {
+  const prompts = CATEGORY_PROMPTS[category] || [];
+  document.getElementById('promptsTitle').textContent = category;
+  document.getElementById('categoriesRow').style.display = 'none';
+  document.getElementById('promptsContainer').classList.add('visible');
+
+  const list = document.getElementById('promptsList');
+  list.innerHTML = prompts.map((p, i) => `
+    <button class="prompt-btn ${i === 0 ? 'selected' : ''}" onclick="selectPrompt(this, '${p.text.replace(/'/g, "\\'")}')">
+      ${p.icon
+        ? `<img src="assets/${p.icon}" width="20" height="20" alt="" onerror="this.style.display='none'">`
+        : `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="#223548" stroke-width="1.5"/><path d="M7 7h6M7 10h4M7 13h3" stroke="#223548" stroke-width="1.3" stroke-linecap="round"/></svg>`}
+      <div class="flex-1 min-w-0">
+        <div class="prompt-text">${p.text}</div>
+      </div>
+      ${p.deep ? '<span class="deep-research">Deep Research</span>' : ''}
+    </button>
+  `).join('');
+
+  // Pre-fill first prompt
+  if (prompts.length) {
+    document.getElementById('mainInput').value = prompts[0].text;
+  }
+}
+
+function selectPrompt(btn, text) {
+  document.querySelectorAll('.prompt-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('mainInput').value = text;
+}
+
+function closePrompts() {
+  document.getElementById('promptsContainer').classList.remove('visible');
+  document.getElementById('categoriesRow').style.display = 'flex';
+  document.getElementById('mainInput').value = '';
+}
+
+document.getElementById('mainInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    const msg = this.value.trim();
+    if (msg) {
+      window.location.href = `conversations.html?msg=${encodeURIComponent(msg)}`;
+    }
+  }
+});
+</script>
+</body>
+</html>
