@@ -6,612 +6,1878 @@
   <title>Spaces — Joule Engagement Layer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .dispute-split {
+    /* ── Spaces layout ── */
+    .spaces-layout {
       display: flex;
       flex: 1;
       min-width: 0;
-      gap: 0;
-      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+      gap: 20px;
+      padding: 20px 20px 0 0;
     }
 
-    .dispute-main {
-      flex: 1;
+    /* ── Left panel: spaces sub-nav ── */
+    .spaces-left-panel {
+      width: 300px;
+      min-width: 300px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+      background: transparent;
+    }
+    .spaces-left-panel.collapsed {
+      width: 0;
       min-width: 0;
-      padding: 12px 0 0 0;
-      height: 100%;
+      opacity: 0;
       overflow: hidden;
     }
 
-    .dispute-chat {
-      width: 380px;
-      flex-shrink: 0;
-      height: 100%;
-      background: white;
-      border-left: 1px solid #e5e5e5;
+    /* ── Center: space detail ── */
+    .spaces-detail {
+      flex: 1;
+      min-width: 400px;
       display: flex;
       flex-direction: column;
+      background: white;
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
     }
 
-    .dispute-chat.hidden {
-      display: none;
-    }
-
-    .chat-toggle-btn {
-      position: absolute;
-      bottom: 24px;
-      right: 24px;
-      width: 52px;
-      height: 52px;
-      background: #5d36ff;
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(93,54,255,0.3);
-      transition: all 0.2s;
-      z-index: 20;
-    }
-
-    .chat-toggle-btn:hover {
-      transform: scale(1.05);
-      background: #4a2acc;
-    }
-
-    .chat-header {
-      padding: 16px 20px;
+    .spaces-detail-header {
+      padding: 14px 20px;
       border-bottom: 1px solid #e5e5e5;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-shrink: 0;
     }
+    .spaces-detail-breadcrumb { font-size: 11px; color: #556b82; margin-bottom: 2px; }
+    .spaces-detail-title { font-size: 18px; font-weight: 700; color: #131e29; line-height: 1.2; }
 
-    .chat-messages {
+    .spaces-detail-body {
       flex: 1;
+      min-height: 0;
       overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      overflow-x: auto;
+      padding: 0 0 100px;
     }
+    .spaces-detail-body::-webkit-scrollbar { width: 5px; }
+    .spaces-detail-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
 
-    .chat-input-area {
-      padding: 12px 16px;
-      border-top: 1px solid #e5e5e5;
+    /* ── Anchor section headers (Figma: Line + nav-down-arrow + Text Tab) ── */
+    .section-divider {
+      margin: 8px 20px 0;
+      height: 1px;
+      background: #e5e5e5;
     }
-
-    .chat-input-row {
+    .section-anchor {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #f5f6f7;
-      border-radius: 24px;
-      padding: 8px 12px;
+      gap: 6px;
+      padding: 10px 20px 6px;
+      cursor: pointer;
+      user-select: none;
     }
-
-    .chat-input-row input {
-      flex: 1;
+    .section-anchor-arrow {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: none;
       border: none;
-      outline: none;
-      background: transparent;
-      font-size: 13px;
-      color: #556b82;
-      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      transition: background 0.15s;
     }
-
-    .analyze-tag {
-      background: linear-gradient(135deg, #ede8ff, #d0e7f5);
-      color: #5d36ff;
-      font-size: 11px;
+    .section-anchor-arrow:hover { background: rgba(0,112,242,0.08); }
+    .section-anchor-arrow svg { transition: transform 0.2s; }
+    .section-anchor-arrow.collapsed svg { transform: rotate(-90deg); }
+    .section-anchor-title {
+      font-size: 14px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: none;
-      cursor: default;
+      color: #0064d9;
+      line-height: 1;
     }
-  </style>
+    .section-body {
+      padding: 8px 20px 24px;
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .section-body.collapsed { display: none; }
+
+    /* ── Index pill (anchor navigator) — matches icon-btn style ── */
+    .index-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      border: 1px solid #E0E0E0;
+      border-radius: 100px;
+      height: 36px;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0070f2;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, border-color 0.15s;
+      position: relative;
+      white-space: nowrap;
+    }
+    .index-pill:hover { background: #f5f5f5; border-color: #BCC3CA; }
+    .index-pill svg { flex-shrink: 0; }
+    .index-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 180px;
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .index-dropdown-item {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #131e29;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.12s;
+    }
+    .index-dropdown-item:hover { background: #f4f5f6; }
+    .index-dropdown-item.active { color: #0070f2; font-weight: 600; }
+
+    /* ── Right: Joule panel ── */
+    .spaces-joule-panel {
+      width: 0;
+      min-width: 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      background: white;
+      position: relative;
+    }
+    .spaces-joule-panel.open {
+      width: 360px;
+      min-width: 360px;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
+    }
+
+    /* ── Joule panel header ── */
+    .joule-panel-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .joule-panel-title { font-size: 13px; font-weight: 700; color: #131e29; }
+    .joule-panel-subtitle { font-size: 11px; color: #556b82; margin-bottom: 2px; }
+
+    /* ── Joule panel messages ── */
+    .joule-panel-messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px 16px 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .joule-panel-messages::-webkit-scrollbar { width: 4px; }
+    .joule-panel-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+
+    /* ── System message ── */
+    .system-msg {
+      background: #f5f6f7;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #556b82;
+      line-height: 1.4;
+    }
+    .system-msg strong { color: #131e29; }
+
+    /* ── Joule chat bubbles ── */
+    .cp-msg-joule { display: flex; flex-direction: column; gap: 6px; }
+    .cp-bubble { font-size: 14px; color: #131e29; line-height: 1.5; }
+    .cp-bubble strong { font-weight: 700; }
+    .cp-user-bubble {
+      align-self: flex-end;
+      background: #7358ff;
+      color: white;
+      border-radius: 16px 16px 2px 16px;
+      padding: 14px;
+      font-size: 14px;
+      max-width: 85%;
+      word-break: break-word;
+    }
+
+    /* ── Email preview ── */
+    .email-preview {
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #131e29;
+      line-height: 1.5;
+    }
+    .email-preview .email-row { display: flex; gap: 6px; margin-bottom: 3px; }
+    .email-preview .email-label { color: #8a9ba8; min-width: 48px; flex-shrink: 0; }
+    .email-preview .email-body { margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0; color: #556b82; font-size: 11.5px; }
+
+    /* ── Action buttons ── */
+    .cp-action-row { display: flex; gap: 8px; margin-top: 4px; }
+    .btn-cp-action {
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer; border: 1.5px solid #e5e5e5;
+      background: white; color: #131e29;
+      transition: all 0.15s; font-family: inherit;
+    }
+    .btn-cp-action:hover { border-color: #5d36ff; color: #5d36ff; }
+    .btn-cp-action.primary { background: #5d36ff; color: white; border-color: #5d36ff; }
+    .btn-cp-action.primary:hover { background: #4a2acc; }
+
+    .reschedule-options { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+    .reschedule-btn {
+      padding: 8px 14px; border-radius: 10px;
+      border: 1.5px solid #e5e5e5; background: white;
+      font-size: 12px; color: #131e29; cursor: pointer;
+      text-align: left; font-family: inherit; transition: all 0.15s;
+    }
+    .reschedule-btn:hover { border-color: #5d36ff; color: #5d36ff; }
+
+    /* ── Msg action icons in panel ── */
+    .cp-msg-actions { display: flex; align-items: center; gap: 2px; margin-top: 4px; }
+    .cp-action-icon {
+      width: 26px; height: 26px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+    }
+    .cp-action-icon:hover { background: #f0f0f0; }
+
+    /* ── Joule input in panel (small) ── */
+    .joule-panel-input-wrap {
+      padding: 10px 14px;
+      border-top: 1px solid #e5e5e5;
+      flex-shrink: 0;
+    }
+    .joule-panel-input-box {
+      background: white;
+      border: 1px solid rgba(93,54,255,0.2);
+      border-radius: 24px;
+      padding: 8px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .joule-panel-input-row { display: flex; align-items: center; gap: 8px; }
+    .joule-panel-input-field {
+      flex: 1; border: none; outline: none;
+      font-size: 13px; color: #556b82;
+      background: transparent; font-family: inherit;
+    }
+    .joule-panel-input-field::placeholder { color: #8a9ba8; font-style: italic; }
+    .joule-panel-ai-footer { font-size: 10px; color: #aaa; text-align: center; padding: 4px 0 0; }
+
+    /* ── Header icon button (Toggle, Share, Joule, Close) ── */
+    .icon-btn {
+      width: 32px; height: 32px;
+      min-width: 32px; min-height: 32px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none;
+      cursor: pointer; border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .icon-btn:hover { background: rgba(0,0,0,0.06); }
+
+    /* ── Header icon button purple (matches Engagement Layer) ── */
+    .header-icon-btn-purple {
+      width: 32px; height: 32px;
+      background: #5d36ff; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .header-icon-btn-purple:hover { background: #4a2acc; }
+
+    /* ── Header actions group ── */
+    .spaces-header-left {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .spaces-header-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── Space detail tabs ── */
+    .spaces-tabs {
+      padding: 0 20px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex; align-items: center; gap: 4px;
+      flex-shrink: 0;
+    }
+    .spaces-tab {
+      padding: 10px 16px; font-size: 13px; font-weight: 400; color: #556b82;
+      border: none; background: transparent; cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s;
+    }
+    .spaces-tab.active { font-weight: 600; color: #131e29; border-bottom-color: #131e29; }
+
+    /* ── Overview cards ── */
+    .space-overview-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .overview-card {
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 16px 20px;
+    }
+    .overview-card-label { font-size: 12px; color: #556b82; margin-bottom: 4px; }
+    .overview-card-value { font-size: 28px; font-weight: 300; color: #1d2d3e; line-height: 1.1; }
+    .overview-card-unit { font-size: 14px; font-weight: 400; color: #556b82; margin-left: 4px; }
+    .overview-card-trend { font-size: 11px; font-weight: 600; margin-top: 4px; display: block; }
+    .overview-card-trend.up { color: #256f3a; }
+    .overview-card-trend.down { color: #aa0808; }
+    .overview-card-trend.warn { color: #e76500; }
+
+    /* ── Key disputes / receivables table ── */
+    .sc-table { width: 100%; border-collapse: collapse; }
+    .sc-table th {
+      font-size: 14px; color: #556b82; font-weight: 600; text-align: left;
+      padding: 6px 8px 8px 0;
+      border-bottom: 1px solid #a8b3bd;
+    }
+    .sc-table td {
+      font-size: 14px; color: #131e29;
+      padding: 10px 8px 10px 0;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: middle;
+    }
+    .sc-table td.link { color: #0064d9; cursor: pointer; }
+    .sc-table tr:last-child td { border-bottom: none; }
+    .analysis-body-text { font-size: 14px; color: #556b82; line-height: 1.55; margin: 0; }
+
+    /* ── Figma card component ── */
+    .sc {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0px 2px 4px rgba(34,53,72,0.20), 0px 0px 2px rgba(34,53,72,0.20);
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: visible; /* badges can float outside */
+    }
+    .sc-sm  { width: 368px; }
+    .sc-md  { width: 468px; }
+    .sc-lg  { width: 531px; }
+    .sc-xl  { width: 572px; }
+    .sc-act { width: 392px; box-shadow: 0px 8px 16px rgba(34,53,72,0.12), 0px 0px 6px rgba(34,53,72,0.14); }
+
+    /* card wrapper — positions badges strip below card */
+    .sc-wrap { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+
+    /* ── Card header — no separator line, spacing only ── */
+    .sc-head {
+      display: flex; align-items: center; gap: 8px;
+      padding: 16px 16px 12px;
+    }
+    /* Avatar: 64×64 rounded square, Figma fill #ded3ff, border-radius 16 */
+    .sc-avatar {
+      width: 64px; height: 64px; border-radius: 16px;
+      background: #ded3ff; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sc-head-text { flex: 1; min-width: 0; }
+    .sc-title  { font-size: 14px; font-weight: 700; color: #131e29; line-height: 1.15; }
+    .sc-sub    { font-size: 14px; color: #556b82; margin-top: 4px; line-height: 1.15; }
+    .sc-meta   { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .sc-counter{ font-size: 12px; color: #556b82; white-space: nowrap; }
+    .sc-time   { font-size: 12px; color: #556b82; white-space: nowrap; }
+
+    /* ── Badges strip (floats below card via sc-wrap) ── */
+    .sc-badges { display: flex; align-items: center; gap: 4px; padding: 0 4px; }
+    .sc-badge  {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 700; line-height: 1;
+      padding: 3px 8px; border-radius: 16px; white-space: nowrap;
+    }
+    .sc-badge.open { background: #ffdfc3; color: #b95100; }
+    .sc-badge.new  { background: #0064d9; color: #ffffff; }
+    /* badge dot icon (8×8) */
+    .sc-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .sc-badge.open .sc-badge-dot { background: #b95100; }
+    .sc-badge.new  .sc-badge-dot { background: #ffffff; }
+
+    /* ── Card body — top padding only (no separator line) ── */
+    .sc-body { padding: 4px 16px 16px; flex: 1; }
+
+    /* ── Card footer — spacing only, no border line ── */
+    .sc-foot {
+      padding: 4px 16px 12px;
+      display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+    }
+    /* Tertiary button — no bg, no border, blue text (Figma ghost style) */
+    .sc-link {
+      background: none; border: none; color: #0064d9;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      padding: 5px 8px; font-family: inherit; border-radius: 8px;
+      white-space: nowrap;
+    }
+    .sc-link:hover { background: rgba(0,100,217,0.06); }
+
+    /* Joule purple CTA button (Recommendations card only) */
+    .sc-foot-btns {
+      padding: 4px 16px 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: #5d36ff; color: white; border: none;
+      border-radius: 8px; padding: 5px 8px;
+      font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #4a28e0; }
+
+    /* ── KPI values ── */
+    .sc-kpi-val { font-size: 36px; font-weight: 300; color: #1d2d3e; line-height: 1.1; }
+    .sc-kpi-unit{ font-size: 14px; font-weight: 700; color: #1d2d3e; margin-left: 4px; }
+    .sc-kpi-lbl { font-size: 14px; color: #556b82; margin-top: 4px; }
+    .sc-kpi-red { color: #aa0808; }
+
+    /* ── Field rows ── */
+    .sc-field { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
+    .sc-field:last-child { margin-bottom: 0; }
+    .sc-lbl { font-size: 14px; color: #556b82; line-height: 1.15; }
+    .sc-val { font-size: 14px; color: #1d2d3e; line-height: 1.15; }
+    .sc-val.link { color: #0064d9; cursor: pointer; }
+    .sc-val.red  { color: #aa0808; }
+
+    /* ── Sub-nav inner (spaces list) — Figma gradient bg ── */
+    .spaces-sub-inner {
+      background: linear-gradient(180deg, #edf7ff 0%, #ebedff 100%);
+      border-radius: 12px 12px 0 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── EL sidebar icon buttons ── */
+    .sidebar-icon-btn {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none;
+      cursor: pointer; border-radius: 50%; transition: background 0.15s; flex-shrink: 0;
+    }
+    .sidebar-icon-btn:hover { background: rgba(0,0,0,0.05); }
+    /* The + new button: small filled blue circle */
+    .sidebar-icon-btn.primary {
+      width: 28px; height: 28px;
+      background: #0070f2; border: none; border-radius: 50%;
+    }
+    .sidebar-icon-btn.primary:hover { background: #005ed6; }
+
+    /* ── Filter chips — Figma: grey border, grey text ── */
+    .filter-chip {
+      padding: 6px 14px; background: transparent; border: 1px solid #BCC8D4;
+      border-radius: 8px; font-size: 13px; color: #354A5F; cursor: pointer;
+      transition: all 0.15s; font-weight: 500; font-family: inherit;
+    }
+    .filter-chip:hover { background: rgba(0,0,0,0.04); }
+    .filter-chip.active { background: #e8f3ff; color: #0064d9; border-color: #0064d9; }
+
+    /* ── Space item in sub-nav — Figma: white bg, #bcddfc border, r=32, shadow ── */
+    .space-item {
+      background: white;
+      border: 1px solid #bcddfc;
+      border-radius: 32px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-decoration: none;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
+      flex-shrink: 0;
+    }
+    .space-item:hover:not(.active) {
+      border-color: #6cb8ff;
+    }
+    .space-item.active {
+      background: white;
+      border-color: #6cb8ff;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.08);
+    }
+    .space-item-header {
+      display: flex; align-items: center; gap: 8px; padding: 8px;
+    }
+    .space-icon-mini {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #c5dff5;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .space-item-info {
+      display: flex; flex-direction: column; gap: 4px;
+      flex: 1; min-width: 0;
+    }
+    .space-item-title {
+      font-size: 14px; font-weight: 700; color: #131e29; line-height: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .space-item-meta {
+      font-size: 14px; color: #556b82; line-height: 1; font-weight: 400;
+    }
+    .space-item-body {
+      display: flex; flex-direction: column; gap: 4px; padding: 0 8px 8px;
+    }
+    .space-item-desc {
+      font-size: 14px; color: #556b82; line-height: 1.5; font-weight: 400;
+    }
+</style>
 </head>
 <body>
 <div class="page-container">
-  <div class="main-panel">
-    <!-- Left Sub-Nav: Spaces List -->
-    <div class="sub-nav">
-      <div class="sub-nav-header">
-        <span class="sub-nav-title">Spaces</span>
-        <div class="sub-nav-actions">
-          <button class="icon-btn" title="Search">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="7" cy="7" r="5" stroke="#556B82" stroke-width="1.5"/>
-              <path d="M11 11l3 3" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-          <button class="icon-btn" title="Filter">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-      </div>
+  <!-- nav.js injected -->
 
-      <button class="new-btn" onclick="alert('Create new space')">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        New Space
-      </button>
+  <div class="main-panel" style="overflow:hidden">
+    <div class="spaces-layout">
 
-      <div class="sub-nav-list">
-        <!-- Spaces -->
-        <a href="dispute-20847.html" class="space-item active" id="sp-20847">
-          <div class="space-item-header">
-            <span class="space-item-title">Meridian Holding</span>
-            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
-          </div>
-          <div class="space-item-desc">SEPA mandate expired — €14,580 collection pending, 47 days overdue</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€14,580</span>
-            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Open</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-20848" class="space-item" onclick="loadSpace('20848', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">TechPartner AG</span>
-            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
-          </div>
-          <div class="space-item-desc">Pricing dispute on PO #8821 — 67 days overdue, no response to 2 emails</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€22,450</span>
-            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Escalated</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-20849" class="space-item" onclick="loadSpace('20849', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">Global Supplies Ltd</span>
-            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
-          </div>
-          <div class="space-item-desc">Invoice quantity discrepancy — customer claims delivery was short by 12 units</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€8,740</span>
-            <span class="badge badge-neutral" style="font-size:11px;padding:2px 8px">Under Review</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-C001" class="space-item" onclick="loadSpace('C001', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">Meridian Holding — Profile</span>
-            <span class="space-item-subtitle" style="background:#e8f0fe;color:#0070F2">Customer</span>
-          </div>
-          <div class="space-item-desc">Key enterprise account — €1.2M revenue YTD, 3 open items</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€1.2M YTD</span>
-            <span class="badge badge-blue" style="font-size:11px;padding:2px 8px">Active</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-C002" class="space-item" onclick="loadSpace('C002', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">Nordic Systems AB</span>
-            <span class="space-item-subtitle" style="background:#e8f0fe;color:#0070F2">Customer</span>
-          </div>
-          <div class="space-item-desc">New account, first invoice overdue — establishing payment relationship</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€5,200</span>
-            <span class="badge badge-orange" style="font-size:11px;padding:2px 8px">Overdue</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-20850" class="space-item" onclick="loadSpace('20850', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">Axis Corp</span>
-            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
-          </div>
-          <div class="space-item-desc">Duplicate billing — customer received 2 invoices for the same delivery</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€11,320</span>
-            <span class="badge badge-neutral" style="font-size:11px;padding:2px 8px">Pending</span>
-          </div>
-        </a>
-
-        <a href="spaces.html#sp-20851" class="space-item" onclick="loadSpace('20851', this); return false;">
-          <div class="space-item-header">
-            <span class="space-item-title">Veronika Supplies</span>
-            <span class="space-item-subtitle" style="background:#fce9e9;color:#aa0808">Dispute</span>
-          </div>
-          <div class="space-item-desc">Credit memo not applied — customer paid but deducted credit not reflected</div>
-          <div class="space-item-footer">
-            <span class="space-item-amount">€6,890</span>
-            <span class="badge badge-up" style="font-size:11px;padding:2px 8px">Resolved</span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Right: Dispute Detail + Chat -->
-    <div class="dispute-split" id="disputeSplit">
-      <!-- Dispute Content -->
-      <div class="dispute-main">
-        <div class="dispute-panel" id="disputeContent">
-          <!-- Header -->
-          <div style="padding:20px;border-bottom:1px solid #e5e5e5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-12">
-                <button class="icon-btn" onclick="history.back()">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M10 3L4 8l6 5" stroke="#131E29" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- ── Left Panel: spaces sub-nav ── -->
+      <div class="spaces-left-panel" id="spacesLeftPanel">
+        <div class="spaces-sub-inner">
+          <!-- Header: title + icon buttons -->
+          <div style="padding:20px 20px 0;flex-shrink:0">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+              <span style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.5px">Spaces</span>
+              <div style="display:flex;align-items:center;gap:4px">
+                <button class="sidebar-icon-btn" id="spacesSearchBtn" onclick="toggleSpacesSearch()" title="Search">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                    <circle cx="8" cy="8" r="6" stroke="#354A5F" stroke-width="1.5"/>
+                    <path d="M12.5 12.5L16 16" stroke="#354A5F" stroke-width="1.5" stroke-linecap="round"/>
                   </svg>
                 </button>
-                <div>
-                  <h1 id="disputeTitle" style="font-size:20px;font-weight:700;color:#131e29;line-height:normal">Dispute 20847 – Meridian Holding</h1>
-                </div>
-              </div>
-              <div class="flex items-center gap-8">
-                <button class="btn-secondary">
-                  <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
-                    <path d="M1 1h12v8H1z" stroke="#0064D9" stroke-width="1.3" fill="none" rx="1"/>
-                    <path d="M4 5h6M4 7h4" stroke="#0064D9" stroke-width="1.3" stroke-linecap="round"/>
-                  </svg>
-                  Insights
+                <button class="sidebar-icon-btn" id="spacesFilterBtn" onclick="toggleSpacesFilter()" title="Filter">
+                  <img src="assets/FilterCov.svg" width="18" height="18" alt="Filter"
+                       onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=18 height=18 viewBox=&quot;0 0 20 20&quot; fill=&quot;none&quot;><path d=&quot;M3 5h14M6 10h8M9 15h2&quot; stroke=&quot;#354A5F&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg>')">
                 </button>
-                <button class="icon-btn">
-                  <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
-                    <circle cx="2" cy="2" r="1.5" fill="#0064D9"/><circle cx="8" cy="2" r="1.5" fill="#0064D9"/><circle cx="14" cy="2" r="1.5" fill="#0064D9"/>
+                <button class="sidebar-icon-btn primary" onclick="startNewSpace()" title="New Space">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </button>
               </div>
             </div>
+
+            <!-- Search (hidden by default) -->
+            <div id="spacesSearchContainer" style="display:none;margin-bottom:12px;position:relative">
+              <input type="text" placeholder="Search spaces..." id="spacesSearchInput"
+                     oninput="filterSpacesList(this.value)"
+                     style="width:100%;padding:10px 36px 10px 12px;border:1px solid #c0c8d0;border-radius:8px;font-size:14px;font-family:inherit;outline:none">
+            </div>
+
+            <!-- Filter chips (hidden by default) -->
+            <div id="spacesFilterBar" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+              <button class="filter-chip active" onclick="filterSpacesByType('all',this)">All</button>
+              <button class="filter-chip" onclick="filterSpacesByType('Dispute',this)">Dispute</button>
+              <button class="filter-chip" onclick="filterSpacesByType('Customer',this)">Customer</button>
+              <button class="filter-chip" onclick="filterSpacesByType('Analytics',this)">Analytics</button>
+            </div>
           </div>
 
-          <!-- Main Content -->
-          <div id="disputeBody" style="padding:20px">
-            <!-- OVERVIEW SECTION -->
-            <div class="accordion-section">
-              <button class="accordion-header" onclick="toggleAccordion(this)">
-                <span class="accordion-title">Overview</span>
-                <svg class="accordion-chevron open" width="10" height="6" viewBox="0 0 10 6" fill="none">
-                  <path d="M1 1l4 4 4-4" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="accordion-content" style="display:block">
-                <div class="cards-row" id="overviewCards">
-                  <!-- Recommendations Card -->
-                  <div class="detail-card">
-                    <div class="flex items-start gap-12 mb-16">
-                      <div class="detail-card-icon purple">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                          <path d="M10 2l2 5h5l-4 3 1.5 5L10 12l-4.5 3 1.5-5-4-3h5z" fill="#5D36FF"/>
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Recommendations</h3>
-                      </div>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
-                      <div>
-                        <div class="field-label">Proposed Action</div>
-                        <div class="field-value">Request SEPA mandate renewal</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Reasoning</div>
-                        <div class="field-value"><strong>SEPA Mandate expired</strong> on Feb 15, 2026</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Estimated Resolution</div>
-                        <div class="field-value">5–7 business days after new mandate received</div>
-                      </div>
-                    </div>
-                    <button class="btn-primary" style="width:100%" onclick="toggleChat()">Draft Email to Customer</button>
-                  </div>
-
-                  <!-- Dispute Overview Card -->
-                  <div class="detail-card">
-                    <div class="flex items-start gap-12 mb-16">
-                      <div class="detail-card-icon blue">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                          <rect x="3" y="3" width="14" height="14" rx="2" stroke="#0064D9" stroke-width="1.5" fill="none"/>
-                          <path d="M7 7h6M7 10h4M7 13h3" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Dispute Overview</h3>
-                      </div>
-                    </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                      <div>
-                        <div class="field-label">Case ID</div>
-                        <div class="field-value bold" id="caseId">20847</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Amount</div>
-                        <div class="field-value bold" id="disputeAmount">€14,580</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Invoice</div>
-                        <div class="field-value" id="invoiceNum">INV-2026-0392</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Due Date</div>
-                        <div class="field-value" id="dueDate">March 1, 2026</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Days Overdue</div>
-                        <div class="field-value bold text-danger" id="daysOverdue">47 days</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Status</div>
-                        <div><span class="badge badge-orange" id="disputeStatus">Open</span></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Contact Card -->
-                  <div class="detail-card">
-                    <div class="flex items-start gap-12 mb-16">
-                      <div class="detail-card-icon green">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                          <circle cx="10" cy="8" r="4" stroke="#1b7b47" stroke-width="1.5" fill="none"/>
-                          <path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#1b7b47" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:2px">Customer Contact</h3>
-                      </div>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                      <div>
-                        <div class="field-label">Company</div>
-                        <div class="field-value bold" id="customerName">Meridian Holding GmbH</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Contact Person</div>
-                        <div class="field-value" id="contactPerson">Hans Müller (CFO)</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Email</div>
-                        <div class="field-value text-blue" id="contactEmail">h.mueller@meridian.de</div>
-                      </div>
-                      <div>
-                        <div class="field-label">Last Contact</div>
-                        <div class="field-value" id="lastContact">Feb 28, 2026 (no reply)</div>
-                      </div>
-                    </div>
-                    <div class="flex gap-8" style="margin-top:14px">
-                      <button class="btn-secondary" style="flex:1;justify-content:center">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path d="M2 2h10a1 1 0 011 1v7a1 1 0 01-1 1H5l-3 3V3a1 1 0 011-1z" stroke="#0070F2" stroke-width="1.3" fill="none"/>
-                        </svg>
-                        Email
-                      </button>
-                      <button class="btn-secondary" style="flex:1;justify-content:center">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path d="M3 1c0 0 2 0 2.5 2.5S4 6 4 6s2 4 6 6c0 0 2 0 2.5-1.5S11 8 11 8L9 7" stroke="#0070F2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </svg>
-                        Call
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ANALYZE SECTION -->
-            <div class="accordion-section" style="margin-top:8px">
-              <button class="accordion-header" onclick="toggleAccordion(this)">
-                <span class="accordion-title">Analysis</span>
-                <span class="analyze-tag">AI Analysis</span>
-                <svg class="accordion-chevron open" style="margin-left:8px" width="10" height="6" viewBox="0 0 10 6" fill="none">
-                  <path d="M1 1l4 4 4-4" stroke="#0064D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="accordion-content" style="display:block">
-                <div class="cards-row">
-                  <!-- Payment History -->
-                  <div class="detail-card">
-                    <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:14px">Payment History</h3>
-                    <div style="display:flex;flex-direction:column;gap:8px">
-                      <div class="flex items-center justify-between">
-                        <span style="font-size:13px;color:#556b82">Jan 2026</span>
-                        <div class="flex items-center gap-8">
-                          <span style="font-size:13px;color:#131e29">€12,400</span>
-                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
-                        </div>
-                      </div>
-                      <div class="flex items-center justify-between">
-                        <span style="font-size:13px;color:#556b82">Dec 2025</span>
-                        <div class="flex items-center gap-8">
-                          <span style="font-size:13px;color:#131e29">€18,950</span>
-                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
-                        </div>
-                      </div>
-                      <div class="flex items-center justify-between">
-                        <span style="font-size:13px;color:#556b82">Nov 2025</span>
-                        <div class="flex items-center gap-8">
-                          <span style="font-size:13px;color:#131e29">€9,800</span>
-                          <span class="badge badge-orange" style="font-size:11px;padding:2px 6px">7 days late</span>
-                        </div>
-                      </div>
-                      <div class="flex items-center justify-between">
-                        <span style="font-size:13px;color:#556b82">Oct 2025</span>
-                        <div class="flex items-center gap-8">
-                          <span style="font-size:13px;color:#131e29">€14,200</span>
-                          <span class="badge badge-up" style="font-size:11px;padding:2px 6px">On time</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="margin-top:14px;padding:10px;background:#f8f9fa;border-radius:10px">
-                      <p style="font-size:12px;color:#556b82;line-height:1.5">Customer has a generally good payment history (92% on-time). The current delay is unusual and likely tied to the expired SEPA mandate rather than financial distress.</p>
-                    </div>
-                  </div>
-
-                  <!-- Timeline Card -->
-                  <div class="detail-card">
-                    <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:14px">Case Timeline</h3>
-                    <div style="position:relative;padding-left:20px">
-                      <div style="position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:#e5e5e5"></div>
-
-                      <div style="position:relative;margin-bottom:14px">
-                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#0070F2"></div>
-                        <div style="font-size:13px;font-weight:700;color:#131e29">Apr 17, 2026</div>
-                        <div style="font-size:12px;color:#556b82">Case assigned to AR team</div>
-                      </div>
-                      <div style="position:relative;margin-bottom:14px">
-                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#ff9800"></div>
-                        <div style="font-size:13px;font-weight:700;color:#131e29">Feb 28, 2026</div>
-                        <div style="font-size:12px;color:#556b82">2nd reminder sent — no response</div>
-                      </div>
-                      <div style="position:relative;margin-bottom:14px">
-                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#ff9800"></div>
-                        <div style="font-size:13px;font-weight:700;color:#131e29">Feb 15, 2026</div>
-                        <div style="font-size:12px;color:#556b82">SEPA mandate SDD-MH-291 expired</div>
-                      </div>
-                      <div style="position:relative;margin-bottom:14px">
-                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#f44336"></div>
-                        <div style="font-size:13px;font-weight:700;color:#131e29">Mar 1, 2026</div>
-                        <div style="font-size:12px;color:#556b82">Payment failed — mandate expired</div>
-                      </div>
-                      <div style="position:relative;">
-                        <div style="position:absolute;left:-14px;top:4px;width:10px;height:10px;border-radius:50%;background:#e5e5e5"></div>
-                        <div style="font-size:13px;font-weight:700;color:#8a9ba8">Invoice issued</div>
-                        <div style="font-size:12px;color:#8a9ba8">Feb 1, 2026 — net 30 terms</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div style="flex:1;overflow-y:auto;padding:0 12px 20px;display:flex;flex-direction:column;gap:34px" id="spacesList">
+            <!-- rendered by JS -->
           </div>
         </div>
       </div>
 
-      <!-- Chat Panel -->
-      <div class="dispute-chat hidden" id="disputeChat">
-        <div class="chat-header">
-          <div>
-            <div style="font-size:15px;font-weight:700;color:#131e29">Ask Joule</div>
-            <div style="font-size:12px;color:#556b82">Dispute #20847 context loaded</div>
-          </div>
-          <button class="icon-btn" onclick="toggleChat()" title="Close">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 1l12 12M13 1L1 13" stroke="#131E29" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-        <div class="chat-messages scrollable" id="disputeChatMsgs">
-          <div class="message joule">
-            <div class="joule-avatar">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1l1.3 3.9L12 6l-3.7 1.3L7 11l-1.3-3.7L2 6l3.7-1.1z" fill="white"/>
+      <!-- ── Center: space detail ── -->
+      <div class="spaces-detail" id="spacesDetail">
+        <!-- Header -->
+        <div class="spaces-detail-header">
+          <div class="spaces-header-left">
+            <button class="icon-btn" onclick="toggleLeftPanel()" title="Toggle spaces list">
+              <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+                <path d="M1 1h14M1 7h14M1 13h14" stroke="#0070f2" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
-            </div>
+            </button>
             <div>
-              <div class="message-bubble" style="background:#f5f6f7;color:#131e29;font-size:13px">I've loaded the context for Dispute #20847 (Meridian Holding, €14,580). The root cause is an expired SEPA mandate.<br><br>Shall I draft the renewal email?</div>
+              <div class="spaces-detail-breadcrumb" id="spaceBreadcrumb">Spaces</div>
+              <h1 class="spaces-detail-title" id="spaceDetailTitle">Dispute 20847 – Meridian Holding</h1>
             </div>
+          </div>
+          <div class="spaces-header-right">
+            <!-- Index anchor pill — shows current visible section, dropdown to jump -->
+            <div style="position:relative" id="indexPillWrapper">
+              <button class="index-pill" id="indexPill" onclick="toggleIndexDropdown()">
+                <span id="indexPillText">Overview</span>
+                <svg id="indexPillChevron" width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none">
+                  <path d="M2.5 4.5L6 8L9.5 4.5" stroke="#0070f2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="index-dropdown" id="indexDropdown" style="display:none"></div>
+            </div>
+
+            <!-- Share -->
+            <button class="icon-btn" title="Share">
+              <img src="assets/space-share.svg" width="16" height="16" alt=""
+                   onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><circle cx=&quot;4&quot; cy=&quot;8&quot; r=&quot;2&quot; stroke=&quot;#0070f2&quot; stroke-width=&quot;1.3&quot; fill=&quot;none&quot;/><circle cx=&quot;12&quot; cy=&quot;4&quot; r=&quot;2&quot; stroke=&quot;#0070f2&quot; stroke-width=&quot;1.3&quot; fill=&quot;none&quot;/><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2&quot; stroke=&quot;#0070f2&quot; stroke-width=&quot;1.3&quot; fill=&quot;none&quot;/><path d=&quot;M6 7l4-2M6 9l4 2&quot; stroke=&quot;#0070f2&quot; stroke-width=&quot;1.3&quot;/></svg>')">
+            </button>
+
+            <!-- Toggle Joule conv panel -->
+            <button class="icon-btn" id="jouleButton" onclick="toggleJoulePanel()" title="Show Joule conversation" style="display:none">
+              <img src="assets/space-joule.svg" width="16" height="16" alt=""
+                   onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z&quot; fill=&quot;#0070f2&quot;/></svg>')">
+            </button>
           </div>
         </div>
-        <div class="chat-input-area">
-          <div class="chat-input-row">
-            <button class="input-action-btn" style="width:24px;height:24px">
-              <img src="assets/attachments-button.svg" width="16" alt="Attach">
+        <div class="spaces-detail-body" id="spaceDetailBody"></div>
+
+        <!-- Floating input overlay -->
+        <div id="spacesBottomInput" style="display:none;position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:760px;z-index:20;flex-direction:column;align-items:center;gap:8px">
+          <div class="joule-input-box" style="width:100%">
+            <div class="joule-input-text-row">
+              <textarea class="joule-input-field" placeholder="Ask Joule about this space..." id="spacesJouleInput" rows="1"
+                        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';onSpacesInputType(this)"></textarea>
+            </div>
+            <div class="joule-input-icons">
+              <div class="joule-input-icons-left">
+                <button class="input-action-btn primary-tint" title="Attach">
+                  <img src="assets/attachments-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+                </button>
+                <button class="input-action-btn" title="Tools">
+                  <img src="assets/tools-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+                </button>
+              </div>
+              <div class="joule-input-icons-right">
+                <button class="input-action-btn grey-bg" title="Voice">
+                  <img src="assets/action-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+                </button>
+                <button class="space-input-send-btn" id="spacesSendBtn" onclick="handleSpacesSend()" title="Send">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="joule-ai-footer" style="text-align:center;font-size:12px;color:#5b738b;margin-top:6px">AI generated. Verify results.</p>
+        </div>
+
+      </div><!-- /spaces-detail -->
+
+      <!-- ── Right: Joule conversation panel ── -->
+      <div class="spaces-joule-panel" id="spacesJoulePanel">
+        <div class="joule-panel-header">
+          <div>
+            <div class="joule-panel-subtitle">Space conversation</div>
+            <div class="joule-panel-title" id="joulePanelTitle">Search: Open Disputes</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px">
+            <button class="icon-btn" title="Create">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1v12M1 7h12" stroke="#0070f2" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
             </button>
-            <input type="text" placeholder="Ask about this dispute..." id="disputeChatInput" onkeypress="sendDisputeMsg(event)">
-            <button class="input-action-btn" style="width:24px;height:24px" onclick="sendDisputeMsgBtn()">
-              <img src="assets/send-button.svg" width="16" alt="Send">
+            <button class="icon-btn" onclick="toggleJoulePanel()" title="Close">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 2l10 10M12 2L2 12" stroke="#848484" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
             </button>
           </div>
+        </div>
+
+        <div class="joule-panel-messages" id="joulePanelMsgs">
+          <!-- conversation thread for active space -->
+        </div>
+
+        <!-- Panel input — EL chat-input-container style -->
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid #f0f2f5">
+          <div class="panel-input-container">
+            <div class="panel-input-text-row">
+              <textarea class="panel-input-field" placeholder="Ask Joule..." id="joulePanelInput" rows="1"
+                        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateSendBtn('joulePanelSendBtn',this.value)"></textarea>
+            </div>
+            <div class="panel-input-icons-row">
+              <div class="panel-input-icons-left">
+                <button class="panel-input-btn" title="Attach">
+                  <img src="assets/attachments-button.svg" width="18" height="18" alt="" onerror="this.style.display='none'">
+                </button>
+              </div>
+              <div class="panel-input-icons-right">
+                <button class="panel-input-btn" title="Voice">
+                  <img src="assets/action-button.svg" width="18" height="18" alt="" onerror="this.style.display='none'">
+                </button>
+                <button class="panel-send-btn" id="joulePanelSendBtn" onclick="sendJoulePanelMsg()" title="Send">
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="panel-disclaimer">Joule uses AI. Verify results.</div>
         </div>
       </div>
-    </div>
 
-    <!-- Chat Toggle Button (when chat is closed) -->
-    <button class="chat-toggle-btn" id="chatToggleBtn" onclick="toggleChat()">
-      <img src="assets/JouleIcon.svg" width="24" alt="Joule">
-    </button>
-  </div>
-</div>
+    </div><!-- /spaces-layout -->
+  </div><!-- /main-panel -->
+</div><!-- /page-container -->
 
 <script src="nav.js"></script>
 <script>
-let chatOpen = false;
+// ── Send button gradient state ────────────────────────────────
+function updateSendBtn(btnId, value) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.style.background = (value && value.trim())
+    ? 'linear-gradient(135deg, #5d36ff 0%, #a100c2 100%)'
+    : '#e5e5e5';
+}
 
-function toggleChat() {
-  chatOpen = !chatOpen;
-  const chatPanel = document.getElementById('disputeChat');
-  const toggleBtn = document.getElementById('chatToggleBtn');
-  if (chatOpen) {
-    chatPanel.classList.remove('hidden');
-    toggleBtn.style.display = 'none';
+const SPACES = [
+  {
+    id: 'meridian-dispute',
+    title: 'Meridian Holding',
+    type: 'Dispute', typeColor: '#aa0808', typeBg: '#fce9e9',
+    desc: 'SEPA mandate expired — Dispute 20847',
+    amount: '38,400 EUR', badge: 'Very High', badgeClass: 'badge-orange',
+    detailTitle: 'Dispute 20847 – Meridian Holding',
+    convTitle: 'Search: Open Disputes',
+    time: '2h ago'
+  },
+  {
+    id: 'pa-networks',
+    title: 'PA Networks GmbH',
+    type: 'Customer', typeColor: '#0070F2', typeBg: '#e8f0fe',
+    desc: 'Top risk customer — 246M EUR outstanding',
+    amount: '125K EUR overdue', badge: 'Very High', badgeClass: 'badge-orange',
+    detailTitle: 'Customer – PA Networks GmbH',
+    convTitle: 'Top 5 Risk Customers',
+    time: '1d ago'
+  },
+  {
+    id: 'provita',
+    title: 'ProVita GmbH',
+    type: 'Dispute', typeColor: '#aa0808', typeBg: '#fce9e9',
+    desc: 'Quantity Issues — Dispute 21876',
+    amount: '18,400 EUR', badge: 'Medium', badgeClass: 'badge-neutral',
+    detailTitle: 'Dispute 21876 – ProVita GmbH',
+    convTitle: 'Dispute 21876 Analysis',
+    time: '2d ago'
+  },
+  {
+    id: 'klassner',
+    title: 'Klassner GmbH',
+    type: 'Dispute', typeColor: '#aa0808', typeBg: '#fce9e9',
+    desc: 'Trade Promotions Issues — Dispute 20634',
+    amount: '12,650 EUR', badge: 'Medium', badgeClass: 'badge-neutral',
+    detailTitle: 'Dispute 20634 – Klassner GmbH',
+    convTitle: 'Dispute 20634 Analysis',
+    time: '3d ago'
+  },
+];
+
+let currentSpaceId = 'meridian-dispute';
+let joulePanelOpen = false;
+let leftPanelOpen = true;
+
+// ── Conversation threads per space ──────────────────────────────────
+const SPACE_CONVS = {
+  'meridian-dispute': [
+    { type: 'system', text: '<strong>Space created</strong><br>A Space was created for Dispute 20847 – Meridian Holding' },
+    { type: 'user', text: 'I want to work on the first link.' },
+    { type: 'joule', html: `<div class="cp-bubble">Got you! I've analyzed Dispute 20847 (Meridian Holding, EUR 38,400).<br><br><strong>Root cause: Expired SEPA Mandate</strong><br><br>Mandate (000000000347) expired Feb 15, 2026. Two monthly collections failed:<br>• INV-2026-0218 — EUR 19,200 (rejected Feb 17)<br>• INV-2026-0319 — EUR 19,200 (rejected Mar 17)<br><br>I would suggest drafting an email to request mandate renewal.</div>` },
+    { type: 'user', text: 'Draft an email to notify customer about SEPA mandate renewal.' },
+    { type: 'joule', html: `<div class="cp-bubble">Sure, here's the draft email to Meridian Holding.</div>
+      <div class="email-preview">
+        <div class="email-row"><span class="email-label">From:</span><span>action-required@sender.de</span></div>
+        <div class="email-row"><span class="email-label">To:</span><span>accounts.payable@Meridian.de</span></div>
+        <div class="email-row"><span class="email-label">Subject:</span><span>Action Required – SEPA Mandate Renewal</span></div>
+        <div class="email-body">Your SEPA mandate (MH22, 3029-02-15) expired on Feb 15. Please sign and return the attached mandate renewal form to resume auto-payments.</div>
+      </div>
+      <div class="cp-action-row">
+        <button class="btn-cp-action">Edit Email</button>
+        <button class="btn-cp-action primary">Send Email</button>
+      </div>` },
+    { type: 'system', text: 'Email sent to <strong>accounts.payable@Meridian.de</strong><br>Activity logged on Dispute 20847' },
+    { type: 'joule', html: `<div class="cp-bubble">Resubmission scheduled for <strong>Mar 28</strong>. Is there anything else you'd like to do with this dispute?</div>
+      <div class="reschedule-options">
+        <button class="reschedule-btn">5 business days (Recommended)</button>
+        <button class="reschedule-btn">1 business day</button>
+        <button class="reschedule-btn">No reminder</button>
+      </div>
+      <div class="cp-action-row" style="margin-top:6px">
+        <button class="btn-cp-action">Open Dispute List</button>
+        <button class="btn-cp-action">Done for Now</button>
+      </div>` },
+  ],
+  'pa-networks': [
+    { type: 'system', text: '<strong>Space created</strong><br>A Space was created for PA Networks GmbH' },
+    { type: 'user', text: 'Show me the details of PA Networks GmbH (30424).' },
+    { type: 'joule', html: `<div class="cp-bubble">PA Networks GmbH has an outstanding balance of <strong>246M EUR</strong> with 125K EUR overdue. Risk rating: <strong>Very High</strong>.<br><br>Key risk factors:<br>• Payment delay 3 consecutive months<br>• Credit limit utilization at 98%<br>• No recent contact response</div>` },
+  ],
+  'provita': [
+    { type: 'system', text: '<strong>Space created</strong><br>A Space was created for Dispute 21876 – ProVita GmbH' },
+    { type: 'user', text: 'What are the quantity issues with ProVita?' },
+    { type: 'joule', html: `<div class="cp-bubble">Dispute 21876 relates to quantity discrepancies in two shipments. ProVita received 340 units but was invoiced for 380 units (Reason code 004).<br><br>Recommended action: Issue credit memo for the 40 unit difference (EUR 18,400).</div>` },
+  ],
+  'klassner': [
+    { type: 'system', text: '<strong>Space created</strong><br>A Space was created for Dispute 20634 – Klassner GmbH' },
+    { type: 'user', text: 'What are the trade promotion issues?' },
+    { type: 'joule', html: `<div class="cp-bubble">Dispute 20634 involves trade promotion deductions taken without prior approval (Reason code 014). Klassner deducted EUR 12,650 citing an expired promotion agreement.<br><br>Recommended: Request supporting documentation and verify promotion terms.</div>` },
+  ],
+};
+
+// ── Render spaces list ───────────────────────────────────────────────
+let spacesSearchQuery = '';
+let spacesTypeFilter = 'all';
+
+function renderSpacesList() {
+  const list = document.getElementById('spacesList');
+  let filtered = SPACES;
+  if (spacesTypeFilter !== 'all') filtered = filtered.filter(s => s.type === spacesTypeFilter);
+  if (spacesSearchQuery) filtered = filtered.filter(s =>
+    s.title.toLowerCase().includes(spacesSearchQuery.toLowerCase()) ||
+    s.desc.toLowerCase().includes(spacesSearchQuery.toLowerCase())
+  );
+
+  list.innerHTML = filtered.map(s => `
+    <a href="#" class="space-item ${s.id === currentSpaceId ? 'active' : ''}" onclick="loadSpace('${s.id}'); return false;">
+      <div class="space-item-header">
+        <div class="space-icon-mini">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="1" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="8" y="1" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="1" y="8" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="8" y="8" width="5" height="5" rx="1" fill="#5d85a8"/>
+          </svg>
+        </div>
+        <div class="space-item-info">
+          <div class="space-item-title">${s.title}</div>
+          <div class="space-item-meta">${s.type} · ${s.time}</div>
+        </div>
+      </div>
+      <div class="space-item-body">
+        <div class="space-item-desc">${s.desc}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function filterSpacesList(query) {
+  spacesSearchQuery = query;
+  renderSpacesList();
+}
+
+function filterSpacesByType(type, btn) {
+  spacesTypeFilter = type;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderSpacesList();
+}
+
+function toggleSpacesSearch() {
+  const c = document.getElementById('spacesSearchContainer');
+  const isVisible = c.style.display !== 'none';
+  c.style.display = isVisible ? 'none' : 'block';
+  if (!isVisible) document.getElementById('spacesSearchInput').focus();
+}
+
+function toggleSpacesFilter() {
+  const f = document.getElementById('spacesFilterBar');
+  const isVisible = f.style.display !== 'none';
+  f.style.display = isVisible ? 'none' : 'flex';
+}
+
+// ── Load space ───────────────────────────────────────────────────────
+function loadSpace(id) {
+  currentSpaceId = id;
+  document.querySelectorAll('.space-item').forEach(i => i.classList.remove('active'));
+  const el = document.querySelector(`.space-item[onclick*="${id}"]`);
+  if (el) el.classList.add('active');
+
+  const space = SPACES.find(s => s.id === id);
+  if (!space) return;
+
+  document.getElementById('spaceDetailTitle').textContent = space.detailTitle;
+  document.getElementById('joulePanelTitle').textContent = space.convTitle;
+
+  renderSpaceDetail();
+  renderJoulePanelConv();
+
+  // Existing spaces: hide bottom input, open Joule panel, hide icon
+  const isNewSpace = id.startsWith('space-new-');
+  document.getElementById('spacesBottomInput').style.display = isNewSpace ? 'flex' : 'none';
+  if (!isNewSpace) {
+    joulePanelOpen = true;
+    document.getElementById('spacesJoulePanel').classList.add('open');
+    document.getElementById('jouleButton').style.display = 'none';
   } else {
-    chatPanel.classList.add('hidden');
-    toggleBtn.style.display = 'flex';
+    joulePanelOpen = false;
+    document.getElementById('spacesJoulePanel').classList.remove('open');
+    document.getElementById('jouleButton').style.display = '';
   }
 }
 
-function toggleAccordion(btn) {
-  const content = btn.nextElementSibling;
-  const chevron = btn.querySelector('.accordion-chevron');
-  const isOpen = content.style.display !== 'none';
-  content.style.display = isOpen ? 'none' : 'block';
-  chevron.classList.toggle('open', !isOpen);
-}
+// ── Space sections data (per space) ────────────────────────────────────
+// Each space has a list of sections: { id, title, content (HTML string), collapsed }
+const SPACE_SECTIONS = {
+  'meridian-dispute': [
+    {
+      id: 'overview',
+      title: 'Overview',
+      collapsed: false,
+      content: `
+        <!-- Recommendations 468x292 -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Recommendations</div>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div class="sc-field"><span class="sc-lbl">Proposed Action</span><span class="sc-val">Request SEPA mandate renewal</span></div>
+              <div class="sc-field"><span class="sc-lbl">Reasoning</span><span class="sc-val">SEPA Mandate expired on Feb 15, 2026</span></div>
+              <div class="sc-field"><span class="sc-lbl">Estimated Resolution</span><span class="sc-val">5-7 business days after new mandate received</span></div>
+            </div>
+            <div class="sc-foot">
+              <button class="btn-primary" onclick="sendCardPrompt('Draft Email to Customer for Dispute 20847 – Meridian Holding regarding expired SEPA mandate')">Draft Email to Customer</button>
+            </div>
+          </div>
+        </div>
 
-const DISPUTE_DATA = {
-  '20847': { title: 'Dispute 20847 – Meridian Holding', caseId: '20847', amount: '€14,580', invoice: 'INV-2026-0392', due: 'March 1, 2026', overdue: '47 days', status: 'Open', customer: 'Meridian Holding GmbH', contact: 'Hans Müller (CFO)', email: 'h.mueller@meridian.de', lastContact: 'Feb 28, 2026 (no reply)' },
-  '20848': { title: 'Dispute 20848 – TechPartner AG', caseId: '20848', amount: '€22,450', invoice: 'INV-2026-0441', due: 'Feb 15, 2026', overdue: '61 days', status: 'Escalated', customer: 'TechPartner AG', contact: 'Greta Schulz (Finance)', email: 'g.schulz@techpartner.de', lastContact: 'Mar 5, 2026 (no reply)' },
-  '20849': { title: 'Dispute 20849 – Global Supplies Ltd', caseId: '20849', amount: '€8,740', invoice: 'INV-2026-0380', due: 'Mar 15, 2026', overdue: '33 days', status: 'Under Review', customer: 'Global Supplies Ltd', contact: 'Mark Wilson (AP Manager)', email: 'm.wilson@globalsupplies.com', lastContact: 'Apr 1, 2026' },
-  'C001': { title: 'Customer Analysis – Meridian Holding', caseId: 'C-MH-001', amount: '€1.2M YTD', invoice: 'Multiple', due: 'Various', overdue: '47 days (1 item)', status: 'Active', customer: 'Meridian Holding GmbH', contact: 'Hans Müller (CFO)', email: 'h.mueller@meridian.de', lastContact: 'Feb 28, 2026' },
+        <!-- Key Receivable Items 572x288 -->
+        <div class="sc-wrap">
+          <div class="sc sc-xl">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Key Receivable Items</div>
+                <div class="sc-sub">Items Impacted by SEPA Mandate 000000000347</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">2 of 2</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Receivable Item</th><th>Amount</th><th>Invoice</th></tr></thead>
+                <tbody>
+                  <tr><td class="link">1010 1500000257 2025 000001</td><td>19,200 EUR</td><td class="link">INV-2026-0218</td></tr>
+                  <tr><td class="link">1010 1500000376 2025 000001</td><td>19,200 EUR</td><td class="link">INV-2026-0319</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show all Key Receivable Items for Meridian Holding')">View Details</button></div>
+          </div>
+        </div>
+`
+    },
+    {
+      id: 'analyse-dispute',
+      title: 'Analyse Dispute',
+      collapsed: false,
+      content: `
+        <!-- SEPA Mandate 468x261 -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar" style="background:#c2fcee"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">SEPA Mandate</div>
+                <div class="sc-sub">000000000347</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-left:auto">
+                <span style="display:inline-flex;align-items:center;gap:4px;background:#ffeaea;border:1px solid #f5a2a2;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:600;color:#aa0808;white-space:nowrap">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L1 11h10L6 1z" fill="none" stroke="#aa0808" stroke-width="1.2"/><path d="M6 5v2.5M6 8.5v.5" stroke="#aa0808" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Expired
+                </span>
+              </div>
+            </div>
+            <div style="padding:0 16px 8px;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px">
+              <div class="sc-field"><span class="sc-lbl">Company Code:</span><span class="sc-val">1010</span></div>
+              <div class="sc-field"><span class="sc-lbl">Mandate Expiry Date:</span><span class="sc-val">2026-02-15</span></div>
+              <div class="sc-field"><span class="sc-lbl">Mandate Type:</span><span class="sc-val">B2B Direct Debit</span></div>
+              <div class="sc-field"><span class="sc-lbl">Mandate Sign Date:</span><span class="sc-val">2022-04-20</span></div>
+            </div>
+            <div class="sc-body">
+              <div class="sc-field"><span class="sc-lbl">Direct Debit Mandate Issue:</span></div>
+              <p style="font-size:14px;color:#131e29;line-height:1.55;margin:4px 0 0">The direct debit mandate for the customer has expired, causing a payment delay. </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meridian Holding – Insights -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar" style="background:#d1efff">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7c0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z" fill="#0057d2"/></svg>
+              </div>
+              <div class="sc-head-text">
+                <div class="sc-title">Meridian Holding  – Insights</div>
+                <div class="sc-sub">10100001</div>
+              </div>
+              <div style="margin-left:auto;display:flex;align-items:center">
+                <span style="display:inline-flex;align-items:center;gap:4px;background:#f1fdf6;border:1px solid #a3e6bc;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:600;color:#256f3a;white-space:nowrap">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#256f3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Health
+                </span>
+              </div>
+            </div>
+            <div style="padding:0 16px 8px">
+              <div style="font-size:14px;font-weight:600;color:#556b82;margin-bottom:2px">Payment on-time</div>
+              <div style="font-size:14px;color:#556b82;margin-bottom:8px">Over the past 3 years</div>
+              <div style="font-size:28px;font-weight:700;color:#256f3a;line-height:1">98<span style="font-size:18px">%</span></div>
+            </div>
+            <div class="sc-body">
+              <div class="sc-field"><span class="sc-val">Pricing: No disputes</span></div>
+              <div class="sc-field"><span class="sc-val">Delivery: No issues</span></div>
+              <div class="sc-field"><span class="sc-val">Contact: Active, renewed Jan 2026</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Disputes 468x288 -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Key Disputes</div>
+                <div class="sc-sub">Items Impacted by SEPA Mandate 000000000347</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">2 of 2</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Receivable Item</th><th>Amount</th><th>Invoice</th></tr></thead>
+                <tbody>
+                  <tr><td class="link">1010 1500000257 2025 000001</td><td>19,200 EUR</td><td class="link">INV-2026-0218</td></tr>
+                  <tr><td class="link">1010 1500000376 2025 000001</td><td>19,200 EUR</td><td class="link">INV-2026-0319</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show all Key Disputes for Meridian Holding')">View Details</button></div>
+          </div>
+        </div>
+
+        <!-- Return Order Item 461x482 -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Return Order Item 123324</div>
+                <div class="sc-sub">Endurance CF SLX DI 2</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">1 of 5</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 20px">
+                <div class="sc-field"><span class="sc-lbl">Return Rate</span><span class="sc-val">1.6%</span></div>
+                <div class="sc-field"><span class="sc-lbl">In Stock</span><span class="sc-val">15 PC</span></div>
+                <div class="sc-field"><span class="sc-lbl">Recommendation</span><span class="sc-val">Credit Memo / Replacement</span></div>
+                <div class="sc-field"><span class="sc-lbl">Return Reason</span><span class="sc-val">003 Product damaged</span></div>
+                <div class="sc-field"><span class="sc-lbl">Follow-up Activity</span><span class="sc-val">Receive into Plant (0001)</span></div>
+                <div class="sc-field"><span class="sc-lbl">Return Code</span><span class="sc-val">100%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>`
+    }
+  ],
+  'pa-networks': [
+    {
+      id: 'situation-briefing',
+      title: 'Situation Briefing',
+      collapsed: false,
+      content: `
+        <!-- Recommendations 480x512 — two purple footer buttons -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Recommendations</div>
+                <div class="sc-sub">Complete Return Order 13034557</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">6 of 12</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div class="sc-field"><span class="sc-lbl">Proposed Action</span></div>
+              <p style="font-size:14px;color:#1d2d3e;margin:4px 0 12px;line-height:1.5">Open receivables have corresponding payments and credit memos available for potential clearing.</p>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
+                <div style="display:flex;gap:8px"><span style="font-size:14px;font-weight:700;color:#0064d9;flex-shrink:0;min-width:16px">1</span><span style="font-size:14px;color:#1d2d3e">Some items share <strong>matching reference numbers</strong> and similar amounts</span></div>
+                <div style="display:flex;gap:8px"><span style="font-size:14px;font-weight:700;color:#0064d9;flex-shrink:0;min-width:16px">2</span><span style="font-size:14px;color:#1d2d3e">Some items share matching reference numbers and similar amounts</span></div>
+                <div style="display:flex;gap:8px"><span style="font-size:14px;font-weight:700;color:#0064d9;flex-shrink:0;min-width:16px">3</span><span style="font-size:14px;color:#1d2d3e">A few <strong>high-value invoices</strong> may still require manual review or dispute resolution</span></div>
+              </div>
+            </div>
+            <div class="sc-foot-btns">
+              <button class="btn-primary" onclick="sendCardPrompt('Analyse Disputes for PA Networks GmbH')">Analyse Disputes</button>
+              <button class="btn-primary" onclick="runClearingJob()">Run Clearing Job</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Overview -->
+        <div class="sc-wrap">
+          <div class="sc sc-lg">
+            <div class="sc-head">
+              <div class="sc-avatar" style="background:#d1efff">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7c0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z" fill="#0057d2"/></svg>
+              </div>
+              <div class="sc-head-text">
+                <div class="sc-title">Account Overview</div>
+                <div class="sc-sub">Customer ID: 10100001</div>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 16px">
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">125K <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Total Overdue Amount</div>
+                  <div style="font-size:12px;color:#0064d9;margin-top:2px">Over the last 60 days</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">246M <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Total Outstanding Amount</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">245K <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Non Disputed Amount</div>
+                  <div style="font-size:12px;color:#0064d9;margin-top:2px">Over the last 30 days</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">73K <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Disputed Amount</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">20K <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Open Payment Amount</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">5K <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Open Credit Amount</div>
+                </div>
+                <div>
+                  <div style="font-size:24px;font-weight:700;color:#131e29;line-height:1">221M <span style="font-size:14px;font-weight:400">EUR</span></div>
+                  <div class="sc-lbl">Total Balance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="sc-wrap">
+          <div class="sc sc-sm">
+            <div class="sc-head">
+              <div class="sc-avatar" style="background:#d1efff">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7c0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z" fill="#0057d2"/></svg>
+              </div>
+              <div class="sc-head-text">
+                <div class="sc-title">Customer Details</div>
+                <div class="sc-sub">10100001</div>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div class="sc-field"><span class="sc-val">Customer: PA Networks GmbH (1010001)</span></div>
+              <div class="sc-field"><span class="sc-val">Company Code: SAP123</span></div>
+              <div style="margin-top:8px"><div class="sc-lbl">Contact Details</div></div>
+              <div class="sc-field"><span class="sc-val">Email ID: email_id@ngmbh.com</span></div>
+              <div class="sc-field"><span class="sc-val">Number: 9876543210</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aging Grid -->
+        <div class="sc-wrap">
+          <div class="sc sc-lg">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Aging Grid</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-time">2hrs ago</span>
+                <button class="sc-link" style="font-size:12px">View All</button>
+              </div>
+            </div>
+            <div class="sc-body">
+              <div style="display:flex;gap:0;align-items:flex-end;margin-bottom:0">
+                <!-- Y axis -->
+                <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:6px;height:180px;flex-shrink:0">
+                  <span style="font-size:11px;color:#0057d2">250 M</span>
+                  <span style="font-size:11px;color:#0057d2">125 M</span>
+                  <span style="font-size:11px;color:#0057d2;visibility:hidden">0</span>
+                </div>
+                <!-- Bars + x-labels -->
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="display:flex;align-items:flex-end;gap:3px;height:180px;border-bottom:1px solid #c8d0d8">
+                    <div style="flex:1;background:#f53232;height:49%" title="10000-9999"></div>
+                    <div style="flex:1;background:#f53232;height:5%" title="91-9999"></div>
+                    <div style="flex:1;background:#f53232;height:100%" title="61-90"></div>
+                    <div style="flex:1;background:#f53232;height:5%" title="31-60"></div>
+                    <div style="flex:1;background:#f53232;height:5%" title="11-30"></div>
+                    <div style="flex:1;background:#f53232;height:5%" title="1-10"></div>
+                    <div style="flex:1;background:#f53232;height:5%" title="Today"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="1-10"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="11-30"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="31-60"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="61-90"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="91-9999"></div>
+                    <div style="flex:1;background:#256f3a;height:5%" title="1000-999"></div>
+                  </div>
+                  <div style="display:flex;gap:3px;margin-top:4px">
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">10000-9999</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">91-9999</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">61-90</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">31-60</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">11-30</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">1-10</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">Today</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">1-10</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">11-30</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">31-60</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">61-90</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">91-9999</div>
+                    <div style="flex:1;font-size:9px;color:#131e29;text-align:center;line-height:1.2">1000-999</div>
+                  </div>
+                  <div style="display:flex;font-size:10px;color:#131e29;margin-top:6px">
+                    <span style="flex:7;text-align:center">Overdue Since (Days)</span>
+                    <span style="flex:1;text-align:center">Due</span>
+                    <span style="flex:6;text-align:center">Due in (days)</span>
+                  </div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#131e29;writing-mode:vertical-rl;transform:rotate(180deg);position:absolute;margin-top:-100px;margin-left:-8px">Open Amount</div>
+            </div>
+          </div>
+        </div>`
+    },
+    {
+      id: 'analyse-account',
+      title: 'Analyse Account',
+      collapsed: false,
+      content: `
+        <!-- Open Payments 408x326 -->
+        <div class="sc-wrap">
+          <div class="sc sc-md">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Open Payments</div>
+                <div class="sc-sub">Overdue Receivable Items</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">4 of 14</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Receivable Item</th><th>Amount</th><th>Payment Date</th></tr></thead>
+                <tbody>
+                  <tr><td style="border-left:3px solid #30914c;padding-left:8px"><span class="link">1010 1500000842</span></td><td>24,800 EUR</td><td style="color:#aa0808">Feb 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #0070f2;padding-left:8px"><span class="link">1010 1500000963</span></td><td>24,800 EUR</td><td style="color:#aa0808">Mar 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #e90b0b;padding-left:8px"><span class="link">1010 1500001047</span></td><td>18,600 EUR</td><td style="color:#aa0808">Jan 28, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #dd6100;padding-left:8px"><span class="link">1010 1500001123</span></td><td>18,600 EUR</td><td style="color:#aa0808">Mar 01, 2026</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show all Open Payments for PA Networks GmbH')">View Details</button></div>
+          </div>
+        </div>
+
+        <!-- Open Credits 367x326 -->
+        <div class="sc-wrap">
+          <div class="sc sc-sm">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Open Credits</div>
+                <div class="sc-sub">&nbsp;</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">4 of 4</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Credit Memo</th><th>Amount</th><th>Due Date</th></tr></thead>
+                <tbody>
+                  <tr><td style="border-left:3px solid #30914c;padding-left:8px"><span class="link">2025 000001</span></td><td>24,800 EUR</td><td>Feb 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #0070f2;padding-left:8px"><span class="link">2025 000001</span></td><td>24,800 EUR</td><td>Mar 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #e90b0b;padding-left:8px"><span class="link">2025 000001</span></td><td>18,600 EUR</td><td>Jan 28, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #dd6100;padding-left:8px"><span class="link">2025 000001</span></td><td>12,450 EUR</td><td>Mar 01, 2026</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show all Open Credits for PA Networks GmbH')">View Details</button></div>
+          </div>
+        </div>
+
+        <!-- Open Receivable Items 562x326 -->
+        <div class="sc-wrap">
+          <div class="sc sc-xl">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Open Receivable Items</div>
+                <div class="sc-sub">Overdue Receivable Items</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">4 of 14</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Receivable Item</th><th>Amount</th><th>Reference Invoice</th><th>Due Date</th></tr></thead>
+                <tbody>
+                  <tr><td style="border-left:3px solid #30914c;padding-left:8px"><span class="link">1010 1500000842 2025 000001</span></td><td>24,800 EUR</td><td><span class="link">INV-2026-1041</span></td><td style="color:#aa0808">Feb 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #0070f2;padding-left:8px"><span class="link">1010 1500000963 2025 000001</span></td><td>24,800 EUR</td><td><span class="link">INV-2026-1078</span></td><td style="color:#aa0808">Mar 15, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #e90b0b;padding-left:8px"><span class="link">1010 1500001047 2025 000001</span></td><td>18,600 EUR</td><td><span class="link">INV-2026-1112</span></td><td style="color:#aa0808">Jan 28, 2026</td></tr>
+                  <tr><td style="border-left:3px solid #dd6100;padding-left:8px"><span class="link">1010 1500001123 2025 000001</span></td><td>12,450 EUR</td><td><span class="link">INV-2026-1134</span></td><td style="color:#aa0808">Mar 01, 2026</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show all Open Receivable Items for PA Networks GmbH')">View Details</button></div>
+          </div>
+        </div>
+
+        <!-- Open Disputes 562x268 -->
+        <div class="sc-wrap">
+          <div class="sc sc-xl">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Open Disputes</div>
+                <div class="sc-sub">Items Impacted by SEPA Mandate 000000000347</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-counter">2 of 2</span>
+                <span class="sc-time">2hrs ago</span>
+              </div>
+            </div>
+            <div class="sc-body">
+              <table class="sc-table">
+                <thead><tr><th>Dispute</th><th>Reason</th><th>Disputed Amount</th></tr></thead>
+                <tbody>
+                  <tr><td style="border-left:3px solid #30914c;padding-left:8px"><span class="link">21503</span></td><td>011 (Payment Delay)</td><td>34,200 EUR</td></tr>
+                  <tr><td style="border-left:3px solid #0070f2;padding-left:8px"><span class="link">20291</span></td><td>011 (Payment Delay)</td><td>23,350 EUR</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Analyse Disputes 21503 and 20291 for PA Networks GmbH')">View Details</button></div>
+          </div>
+        </div>
+
+        <!-- Dunning Activity Card 391x183 -->
+        <div class="sc-wrap">
+          <div class="sc sc-act">
+            <div class="sc-head">
+              <div class="sc-avatar"></div>
+              <div class="sc-head-text">
+                <div class="sc-title">Dunning</div>
+                <div class="sc-sub">Collaborate with your colleagues</div>
+              </div>
+              <div class="sc-meta">
+                <span class="sc-time">2hrs ago</span>
+                <button class="sc-link" style="font-size:12px" onclick="sendCardPrompt('Show all dunning notices for PA Networks GmbH')">View All</button>
+              </div>
+            </div>
+            <div class="sc-body">
+              <p style="font-size:14px;color:#000;line-height:1.5;margin:0">Multiple dunning notices issued since 2023.<br>Progression up to <strong>Dunning Level 4</strong>.<br>No recent dunning activity recorded.</p>
+            </div>
+            <div class="sc-foot"><button class="sc-link" onclick="sendCardPrompt('Show dunning details for PA Networks GmbH')">View Details</button></div>
+          </div>
+        </div>`
+    }
+  ],
 };
+// For new spaces created at runtime, default to just one Overview section
+SPACE_SECTIONS['provita'] = [
+  { id: 'overview', title: 'Overview', collapsed: false, content: '<div class="sc sc-md"><div class="sc-head"><div class="sc-avatar"></div><div class="sc-head-text"><div class="sc-title">Dispute Overview</div><div class="sc-sub">Dispute 21876 — Quantity Issues</div></div></div><div class="sc-body"><div class="sc-field"><span class="sc-lbl">Issue</span><span class="sc-val">340 units received, 380 invoiced</span></div><div class="sc-field"><span class="sc-lbl">Recommendation</span><span class="sc-val">Issue credit memo for 40 units (EUR 18,400)</span></div></div></div>' },
+  { id: 'analyse-dispute', title: 'Analyse Dispute', collapsed: false, content: '<div class="sc sc-md"><div class="sc-head"><div class="sc-avatar"></div><div class="sc-head-text"><div class="sc-title">Analyse Dispute</div><div class="sc-sub">Reason code 004 — Quantity discrepancy</div></div></div><div class="sc-body"><p style="font-size:14px;color:#1d2d3e;line-height:1.5;margin:0">ProVita confirmed receipt of 340 units. Invoice adjustment pending.</p></div></div>' }
+];
+SPACE_SECTIONS['klassner'] = [
+  { id: 'overview', title: 'Overview', collapsed: false, content: '<div class="sc sc-md"><div class="sc-head"><div class="sc-avatar"></div><div class="sc-head-text"><div class="sc-title">Dispute Overview</div><div class="sc-sub">Dispute 20634 — Trade Promotions</div></div></div><div class="sc-body"><div class="sc-field"><span class="sc-lbl">Reason</span><span class="sc-val">Klassner deducted EUR 12,650 citing expired promotion agreement (Reason code 014)</span></div><div class="sc-field"><span class="sc-lbl">Status</span><span class="sc-val">Documentation requested</span></div></div></div>' },
+  { id: 'analyse-dispute', title: 'Analyse Dispute', collapsed: false, content: '<div class="sc sc-md"><div class="sc-head"><div class="sc-avatar"></div><div class="sc-head-text"><div class="sc-title">Analyse Dispute</div><div class="sc-sub">Promotion Agreement Expired</div></div></div><div class="sc-body"><p style="font-size:14px;color:#1d2d3e;line-height:1.5;margin:0">Promotion agreement expired Dec 2025. Klassner applied the deduction without prior approval. Verification of promotion terms in progress.</p></div></div>' }
+];
 
-function loadSpace(id, el) {
-  document.querySelectorAll('.space-item').forEach(i => i.classList.remove('active'));
-  el.classList.add('active');
+// ── Render space detail as anchor sections ──────────────────────────────
+function renderSpaceDetail() {
+  const sections = SPACE_SECTIONS[currentSpaceId] || [{ id: 'overview', title: 'Overview', collapsed: false, content: '' }];
+  const body = document.getElementById('spaceDetailBody');
 
-  const data = DISPUTE_DATA[id];
-  if (!data) return;
-
-  document.getElementById('disputeTitle').textContent = data.title;
-  document.getElementById('caseId').textContent = data.caseId;
-  document.getElementById('disputeAmount').textContent = data.amount;
-  document.getElementById('invoiceNum').textContent = data.invoice;
-  document.getElementById('dueDate').textContent = data.due;
-  document.getElementById('daysOverdue').textContent = data.overdue;
-  document.getElementById('disputeStatus').textContent = data.status;
-  document.getElementById('customerName').textContent = data.customer;
-  document.getElementById('contactPerson').textContent = data.contact;
-  document.getElementById('contactEmail').textContent = data.email;
-  document.getElementById('lastContact').textContent = data.lastContact;
-
-  // Scroll to top
-  document.getElementById('disputeBody').scrollTop = 0;
-}
-
-function sendDisputeMsg(e) {
-  if (e.key === 'Enter') sendDisputeMsgBtn();
-}
-
-function sendDisputeMsgBtn() {
-  const input = document.getElementById('disputeChatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = document.getElementById('disputeChatMsgs');
-  msgs.insertAdjacentHTML('beforeend', `
-    <div class="message user" style="flex-direction:row-reverse">
-      <div><div class="message-bubble" style="background:#5d36ff;color:white;font-size:13px">${text}</div></div>
+  body.innerHTML = sections.map((sec, idx) => `
+    ${idx > 0 ? '<div class="section-divider"></div>' : ''}
+    <div class="section-anchor" id="anchor-${sec.id}">
+      <span class="section-anchor-title">${sec.title}</span>
+      <button class="section-anchor-arrow ${sec.collapsed ? 'collapsed' : ''}" onclick="toggleSection('${sec.id}')" title="${sec.collapsed ? 'Expand' : 'Collapse'}">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+          <path d="M1 1L5 5L9 1" stroke="#0064d9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
-  `);
-  input.value = '';
-  msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(() => {
-    msgs.insertAdjacentHTML('beforeend', `
-      <div class="message joule">
-        <div class="joule-avatar"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.3 3.9L12 6l-3.7 1.3L7 11l-1.3-3.7L2 6l3.7-1.1z" fill="white"/></svg></div>
-        <div><div class="message-bubble" style="background:#f5f6f7;color:#131e29;font-size:13px">Based on the dispute context, I recommend drafting a SEPA mandate renewal request as the first step. This has a high probability of resolving the issue within 7 days. Shall I draft it now?</div></div>
-      </div>
-    `);
-    msgs.scrollTop = msgs.scrollHeight;
-  }, 800);
+    <div class="section-body ${sec.collapsed ? 'collapsed' : ''}" id="section-body-${sec.id}">
+      ${sec.content}
+    </div>
+  `).join('');
+
+  updateIndexPill();
+  // Watch scroll to update anchor pill
+  body.onscroll = onDetailScroll;
 }
+
+// ── Toggle a section open/closed ─────────────────────────────────────
+function toggleSection(secId) {
+  const sections = SPACE_SECTIONS[currentSpaceId];
+  if (!sections) return;
+  const sec = sections.find(s => s.id === secId);
+  if (!sec) return;
+  sec.collapsed = !sec.collapsed;
+  const bodyEl = document.getElementById('section-body-' + secId);
+  const arrowBtn = document.querySelector('#anchor-' + secId + ' .section-anchor-arrow');
+  if (bodyEl) bodyEl.classList.toggle('collapsed', sec.collapsed);
+  if (arrowBtn) {
+    arrowBtn.classList.toggle('collapsed', sec.collapsed);
+    arrowBtn.title = sec.collapsed ? 'Expand' : 'Collapse';
+  }
+}
+
+// ── Scroll watcher: update Index pill to show current visible section ──
+function onDetailScroll() {
+  const body = document.getElementById('spaceDetailBody');
+  const sections = SPACE_SECTIONS[currentSpaceId] || [];
+  if (sections.length === 0) return;
+  const containerTop = body.getBoundingClientRect().top;
+  // Walk sections in reverse: the last one whose anchor is at or above
+  // the container top (with a small header offset) is the "active" section
+  let current = sections[0];
+  for (const sec of sections) {
+    const el = document.getElementById('anchor-' + sec.id);
+    if (!el) continue;
+    const anchorTop = el.getBoundingClientRect().top - containerTop;
+    if (anchorTop <= 48) {
+      current = sec;
+    }
+  }
+  document.getElementById('indexPillText').textContent = current.title;
+}
+
+// ── Index pill dropdown ───────────────────────────────────────────────
+function updateIndexPill() {
+  const sections = SPACE_SECTIONS[currentSpaceId] || [];
+  const pillText = document.getElementById('indexPillText');
+  const chevron = document.getElementById('indexPillChevron');
+  const dropdown = document.getElementById('indexDropdown');
+
+  if (sections.length > 0) pillText.textContent = sections[0].title;
+
+  // Show chevron only when 2+ sections
+  if (chevron) chevron.style.display = sections.length >= 2 ? '' : 'none';
+
+  // Populate dropdown
+  if (dropdown) {
+    dropdown.innerHTML = sections.map(sec =>
+      '<button class="index-dropdown-item" onclick="scrollToSection(\'' + sec.id + '\');closeIndexDropdown()">' + sec.title + '</button>'
+    ).join('');
+  }
+}
+
+function toggleIndexDropdown() {
+  const sections = SPACE_SECTIONS[currentSpaceId] || [];
+  if (sections.length < 2) return;
+  const dd = document.getElementById('indexDropdown');
+  const isOpen = dd.style.display !== 'none';
+  dd.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) {
+    setTimeout(() => {
+      document.addEventListener('click', closeIndexDropdownOutside);
+    }, 0);
+  }
+}
+
+function closeIndexDropdown() {
+  document.getElementById('indexDropdown').style.display = 'none';
+  document.removeEventListener('click', closeIndexDropdownOutside);
+}
+
+function closeIndexDropdownOutside(e) {
+  if (!e.target.closest('#indexPillWrapper')) {
+    closeIndexDropdown();
+  }
+}
+
+function scrollToSection(secId) {
+  // Expand if collapsed
+  const sections = SPACE_SECTIONS[currentSpaceId] || [];
+  const sec = sections.find(s => s.id === secId);
+  if (sec && sec.collapsed) toggleSection(secId);
+
+  const el = document.getElementById('anchor-' + secId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('indexPillText').textContent = sec ? sec.title : secId;
+  }
+}
+
+// ── Add a new anchor section (called when Joule generates analysis) ──────
+function addSpaceSection(title, contentHtml) {
+  const id = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  if (!SPACE_SECTIONS[currentSpaceId]) {
+    SPACE_SECTIONS[currentSpaceId] = [];
+  }
+  // Avoid duplicates
+  if (SPACE_SECTIONS[currentSpaceId].find(s => s.id === id)) return;
+  SPACE_SECTIONS[currentSpaceId].push({ id, title, collapsed: false, content: contentHtml });
+  renderSpaceDetail();
+  // Scroll to new section
+  setTimeout(() => scrollToSection(id), 100);
+}
+
+// ── Render Joule panel conversation ─────────────────────────────────
+function renderJoulePanelConv() {
+  const msgs = document.getElementById('joulePanelMsgs');
+  const conv = SPACE_CONVS[currentSpaceId] || [];
+  msgs.innerHTML = conv.map(m => {
+    if (m.type === 'system') {
+      return `<div class="system-msg">${m.text}</div>`;
+    } else if (m.type === 'user') {
+      return `<div class="cp-user-bubble">${m.text}</div>`;
+    } else {
+      return `<div class="cp-msg-joule">
+        ${m.html}
+        <div class="cp-msg-actions">
+          <button class="cp-action-icon" title="Copy"><img src="assets/action-copy.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="cp-action-icon" title="Like"><img src="assets/action-like.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="cp-action-icon" title="Dislike"><img src="assets/action-dislike.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="cp-action-icon" title="Refresh"><img src="assets/action-refresh.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+        </div>
+      </div>`;
+    }
+  }).join('');
+  setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+// ── Panel toggles ────────────────────────────────────────────────────
+function toggleLeftPanel() {
+  leftPanelOpen = !leftPanelOpen;
+  document.getElementById('spacesLeftPanel').classList.toggle('collapsed', !leftPanelOpen);
+}
+
+function toggleJoulePanel() {
+  joulePanelOpen = !joulePanelOpen;
+  const panel = document.getElementById('spacesJoulePanel');
+  panel.classList.toggle('open', joulePanelOpen);
+  if (!joulePanelOpen) {
+    // Panel closed — show bottom input + Joule icon so user can re-open
+    document.getElementById('spacesBottomInput').style.display = 'flex';
+    document.getElementById('jouleButton').style.display = '';
+  } else {
+    // Panel opened — hide bottom input + Joule icon
+    document.getElementById('spacesBottomInput').style.display = 'none';
+    document.getElementById('jouleButton').style.display = 'none';
+  }
+}
+
+// ── When typing in bottom input (Overview — no panel interaction) ─────
+function onSpacesInputType(el) {
+  updateSendBtn('spacesSendBtn', el.value);
+}
+
+// ── Send from bottom input — opens Joule panel, hides input ─────────
+function handleSpacesSend() {
+  const inputEl = document.getElementById('spacesJouleInput');
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  // Move message into Joule panel conversation
+  appendJouleMsg('user', text);
+  inputEl.value = '';
+  updateSendBtn('spacesSendBtn', '');
+  inputEl.style.height = 'auto';
+
+  // Hide bottom input, open Joule panel, hide Joule icon
+  document.getElementById('spacesBottomInput').style.display = 'none';
+  document.getElementById('jouleButton').style.display = 'none';
+  joulePanelOpen = true;
+  document.getElementById('spacesJoulePanel').classList.add('open');
+
+  // Simulate Joule response
+  setTimeout(() => appendJouleMsg('joule', 'I\'m analysing your request in the context of this space. I\'ll pull relevant data from your SAP environment and surface key insights here.'), 700);
+}
+
+// ── Generate a short 1-2 word section title from user message ────────
+function generateSectionTitle(text) {
+  // Extract key terms for a short anchor label
+  const stopWords = new Set(['show','me','the','a','an','of','for','in','on','at','to','is','are','what','how','why','when','please','can','you','i','want','need']);
+  const words = text.replace(/[^a-zA-Z0-9\s]/g,'').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w.toLowerCase()));
+  if (words.length === 0) return text.substring(0,20);
+  // Take first 2 meaningful words, capitalize
+  const title = words.slice(0,2).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+  return title || text.substring(0,20);
+}
+
+// ── Send from panel input ────────────────────────────────────────────
+function sendJoulePanelMsg() {
+  const inputEl = document.getElementById('joulePanelInput');
+  const text = inputEl.value.trim();
+  if (!text) return;
+  appendJouleMsg('user', text);
+  inputEl.value = '';
+  setTimeout(() => appendJouleMsg('joule', 'I\'m processing your request in the context of this space. How would you like to proceed?'), 700);
+}
+
+function appendJouleMsg(type, text) {
+  const msgs = document.getElementById('joulePanelMsgs');
+  if (type === 'user') {
+    msgs.insertAdjacentHTML('beforeend', `<div class="cp-user-bubble">${text}</div>`);
+  } else {
+    msgs.insertAdjacentHTML('beforeend', `
+      <div class="cp-msg-joule">
+        <div class="cp-bubble">${text}</div>
+        <div class="cp-msg-actions">
+          <button class="cp-action-icon" title="Copy"><img src="assets/action-copy.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="cp-action-icon" title="Like"><img src="assets/action-like.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="cp-action-icon" title="Dislike"><img src="assets/action-dislike.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+        </div>
+      </div>`);
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── Run Clearing Job ─────────────────────────────────────────────────
+function runClearingJob() {
+  // Send Joule message
+  if (!joulePanelOpen) {
+    joulePanelOpen = true;
+    document.getElementById('spacesJoulePanel').classList.add('open');
+    document.getElementById('spacesBottomInput').style.display = 'none';
+    document.getElementById('jouleButton').style.display = 'none';
+  }
+  appendJouleMsg('user', 'Run Clearing Job for PA Networks GmbH');
+  setTimeout(() => appendJouleMsg('joule', 'Got you! To handle clearing a job is created for the customer.'), 700);
+  setTimeout(() => {
+    const msgs = document.getElementById('joulePanelMsgs');
+    msgs.insertAdjacentHTML('beforeend', `
+      <div style="background:#ffffff;border:1px solid rgba(0,0,0,0.10);border-radius:12px;padding:12px 14px;margin:4px 0;box-shadow:0 1px 3px rgba(34,53,72,0.10)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:32px;height:32px;border-radius:50%;background:#ded3ff;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.8L14.5 8l-4.9 1.7L8 14.5l-1.6-4.8L1.5 8l4.9-1.7z" fill="#552cff"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:700;color:#1d2d3e;line-height:1.2">New Job created</div>
+            <div style="font-size:12px;color:#1d2d3e;margin-top:2px">A Job was created for Customer 30424</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;color:#556b82">1 card updated</span>
+            <span style="font-size:12px;color:#556b82">11:13</span>
+          </div>
+          <button onclick="sendCardPrompt('View Space for Clearing Job')" style="background:none;border:none;color:#5d36ff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;padding:0">View Space</button>
+        </div>
+      </div>`);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 1400);
+
+  // Add Smart Clearing Alert section with Agent Summary card
+  const agentSummaryCard = `
+    <div class="sc-wrap">
+      <div class="sc sc-md">
+        <div class="sc-head">
+          <div class="sc-avatar" style="background:#d1efff">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7c0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z" fill="#5d36ff"/></svg>
+          </div>
+          <div class="sc-head-text">
+            <div class="sc-title">Agent Summary</div>
+            <div class="sc-sub">Clearing Agent:1234</div>
+          </div>
+        </div>
+        <div class="sc-body">
+          <div class="sc-field"><span class="sc-lbl">Status:</span><span class="sc-val">Running</span></div>
+          <div class="sc-field"><span class="sc-lbl">Number of Matches:</span><span class="sc-val">5 / 10</span></div>
+        </div>
+        <div class="sc-foot">
+          <button class="sc-link" onclick="sendCardPrompt('Go to Jobs for Clearing Agent 1234')">Go to Jobs</button>
+        </div>
+      </div>
+    </div>`;
+
+  addSpaceSection('Smart Clearing Alert', agentSummaryCard);
+}
+
+// ── Card button → Joule panel prompt ────────────────────────────────
+function sendCardPrompt(prompt) {
+  // Open the Joule panel if it's not already open
+  if (!joulePanelOpen) {
+    joulePanelOpen = true;
+    document.getElementById('spacesJoulePanel').classList.add('open');
+    document.getElementById('spacesBottomInput').style.display = 'none';
+    document.getElementById('jouleButton').style.display = 'none';
+  }
+  appendJouleMsg('user', prompt);
+  // Simulate Joule thinking then responding
+  const responses = {
+    'Analyse Disputes': 'Analysing open disputes for PA Networks GmbH… Found <strong>2 disputes</strong> totalling <strong>57,550 EUR</strong>. Dispute 21503 (34,200 EUR) and Dispute 20291 (23,350 EUR) both cite Reason Code 011 — Payment Delay. Recommended next step: initiate contact with the customer to negotiate a payment plan.',
+    'Run Clearing Job': 'Running clearing job for PA Networks GmbH… Identified <strong>4 open payments</strong> and <strong>4 credit memos</strong> eligible for automatic clearing. Estimated clearable amount: <strong>80,650 EUR</strong>. Job scheduled — results will appear in the Analyse Account section once complete.',
+    'Draft Email to Customer': 'Drafting email to PA Networks GmbH contact (email_id@ngmbh.com)…<br><br><em>Subject: Outstanding Balance &amp; Payment Plan — PA Networks GmbH (10100001)</em><br><br>Dear PA Networks team,<br><br>We are reaching out regarding an outstanding balance of <strong>246M EUR</strong>, of which <strong>125K EUR</strong> is currently overdue. We would like to schedule a call to discuss a payment plan. Please respond at your earliest convenience.<br><br>Best regards,<br>Accounts Receivable Team',
+    'Business Documents': 'Retrieving business documents for PA Networks GmbH (10100001)… Found <strong>14 open receivable items</strong>, <strong>4 credit memos</strong>, and <strong>2 active dispute cases</strong>. Would you like me to open a specific document or export the full list?',
+    'View Details': 'Fetching details… Here are the full line items. Would you like me to filter by status, date range, or amount? I can also cross-reference these with open disputes or pending credits.',
+    'View All': 'Retrieving full dunning history for PA Networks GmbH… Dunning notices issued: <strong>Level 1</strong> (Mar 2023), <strong>Level 2</strong> (Jul 2023), <strong>Level 3</strong> (Jan 2024), <strong>Level 4</strong> (Jun 2024). No recent activity since Level 4. Recommend escalation review.',
+  };
+  // Match known prompt keywords
+  const key = Object.keys(responses).find(k => prompt.includes(k));
+  const reply = key ? responses[key] : `Processing your request: <em>${prompt}</em>. I'll retrieve the relevant data from your SAP environment and surface key insights here.`;
+  setTimeout(() => appendJouleMsg('joule', reply), 700);
+}
+
+// ── Floating menu ────────────────────────────────────────────────────
+function toggleSpaceMenu() {
+  const menu = document.getElementById('spaceFloatingMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  if (menu.style.display !== 'none') {
+    const close = (e) => {
+      if (!e.target.closest('#spaceFloatingMenu') && !e.target.closest('[onclick="toggleSpaceMenu()"]')) {
+        menu.style.display = 'none';
+        document.removeEventListener('click', close);
+      }
+    };
+    setTimeout(() => document.addEventListener('click', close), 0);
+  }
+}
+
+// ── Keyboard shortcuts ───────────────────────────────────────────────
+document.getElementById('spacesJouleInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') handleSpacesSend();
+});
+document.getElementById('joulePanelInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') sendJoulePanelMsg();
+});
+
+// ── New Space (stay on page) ─────────────────────────────────
+function startNewSpace() {
+  const newId = 'space-new-' + Date.now();
+  SPACES.unshift({ id: newId, title: 'New Space', type: 'New', time: 'Just now', desc: 'Describe this space…', members: 1 });
+  SPACE_SECTIONS[newId] = [];
+  renderSpacesList();
+  currentSpaceId = newId;
+  // Update header
+  document.getElementById('spaceBreadcrumb').textContent = 'Spaces';
+  document.getElementById('spaceDetailTitle').textContent = 'New Space';
+  // Show Joule chatpad-style empty state
+  document.getElementById('spaceDetailBody').innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;padding:40px 32px;gap:24px">
+      <div style="width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px">
+        <div style="text-align:center;margin-bottom:8px">
+          <div style="font-size:20px;font-weight:700;color:#131e29;margin-bottom:6px">Create a new Space</div>
+          <div style="font-size:14px;color:#556b82">Describe the customer, dispute, or topic you want Joule to analyze.</div>
+        </div>
+        <div id="newSpaceSuggestion" style="background:rgba(246,243,255,0.9);border:1.5px solid #5d36ff;border-radius:16px;padding:16px 20px;">
+          <div style="font-size:14px;color:#131e29;line-height:1.5;margin-bottom:12px">Create a space for PA Networks GmbH (30424). The space contains contextual data to help you process the dispute.</div>
+          <div style="display:flex;gap:8px">
+            <button style="background:#e2dbff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;color:#5d36ff;cursor:pointer;font-family:inherit" onclick="acceptSpaceSuggestion('pa-networks')">Use suggestion</button>
+            <button style="background:none;border:1px solid #bcc8d4;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:500;color:#354a5f;cursor:pointer;font-family:inherit" onclick="document.getElementById('newSpaceSuggestion').remove()">Dismiss</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+          <button style="background:white;border:1px solid #bcddfc;border-radius:32px;padding:8px 16px;font-size:13px;font-weight:500;color:#131e29;cursor:pointer;font-family:inherit" onclick="document.getElementById('spacesJouleInput').value='Analyse dispute for Meridian Holding';document.getElementById('spacesJouleInput').focus()">Meridian Holding dispute</button>
+          <button style="background:white;border:1px solid #bcddfc;border-radius:32px;padding:8px 16px;font-size:13px;font-weight:500;color:#131e29;cursor:pointer;font-family:inherit" onclick="document.getElementById('spacesJouleInput').value='Show top 5 risk customers';document.getElementById('spacesJouleInput').focus()">Top 5 risk customers</button>
+          <button style="background:white;border:1px solid #bcddfc;border-radius:32px;padding:8px 16px;font-size:13px;font-weight:500;color:#131e29;cursor:pointer;font-family:inherit" onclick="document.getElementById('spacesJouleInput').value='Analyse cash flow forecast';document.getElementById('spacesJouleInput').focus()">Cash flow analysis</button>
+        </div>
+      </div>
+    </div>`;
+  updateIndexPill();
+  if (joulePanelOpen) {
+    joulePanelOpen = false;
+    document.getElementById('spacesJoulePanel').classList.remove('open');
+  }
+  document.getElementById('jouleButton').style.display = '';
+  document.getElementById('spacesBottomInput').style.display = 'flex';
+  setTimeout(() => document.getElementById('spacesJouleInput').focus(), 50);
+  // Highlight new card
+  setTimeout(() => {
+    document.querySelectorAll('.space-item').forEach(el => el.classList.remove('active'));
+    const card = document.querySelector(`.space-item[onclick*="${newId}"]`);
+    if (card) card.classList.add('active');
+  }, 60);
+}
+
+function acceptSpaceSuggestion(spaceId) {
+  loadSpace(spaceId);
+}
+
+// ── Init ─────────────────────────────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const spaceParam = urlParams.get('space');
+if (urlParams.get('state') === 'new') {
+  leftPanelOpen = false;
+  joulePanelOpen = false;
+  document.getElementById('spacesLeftPanel').classList.add('collapsed');
+} else if (spaceParam) {
+  // Pre-select the space from URL param
+  const matchedSpace = SPACES.find(s => s.id === spaceParam);
+  if (matchedSpace) currentSpaceId = matchedSpace.id;
+}
+
+renderSpacesList();
+renderSpaceDetail();
+renderJoulePanelConv();
+
+// Initial state — first space is an existing space, so open Joule panel, hide bottom input
+joulePanelOpen = true;
+document.getElementById('spacesJoulePanel').classList.add('open');
+document.getElementById('spacesBottomInput').style.display = 'none';
+document.getElementById('jouleButton').style.display = 'none';
 </script>
 </body>
 </html>

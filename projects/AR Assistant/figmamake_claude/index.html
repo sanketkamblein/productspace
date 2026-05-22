@@ -24,6 +24,28 @@
       justify-content: space-between;
     }
 
+    .landing-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-icon-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 20px;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .header-icon-link:hover {
+      background: #E2D8FC;
+      border-color: #5D36FF;
+    }
+
     .add-btn {
       width: 40px;
       height: 40px;
@@ -58,7 +80,7 @@
       padding: 40px 0 20px;
     }
 
-    .joule-icon {
+    .joule-hero-icon {
       width: 80px;
       height: 80px;
     }
@@ -87,6 +109,7 @@
     }
 
     .category-chip:hover { background: rgba(93, 54, 255, 0.14); }
+    .category-chip.active { background: rgba(93, 54, 255, 0.18); }
 
     .prompts-container {
       width: 65%;
@@ -139,17 +162,22 @@
     }
 
     .deep-research {
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
       color: #5d36ff;
+      background: rgba(93,54,255,0.1);
+      border-radius: 12px;
+      padding: 3px 10px;
       white-space: nowrap;
       display: none;
     }
 
     .prompt-btn.selected .deep-research { display: block; }
 
+    /* ── Main Joule Input ── */
     .input-section {
-      width: 70%;
+      width: 90%;
+      max-width: 980px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -161,31 +189,37 @@
     .input-wrapper {
       width: 100%;
       background: white;
-      border: 1px solid rgba(93, 54, 255, 0.25);
-      border-radius: 28px;
-      padding: 14px 20px;
+      border: 1px solid rgba(93, 54, 255, 0.4);
+      border-radius: 20px;
+      padding: 12px 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      box-shadow: 0 0 1px rgba(120, 88, 255, 0.08), 0 4px 10px rgba(120, 88, 255, 0.05);
+      box-shadow: 0px 0px 2px rgba(120, 88, 255, 0.16), 0px 8px 16px rgba(120, 88, 255, 0.1);
     }
 
     .input-text-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      gap: 10px;
     }
 
     .main-input {
       flex: 1;
       border: none;
       outline: none;
-      font-size: 15px;
-      color: #556b82;
+      font-size: 16px;
+      color: #000000;
       background: transparent;
       font-family: inherit;
+      resize: none;
+      overflow: hidden;
+      min-height: 24px;
+      max-height: 120px;
+      line-height: 1.5;
     }
 
-    .main-input::placeholder { color: #8a9ba8; font-style: italic; }
+    .main-input::placeholder { color: #8a9ba8; }
 
     .input-icons-row {
       display: flex;
@@ -196,7 +230,7 @@
     .input-icons-left, .input-icons-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
     }
   </style>
 </head>
@@ -206,15 +240,14 @@
 
   <main class="landing-main">
     <header class="landing-header">
-      <div class="flex items-center gap-12">
-        <a href="conversations.html" class="icon-btn">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M3 3h12a1 1 0 011 1v8a1 1 0 01-1 1H6l-4 4V4a1 1 0 011-1z" stroke="#131E29" stroke-width="1.5" fill="none"/>
-          </svg>
+      <div class="landing-header-left">
+        <a href="conversations.html" class="header-icon-link" title="Conversations">
+          <img src="assets/nav-conversations.svg" width="18" height="18" alt=""
+               onerror="this.style.display='none';this.parentElement.innerHTML+='<svg width=18 height=18 viewBox=\'0 0 18 18\' fill=\'none\'><path d=\'M3 3h12a1 1 0 011 1v8a1 1 0 01-1 1H6l-4 4V4a1 1 0 011-1z\' stroke=\'#131E29\' stroke-width=\'1.5\' fill=\'none\'/></svg>'">
         </a>
         <h1 style="font-size:18px;font-weight:700;color:#131e29">New Conversation</h1>
       </div>
-      <button class="add-btn" onclick="window.location.href='conversations.html'">
+      <button class="add-btn" onclick="window.location.href='conversations.html'" title="Go to Conversations">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <path d="M9 3v12M3 9h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -224,7 +257,7 @@
     <div class="landing-content">
       <div class="joule-section">
         <!-- Joule Icon -->
-        <img src="assets/Joule_icon.svg" alt="Joule" class="joule-icon"
+        <img src="assets/Joule_icon.svg" alt="Joule" class="joule-hero-icon"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div style="display:none;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);align-items:center;justify-content:center">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -236,23 +269,28 @@
         <div class="input-section">
           <div class="input-wrapper">
             <div class="input-text-row">
-              <input type="text" class="main-input" placeholder="Ask Joule or create anything" id="mainInput">
+              <textarea class="main-input" placeholder="Ask Joule or create anything" id="mainInput"
+                        rows="1" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
             </div>
             <div class="input-icons-row">
               <div class="input-icons-left">
-                <button class="input-action-btn">
-                  <img src="assets/attachments-button.svg" width="22" alt="Attach">
+                <button class="input-action-btn" title="Attach">
+                  <img src="assets/attachments-button.svg" width="20" height="20" alt="Attach"
+                       onerror="this.style.display='none'">
                 </button>
-                <button class="input-action-btn">
-                  <img src="assets/tools-button.svg" width="22" alt="Tools">
+                <button class="input-action-btn" title="Tools">
+                  <img src="assets/tools-button.svg" width="20" height="20" alt="Tools"
+                       onerror="this.style.display='none'">
                 </button>
               </div>
               <div class="input-icons-right">
-                <button class="input-action-btn">
-                  <img src="assets/mic.svg" width="22" alt="Mic">
+                <button class="input-action-btn" title="Voice">
+                  <img src="assets/action-button.svg" width="20" height="20" alt="Voice"
+                       onerror="this.style.display='none'">
                 </button>
-                <button class="input-action-btn">
-                  <img src="assets/sound.svg" width="22" alt="Sound">
+                <button class="input-action-btn" onclick="handleSend()" title="Send">
+                  <img src="assets/send-button.svg" width="28" height="28" alt="Send"
+                       onerror="this.style.display='none'">
                 </button>
               </div>
             </div>
@@ -325,6 +363,8 @@ const CATEGORY_PROMPTS = {
 function showPrompts(category, btn) {
   const prompts = CATEGORY_PROMPTS[category] || [];
   document.getElementById('promptsTitle').textContent = category;
+  document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
   document.getElementById('categoriesRow').style.display = 'none';
   document.getElementById('promptsContainer').classList.add('visible');
 
@@ -341,7 +381,6 @@ function showPrompts(category, btn) {
     </button>
   `).join('');
 
-  // Pre-fill first prompt
   if (prompts.length) {
     document.getElementById('mainInput').value = prompts[0].text;
   }
@@ -356,15 +395,24 @@ function selectPrompt(btn, text) {
 function closePrompts() {
   document.getElementById('promptsContainer').classList.remove('visible');
   document.getElementById('categoriesRow').style.display = 'flex';
+  document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
   document.getElementById('mainInput').value = '';
 }
 
-document.getElementById('mainInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    const msg = this.value.trim();
-    if (msg) {
-      window.location.href = `conversations.html?msg=${encodeURIComponent(msg)}`;
-    }
+function handleSend() {
+  const input = document.getElementById('mainInput');
+  const msg = input.value.trim();
+  if (msg) {
+    input.value = '';
+    input.style.height = 'auto';
+    window.location.href = `conversations.html?msg=${encodeURIComponent(msg)}`;
+  }
+}
+
+document.getElementById('mainInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
   }
 });
 </script>

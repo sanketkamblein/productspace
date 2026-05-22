@@ -86,8 +86,8 @@ const projects = [
       ],
       links: [
         {
-          title: "Know more",
-          url: "https://www.figma.com/design/pdnXd1oC69rST1wE3ix1Lu/System-All--Configuration--Designator-Template-System-Object-?node-id=8688-787&t=sGnJRrYyCpQAfcvb-1",
+          title: "View Design Work →",
+          url: "https://www.figma.com/design/aB855BOX9E0VtpMmRn8f4P/Industrial-System-SAP?node-id=0-1&t=vO6Q71dbZmUxZq16-1",
           noProtectedBadge: true,
         },
         {
@@ -130,7 +130,13 @@ const projects = [
         "Applied knowledge of HIPAA standards, NABH workflows, diagnostic billing flows",
         "Adapted agile delivery in resource-constrained environments, while maintaining clinical quality and scalability",
       ],
-      links: [],
+      links: [
+        {
+          title: "🔒 View Design Work (Password Protected)",
+          url: "projects/AxonRad/portfolio.html",
+          isProtected: true,
+        },
+      ],
     },
   },
   {
@@ -176,20 +182,8 @@ const projects = [
       ],
       links: [
         {
-          title: "Know more 1",
-          url: "https://www.figma.com/design/sxlZD6u8Ftsm3ttY8UTmvL/Reference-Structures?node-id=69-2&t=OUp7APA586fEaVlY-1",
-        },
-        {
-          title: "Know more 2",
-          url: "https://www.figma.com/design/WHt8dWDeitbJeTL12rIUzk/Reference-TO?node-id=60-458&t=V8mqqeSO-1",
-        },
-        {
-          title: "Know more 3",
-          url: "https://www.figma.com/design/ncX2QLpbRexL9vn6REPxKj/Manage-Structures?node-id=911-34392&t=F6M2lT7EPdwPYVKR-1",
-        },
-        {
-          title: "🔒 View Full Case Study (Password Protected)",
-          url: "projects/Reference TO/portfolio.html",
+          title: "🔒 View Design Work & Case Study (Password Protected)",
+          url: "projects/Reference TO/index.html",
           isProtected: true,
         },
       ],
@@ -232,10 +226,6 @@ const projects = [
         "Presented the solution at Learning Fest for internal evaluation",
       ],
       links: [
-        {
-          title: "Know more",
-          url: "https://sap-my.sharepoint.com/:f:/r/personal/sanket_kamble_sap_com/Documents/ISBN%20Use%20Case?csf=1&web=1&e=g7MXLs",
-        },
         {
           title: "Explore full case study →",
           url: "projects/Ariba use case/portfolio.html",
@@ -282,10 +272,6 @@ const projects = [
         "Team Pitching, Enterprise Storytelling",
       ],
       links: [
-        {
-          title: "Know more",
-          url: "https://sap-my.sharepoint.com/:f:/r/personal/sanket_kamble_sap_com/Documents/Invent%20Asian%20Paints?csf=1&web=1&e=oOMnuL",
-        },
         {
           title: "Explore full case study →",
           url: "projects/Anomoly Detection for logistics/Portfolio_PM_Design.html",
@@ -335,18 +321,6 @@ const projects = [
       ],
       isFinalist: true,
       links: [
-        {
-          title: "Know more 1",
-          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/ERKudKR7HGhIq4CQQLu-JbMBgfHiQ9MrxzGWSrv5ck3STg",
-        },
-        {
-          title: "Know more 2",
-          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/ERKudKR7HGhIq4CQQLu-JbMBgfHiQ9MrxzGWSrv5ck3STg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=buhZG1",
-        },
-        {
-          title: "Know more 3",
-          url: "https://sap-my.sharepoint.com/:v:/p/sanket_kamble/EYZ38EnAvkJIiAk7opT0izEBKCxbWcq2lX_vp0JM2NzN1w?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=bTsUNJ",
-        },
         {
           title: "Explore full case study →",
           url: "projects/Yokogawa/index.html",

@@ -46,18 +46,87 @@
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      height: 60px; gap: 1rem;
     }
-    .nav-brand { font-weight: 700; font-size: .95rem; color: var(--sap-dark); display: flex; align-items: center; gap: .5rem; }
+    .nav-brand { font-weight: 700; font-size: .95rem; color: var(--sap-dark); display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
     .nav-brand span { background: var(--sap-blue); color: #fff; padding: 2px 8px; border-radius: 6px; font-size: .72rem; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
-    .nav-links a { font-size: .85rem; color: var(--text-2); font-weight: 500; }
-    .nav-links a:hover { color: var(--sap-blue); }
+
+    /* tab strip */
+    .nav-links { display: flex; gap: .3rem; list-style: none; align-items: center; flex-wrap: nowrap; }
+    .nav-links a {
+      display: inline-block;
+      font-size: .8rem; font-weight: 600;
+      color: var(--text-2);
+      padding: .32rem .75rem;
+      border-radius: 6px;
+      border: 1.5px solid transparent;
+      white-space: nowrap;
+      transition: color .15s, background .15s, border-color .15s;
+    }
+    .nav-links a:hover {
+      color: var(--sap-blue);
+      background: var(--sap-light);
+      border-color: var(--border-blue);
+    }
+    .nav-links a.active {
+      color: #fff;
+      background: var(--sap-blue);
+      border-color: var(--sap-blue);
+    }
+
+    /* dropdown "More" */
+    .nav-more { position: relative; }
+    .nav-more-btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .8rem; font-weight: 600;
+      color: var(--text-2);
+      padding: .32rem .75rem;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-2);
+      cursor: pointer; white-space: nowrap;
+      transition: color .15s, background .15s, border-color .15s;
+      user-select: none;
+    }
+    .nav-more-btn:hover,
+    .nav-more.open .nav-more-btn {
+      color: var(--sap-blue);
+      background: var(--sap-light);
+      border-color: var(--border-blue);
+    }
+    .nav-more-btn .chevron {
+      width: 10px; height: 10px; transition: transform .2s;
+      display: inline-block;
+    }
+    .nav-more.open .chevron { transform: rotate(180deg); }
+    .nav-dropdown {
+      display: none;
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      min-width: 170px;
+      overflow: hidden;
+      z-index: 200;
+    }
+    .nav-more.open .nav-dropdown { display: block; }
+    .nav-dropdown a {
+      display: block;
+      font-size: .83rem; font-weight: 600;
+      color: var(--text-2);
+      padding: .6rem 1rem;
+      white-space: nowrap;
+      transition: background .12s, color .12s;
+    }
+    .nav-dropdown a:hover { background: var(--sap-light); color: var(--sap-blue); }
+    .nav-dropdown a.active { background: var(--sap-blue); color: #fff; }
+
     @media (max-width: 768px) { .nav-links { display: none; } }
 
     /* ── HERO ── */
@@ -362,15 +431,25 @@
   <div class="nav-brand">Sanket Kamble <span>AR Assistant · UX Portfolio</span></div>
   <ul class="nav-links">
     <li><a href="#problem">Problem</a></li>
-    <li><a href="#personas">Personas</a></li>
+    <li><a href="#personas">Persona</a></li>
     <li><a href="#journey">Journey</a></li>
     <li><a href="#agents">Agents</a></li>
     <li><a href="#approach">Approach</a></li>
-    <li><a href="#prototype">Prototype</a></li>
     <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#impact">Impact</a></li>
-    <li><a href="#reflection">Learnings</a></li>
-    <li><a href="#design-journey">Design Journey</a></li>
+    <li class="nav-more" id="navMore">
+      <div class="nav-more-btn" id="navMoreBtn">
+        More
+        <svg class="chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="nav-dropdown" id="navDropdown">
+        <a href="#prototype">Prototype</a>
+        <a href="#impact">Impact</a>
+        <a href="#reflection">Learnings</a>
+        <a href="#design-journey">Design Journey</a>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -858,15 +937,252 @@
   </div>
 </section>
 
-<!-- LIVE PROTOTYPE -->
-<section id="prototype" style="background:var(--bg-1);">
+<!-- DESIGN APPROACH -->
+<section id="approach" style="background:var(--bg-1);">
   <div class="container">
-    <div class="section-label">Working Prototype</div>
+    <div class="section-label">Design Approach</div>
+    <h2 class="section-title">0-to-1 with a Modern Toolchain</h2>
+    <p class="section-sub">
+      Good UX is no longer only about process-driven decision making. The fastest way to validate
+      a concept is to build it — and the tools now exist to do that in hours, not sprints.
+      On this project I deliberately shifted from traditional prototyping to a fail-fast, build-real approach.
+    </p>
+
+    <div class="cards-grid">
+
+      <div class="card fade-in">
+        <div class="card-icon" style="background:#f0f4ff;">🤖</div>
+        <h3>Claude — AI-Assisted Design Thinking</h3>
+        <p>
+          Used Claude throughout the design process — not just for writing, but for synthesising
+          user research, generating interaction patterns, stress-testing flows, and building
+          working HTML/CSS prototypes that could be validated with real stakeholders immediately.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Concept Generation</span>
+          <span class="tag">Rapid Prototyping</span>
+          <span class="tag">Flow Validation</span>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div class="card-icon" style="background:#fff0f6;">🎨</div>
+        <h3>Figma — Design System &amp; Handoff</h3>
+        <p>
+          Figma remains the source of truth for UI design — but used differently: as a validation
+          layer after concepts are proven in code, not as the starting point. Allows faster iteration
+          with engineering and reduces rework at handoff.
+        </p>
+        <div class="tag-list">
+          <span class="tag">UI Design</span>
+          <span class="tag">Design System</span>
+          <span class="tag">Engineering Handoff</span>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div class="card-icon" style="background:#f0fff4;">⚡</div>
+        <h3>Make (no-code) — Workflow Automation</h3>
+        <p>
+          Used Make to simulate agent orchestration flows and automate test scenarios — enabling
+          live demonstration of multi-agent behavior without waiting for engineering implementation.
+          Validates the interaction model before a single line of production code is written.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Agent Flow Simulation</span>
+          <span class="tag">No-Code Automation</span>
+          <span class="tag amber">Validate Before Build</span>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div class="card-icon" style="background:#fdf4ff;">💻</div>
+        <h3>Cursor / VS Code + Cline — Code as a Design Tool</h3>
+        <p>
+          Using AI-powered code editors to build static HTML prototypes from design intent — closing
+          the gap between concept and reviewable reality. This portfolio page itself was built this way.
+          Treats code fluency as a UX skill, not an engineering handoff.
+        </p>
+        <div class="tag-list">
+          <span class="tag">AI-Assisted Development</span>
+          <span class="tag">Static HTML Prototypes</span>
+          <span class="tag green">UX as Code</span>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div class="card-icon" style="background:#fff8f0;">🤝</div>
+        <h3>Designing for Agents — Not Just Users</h3>
+        <p>
+          The biggest UX shift on this project: designing for AI agents as well as people.
+          Agent UX requires explicit design for both <strong>success paths</strong> and <strong>failure states</strong> —
+          what an agent communicates when it cannot complete a task is as critical as what it shows when it succeeds.
+          Getting both right reduces complexity for the user and cuts time-to-resolution significantly.
+        </p>
+        <div class="tag-list">
+          <span class="tag amber">Success + Failure States</span>
+          <span class="tag">Agent Communication Patterns</span>
+          <span class="tag green">Reduced User Complexity</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem; background:var(--bg-2); border-radius:var(--radius); padding:1.75rem; border-left:4px solid var(--sap-blue);">
+      <p style="font-size:.95rem; color:var(--text-2); line-height:1.7;">
+        <strong style="color:var(--text-1);">The philosophy:</strong>
+        Experience design has two modes. The first is process-driven — research, synthesis, validate, iterate. The second is fail-fast — build something real, put it in front of people, learn from what breaks. Neither is better. The designer who can switch between both, and who has the toolset to execute in both modes, moves faster and makes better products. The modern toolchain — Claude, Figma, Make, Cursor — collapses the distance between idea and working solution, making the second mode available to designers for the first time.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">System Architecture</div>
+    <h2 class="section-title">How the Engagement Layer Works</h2>
+    <p class="section-sub">
+      The AR Assistant sits within SAP's Joule orchestration layer, coordinating multiple agents
+      deployed to the Business Agent Framework (BAF) and integrating with S/4HANA backend systems.
+    </p>
+    <div class="arch-layers">
+
+      <div class="arch-layer fade-in">
+        <div class="arch-layer-header layer-user">
+          <span>👤</span> Layer 1 — User / Engagement Layer (Joule)
+        </div>
+        <div class="arch-layer-body">
+          <div class="arch-components">
+            <div class="arch-comp">💬 Joule Chat (@mention AR Assistant)</div>
+            <div class="arch-comp">📋 Worklist View (Engagement Layer)</div>
+            <div class="arch-comp">🔔 Proactive Recommendations</div>
+            <div class="arch-comp">✅ Human-in-the-Loop Confirmations</div>
+            <div class="arch-comp">📊 Account Summary Cards</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-layer fade-in">
+        <div class="arch-layer-header layer-joule">
+          <span>🧠</span> Layer 2 — AR Assistant (Joule Orchestration)
+        </div>
+        <div class="arch-layer-body">
+          <div class="arch-components">
+            <div class="arch-comp">🎯 AR Assistant (role-based orchestrator)</div>
+            <div class="arch-comp">🔀 Agent Dispatcher</div>
+            <div class="arch-comp">📝 Context Manager</div>
+            <div class="arch-comp">🔗 Cross-Assistant Communication (Billing Assistant)</div>
+            <div class="arch-comp">🛡 Role-Based Permissions</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-layer fade-in">
+        <div class="arch-layer-header layer-agents">
+          <span>⚡</span> Layer 3 — Specialized Agents (BAF — Business Agent Framework)
+        </div>
+        <div class="arch-layer-body">
+          <div class="arch-components">
+            <div class="arch-comp">📋 Worklist Prioritization Agent</div>
+            <div class="arch-comp">360 Collections 360 Agent</div>
+            <div class="arch-comp">📊 Aging Analysis Agent</div>
+            <div class="arch-comp">💳 Payment Behavior Agent</div>
+            <div class="arch-comp">📈 Credit Risk Agent</div>
+            <div class="arch-comp">🔔 Dunning Agent</div>
+            <div class="arch-comp">⚖️ Dispute Creation Agent</div>
+            <div class="arch-comp">🔍 Dispute Resolution Agent</div>
+            <div class="arch-comp">🔎 Account Analysis Agent</div>
+            <div class="arch-comp">⚡ Smart Clearing Agent</div>
+            <div class="arch-comp">🧾 Billing Adjustment Agent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-layer fade-in">
+        <div class="arch-layer-header layer-sap">
+          <span>🏢</span> Layer 4 — SAP Backend (S/4HANA + BTP Integration Suite)
+        </div>
+        <div class="arch-layer-body">
+          <div class="arch-components">
+            <div class="arch-comp">💰 SAP FI — Accounts Receivable (FI-AR)</div>
+            <div class="arch-comp">⚖️ SAP Dispute Management (UDM)</div>
+            <div class="arch-comp">📬 SAP Collections Management</div>
+            <div class="arch-comp">💳 SAP Credit Management (FSCM)</div>
+            <div class="arch-comp">🏧 Payment Matching App (RPT-1, BTP)</div>
+            <div class="arch-comp">🔄 SAP Integration Suite (iFlow)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-layer fade-in">
+        <div class="arch-layer-header layer-data">
+          <span>💾</span> Layer 5 — Data (SAP HANA Cloud + S/4HANA)
+        </div>
+        <div class="arch-layer-body">
+          <div class="arch-components">
+            <div class="arch-comp">🗄 Customer Account Data</div>
+            <div class="arch-comp">📄 Open Items / Invoice Data</div>
+            <div class="arch-comp">📑 Dispute Case Data</div>
+            <div class="arch-comp">📜 Dunning History</div>
+            <div class="arch-comp">📊 Credit &amp; Risk Data</div>
+            <div class="arch-comp">📋 Collection Strategies / Policies</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MY UX PROCESS -->
+<section style="background:var(--bg-1);">
+  <div class="container">
+    <div class="section-label">My UX Process</div>
+    <h2 class="section-title">How I Drove the Design</h2>
+    <p class="section-sub">My specific contributions across the 1.5-year delivery — from customer engagement to design.</p>
+    <div class="ux-steps">
+      <div class="ux-step fade-in">
+        <div class="ux-step-num" style="background:var(--sap-blue);">1</div>
+        <h4>Customer Engagement &amp; Idea Pitching</h4>
+        <p>Participated in early customer engagement discussions to identify the AR use case. Pitched the concept of a Joule-powered assistant for AR — validated the problem space with real customer feedback.</p>
+        <div class="ux-output" style="color:var(--sap-blue);">📄 Use Case Validated · Customer Buy-in</div>
+      </div>
+      <div class="ux-step fade-in">
+        <div class="ux-step-num" style="background:var(--joule);">2</div>
+        <h4>User Research &amp; Persona Definition</h4>
+        <p>Defined the AR Accountant and Collection Specialist personas through interviews and workflow analysis. Mapped pain points to specific agent capabilities and Engagement Layer requirements.</p>
+        <div class="ux-output" style="color:var(--joule);">👤 2 Validated Personas · Journey Maps</div>
+      </div>
+      <div class="ux-step fade-in">
+        <div class="ux-step-num" style="background:var(--green);">3</div>
+        <h4>UX Validation Sessions</h4>
+        <p>Led user validation for key flows — Worklist Prioritization, 360° account view, and Dispute Resolution. Validated that specialists needed <em>action recommendations</em> not just data views.</p>
+        <div class="ux-output" style="color:var(--green);">✅ Action-First UX Pattern Confirmed</div>
+      </div>
+      <div class="ux-step fade-in">
+        <div class="ux-step-num" style="background:var(--amber);">4</div>
+        <h4>Agent Architecture &amp; Flow Design</h4>
+        <p>Designed the orchestration flows for autonomous AR Assistant execution — both the Collection Specialist and AR Accountant paths — including cross-assistant Billing integration.</p>
+        <div class="ux-output" style="color:var(--amber);">🔀 E2E Autonomous Flow Designs</div>
+      </div>
+      <div class="ux-step fade-in">
+        <div class="ux-step-num" style="background:var(--joule);">5</div>
+        <h4>Engagement Layer UX Design</h4>
+        <p>Designed the Joule Engagement Layer screens for both personas — worklist, account cards, action prompts, HITL confirmation patterns, and the @mention interaction model.</p>
+        <div class="ux-output" style="color:var(--joule);">🎨 Engagement Layer UX Patterns</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE PROTOTYPE -->
+<section id="prototype" style="background:var(--bg-2);">
+  <div class="container">
+    <div class="section-label">EL Static Prototype</div>
     <h2 class="section-title">Figma Make — Design to HTML in One Step</h2>
     <p class="section-sub">
-      Instead of static wireframes, the Engagement Layer concept was validated as a working HTML prototype
-      exported directly from Figma using Figma Make. Layout, spacing, and nav structure came through —
-      the starting point from which Claude then iterated to add real AR content and interactions.
+      Instead of static wireframes, the Engagement Layer concept was exported directly from Figma using Figma Make — producing a static HTML prototype that preserved layout, spacing, and nav structure for stakeholder review and validation.
     </p>
 
     <!-- Single prototype card — full width -->
@@ -1051,245 +1367,6 @@
   </div>
 </section>
 
-<!-- DESIGN APPROACH -->
-<section id="approach" style="background:var(--bg-1);">
-  <div class="container">
-    <div class="section-label">Design Approach</div>
-    <h2 class="section-title">0-to-1 with a Modern Toolchain</h2>
-    <p class="section-sub">
-      Good UX is no longer only about process-driven decision making. The fastest way to validate
-      a concept is to build it — and the tools now exist to do that in hours, not sprints.
-      On this project I deliberately shifted from traditional prototyping to a fail-fast, build-real approach.
-    </p>
-
-    <div class="cards-grid">
-
-      <div class="card fade-in">
-        <div class="card-icon" style="background:#f0f4ff;">🤖</div>
-        <h3>Claude — AI-Assisted Design Thinking</h3>
-        <p>
-          Used Claude throughout the design process — not just for writing, but for synthesising
-          user research, generating interaction patterns, stress-testing flows, and building
-          working HTML/CSS prototypes that could be validated with real stakeholders immediately.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Concept Generation</span>
-          <span class="tag">Rapid Prototyping</span>
-          <span class="tag">Flow Validation</span>
-        </div>
-      </div>
-
-      <div class="card fade-in">
-        <div class="card-icon" style="background:#fff0f6;">🎨</div>
-        <h3>Figma — Design System &amp; Handoff</h3>
-        <p>
-          Figma remains the source of truth for UI design — but used differently: as a validation
-          layer after concepts are proven in code, not as the starting point. Allows faster iteration
-          with engineering and reduces rework at handoff.
-        </p>
-        <div class="tag-list">
-          <span class="tag">UI Design</span>
-          <span class="tag">Design System</span>
-          <span class="tag">Engineering Handoff</span>
-        </div>
-      </div>
-
-      <div class="card fade-in">
-        <div class="card-icon" style="background:#f0fff4;">⚡</div>
-        <h3>Make (no-code) — Workflow Automation</h3>
-        <p>
-          Used Make to simulate agent orchestration flows and automate test scenarios — enabling
-          live demonstration of multi-agent behavior without waiting for engineering implementation.
-          Validates the interaction model before a single line of production code is written.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Agent Flow Simulation</span>
-          <span class="tag">No-Code Automation</span>
-          <span class="tag amber">Validate Before Build</span>
-        </div>
-      </div>
-
-      <div class="card fade-in">
-        <div class="card-icon" style="background:#fdf4ff;">💻</div>
-        <h3>Cursor / VS Code + Cline — Code as a Design Tool</h3>
-        <p>
-          Using AI-powered code editors to build working prototypes from design intent — closing
-          the gap between concept and testable reality. This portfolio page itself was built this way.
-          Treats code fluency as a UX skill, not an engineering handoff.
-        </p>
-        <div class="tag-list">
-          <span class="tag">AI-Assisted Development</span>
-          <span class="tag">Working Prototypes</span>
-          <span class="tag green">UX as Code</span>
-        </div>
-      </div>
-
-      <div class="card fade-in">
-        <div class="card-icon" style="background:#fff8f0;">🤝</div>
-        <h3>Designing for Agents — Not Just Users</h3>
-        <p>
-          The biggest UX shift on this project: designing for AI agents as well as people.
-          Agent UX requires explicit design for both <strong>success paths</strong> and <strong>failure states</strong> —
-          what an agent communicates when it cannot complete a task is as critical as what it shows when it succeeds.
-          Getting both right reduces complexity for the user and cuts time-to-resolution significantly.
-        </p>
-        <div class="tag-list">
-          <span class="tag amber">Success + Failure States</span>
-          <span class="tag">Agent Communication Patterns</span>
-          <span class="tag green">Reduced User Complexity</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="margin-top:2rem; background:var(--bg-2); border-radius:var(--radius); padding:1.75rem; border-left:4px solid var(--sap-blue);">
-      <p style="font-size:.95rem; color:var(--text-2); line-height:1.7;">
-        <strong style="color:var(--text-1);">The philosophy:</strong>
-        Experience design has two modes. The first is process-driven — research, synthesis, validate, iterate. The second is fail-fast — build something real, put it in front of people, learn from what breaks. Neither is better. The designer who can switch between both, and who has the toolset to execute in both modes, moves faster and makes better products. The modern toolchain — Claude, Figma, Make, Cursor — collapses the distance between idea and working solution, making the second mode available to designers for the first time.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ARCHITECTURE -->
-<section id="architecture">
-  <div class="container">
-    <div class="section-label">System Architecture</div>
-    <h2 class="section-title">How the Engagement Layer Works</h2>
-    <p class="section-sub">
-      The AR Assistant sits within SAP's Joule orchestration layer, coordinating multiple agents
-      deployed to the Business Agent Framework (BAF) and integrating with S/4HANA backend systems.
-    </p>
-    <div class="arch-layers">
-
-      <div class="arch-layer fade-in">
-        <div class="arch-layer-header layer-user">
-          <span>👤</span> Layer 1 — User / Engagement Layer (Joule)
-        </div>
-        <div class="arch-layer-body">
-          <div class="arch-components">
-            <div class="arch-comp">💬 Joule Chat (@mention AR Assistant)</div>
-            <div class="arch-comp">📋 Worklist View (Engagement Layer)</div>
-            <div class="arch-comp">🔔 Proactive Recommendations</div>
-            <div class="arch-comp">✅ Human-in-the-Loop Confirmations</div>
-            <div class="arch-comp">📊 Account Summary Cards</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-layer fade-in">
-        <div class="arch-layer-header layer-joule">
-          <span>🧠</span> Layer 2 — AR Assistant (Joule Orchestration)
-        </div>
-        <div class="arch-layer-body">
-          <div class="arch-components">
-            <div class="arch-comp">🎯 AR Assistant (role-based orchestrator)</div>
-            <div class="arch-comp">🔀 Agent Dispatcher</div>
-            <div class="arch-comp">📝 Context Manager</div>
-            <div class="arch-comp">🔗 Cross-Assistant Communication (Billing Assistant)</div>
-            <div class="arch-comp">🛡 Role-Based Permissions</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-layer fade-in">
-        <div class="arch-layer-header layer-agents">
-          <span>⚡</span> Layer 3 — Specialized Agents (BAF — Business Agent Framework)
-        </div>
-        <div class="arch-layer-body">
-          <div class="arch-components">
-            <div class="arch-comp">📋 Worklist Prioritization Agent</div>
-            <div class="arch-comp">360 Collections 360 Agent</div>
-            <div class="arch-comp">📊 Aging Analysis Agent</div>
-            <div class="arch-comp">💳 Payment Behavior Agent</div>
-            <div class="arch-comp">📈 Credit Risk Agent</div>
-            <div class="arch-comp">🔔 Dunning Agent</div>
-            <div class="arch-comp">⚖️ Dispute Creation Agent</div>
-            <div class="arch-comp">🔍 Dispute Resolution Agent</div>
-            <div class="arch-comp">🔎 Account Analysis Agent</div>
-            <div class="arch-comp">⚡ Smart Clearing Agent</div>
-            <div class="arch-comp">🧾 Billing Adjustment Agent</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-layer fade-in">
-        <div class="arch-layer-header layer-sap">
-          <span>🏢</span> Layer 4 — SAP Backend (S/4HANA + BTP Integration Suite)
-        </div>
-        <div class="arch-layer-body">
-          <div class="arch-components">
-            <div class="arch-comp">💰 SAP FI — Accounts Receivable (FI-AR)</div>
-            <div class="arch-comp">⚖️ SAP Dispute Management (UDM)</div>
-            <div class="arch-comp">📬 SAP Collections Management</div>
-            <div class="arch-comp">💳 SAP Credit Management (FSCM)</div>
-            <div class="arch-comp">🏧 Payment Matching App (RPT-1, BTP)</div>
-            <div class="arch-comp">🔄 SAP Integration Suite (iFlow)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-layer fade-in">
-        <div class="arch-layer-header layer-data">
-          <span>💾</span> Layer 5 — Data (SAP HANA Cloud + S/4HANA)
-        </div>
-        <div class="arch-layer-body">
-          <div class="arch-components">
-            <div class="arch-comp">🗄 Customer Account Data</div>
-            <div class="arch-comp">📄 Open Items / Invoice Data</div>
-            <div class="arch-comp">📑 Dispute Case Data</div>
-            <div class="arch-comp">📜 Dunning History</div>
-            <div class="arch-comp">📊 Credit &amp; Risk Data</div>
-            <div class="arch-comp">📋 Collection Strategies / Policies</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- MY UX PROCESS -->
-<section style="background:var(--bg-1);">
-  <div class="container">
-    <div class="section-label">My UX Process</div>
-    <h2 class="section-title">How I Drove the Design</h2>
-    <p class="section-sub">My specific contributions across the 1.5-year delivery — from customer engagement to design.</p>
-    <div class="ux-steps">
-      <div class="ux-step fade-in">
-        <div class="ux-step-num" style="background:var(--sap-blue);">1</div>
-        <h4>Customer Engagement &amp; Idea Pitching</h4>
-        <p>Participated in early customer engagement discussions to identify the AR use case. Pitched the concept of a Joule-powered assistant for AR — validated the problem space with real customer feedback.</p>
-        <div class="ux-output" style="color:var(--sap-blue);">📄 Use Case Validated · Customer Buy-in</div>
-      </div>
-      <div class="ux-step fade-in">
-        <div class="ux-step-num" style="background:var(--joule);">2</div>
-        <h4>User Research &amp; Persona Definition</h4>
-        <p>Defined the AR Accountant and Collection Specialist personas through interviews and workflow analysis. Mapped pain points to specific agent capabilities and Engagement Layer requirements.</p>
-        <div class="ux-output" style="color:var(--joule);">👤 2 Validated Personas · Journey Maps</div>
-      </div>
-      <div class="ux-step fade-in">
-        <div class="ux-step-num" style="background:var(--green);">3</div>
-        <h4>UX Validation Sessions</h4>
-        <p>Led user validation for key flows — Worklist Prioritization, 360° account view, and Dispute Resolution. Validated that specialists needed <em>action recommendations</em> not just data views.</p>
-        <div class="ux-output" style="color:var(--green);">✅ Action-First UX Pattern Confirmed</div>
-      </div>
-      <div class="ux-step fade-in">
-        <div class="ux-step-num" style="background:var(--amber);">4</div>
-        <h4>Agent Architecture &amp; Flow Design</h4>
-        <p>Designed the orchestration flows for autonomous AR Assistant execution — both the Collection Specialist and AR Accountant paths — including cross-assistant Billing integration.</p>
-        <div class="ux-output" style="color:var(--amber);">🔀 E2E Autonomous Flow Designs</div>
-      </div>
-      <div class="ux-step fade-in">
-        <div class="ux-step-num" style="background:var(--joule);">5</div>
-        <h4>Engagement Layer UX Design</h4>
-        <p>Designed the Joule Engagement Layer screens for both personas — worklist, account cards, action prompts, HITL confirmation patterns, and the @mention interaction model.</p>
-        <div class="ux-output" style="color:var(--joule);">🎨 Engagement Layer UX Patterns</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- IMPACT -->
 <section id="impact">
   <div class="container">
@@ -1377,6 +1454,61 @@
         <div class="ref-item">
           <h4>Designing for agents is a new UX discipline</h4>
           <p>You don't just design for the user — you design for how the agent communicates with the user. Success states are easy. Failure states are where most agent UX breaks down. Explicitly designing both — what the agent says when it can't complete a task, how it recovers, what it asks the user — reduces complexity and builds trust faster than any onboarding flow.</p>
+        </div>
+      </div>
+      <!-- VALIDATION STUDY — collapsed by default -->
+      <div style="margin-top:1.75rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;">
+        <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.vs-chevron').style.transform=this.nextElementSibling.style.display==='none'?'rotate(0deg)':'rotate(180deg)';"
+          style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.6rem;padding:0;width:100%;text-align:left;">
+          <span style="font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);">User Validation Study · April 2026</span>
+          <span class="vs-chevron" style="color:rgba(255,255,255,.3);font-size:.7rem;transition:transform .2s;margin-left:auto;">▼</span>
+        </button>
+
+        <div style="display:none;margin-top:1.25rem;">
+
+          <!-- Why we did this -->
+          <p style="font-size:.83rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:1.25rem;">
+            Collection is an operational role — the question was: <em>what can Joule and the Engagement Layer actually do to help a specialist who is calling and mailing customers all day?</em> We had designed a flow for this, but weren't sure whether building out a full EL product made sense, or whether a single focused view — helping the specialist understand a customer before reaching out — was sufficient. On the dispute side, we also lacked clarity on volumes and the primary reasons disputes were being raised from an AR Assistant perspective. This study was run to answer both.
+          </p>
+
+          <!-- Participants -->
+          <div style="margin-bottom:1.1rem;">
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">Participants — 5 practitioners · SAP &amp; DHL</div>
+            <div style="display:flex;flex-direction:column;gap:.45rem;">
+              <div style="display:flex;align-items:baseline;gap:.6rem;font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.5;">
+                <span style="background:rgba(255,255,255,.1);border-radius:4px;padding:.1rem .45rem;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);flex-shrink:0;">SAP</span>
+                Cash Collection Manager · Collection Specialist · Dispute Specialist &amp; Manager
+              </div>
+              <div style="display:flex;align-items:baseline;gap:.6rem;font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.5;">
+                <span style="background:rgba(255,255,255,.1);border-radius:4px;padding:.1rem .45rem;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);flex-shrink:0;">DHL</span>
+                Senior AR Specialist · OTC Process Owner
+              </div>
+            </div>
+          </div>
+
+          <!-- Key observations -->
+          <div style="margin-bottom:1rem;">
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">Key Observations</div>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;padding-left:.85rem;border-left:2px solid rgba(255,255,255,.12);">Pre-call research takes 5–30 min per account across 3–5 systems — a unified view cuts this significantly.</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;padding-left:.85rem;border-left:2px solid rgba(255,255,255,.12);">Post-call documentation — notes, tickets, resubmissions — is the heavier half of the job. <em>"Most of the work load comes after the call."</em></div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;padding-left:.85rem;border-left:2px solid rgba(255,255,255,.12);">Dispute reason codes are inferred from free-text email — the hardest and most error-prone step in the intake process.</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;padding-left:.85rem;border-left:2px solid rgba(255,255,255,.12);">The 360° customer view — DSO, disputes, contact notes, payment trends — was immediately recognised as high value by all collections participants.</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;padding-left:.85rem;border-left:2px solid rgba(255,255,255,.12);">Chat was expected to execute actions, not just answer questions — participants described dunning blocks, late-payment fees, and note summaries as natural chat tasks.</div>
+            </div>
+          </div>
+
+          <!-- Pain points -->
+          <div>
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">Pain Points That Shaped the Design</div>
+            <div style="display:flex;flex-direction:column;gap:.4rem;">
+              <div style="font-size:.79rem;color:rgba(255,255,255,.55);line-height:1.55;display:flex;gap:.5rem;"><span style="flex-shrink:0;color:rgba(255,100,100,.6);">✗</span>No in-system follow-up tracking — specialists use Outlook reminders and personal calendars as workarounds.</div>
+              <div style="font-size:.79rem;color:rgba(255,255,255,.55);line-height:1.55;display:flex;gap:.5rem;"><span style="flex-shrink:0;color:rgba(255,100,100,.6);">✗</span>Note-taking absent from the prototype — confirmed as a release blocker, not optional.</div>
+              <div style="font-size:.79rem;color:rgba(255,255,255,.55);line-height:1.55;display:flex;gap:.5rem;"><span style="flex-shrink:0;color:rgba(255,100,100,.6);">✗</span>AI talking points built only from open item data add no value — specialists already see that data.</div>
+              <div style="font-size:.79rem;color:rgba(255,255,255,.55);line-height:1.55;display:flex;gap:.5rem;"><span style="flex-shrink:0;color:rgba(255,100,100,.6);">✗</span>Internal escalations return with no resolution or redirect — the primary time drain cited across the role.</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1715,10 +1847,55 @@
 </footer>
 
 <script>
+  // Fade-in on scroll
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Active nav tab highlight (scrollspy)
+  const sections = ['problem','personas','journey','agents','approach','architecture','prototype','impact','reflection','design-journey'];
+  const allNavLinks = document.querySelectorAll('.nav-links a, .nav-dropdown a');
+
+  function setActive(id) {
+    allNavLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+    // Show "More" btn as active if one of its items is active
+    const dropdownIds = ['prototype','impact','reflection','design-journey'];
+    const moreBtn = document.getElementById('navMoreBtn');
+    if (dropdownIds.includes(id)) {
+      moreBtn.style.color = 'var(--sap-blue)';
+      moreBtn.style.background = 'var(--sap-light)';
+      moreBtn.style.borderColor = 'var(--border-blue)';
+    } else {
+      moreBtn.style.color = '';
+      moreBtn.style.background = '';
+      moreBtn.style.borderColor = '';
+    }
+  }
+
+  const scrollObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) setActive(e.target.id);
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) scrollObs.observe(el);
+  });
+
+  // Dropdown toggle
+  const navMore = document.getElementById('navMore');
+  const navMoreBtn = document.getElementById('navMoreBtn');
+  navMoreBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    navMore.classList.toggle('open');
+  });
+  document.addEventListener('click', () => navMore.classList.remove('open'));
+  document.getElementById('navDropdown').addEventListener('click', () => {
+    navMore.classList.remove('open');
+  });
 </script>
 </body>
 </html>

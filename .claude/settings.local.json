@@ -33,7 +33,9 @@
       "WebFetch(domain:www.mural.co)",
       "Bash(gh api:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(wait)"
+      "Bash(wait)",
+      "WebFetch(domain:pages.github.tools.sap)",
+      "Bash(cp:*)"
     ]
   }
 }

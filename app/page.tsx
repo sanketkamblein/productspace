@@ -590,6 +590,17 @@ export default function Portfolio() {
     },
   ]
 
+  // Restore scroll when navigating back (bfcache restore)
+  useEffect(() => {
+    const restoreScroll = () => {
+      document.body.style.overflow = "auto"
+    }
+    window.addEventListener("pageshow", restoreScroll)
+    // Also reset on mount in case of stale state
+    restoreScroll()
+    return () => window.removeEventListener("pageshow", restoreScroll)
+  }, [])
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference Objects — SAP Fiori | Sanket Kamble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── PASSWORD GATE ── */
+    #gate {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;
+      background: #0d0d14;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .gate-card {
+      background: #16161f;
+      border: 1px solid #2a2a3a;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px;
+      text-align: center;
+    }
+    .gate-lock { font-size: 2.5rem; margin-bottom: 1rem; }
+    .gate-title { color: #fff; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .gate-sub { color: #888; font-size: 0.85rem; margin-bottom: 2rem; line-height: 1.5; }
+    .gate-input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: #0d0d14; border: 1px solid #2a2a3a;
+      border-radius: 8px; color: #fff; font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      outline: none; margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .gate-input:focus { border-color: #ffd700; }
+    .gate-input.error { border-color: #e05555; animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .gate-btn {
+      width: 100%; padding: 0.75rem;
+      background: #ffd700; color: #1a0a00;
+      border: none; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-err { color: #e05555; font-size: 0.8rem; margin-top: 0.75rem; display: none; }
+    .gate-badge {
+      display: inline-block; margin-bottom: 1.5rem;
+      background: rgba(255,215,0,0.1); color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 20px; padding: 0.3rem 0.9rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── PORTFOLIO (hidden until unlocked) ── */
+    #portfolio { display: none; font-family: 'Inter', sans-serif; background: #0d0d14; color: #e8e8ec; min-height: 100vh; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,20,0.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1e1e2a;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: #ffd700; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
+    .back-btn {
+      background: rgba(255,215,0,0.1); color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.2); border-radius: 6px;
+      padding: 0.35rem 0.9rem; font-size: 0.8rem; font-weight: 500;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,215,0,0.2); }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .hero-eyebrow {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+    .tag {
+      background: rgba(255,215,0,0.1); color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 20px; padding: 0.25rem 0.75rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .tag.blue {
+      background: rgba(100,160,255,0.1); color: #8bb8ff;
+      border-color: rgba(100,160,255,0.2);
+    }
+    .tag.green {
+      background: rgba(80,200,140,0.1); color: #6ddba0;
+      border-color: rgba(80,200,140,0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    h1 span { color: #ffd700; }
+
+    .hero-desc {
+      color: #aaa; font-size: 1rem; line-height: 1.75;
+      max-width: 600px; margin-bottom: 2.5rem;
+    }
+
+    hr.divider {
+      border: none; border-top: 1px solid #1e1e2a; margin: 2.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #ffd700; margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;
+    }
+    .section-desc {
+      color: #aaa; font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    /* ── LINK CARDS ── */
+    .links-grid {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .link-card {
+      display: flex; align-items: center; gap: 1.25rem;
+      background: #16161f; border: 1px solid #2a2a3a;
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .link-card:hover {
+      border-color: #ffd700; background: rgba(255,215,0,0.04);
+    }
+    .link-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(255,215,0,0.1); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .link-info { flex: 1; }
+    .link-title {
+      font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem;
+    }
+    .link-sub {
+      font-size: 0.8rem; color: #666;
+    }
+    .link-arrow {
+      color: #444; font-size: 1rem; flex-shrink: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .link-card:hover .link-arrow { color: #ffd700; transform: translateX(3px); }
+
+    /* ── CASE STUDY BUTTON ── */
+    .case-study-btn {
+      display: flex; align-items: center; gap: 1.25rem;
+      background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .case-study-btn:hover {
+      border-color: #ffd700; background: rgba(255,215,0,0.1);
+    }
+    .case-study-btn .link-icon {
+      background: rgba(255,215,0,0.15);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center; padding: 2rem;
+      color: #444; font-size: 0.8rem;
+      border-top: 1px solid #1e1e2a; margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .content { padding: 5rem 1.25rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-lock">🔒</div>
+    <div class="gate-badge">Private Cloud · Deutsche Bahn</div>
+    <div class="gate-title">Reference Objects — SAP Fiori</div>
+    <div class="gate-sub">This work is password protected.<br>Please enter the access code to continue.</div>
+    <input type="password" id="gate-pwd" class="gate-input" placeholder="Enter password" autocomplete="off">
+    <button class="gate-btn" onclick="checkPassword()">Unlock Work</button>
+    <div class="gate-err" id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<div id="portfolio">
+
+  <nav>
+    <div class="nav-logo">SK · Portfolio</div>
+    <a href="../../index.html" class="back-btn">← Back to Portfolio</a>
+  </nav>
+
+  <div class="content">
+
+    <div class="hero-eyebrow">
+      <span class="tag">UX Designer</span>
+      <span class="tag blue">SAP Fiori Elements</span>
+      <span class="tag green">EAM · Deutsche Bahn</span>
+    </div>
+    <h1>Reference Objects<br><span>in Private Cloud</span></h1>
+    <p class="hero-desc">
+      End-to-end UX design of SAP Fiori applications enabling Deutsche Bahn to manage
+      Reference Equipment and Reference Structures — reusable technical object templates
+      for Enterprise Asset Management in SAP Private Cloud.
+    </p>
+
+    <hr class="divider">
+
+    <div class="section-label">Figma Files</div>
+    <div class="section-title">Design Artefacts</div>
+    <p class="section-desc">
+      Two Figma files covering the Reference Structures design work.
+    </p>
+
+    <div class="links-grid">
+      <a class="link-card" href="https://www.figma.com/design/KlnDsMmt9vfOky4Vix1mPi/Reference-Structures?node-id=1-209&p=f&t=nGztzw6AsxpPqF1V-0" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon">🏗️</div>
+        <div class="link-info">
+          <div class="link-title">Reference Structures</div>
+          <div class="link-sub">Fiori Elements · Structural template hierarchy design</div>
+        </div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <a class="link-card" href="https://www.figma.com/design/bQdD2LfGOr44G41TkiLYiZ/Reference-TO?node-id=0-1&t=vO6Q71dbZmUxZq16-1" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon">📋</div>
+        <div class="link-info">
+          <div class="link-title">Reference TO</div>
+          <div class="link-sub">Fiori Elements · Reference Equipment &amp; Manage Structures</div>
+        </div>
+        <div class="link-arrow">→</div>
+      </a>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-label">Case Study</div>
+    <div class="section-title">Full Case Study</div>
+    <p class="section-desc">
+      Detailed walkthrough of the design process, screens, and delivery for the Reference Objects project.
+    </p>
+
+    <div class="links-grid">
+      <a class="link-card" href="portfolio.html" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon">📖</div>
+        <div class="link-info">
+          <div class="link-title">View Full Case Study →</div>
+          <div class="link-sub">Screen walkthroughs, FPS1 &amp; FPS2 delivery, design contributions</div>
+        </div>
+        <div class="link-arrow">→</div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Sanket Kamble · Portfolio · <a href="../../index.html" style="color:#ffd700;text-decoration:none;">Back to main</a>
+  </div>
+
+</div>
+
+<script>
+  function checkPassword() {
+    const input = document.getElementById('gate-pwd');
+    const err   = document.getElementById('gate-err');
+    if (input.value === 'hello') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('portfolio').style.display = 'block';
+    } else {
+      err.style.display = 'block';
+      input.classList.add('error');
+      setTimeout(() => input.classList.remove('error'), 400);
+      input.value = '';
+      input.focus();
+    }
+  }
+  document.getElementById('gate-pwd').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+</script>
+
+</body>
+</html>

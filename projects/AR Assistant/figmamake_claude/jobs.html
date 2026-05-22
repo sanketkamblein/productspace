@@ -6,22 +6,47 @@
   <title>Jobs — Joule Engagement Layer</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .jobs-content {
+    /* ── Jobs layout ── */
+    .jobs-layout {
+      display: flex;
       flex: 1;
       min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      gap: 20px;
+      padding: 20px 20px 0 0;
+    }
+
+    /* ── Left panel toggle transition ── */
+    .sub-nav {
+      transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+      flex-shrink: 0;
+    }
+    .sub-nav.collapsed {
+      width: 0 !important;
+      min-width: 0 !important;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* ── Jobs center content ── */
+    .jobs-content {
+      flex: 1;
+      min-width: 400px;
       display: flex;
       flex-direction: column;
       background: white;
       border-radius: 20px 20px 0 0;
-      margin: 12px 12px 0 0;
       overflow: hidden;
       position: relative;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
     }
 
     .jobs-content-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 20px 100px;
+      padding: 20px 20px 16px;
     }
 
     .jobs-content-scroll::-webkit-scrollbar { width: 6px; }
@@ -48,13 +73,116 @@
       border-radius: 10px;
       padding: 14px;
     }
+
+    /* ── Joule panel (right, slides in) ── */
+    .jobs-joule-panel {
+      width: 0;
+      min-width: 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      background: white;
+      position: relative;
+    }
+    .jobs-joule-panel.open {
+      width: 380px;
+      min-width: 380px;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
+    }
+
+    /* ── Joule panel header ── */
+    .jobs-joule-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .jobs-joule-title { font-size: 14px; font-weight: 700; color: #131e29; }
+
+    /* ── Joule panel messages ── */
+    .jobs-joule-messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px 16px 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .jobs-joule-messages::-webkit-scrollbar { width: 4px; }
+    .jobs-joule-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+
+    /* ── Chat bubbles in jobs panel ── */
+    .jobs-joule-bubble { font-size: 13px; color: #131e29; line-height: 1.5; }
+    .jobs-user-bubble {
+      align-self: flex-end;
+      background: #5d36ff; color: white;
+      border-radius: 16px 16px 4px 16px;
+      padding: 8px 14px; font-size: 13px; max-width: 85%;
+    }
+    .jobs-msg-actions { display: flex; align-items: center; gap: 2px; margin-top: 4px; }
+    .jobs-action-icon {
+      width: 26px; height: 26px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+    }
+    .jobs-action-icon:hover { background: #f0f0f0; }
+
+    /* ── Joule panel input ── */
+    .jobs-joule-input-wrap {
+      padding: 10px 14px;
+      border-top: 1px solid #e5e5e5;
+      flex-shrink: 0;
+    }
+    .jobs-joule-input-box {
+      background: white;
+      border: 1px solid rgba(93,54,255,0.2);
+      border-radius: 24px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .jobs-joule-input-field {
+      flex: 1; border: none; outline: none;
+      font-size: 13px; color: #556b82;
+      background: transparent; font-family: inherit;
+    }
+    .jobs-joule-input-field::placeholder { color: #8a9ba8; font-style: italic; }
+
+    /* ── Header icon btn purple ── */
+    .header-icon-btn-purple {
+      width: 32px; height: 32px;
+      background: #5d36ff; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .header-icon-btn-purple:hover { background: #4a2acc; }
+
+    /* ── Toolbar toggle ── */
+    .toolbar-toggle-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .toolbar-toggle-btn:hover { background: rgba(0,0,0,0.06); }
   </style>
 </head>
 <body>
 <div class="page-container">
-  <div class="main-panel">
+  <div class="main-panel" style="overflow:hidden">
+    <div class="jobs-layout">
+
     <!-- Left: Jobs List -->
-    <div class="sub-nav">
+    <div class="sub-nav" id="jobsLeftPanel">
       <div class="sub-nav-header">
         <div class="flex items-center gap-8">
           <span class="sub-nav-title">Jobs</span>
@@ -74,24 +202,19 @@
               <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
-          <button class="icon-btn" title="Add">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="6" stroke="#0070F2" stroke-width="1.5"/>
-              <path d="M8 5v6M5 8h6" stroke="#0070F2" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
+          <button style="background:#5d36ff;color:white;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" title="New Job" onclick="startNewJob()" onmouseover="this.style.background='#4a2acc'" onmouseout="this.style.background='#5d36ff'">New</button>
         </div>
       </div>
 
       <!-- Tab Filters -->
       <div class="filter-tabs" style="padding:8px 12px;flex-wrap:nowrap;overflow-x:auto;gap:6px">
-        <button class="filter-tab active" onclick="filterJobs('attention', this)" style="white-space:nowrap;font-size:12px">Attention</button>
+        <button class="filter-tab active" onclick="filterJobs('attention', this)" style="white-space:nowrap;font-size:12px">Needs Attention</button>
         <button class="filter-tab" onclick="filterJobs('active', this)" style="white-space:nowrap;font-size:12px">Active</button>
         <button class="filter-tab" onclick="filterJobs('completed', this)" style="white-space:nowrap;font-size:12px">Completed</button>
-        <button class="filter-tab" onclick="filterJobs('all', this)" style="white-space:nowrap;font-size:12px">All</button>
+        <button class="filter-tab" onclick="filterJobs('draft', this)" style="white-space:nowrap;font-size:12px">Draft</button>
       </div>
 
-      <div class="sub-nav-list" id="jobsList">
+      <div class="sub-nav-list" id="jobsList" style="padding:8px 12px">
         <!-- rendered by JS -->
       </div>
     </div>
@@ -99,36 +222,46 @@
     <!-- Right: Job Detail -->
     <div class="jobs-content">
       <!-- Header -->
-      <div id="jobHeader" class="content-header" style="flex-direction:column;align-items:flex-start;gap:8px;padding:16px 20px 0">
+      <div id="jobHeader" class="content-header" style="flex-direction:column;align-items:flex-start;gap:4px;padding:16px 20px 0">
         <div class="flex items-center justify-between w-full">
-          <div>
-            <h1 class="content-header-title" id="jobTitle">Collections Email Outreach Job</h1>
-            <div class="flex items-center gap-8" style="margin-top:4px">
-              <span id="jobAgent" style="font-size:12px;color:#556b82;background:#f0f0f0;padding:3px 10px;border-radius:12px">Customer Outreach Agent</span>
+          <div class="flex items-center gap-8">
+            <!-- Toggle left job list -->
+            <button class="toolbar-toggle-btn" onclick="toggleJobList()" title="Toggle job list">
+              <img src="assets/HeaderIcon.svg" width="18" height="18" alt=""
+                   onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=18 height=14 viewBox=&quot;0 0 18 14&quot; fill=&quot;none&quot;><path d=&quot;M1 2h16M1 7h16M1 12h16&quot; stroke=&quot;#556b82&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg>')">
+            </button>
+            <div>
+              <div style="font-size:11px;color:#0064d9;font-weight:500;margin-bottom:2px">Jobs</div>
+              <h1 class="content-header-title" id="jobTitle" style="color:#131e29">Collections Email Outreach Job</h1>
+              <div style="font-size:12px;color:#556b82;margin-top:2px" id="jobSubtitle">Finance Operations · One-Off Analytical</div>
             </div>
           </div>
           <div class="flex items-center gap-6">
-            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="4" r="1.5" fill="#848484"/><circle cx="8" cy="8" r="1.5" fill="#848484"/><circle cx="8" cy="12" r="1.5" fill="#848484"/></svg></button>
-            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="8" r="2" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M11 3a2 2 0 110 4 2 2 0 010-4zM11 10a2 2 0 110 4 2 2 0 010-4z" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M8 7l2-1.5M8 9l2 1.5" stroke="#848484" stroke-width="1.3"/></svg></button>
-            <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#848484" stroke-width="1.3" fill="none"/><path d="M5 5h6M5 8h6M5 11h4" stroke="#848484" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+            <div id="jobInlineStatus" style="display:flex;align-items:center;gap:6px">
+              <!-- inline status tags rendered by JS -->
+            </div>
+            <button style="background:#0070f2;color:white;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" title="Activate Job" id="activateJobBtn" onmouseover="this.style.background='#005ed6'" onmouseout="this.style.background='#0070f2'">Activate Job</button>
+            <button class="icon-btn" title="More options">
+              <img src="assets/more-icon.svg" width="16" height="16" alt=""
+                   onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=4 height=16 viewBox=&quot;0 0 4 16&quot; fill=&quot;none&quot;><circle cx=&quot;2&quot; cy=&quot;4&quot; r=&quot;1.5&quot; fill=&quot;#848484&quot;/><circle cx=&quot;2&quot; cy=&quot;8&quot; r=&quot;1.5&quot; fill=&quot;#848484&quot;/><circle cx=&quot;2&quot; cy=&quot;12&quot; r=&quot;1.5&quot; fill=&quot;#848484&quot;/></svg>'">
+            </button>
+            <button class="icon-btn" title="Share">
+              <img src="assets/share.svg" width="16" height="16" alt=""
+                   onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><circle cx=&quot;6&quot; cy=&quot;8&quot; r=&quot;2&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; fill=&quot;none&quot;/><path d=&quot;M11 3a2 2 0 110 4 2 2 0 010-4zM11 10a2 2 0 110 4 2 2 0 010-4z&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; fill=&quot;none&quot;/><path d=&quot;M8 7l2-1.5M8 9l2 1.5&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot;/></svg>'">
+            </button>
+            <!-- Joule button -->
+            <button class="icon-btn" id="jobsJouleBtn" onclick="toggleJobsJoulePanel()" title="Ask Joule">
+              <img src="assets/space-joule.svg" width="16" height="16" alt=""
+                   onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z&quot; fill=&quot;#556b82&quot;/></svg>')">
+            </button>
           </div>
-        </div>
-
-        <!-- Status Row -->
-        <div class="flex items-center justify-between w-full" style="padding-bottom:12px">
-          <div class="flex items-center gap-8">
-            <span class="badge badge-orange" id="jobStatusBadge">Attention Required</span>
-            <span style="font-size:13px;color:#556b82" id="jobStatus">2 decisions required</span>
-          </div>
-          <span style="font-size:12px;color:#556b82;max-width:300px;text-align:right" id="jobPurpose">
-            Automate collection emails to overdue customers
-          </span>
         </div>
       </div>
 
       <!-- Tabs -->
       <div class="job-tabs">
         <button class="job-tab active" onclick="switchJobTab('live', this)">Live Status</button>
+        <button class="job-tab" onclick="switchJobTab('actions', this)">Actions Required</button>
         <button class="job-tab" onclick="switchJobTab('history', this)">Run History</button>
         <button class="job-tab" onclick="switchJobTab('definition', this)">Job Definition</button>
       </div>
@@ -138,30 +271,142 @@
         <!-- rendered by JS -->
       </div>
 
-      <!-- Joule Input -->
-      <div class="joule-input-wrapper">
+      <!-- Bottom input — EL chat-input-container style -->
+      <div class="joule-input-wrapper" id="jobsBottomInput">
         <div class="joule-input-box">
           <div class="joule-input-text-row">
-            <input class="joule-input-field" type="text" placeholder="Ask Joule about this job...">
+            <textarea class="joule-input-field" placeholder="Ask Joule about this job..." id="jobJouleInput" rows="1"
+                      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateSendBtn('jobsSendBtn',this.value);onJobsInputType(this)"></textarea>
           </div>
           <div class="joule-input-icons">
             <div class="joule-input-icons-left">
-              <button class="input-action-btn"><img src="assets/attachments-button.svg" width="20" alt="Attach"></button>
-              <button class="input-action-btn"><img src="assets/tools-button.svg" width="20" alt="Tools"></button>
+              <button class="input-action-btn primary-tint" title="Attach">
+                <img src="assets/attachments-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+              </button>
+              <button class="input-action-btn" title="Tools">
+                <img src="assets/tools-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+              </button>
             </div>
             <div class="joule-input-icons-right">
-              <button class="input-action-btn"><img src="assets/mic.svg" width="20" alt="Mic"></button>
-              <button class="input-action-btn"><img src="assets/send-button.svg" width="20" alt="Send"></button>
+              <button class="input-action-btn grey-bg" title="Voice">
+                <img src="assets/action-button.svg" width="20" height="20" alt="" onerror="this.style.display='none'">
+              </button>
+              <button class="space-input-send-btn" id="jobsSendBtn" onclick="handleJobSend()" title="Send">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
+        <p class="joule-ai-footer">AI generated. Verify results.</p>
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /jobs-content -->
+
+    <!-- ── Joule panel (right, slides in) ── -->
+    <div class="jobs-joule-panel" id="jobsJoulePanel">
+      <div class="jobs-joule-header">
+        <div>
+          <div style="font-size:11px;color:#556b82;margin-bottom:2px">Joule</div>
+          <div class="jobs-joule-title" id="jobsJouleTitle">Ask Joule</div>
+        </div>
+        <button class="icon-btn" onclick="toggleJobsJoulePanel()" title="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 2l10 10M12 2L2 12" stroke="#848484" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="jobs-joule-messages" id="jobsJouleMsgs">
+        <div style="background:#f5f6f7;border-radius:10px;padding:10px 12px;font-size:12px;color:#556b82;line-height:1.4">
+          <strong style="color:#131e29">Joule is ready</strong><br>
+          Ask me anything about this job — status, errors, scheduling, or how to improve it.
+        </div>
+        <div class="cp-msg-joule" style="display:flex;flex-direction:column;gap:6px">
+          <div class="jobs-joule-bubble">The <strong>Collections Email Outreach Job</strong> is currently paused — 2 actions require your review before the next batch can run.</div>
+          <div class="jobs-msg-actions">
+            <button class="jobs-action-icon" title="Copy"><img src="assets/action-copy.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+            <button class="jobs-action-icon" title="Like"><img src="assets/action-like.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+            <button class="jobs-action-icon" title="Dislike"><img src="assets/action-dislike.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel input — EL chat-input-container style -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid #f0f2f5">
+        <div class="panel-input-container">
+          <div class="panel-input-text-row">
+            <textarea class="panel-input-field" placeholder="Ask Joule..." id="jobsJoulePanelInput" rows="1"
+                      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateSendBtn('jobsPanelSendBtn',this.value)"></textarea>
+          </div>
+          <div class="panel-input-icons-row">
+            <div class="panel-input-icons-left">
+              <button class="panel-input-btn" title="Attach">
+                <img src="assets/attachments-button.svg" width="18" height="18" alt="" onerror="this.style.display='none'">
+              </button>
+            </div>
+            <div class="panel-input-icons-right">
+              <button class="panel-input-btn" title="Voice">
+                <img src="assets/action-button.svg" width="18" height="18" alt="" onerror="this.style.display='none'">
+              </button>
+              <button class="panel-send-btn" id="jobsPanelSendBtn" onclick="sendJobsJouleMsg()" title="Send">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="panel-disclaimer">Joule uses AI. Verify results.</div>
+      </div>
+    </div><!-- /jobs-joule-panel -->
+
+    </div><!-- /jobs-layout -->
+  </div><!-- /main-panel -->
+</div><!-- /page-container -->
 
 <script src="nav.js"></script>
 <script>
+// ── Send button gradient state ────────────────────────────────
+function updateSendBtn(btnId, value) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.style.background = (value && value.trim())
+    ? 'linear-gradient(135deg, #5d36ff 0%, #a100c2 100%)'
+    : '#e5e5e5';
+}
+
+// ── New Job (stay on page) ────────────────────────────────────
+function startNewJob() {
+  const newId = 'job-new-' + Date.now();
+  JOBS.unshift({ id: newId, title: 'New Job', subtitle: 'Joule Agent', meta: 'Just created', tab: 'active', agent: 'Joule Agent', status: 'Setting up…', statusType: 'active', purpose: '', emails: 0, decisions: 0, outreach: '', showMissingContact: false });
+  filterJobs(currentTab, document.querySelector('.filter-tab.active'));
+  // Show empty state in main panel
+  const detail = document.getElementById('jobTabContent');
+  if (detail) {
+    detail.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:300px;gap:16px;padding:40px">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.2L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" fill="white"/></svg>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:18px;font-weight:700;color:#131e29;margin-bottom:8px">New Job</div>
+          <div style="font-size:14px;color:#556b82;max-width:320px;line-height:1.5">Describe what you want Joule to do and it will set up and run the job for you.</div>
+        </div>
+      </div>`;
+  }
+  // Show bottom input, focus it
+  const bottomInput = document.getElementById('jobsBottomInput');
+  if (bottomInput) bottomInput.style.display = 'flex';
+  document.getElementById('jobJouleInput').focus();
+  // Highlight new card
+  setTimeout(() => {
+    document.querySelectorAll('.job-item').forEach(el => el.classList.remove('active'));
+    const card = document.querySelector(`.job-item[onclick*="${newId}"]`);
+    if (card) card.classList.add('active');
+  }, 50);
+}
+
 const JOBS = [
   { id: 'collections-email', title: 'Collections Email Outreach', subtitle: 'Customer Outreach Agent', meta: '2 decisions required', tab: 'attention', agent: 'Customer Outreach Agent', status: '2 decisions required', statusType: 'attention', purpose: 'Automate the sending of collection emails to customers with overdue receivable items, reducing manual effort for Collection Specialist while maintaining quality and compliance.', emails: 3, decisions: 2, outreach: 'Collections Autonomous Outreach', showMissingContact: true },
   { id: 'invoice-reminder', title: 'Invoice Reminder Campaign', subtitle: 'Customer Outreach Agent', meta: '48 emails sent this cycle', tab: 'active', agent: 'Customer Outreach Agent', status: '48 emails sent this cycle', statusType: 'active', purpose: 'Automatically send invoice reminders to customers with outstanding invoices to improve DSO and reduce manual follow-up time.', emails: 48, decisions: 0, outreach: 'Invoice Reminder Outreach', showMissingContact: false },
@@ -177,20 +422,31 @@ let currentJob = JOBS[0];
 function filterJobs(tab, btn) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  const filtered = tab === 'all' ? JOBS : JOBS.filter(j => j.tab === tab);
+  const filtered = tab === 'draft' ? [] : tab === 'attention' ? JOBS.filter(j => j.tab === 'attention') : JOBS.filter(j => j.tab === tab);
   renderJobsList(filtered);
 }
 
 function renderJobsList(jobs) {
   const list = document.getElementById('jobsList');
-  list.innerHTML = jobs.map(j => `
-    <a href="#" class="job-item ${j.tab === 'attention' ? 'attention' : ''} ${j.id === currentJob.id ? 'active' : ''}"
+  list.innerHTML = jobs.map(j => {
+    const isSelected = j.id === currentJob.id;
+    const borderColor = isSelected ? 'rgb(108,184,255)' : 'rgb(188,221,252)';
+    let statusTag = '';
+    if (j.tab === 'attention') {
+      statusTag = `<span style="background:#f5fae5;border:1px solid #cee67e;color:#256f3a;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;white-space:nowrap">Needs Attention</span>`;
+    } else if (j.tab === 'active') {
+      statusTag = `<span style="background:#f5fae5;border:1px solid #cee67e;color:#256f3a;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;white-space:nowrap">Active</span>`;
+    } else if (j.tab === 'completed') {
+      statusTag = `<span style="background:#eaecee;color:#444648;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;white-space:nowrap">Completed Successfully</span>`;
+    }
+    return `
+    <a href="#" style="display:block;background:white;border-radius:24px;border:1.5px solid ${borderColor};padding:14px 16px;margin-bottom:8px;text-decoration:none;transition:border-color 0.15s;cursor:pointer"
        onclick="loadJob('${j.id}', this); return false;">
-      <div class="job-item-title">${j.title}</div>
-      <div class="job-item-subtitle">${j.subtitle}</div>
-      <div style="margin-top:4px"><span class="badge ${j.tab === 'attention' ? 'badge-orange' : j.tab === 'active' ? 'badge-up' : 'badge-neutral'}" style="font-size:11px;padding:2px 8px">${j.meta}</span></div>
-    </a>
-  `).join('');
+      <div style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:4px">${j.title}</div>
+      <div style="font-size:12px;color:#556b82;margin-bottom:8px">Last Update: ${j.meta}</div>
+      <div>${statusTag}</div>
+    </a>`;
+  }).join('');
 }
 
 function loadJob(id, el) {
@@ -198,19 +454,28 @@ function loadJob(id, el) {
   if (!job) return;
   currentJob = job;
 
-  document.querySelectorAll('.job-item').forEach(i => i.classList.remove('active'));
-  if (el) el.classList.add('active');
+  // Re-render list to update border colors
+  const activeFilterBtn = document.querySelector('.filter-tab.active');
+  const activeTab = activeFilterBtn ? activeFilterBtn.getAttribute('onclick').match(/'(\w+)'/)?.[1] : 'attention';
+  const filtered = activeTab === 'draft' ? [] : JOBS.filter(j => j.tab === activeTab);
+  renderJobsList(filtered);
 
   document.getElementById('jobTitle').textContent = job.title;
-  document.getElementById('jobAgent').textContent = job.agent;
-  document.getElementById('jobStatus').textContent = job.status;
-  document.getElementById('jobPurpose').textContent = job.purpose.substring(0, 80) + '...';
+  document.getElementById('jobSubtitle').textContent = job.agent + ' · One-Off Analytical';
 
-  const badge = document.getElementById('jobStatusBadge');
-  badge.className = 'badge';
-  if (job.statusType === 'attention') { badge.classList.add('badge-orange'); badge.textContent = 'Attention Required'; }
-  else if (job.statusType === 'active') { badge.classList.add('badge-up'); badge.textContent = 'Active'; }
-  else { badge.classList.add('badge-neutral'); badge.textContent = 'Completed'; }
+  // Inline status tags
+  const inlineStatus = document.getElementById('jobInlineStatus');
+  if (inlineStatus) {
+    let tags = '';
+    if (job.statusType === 'attention') {
+      tags = `<span style="background:#f5fae5;border:1px solid #cee67e;color:#256f3a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">Needs Attention</span>`;
+    } else if (job.statusType === 'active') {
+      tags = `<span style="background:#f5fae5;border:1px solid #cee67e;color:#256f3a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">Active</span>`;
+    } else {
+      tags = `<span style="background:#eaecee;color:#444648;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">Completed Successfully</span>`;
+    }
+    inlineStatus.innerHTML = tags;
+  }
 
   renderJobTab(currentTab);
 }
@@ -229,6 +494,62 @@ function renderJobTab(tab) {
   if (tab === 'live') {
     if (job.showMissingContact) {
       content.innerHTML = `
+        <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1L1 15h16L9 1z" fill="#fff3e0" stroke="#bf6900" stroke-width="1.3"/><path d="M9 7v4M9 13v1" stroke="#bf6900" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <div style="font-size:13px;color:#131e29"><strong>Action Required</strong> — 2 decisions pending. See Actions Required tab.</div>
+        </div>
+        <div style="background:#f8f9fa;border:1px solid #c9c9c9;border-radius:24px;padding:16px">
+          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Run Summary</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">${job.emails}</div>
+              <div style="font-size:12px;color:#556b82">Emails Queued</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">${job.decisions}</div>
+              <div style="font-size:12px;color:#556b82">Decisions Needed</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">0</div>
+              <div style="font-size:12px;color:#556b82">Errors</div>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      content.innerHTML = `
+        <div style="background:#ebf5ef;border:1px solid #a8d5b5;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="width:32px;height:32px;border-radius:50%;background:#256f3a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#131e29">Running normally</div>
+            <div style="font-size:12px;color:#556b82">${job.status}</div>
+          </div>
+        </div>
+        <div style="background:#fbfbfb;border:1px solid #c9c9c9;border-radius:24px;padding:16px">
+          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Current Run — ${new Date().toLocaleDateString()}</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">${job.emails}</div>
+              <div style="font-size:12px;color:#556b82">Emails Sent</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">${job.decisions}</div>
+              <div style="font-size:12px;color:#556b82">Decisions</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:24px;font-weight:700;color:#131e29">0</div>
+              <div style="font-size:12px;color:#556b82">Errors</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:#556b82;line-height:1.5">${job.purpose}</p>
+        </div>
+      `;
+    }
+  } else if (tab === 'actions') {
+    if (job.showMissingContact) {
+      content.innerHTML = `
         <div class="missing-contact-card">
           <div class="missing-contact-header">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -236,7 +557,6 @@ function renderJobTab(tab) {
               <path d="M9 7v4M9 13v1" stroke="#bf6900" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
             <span style="font-size:14px;font-weight:700;color:#131e29">Missing Contact Information</span>
-            <span class="badge badge-orange" style="margin-left:auto;font-size:11px">Action Required</span>
           </div>
           <div class="missing-contact-body">
             <div>
@@ -262,57 +582,9 @@ function renderJobTab(tab) {
               <button class="btn-secondary" style="justify-content:center" onclick="alert('Skipping this contact...')">Skip for Now</button>
             </div>
           </div>
-        </div>
-        <div style="background:#f8f9fa;border-radius:12px;padding:16px;margin-top:16px">
-          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Run Summary</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#0070F2">${job.emails}</div>
-              <div style="font-size:12px;color:#556b82">Emails Queued</div>
-            </div>
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#bf6900">${job.decisions}</div>
-              <div style="font-size:12px;color:#556b82">Decisions Needed</div>
-            </div>
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#256f3a">0</div>
-              <div style="font-size:12px;color:#556b82">Errors</div>
-            </div>
-          </div>
-        </div>
-      `;
+        </div>`;
     } else {
-      content.innerHTML = `
-        <div style="background:#dff0e8;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:16px">
-          <div style="width:36px;height:36px;border-radius:50%;background:#256f3a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M3 9l4.5 4.5L15 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <div style="font-size:14px;font-weight:700;color:#131e29">Running normally</div>
-            <div style="font-size:13px;color:#556b82">${job.status}</div>
-          </div>
-        </div>
-        <div style="background:#f8f9fa;border-radius:12px;padding:16px">
-          <h3 style="font-size:14px;font-weight:700;color:#131e29;margin-bottom:10px">Current Run — ${new Date().toLocaleDateString()}</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#0070F2">${job.emails}</div>
-              <div style="font-size:12px;color:#556b82">Emails Sent</div>
-            </div>
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#256f3a">${job.decisions}</div>
-              <div style="font-size:12px;color:#556b82">Decisions</div>
-            </div>
-            <div style="text-align:center">
-              <div style="font-size:24px;font-weight:700;color:#256f3a">0</div>
-              <div style="font-size:12px;color:#556b82">Errors</div>
-            </div>
-          </div>
-          <p style="font-size:13px;color:#556b82;line-height:1.5">${job.purpose}</p>
-        </div>
-      `;
+      content.innerHTML = `<div style="padding:24px;text-align:center;color:#556b82;font-size:13px">No actions required for this job.</div>`;
     }
   } else if (tab === 'history') {
     const runs = [
@@ -382,6 +654,97 @@ function renderJobTab(tab) {
 // Init
 filterJobs('attention', document.querySelector('.filter-tab.active'));
 loadJob('collections-email', null);
+
+function handleJobSend() {
+  const input = document.getElementById('jobJouleInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  // Open the Joule panel, hide bottom input
+  if (!jobsJoulePanelOpen) {
+    jobsJoulePanelOpen = true;
+    document.getElementById('jobsJoulePanel').classList.add('open');
+    document.getElementById('jobsJouleTitle').textContent = currentJob.title;
+    document.getElementById('jobsBottomInput').style.display = 'none';
+  }
+
+  const msgs = document.getElementById('jobsJouleMsgs');
+  msgs.insertAdjacentHTML('beforeend', `<div style="align-self:flex-end"><div class="jobs-user-bubble">${text}</div></div>`);
+  setTimeout(() => {
+    msgs.insertAdjacentHTML('beforeend', `
+      <div class="cp-msg-joule" style="display:flex;flex-direction:column;gap:6px">
+        <div class="jobs-joule-bubble">I'm analyzing your request in the context of the <strong>${currentJob.title}</strong>. How can I help you further?</div>
+        <div class="jobs-msg-actions">
+          <button class="jobs-action-icon" title="Copy"><img src="assets/action-copy.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="jobs-action-icon" title="Like"><img src="assets/action-like.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+        </div>
+      </div>`);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 700);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+document.getElementById('jobJouleInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleJobSend(); }
+});
+
+// ── Jobs panel toggles ────────────────────────────────────────────
+let jobListOpen = true;
+let jobsJoulePanelOpen = false;
+
+function toggleJobList() {
+  jobListOpen = !jobListOpen;
+  document.getElementById('jobsLeftPanel').classList.toggle('collapsed', !jobListOpen);
+}
+
+function onJobsInputType(el) {
+  if (el.value.length > 0 && !jobsJoulePanelOpen) {
+    jobsJoulePanelOpen = true;
+    document.getElementById('jobsJoulePanel').classList.add('open');
+    document.getElementById('jobsJouleTitle').textContent = currentJob.title;
+    document.getElementById('jobsBottomInput').style.display = 'none';
+    // Move typed text to panel input
+    const panelInput = document.getElementById('jobsJoulePanelInput');
+    panelInput.value = el.value;
+    el.value = '';
+    setTimeout(() => panelInput.focus(), 300);
+  }
+}
+
+function toggleJobsJoulePanel() {
+  jobsJoulePanelOpen = !jobsJoulePanelOpen;
+  document.getElementById('jobsJoulePanel').classList.toggle('open', jobsJoulePanelOpen);
+  document.getElementById('jobsBottomInput').style.display = jobsJoulePanelOpen ? 'none' : 'flex';
+  if (jobsJoulePanelOpen) {
+    document.getElementById('jobsJouleTitle').textContent = currentJob.title;
+  }
+}
+
+function sendJobsJouleMsg() {
+  const inputEl = document.getElementById('jobsJoulePanelInput');
+  const text = inputEl.value.trim();
+  if (!text) return;
+  const msgs = document.getElementById('jobsJouleMsgs');
+  msgs.insertAdjacentHTML('beforeend', `<div style="align-self:flex-end"><div class="jobs-user-bubble">${text}</div></div>`);
+  inputEl.value = '';
+  setTimeout(() => {
+    msgs.insertAdjacentHTML('beforeend', `
+      <div class="cp-msg-joule" style="display:flex;flex-direction:column;gap:6px">
+        <div class="jobs-joule-bubble">I'm analyzing your request in the context of this job. How can I help you further?</div>
+        <div class="jobs-msg-actions">
+          <button class="jobs-action-icon" title="Copy"><img src="assets/action-copy.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+          <button class="jobs-action-icon" title="Like"><img src="assets/action-like.svg" width="13" height="13" alt="" onerror="this.style.display='none'"></button>
+        </div>
+      </div>`);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 700);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+document.getElementById('jobsJoulePanelInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendJobsJouleMsg(); }
+});
 </script>
 </body>
 </html>

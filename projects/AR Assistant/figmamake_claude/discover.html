@@ -9,17 +9,29 @@
     .discover-content {
       flex: 1;
       overflow-y: auto;
-      padding: 24px 24px 100px;
+      padding: 24px 24px 140px;
       background: linear-gradient(150deg, rgb(247, 252, 255) 0%, rgb(235, 237, 255) 100%);
     }
     .discover-content::-webkit-scrollbar { width: 6px; }
     .discover-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+    #discoverInput {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      max-width: 760px;
+      z-index: 20;
+      background: transparent;
+      border-top: none;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
 <div class="page-container">
   <!-- nav injected -->
-  <div class="main-panel" style="background:transparent; padding:12px 12px 0 0; border-radius:20px 20px 0 0; overflow:hidden">
+  <div class="main-panel" style="background:transparent; padding:12px 12px 0 0; border-radius:20px 20px 0 0; overflow:hidden; position:relative">
     <div class="discover-content">
       <div style="max-width:1300px; margin:0 auto">
         <h1 style="font-size:24px; font-weight:700; color:#131e29; margin-bottom:32px">Daily Work</h1>
@@ -372,26 +384,51 @@
       </div>
     </div>
 
-    <!-- Joule Input -->
-    <div class="joule-input-wrapper">
+    <!-- Joule Input — floating over discover content -->
+    <div id="discoverInput" class="joule-input-wrapper">
       <div class="joule-input-box">
         <div class="joule-input-text-row">
-          <input class="joule-input-field" type="text" placeholder="Ask Joule about your daily work...">
+          <textarea class="joule-input-field" placeholder="Ask Joule about your daily work..." id="discoverJouleInput" rows="1"
+                    oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateSendBtn('discoverSendBtn',this.value)"></textarea>
         </div>
         <div class="joule-input-icons">
           <div class="joule-input-icons-left">
-            <button class="input-action-btn"><img src="assets/attachments-button.svg" width="20" alt="Attach"></button>
-            <button class="input-action-btn"><img src="assets/tools-button.svg" width="20" alt="Tools"></button>
+            <button class="input-action-btn primary-tint" title="Attach"><img src="assets/attachments-button.svg" width="20" alt="Attach" onerror="this.style.display='none'"></button>
+            <button class="input-action-btn" title="Tools"><img src="assets/tools-button.svg" width="20" alt="Tools" onerror="this.style.display='none'"></button>
           </div>
           <div class="joule-input-icons-right">
-            <button class="input-action-btn"><img src="assets/mic.svg" width="20" alt="Mic"></button>
-            <button class="input-action-btn"><img src="assets/send-button.svg" width="20" alt="Send"></button>
+            <button class="input-action-btn grey-bg" title="Voice"><img src="assets/action-button.svg" width="20" alt="Mic" onerror="this.style.display='none'"></button>
+            <button class="space-input-send-btn" id="discoverSendBtn" onclick="handleDiscoverSend()" title="Send">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
+      <p class="joule-ai-footer">AI generated. Verify results.</p>
     </div>
   </div>
 </div>
 <script src="nav.js"></script>
+<script>
+function updateSendBtn(btnId, value) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.style.background = (value && value.trim()) ? 'linear-gradient(135deg, #5d36ff 0%, #a100c2 100%)' : '#e5e5e5';
+}
+function handleDiscoverSend() {
+  const input = document.getElementById('discoverJouleInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const title = text.length > 40 ? text.substring(0, 37) + '…' : text;
+  input.value = '';
+  updateSendBtn('discoverSendBtn', '');
+  window.location.href = `conversations.html?msg=${encodeURIComponent(text)}&newtitle=${encodeURIComponent(title)}`;
+}
+document.getElementById('discoverJouleInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleDiscoverSend(); }
+});
+</script>
 </body>
 </html>

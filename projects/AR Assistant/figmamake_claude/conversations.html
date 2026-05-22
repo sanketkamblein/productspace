@@ -5,6 +5,242 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conversations — Joule Engagement Layer</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Sub-nav conversation cards ── */
+    .conv-card-avatar img {
+      width: 18px;
+      height: 18px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* ── Header icon buttons — EL .toolbar-right-btn style ── */
+    .header-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #E8E8E8;
+      border: 1px solid #BCC3CA;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .header-icon-btn:hover { background: #dcdcdc; }
+
+    /* ── Sub-nav toggle transition ── */
+    .sub-nav {
+      transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+    }
+    .sub-nav.collapsed {
+      width: 0 !important;
+      min-width: 0 !important;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* ── Toolbar toggle btn — EL .toolbar-btn style ── */
+    .toolbar-toggle-btn {
+      height: 36px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: #E2D8FC;
+      border: 1px solid #5D36FF;
+      cursor: pointer;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .toolbar-toggle-btn:hover { background: #d0c4f7; }
+
+    /* ── Conversation breadcrumb ── */
+    .conv-breadcrumb {
+      font-size: 12px;
+      color: #556b82;
+      margin-bottom: 2px;
+    }
+    .conv-header-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #131e29;
+      line-height: 1.2;
+    }
+
+    /* ── Filter tabs — EL .filter-pill style (overrides global) ── */
+    /* Global styles.css already updated; these ensure specificity */
+
+    /* ── Joule input pill buttons ── */
+    .joule-input-pill-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f5f6f7;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 13px;
+      color: #556b82;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+      font-weight: 500;
+    }
+    .joule-input-pill-btn:hover { background: #ebebeb; }
+
+    .joule-ai-footer {
+      font-size: 11px;
+      color: #8a9ba8;
+      text-align: center;
+      padding: 6px 0 2px;
+    }
+
+    /* ── Customer result list ── */
+    .customer-result-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 560px;
+    }
+    .customer-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 12px;
+    }
+    .customer-result-item:last-child { border-bottom: none; }
+    .customer-result-left { flex: 1; min-width: 0; }
+    .customer-result-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0064d9;
+      margin-bottom: 4px;
+    }
+    .customer-result-meta { display: flex; gap: 24px; }
+    .customer-result-label { font-size: 11px; color: #8a9ba8; margin-bottom: 1px; }
+    .customer-result-value { font-size: 13px; color: #131e29; }
+    .customer-result-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .risk-badge { font-size: 11px; font-weight: 600; color: #aa0808; }
+    .risk-badge.high { color: #bf6900; }
+    .btn-evaluate {
+      background: #5d36ff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-evaluate:hover { background: #4a2acc; }
+
+    /* ── Create Space card ── */
+    .create-space-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 16px 20px;
+      max-width: 400px;
+      margin-top: 4px;
+    }
+    .create-space-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #131e29;
+      margin-bottom: 6px;
+    }
+    .create-space-card-desc {
+      font-size: 13px;
+      color: #556b82;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    @keyframes spacePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.12); opacity: 0.85; }
+    }
+    @keyframes spaceProgress {
+      0% { width: 0%; }
+      30% { width: 40%; }
+      70% { width: 75%; }
+      100% { width: 100%; }
+    }
+
+    /* ── Dispute tabs ── */
+    .disputes-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .dispute-tab {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #556b82;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .dispute-tab.active { background: #e8f3ff; color: #0064d9; border-color: #0064d9; font-weight: 600; }
+    .dispute-tab-more {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+    }
+    .dispute-tab-actions { margin-left: auto; display: flex; gap: 4px; }
+
+    /* ── Dispute result items ── */
+    .dispute-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 12px;
+    }
+    .dispute-result-item:last-child { border-bottom: none; }
+    .dispute-result-left { flex: 1; min-width: 0; }
+    .dispute-result-id { font-size: 14px; font-weight: 600; color: #5d36ff; margin-bottom: 4px; }
+    .dispute-result-company { display: inline; font-size: 14px; font-weight: 600; color: #5d36ff; }
+    .dispute-result-meta { display: flex; gap: 24px; margin-top: 4px; }
+    .dispute-result-label { font-size: 11px; color: #8a9ba8; margin-bottom: 1px; }
+    .dispute-result-value { font-size: 13px; color: #131e29; }
+    .dispute-result-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .dispute-result-amount { font-size: 14px; font-weight: 600; color: #131e29; }
+    .dispute-result-actions { display: flex; align-items: center; gap: 4px; }
+    .btn-chevron {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid #e5e5e5;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-chevron:hover { background: #f5f6f7; }
+  </style>
 </head>
 <body>
 <div class="page-container">
@@ -12,67 +248,91 @@
 
   <!-- Main Panel -->
   <div class="main-panel">
-    <!-- Left: Conversations List -->
+    <!-- Left: Conversations Sub-Panel -->
     <div class="sub-nav">
       <div class="sub-nav-header">
         <span class="sub-nav-title">Conversations</span>
         <div class="sub-nav-actions">
-          <button class="icon-btn" title="Search">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="7" cy="7" r="5" stroke="#556B82" stroke-width="1.5"/>
-              <path d="M11 11l3 3" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+          <button class="icon-btn" title="Search" onclick="toggleSearch()">
+            <img src="assets/FilterCov.svg" width="16" height="16" alt=""
+                 onerror="this.innerHTML='<svg width=16 height=16 viewBox=\'0 0 16 16\' fill=\'none\'><circle cx=\'7\' cy=\'7\' r=\'4.5\' stroke=\'#556B82\' stroke-width=\'1.5\'/><path d=\'M10.5 10.5l3 3\' stroke=\'#556B82\' stroke-width=\'1.5\' stroke-linecap=\'round\'/></svg>'">
           </button>
           <button class="icon-btn" title="Filter">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M2 4h12M4 8h8M6 12h4" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M2 4h12M4.5 8h7M7 12h2" stroke="#556B82" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
       </div>
 
-      <a href="conversations.html" class="new-btn">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        New Conversation
-      </a>
+      <!-- Search (hidden) -->
+      <div class="search-container" id="searchContainer" style="display:none;padding:0 12px 8px">
+        <div style="display:flex;align-items:center;gap:8px;background:#f5f6f7;border-radius:8px;padding:8px 12px">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="6" cy="6" r="4" stroke="#556b82" stroke-width="1.3"/>
+            <path d="M9 9l3 3" stroke="#556b82" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <input type="text" placeholder="Search conversations..." id="searchInput" onInput="filterConvs('all', null, this.value)"
+                 style="flex:1;border:none;background:transparent;font-size:13px;color:#131e29;outline:none;font-family:inherit">
+        </div>
+      </div>
 
       <div class="filter-tabs">
         <button class="filter-tab active" onclick="filterConvs('all', this)">All</button>
-        <button class="filter-tab" onclick="filterConvs('ar', this)">AR &amp; Receivables</button>
+        <button class="filter-tab" onclick="filterConvs('ar', this)">AR &amp; Rec</button>
         <button class="filter-tab" onclick="filterConvs('analysis', this)">Analysis</button>
       </div>
 
       <div class="sub-nav-list" id="convList">
-        <!-- Conversations injected by JS -->
+        <!-- Conversations rendered by JS -->
       </div>
     </div>
 
     <!-- Right: Conversation Content -->
-    <div class="content-area">
+    <div class="content-area" style="background:white">
       <header class="content-header">
-        <div class="flex items-center gap-12">
-          <a href="conversations.html" class="icon-btn">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L4 8l6 5" stroke="#131E29" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <h1 class="content-header-title" id="convTitle">Cash Flow Analysis</h1>
+        <div class="flex items-center gap-8" style="min-width:0">
+          <!-- Toggle sub-nav list (toolbar-btn pattern) -->
+          <button class="toolbar-toggle-btn" id="toggleConvListBtn" onclick="toggleConvList()" title="Toggle conversation list">
+            <img src="assets/HeaderIcon.svg" width="18" height="18" alt=""
+                 onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg width=18 height=14 viewBox=&quot;0 0 18 14&quot; fill=&quot;none&quot;><path d=&quot;M1 2h16M1 7h16M1 12h16&quot; stroke=&quot;#556b82&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg>')">
+          </button>
+          <div class="flex flex-col" style="min-width:0">
+            <span class="conv-breadcrumb" id="convBreadcrumb">Conversations</span>
+            <h1 class="conv-header-title" id="convTitle">Cash Flow Analysis</h1>
+          </div>
         </div>
         <div class="flex items-center gap-8">
-          <button class="btn-secondary" style="font-size:13px">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="#0070F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <button class="btn-secondary" id="insightsBtn" style="font-size:12px;padding:5px 12px;display:none">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <circle cx="6.5" cy="6.5" r="5" stroke="#0070F2" stroke-width="1.3" fill="none"/>
+              <path d="M6.5 4v3.5l2 1.5" stroke="#0070F2" stroke-width="1.3" stroke-linecap="round"/>
             </svg>
-            Share
+            Insights
           </button>
-          <button class="icon-btn">
-            <svg width="16" height="4" viewBox="0 0 16 4" fill="none">
-              <circle cx="2" cy="2" r="1.5" fill="#848484"/>
-              <circle cx="8" cy="2" r="1.5" fill="#848484"/>
-              <circle cx="14" cy="2" r="1.5" fill="#848484"/>
-            </svg>
+          <!-- Three-dot menu -->
+          <div style="position:relative">
+            <button class="header-icon-btn" title="More options" onclick="toggleFloatingMenu(this)">
+              <img src="assets/more-icon.svg" width="16" height="16" alt=""
+                   onerror="this.innerHTML='<svg width=16 height=4 viewBox=\'0 0 16 4\' fill=\'none\'><circle cx=\'2\' cy=\'2\' r=\'1.5\' fill=\'#848484\'/><circle cx=\'8\' cy=\'2\' r=\'1.5\' fill=\'#848484\'/><circle cx=\'14\' cy=\'2\' r=\'1.5\' fill=\'#848484\'/></svg>'">
+            </button>
+            <div class="floating-menu" id="convFloatingMenu" style="display:none;top:36px;right:0">
+              <button class="floating-menu-item">Rename</button>
+              <button class="floating-menu-item">Share</button>
+              <button class="floating-menu-item">Add to Space</button>
+              <div class="floating-menu-divider"></div>
+              <button class="floating-menu-item danger">Delete</button>
+            </div>
+          </div>
+          <!-- Add to spaces -->
+          <button class="header-icon-btn" title="Add to Spaces">
+            <img src="assets/add-to-spaces.svg" width="18" height="18" alt=""
+                 onerror="this.innerHTML='<svg width=18 height=18 viewBox=\'0 0 18 18\' fill=\'none\'><rect x=\'2\' y=\'2\' width=\'6\' height=\'6\' rx=\'1\' stroke=\'#131E29\' stroke-width=\'1.4\' fill=\'none\'/><rect x=\'10\' y=\'2\' width=\'6\' height=\'6\' rx=\'1\' stroke=\'#131E29\' stroke-width=\'1.4\' fill=\'none\'/><rect x=\'2\' y=\'10\' width=\'6\' height=\'6\' rx=\'1\' stroke=\'#131E29\' stroke-width=\'1.4\' fill=\'none\'/><path d=\'M13 10v6M10 13h6\' stroke=\'#0070F2\' stroke-width=\'1.4\' stroke-linecap=\'round\'/></svg>'">
+          </button>
+          <!-- Share -->
+          <button class="header-icon-btn" title="Share">
+            <img src="assets/share.svg" width="18" height="18" alt=""
+                 onerror="this.innerHTML='<svg width=16 height=16 viewBox=\'0 0 16 16\' fill=\'none\'><path d=\'M6 8a3 3 0 004 0l2-2a3 3 0 00-4-4l-1 1\' stroke=\'#131e29\' stroke-width=\'1.4\' stroke-linecap=\'round\' fill=\'none\'/><path d=\'M10 8a3 3 0 00-4 0L4 10a3 3 0 004 4l1-1\' stroke=\'#131e29\' stroke-width=\'1.4\' stroke-linecap=\'round\' fill=\'none\'/></svg>'">
           </button>
         </div>
       </header>
@@ -82,161 +342,232 @@
         <!-- Messages rendered by JS -->
       </div>
 
-      <!-- Joule Input -->
+      <!-- Joule Input — exact EL conversations design -->
       <div class="joule-input-wrapper">
         <div class="joule-input-box">
           <div class="joule-input-text-row">
-            <input class="joule-input-field" type="text" placeholder="Ask Joule or create anything" id="jouleInput">
+            <textarea class="joule-input-field" placeholder="Ask Joule or create anything..." id="jouleInput" rows="1"
+                      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateSendBtn('convSendBtn',this.value)"></textarea>
           </div>
           <div class="joule-input-icons">
             <div class="joule-input-icons-left">
-              <button class="input-action-btn" title="Attach">
-                <img src="assets/attachments-button.svg" width="20" height="20" alt="Attach">
+              <button class="input-action-btn primary-tint" title="Attach">
+                <img src="assets/attachments-button.svg" width="18" height="18" alt=""
+                     onerror="this.style.display='none'">
               </button>
               <button class="input-action-btn" title="Tools">
-                <img src="assets/tools-button.svg" width="20" height="20" alt="Tools">
+                <img src="assets/tools-button.svg" width="18" height="18" alt=""
+                     onerror="this.style.display='none'">
               </button>
             </div>
             <div class="joule-input-icons-right">
-              <button class="input-action-btn" title="Voice">
-                <img src="assets/mic.svg" width="20" height="20" alt="Mic">
+              <button class="input-action-btn grey-bg" title="Voice">
+                <img src="assets/action-button.svg" width="20" height="20" alt=""
+                     onerror="this.style.display='none'">
               </button>
-              <button class="input-action-btn" title="Send" id="sendBtn" onclick="handleSend()">
-                <img src="assets/send-button.svg" width="20" height="20" alt="Send">
+              <button class="space-input-send-btn" id="convSendBtn" title="Send" onclick="handleSend()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 8h12M8 3l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </button>
             </div>
           </div>
         </div>
+        <p class="joule-ai-footer">AI generated. Verify results.</p>
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /content-area -->
+  </div><!-- /main-panel -->
+</div><!-- /page-container -->
 
 <script src="nav.js"></script>
 <script>
+// ── New conversation (stay on page) ──────────────────────────
+function startNewConversation() {
+  const newId = 'conv-new-' + Date.now();
+  allConvs.unshift({ id: newId, title: 'New Conversation', preview: '', time: 'Just now', category: 'all', tag: '', breadcrumb: 'Conversations', unread: 0 });
+  renderConvList(currentFilter, '');
+  // Set active
+  currentConv = newId;
+  document.getElementById('convBreadcrumb').textContent = 'Conversations';
+  document.getElementById('convTitle').textContent = 'New Conversation';
+  // Show empty state (same as index.html hero)
+  const container = document.getElementById('chatContainer');
+  container.innerHTML = `
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:24px;padding:40px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+        <img src="assets/Joule_icon.svg" width="80" height="80" alt="Joule"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);align-items:center;justify-content:center">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4l3.5 10.5L32 18l-10.5 3.5L18 32l-3.5-10.5L4 18l10.5-3.5z" fill="white"/></svg>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:20px;font-weight:700;color:#131e29;margin-bottom:6px">Hi, I'm Joule</div>
+          <div style="font-size:14px;color:#556b82;max-width:360px;line-height:1.5">Your AI assistant across SAP. Ask me anything about your data, workflows, or processes.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px">
+        <button onclick="document.getElementById('jouleInput').value=this.textContent;document.getElementById('jouleInput').dispatchEvent(new Event('input'));document.getElementById('jouleInput').focus()" style="background:#f0ecff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;color:#5d36ff;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" onmouseover="this.style.background='#e2d8ff'" onmouseout="this.style.background='#f0ecff'">Analysis &amp; Reporting</button>
+        <button onclick="document.getElementById('jouleInput').value=this.textContent;document.getElementById('jouleInput').dispatchEvent(new Event('input'));document.getElementById('jouleInput').focus()" style="background:#f0ecff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;color:#5d36ff;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" onmouseover="this.style.background='#e2d8ff'" onmouseout="this.style.background='#f0ecff'">AR &amp; Receivables</button>
+        <button onclick="document.getElementById('jouleInput').value=this.textContent;document.getElementById('jouleInput').dispatchEvent(new Event('input'));document.getElementById('jouleInput').focus()" style="background:#f0ecff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;color:#5d36ff;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" onmouseover="this.style.background='#e2d8ff'" onmouseout="this.style.background='#f0ecff'">Process Automation</button>
+        <button onclick="document.getElementById('jouleInput').value=this.textContent;document.getElementById('jouleInput').dispatchEvent(new Event('input'));document.getElementById('jouleInput').focus()" style="background:#f0ecff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;color:#5d36ff;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" onmouseover="this.style.background='#e2d8ff'" onmouseout="this.style.background='#f0ecff'">Compliance &amp; Controls</button>
+        <button onclick="document.getElementById('jouleInput').value=this.textContent;document.getElementById('jouleInput').dispatchEvent(new Event('input'));document.getElementById('jouleInput').focus()" style="background:#f0ecff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;color:#5d36ff;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.15s" onmouseover="this.style.background='#e2d8ff'" onmouseout="this.style.background='#f0ecff'">Strategic Planning</button>
+      </div>
+    </div>`;
+  document.getElementById('jouleInput').focus();
+  // Highlight new card
+  setTimeout(() => {
+    document.querySelectorAll('.conv-card').forEach(el => el.classList.remove('active'));
+    const card = document.querySelector(`.conv-card[onclick*="${newId}"]`);
+    if (card) card.classList.add('active');
+  }, 50);
+}
+
+// ── Send button gradient state ────────────────────────────────
+function updateSendBtn(btnId, value) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  if (value && value.trim()) {
+    btn.style.background = 'linear-gradient(135deg, #5d36ff 0%, #a100c2 100%)';
+  } else {
+    btn.style.background = '#e5e5e5';
+  }
+}
+
 // ── Data ─────────────────────────────────────────────────────────
 const CONVERSATIONS = [
-  {
-    id: 'cash-flow',
-    title: 'Cash Flow Analysis',
-    preview: 'What is our current cash flow variance vs. forecast this quarter?',
-    time: '2h ago',
-    category: 'analysis',
-    tag: 'Analysis'
-  },
-  {
-    id: 'dso-analysis',
-    title: 'DSO Trend Analysis',
-    preview: 'Why did our DSO increase from 42 to 51 days this quarter?',
-    time: '5h ago',
-    category: 'ar',
-    tag: 'AR'
-  },
-  {
-    id: 'meridian-dispute',
-    title: 'Meridian Holding Dispute',
-    preview: 'Help me resolve the open dispute with Meridian Holding for €14,580.',
-    time: '1d ago',
-    category: 'ar',
-    tag: 'AR'
-  },
-  {
-    id: 'collections-strategy',
-    title: 'Collections Strategy',
-    preview: 'Build a dunning strategy for overdue accounts above €10K.',
-    time: '2d ago',
-    category: 'ar',
-    tag: 'AR'
-  },
-  {
-    id: 'budget-variance',
-    title: 'Q4 Budget vs Actuals',
-    preview: 'Create a Q4 budget vs actuals variance report template.',
-    time: '3d ago',
-    category: 'analysis',
-    tag: 'Analysis'
-  },
-  {
-    id: 'working-capital',
-    title: 'Working Capital Dashboard',
-    preview: 'Build a working capital dashboard with DSO, DPO, and cash conversion.',
-    time: '4d ago',
-    category: 'analysis',
-    tag: 'Analysis'
-  },
-  {
-    id: 'compliance-check',
-    title: 'AR Compliance Review',
-    preview: 'Run a compliance check on AR processes vs. SOX requirements.',
-    time: '1w ago',
-    category: 'ar',
-    tag: 'Compliance'
-  },
-  {
-    id: 'process-automation',
-    title: 'Invoice Reminder Automation',
-    preview: 'Design an automated reminder workflow for overdue invoices.',
-    time: '1w ago',
-    category: 'ar',
-    tag: 'Automation'
-  }
+  { id: 'top5-risk', title: 'Search: Top 5 risk customers', preview: 'Show me the top 5 risk customers.', time: '1h ago', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 0 },
+  { id: 'open-disputes', title: 'Search: Open Disputes', preview: 'Show me the 5 disputes with the biggest outstanding amount.', time: '2h ago', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 2 },
+  { id: 'cash-flow', title: 'Cash Flow Analysis', preview: 'What is our current cash flow variance vs. forecast this quarter?', time: '3h ago', category: 'analysis', tag: 'Analysis', breadcrumb: 'Conversations', unread: 0 },
+  { id: 'dso-analysis', title: 'DSO Trend Analysis', preview: 'Why did our DSO increase from 42 to 51 days this quarter?', time: '5h ago', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 0 },
+  { id: 'meridian-dispute', title: 'Meridian Holding Dispute', preview: 'Help me resolve the open dispute with Meridian Holding for €14,580.', time: '1d ago', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 1 },
+  { id: 'collections-strategy', title: 'Collections Strategy', preview: 'Build a dunning strategy for overdue accounts above €10K.', time: '2d ago', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 0 },
+  { id: 'budget-variance', title: 'Q4 Budget vs Actuals', preview: 'Create a Q4 budget vs actuals variance report template.', time: '3d ago', category: 'analysis', tag: 'Analysis', breadcrumb: 'Conversations', unread: 0 },
+  { id: 'working-capital', title: 'Working Capital Dashboard', preview: 'Build a working capital dashboard with DSO, DPO, and cash conversion.', time: '4d ago', category: 'analysis', tag: 'Analysis', breadcrumb: 'Conversations', unread: 0 }
 ];
 
+// Message action icons using asset files
+function msgActionsHTML() {
+  return `<div class="msg-icon-actions">
+    <button class="msg-icon-btn" title="Copy">
+      <img src="assets/action-copy.svg" width="15" height="15" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=15 height=15 viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;><rect x=&quot;5&quot; y=&quot;5&quot; width=&quot;8&quot; height=&quot;8&quot; rx=&quot;1.5&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot;/><path d=&quot;M3 10V3a1 1 0 011-1h7&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot;/></svg>'">
+    </button>
+    <button class="msg-icon-btn" title="Like">
+      <img src="assets/fiori.thumb.up.svg" width="15" height="15" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=15 height=15 viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;><path d=&quot;M5 14V7.5L8 2l.5 3h4a1 1 0 01.9 1.4l-2 5H5z&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linejoin=&quot;round&quot; fill=&quot;none&quot;/></svg>'">
+    </button>
+    <button class="msg-icon-btn" title="Dislike">
+      <img src="assets/fiori.thumb.down.svg" width="15" height="15" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=15 height=15 viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;><path d=&quot;M10 1v6.5L7 13l-.5-3H2.1a1 1 0 01-.9-1.4l2-5H10z&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linejoin=&quot;round&quot; fill=&quot;none&quot;/></svg>'">
+    </button>
+    <button class="msg-icon-btn" title="Refresh">
+      <img src="assets/fiori.refresh.svg" width="15" height="15" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=15 height=15 viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;><path d=&quot;M13 7.5A5.5 5.5 0 012 7.5&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;/><path d=&quot;M2 4.5V7.5H5&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/><path d=&quot;M13 10.5V7.5h-3&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/></svg>'">
+    </button>
+    <button class="msg-icon-btn" title="Copy link">
+      <img src="assets/action-link.svg" width="15" height="15" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=15 height=15 viewBox=&quot;0 0 15 15&quot; fill=&quot;none&quot;><path d=&quot;M6 8a3 3 0 004 0l2-2a3 3 0 00-4-4l-1 1&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;/><path d=&quot;M9 7a3 3 0 00-4 0L3 9a3 3 0 004 4l1-1&quot; stroke=&quot;#848484&quot; stroke-width=&quot;1.3&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;/></svg>'">
+    </button>
+  </div>`;
+}
+
+// ── Conversation histories ──────────────────────────────────────
 const HISTORIES = {
+  'top5-risk': [
+    { sender: 'user', text: 'Show me the top 5 risk customers.' },
+    {
+      sender: 'joule',
+      type: 'customer-list',
+      customers: [
+        { name: 'PA Networks GmbH (10100001)', risk: 'Very High', outstanding: '246M EUR', overdue: '125K EUR' },
+        { name: 'BNORG001 (Notrun Inc.)', risk: 'Very High', outstanding: '410,000', overdue: '245,000' },
+        { name: 'Nova Retail Group', risk: 'High', outstanding: '380,000', overdue: '187,000' },
+        { name: 'Iberia Industrial Supplies', risk: 'High', outstanding: '166,000', overdue: '132,000' },
+        { name: 'MedTech Solutions GmbH', risk: 'High', outstanding: '145,000', overdue: '98,000' }
+      ]
+    }
+  ],
+  'top5-risk-detail': [
+    { sender: 'user', text: 'Show me the Details of PA Networks GmbH (30424)' },
+    { sender: 'joule', type: 'create-space', customerName: 'PA Networks GmbH (30424)' }
+  ],
+  'open-disputes': [
+    { sender: 'user', text: 'Show me the 5 disputes with the biggest outstanding amount.' },
+    {
+      sender: 'joule',
+      type: 'dispute-list',
+      disputes: [
+        { id: 'Dispute 20847', company: 'Meridian Holding', amount: '38,400 EUR', reason: '011 (Payment Delay)', priority: 'Very High' },
+        { id: 'Dispute 21503', company: 'Meridian Holding', amount: '34,200 EUR', reason: '011 (Payment Delay)', priority: 'High' },
+        { id: 'Dispute 20291', company: 'Meridian Holding', amount: '23,350 EUR', reason: '011 (Payment Delay)', priority: 'High' },
+        { id: 'Dispute 21876', company: 'ProVita GmbH', amount: '18,400 EUR', reason: '004 (Quantity Issues)', priority: 'Medium' },
+        { id: 'Dispute 20634', company: 'Klassner GmbH', amount: '12,650 EUR', reason: '014 (Trade Promotions Issues)', priority: 'Medium' }
+      ]
+    }
+  ],
   'cash-flow': [
-    { sender: 'user', text: 'What is our current cash flow variance vs. forecast this quarter?', time: '10:32 AM' },
-    { sender: 'joule', text: 'Based on the latest SAP S/4HANA data, Q3 cash flow shows a **-8.2% variance** versus forecast. Key drivers:\n\n• Collections shortfall: €420K due to 3 disputed invoices\n• Early payment discounts taken unexpectedly: €85K\n• FX impact on EUR/USD receivables: €62K adverse\n\nThe largest single impact is the Meridian Holding dispute (€14,580) combined with TechPartner AG (€22,450).', time: '10:32 AM' },
-    { sender: 'user', text: 'What should we prioritize to close the gap?', time: '10:35 AM' },
-    { sender: 'joule', text: 'I recommend focusing on these 3 actions to close the €570K gap:\n\n**1. Resolve Meridian Holding dispute** (€14,580)\n→ SEPA mandate expired Feb 15 — draft renewal email now\n\n**2. Escalate TechPartner AG** (€22,450)\n→ 67 days overdue, no response to last 2 emails\n\n**3. Apply early settlement offers to top 5 accounts** (€180K+ potential)\n→ 2% 10/net 30 offer historically yields 68% take-up\n\nShould I draft the outreach emails for Meridian and TechPartner?', time: '10:35 AM' },
-    { sender: 'user', text: 'Yes, draft the Meridian email please.', time: '10:37 AM' },
-    { sender: 'joule', text: 'Here is a draft email for Meridian Holding:\n\n---\n**Subject**: SEPA Direct Debit Mandate Renewal Required — Account #MH-2024-0847\n\nDear Meridian Holding Finance Team,\n\nWe noticed our SEPA direct debit mandate (Ref: SDD-MH-291) expired on February 15, 2026. As a result, payment for Invoice INV-2026-0392 (€14,580 due March 1) could not be processed.\n\nTo resume automatic payments, please complete the attached mandate renewal form and return it within **5 business days**.\n\nFor questions, contact: ar-team@company.com\n\nBest regards,\nAR Collections Team\n\n---\n\nShall I send this or make any edits?', time: '10:38 AM' }
+    { sender: 'user', text: 'What is our current cash flow variance vs. forecast this quarter?' },
+    { sender: 'joule', text: 'Based on the latest SAP S/4HANA data, Q3 cash flow shows a <strong>-8.2% variance</strong> versus forecast. Key drivers:<br><br>• Collections shortfall: €420K due to 3 disputed invoices<br>• Early payment discounts taken unexpectedly: €85K<br>• FX impact on EUR/USD receivables: €62K adverse<br><br>The largest single impact is the Meridian Holding dispute (€14,580) combined with TechPartner AG (€22,450).' },
+    { sender: 'user', text: 'What should we prioritize to close the gap?' },
+    { sender: 'joule', text: 'I recommend focusing on these 3 actions to close the €570K gap:<br><br><strong>1. Resolve Meridian Holding dispute</strong> (€14,580)<br>→ SEPA mandate expired Feb 15 — draft renewal email now<br><br><strong>2. Escalate TechPartner AG</strong> (€22,450)<br>→ 67 days overdue, no response to last 2 emails<br><br><strong>3. Apply early settlement offers to top 5 accounts</strong> (€180K+ potential)<br>→ 2% 10/net 30 offer historically yields 68% take-up' }
   ],
   'dso-analysis': [
-    { sender: 'user', text: 'Why did our DSO increase from 42 to 51 days this quarter?', time: '8:15 AM' },
-    { sender: 'joule', text: 'DSO increased **9 days** (from 42 to 51) in Q3. The root causes by contribution:\n\n| Factor | Impact |\n|--------|--------|\n| 3 large disputed invoices (>€10K) | +4.2 days |\n| Shift in customer mix (more net-60 terms) | +2.8 days |\n| Manual processing delays (understaffing) | +1.5 days |\n| Seasonal payment slowdown (Aug holidays) | +0.5 days |\n\nThe dispute backlog is the single largest driver and the most actionable.', time: '8:15 AM' },
-    { sender: 'user', text: 'What is the target DSO we should set?', time: '8:20 AM' },
-    { sender: 'joule', text: 'Based on your industry benchmark (B2B Finance, EUR market), a realistic target is **44 days** by end of Q4. This is achievable by:\n\n• Clearing the 5 high-value disputes: recovers ~3.5 days\n• Automating dunning reminders at days 10/20/30: ~1.5 days improvement\n• Offering early payment incentives to top 10 accounts: ~1 day\n\nAt €2.85M outstanding, each day of DSO reduction = ~€67K in cash recovery.', time: '8:21 AM' }
+    { sender: 'user', text: 'Why did our DSO increase from 42 to 51 days this quarter?' },
+    { sender: 'joule', text: 'DSO increased <strong>9 days</strong> (from 42 to 51) in Q3. Root causes by contribution:<br><br>• 3 large disputed invoices (>€10K): +4.2 days<br>• Shift in customer mix (more net-60 terms): +2.8 days<br>• Manual processing delays (understaffing): +1.5 days<br>• Seasonal payment slowdown (Aug holidays): +0.5 days<br><br>The dispute backlog is the single largest driver and the most actionable.' }
   ],
   'meridian-dispute': [
-    { sender: 'user', text: 'Help me resolve the open dispute with Meridian Holding for €14,580.', time: '2:00 PM' },
-    { sender: 'joule', text: 'I\'ve analyzed the Meridian Holding dispute (Case #20847). Here\'s the situation:\n\n**Root Cause**: SEPA mandate expired Feb 15, 2026\n**Invoice**: INV-2026-0392, €14,580, due March 1\n**Days overdue**: 47 days\n**Previous contact**: 2 emails sent, no response\n\n**Recommended Action**: Send SEPA mandate renewal request with a 5-business-day deadline before escalating to collections.\n\nWould you like me to draft the renewal request or view the full dispute details?', time: '2:00 PM' },
-    { sender: 'user', text: 'View full dispute details.', time: '2:02 PM' },
-    { sender: 'joule', text: 'Opening the Meridian Holding dispute workspace. You can see the full timeline, contact history, and recommended actions in the Spaces panel.', time: '2:02 PM' }
+    { sender: 'user', text: 'Help me resolve the open dispute with Meridian Holding for €14,580.' },
+    { sender: 'joule', text: 'I\'ve analyzed the Meridian Holding dispute (Case #20847). Root cause: SEPA mandate expired Feb 15, 2026. Invoice INV-2026-0392 is €14,580, 47 days overdue.<br><br>Recommended action: send SEPA mandate renewal request with 5-business-day deadline.' },
+    { sender: 'joule', type: 'create-space', customerName: 'Meridian Holding – Dispute 20847' }
   ],
   'collections-strategy': [
-    { sender: 'user', text: 'Build a dunning strategy for overdue accounts above €10K.', time: '9:00 AM' },
-    { sender: 'joule', text: 'Here is a **4-level dunning strategy** for accounts >€10K:\n\n| Level | Trigger | Action | Tone |\n|-------|---------|--------|------|\n| L1 | Day 10 overdue | Auto email reminder | Friendly |\n| L2 | Day 20 overdue | Email + phone call | Firm |\n| L3 | Day 35 overdue | Formal notice letter | Urgent |\n| L4 | Day 50 overdue | Escalate to collections agency | Final |\n\nFor your current portfolio, **12 accounts** qualify (total: €387K). Shall I generate the outreach list?', time: '9:00 AM' }
+    { sender: 'user', text: 'Build a dunning strategy for overdue accounts above €10K.' },
+    { sender: 'joule', text: 'Here is a <strong>4-level dunning strategy</strong> for accounts >€10K:<br><br>L1 · Day 10 — Auto email reminder (Friendly)<br>L2 · Day 20 — Email + phone call (Firm)<br>L3 · Day 35 — Formal notice letter (Urgent)<br>L4 · Day 50 — Escalate to collections agency (Final)<br><br>For your current portfolio, <strong>12 accounts</strong> qualify (total: €387K).' }
   ],
   'budget-variance': [
-    { sender: 'user', text: 'Create a Q4 budget vs. actuals variance report template.', time: '11:00 AM' },
-    { sender: 'joule', text: 'I\'ve created a Q4 Budget vs. Actuals Variance Report template. It includes:\n\n• Revenue by segment (Budget / Actual / Variance / Variance %)\n• OPEX breakdown with explanations for variances >5%\n• AR/AP summary with DSO and DPO\n• Cash flow reconciliation\n• Executive commentary section\n\nThe template is linked to your SAP cost center hierarchy. Want me to populate it with Q3 actuals as a reference baseline?', time: '11:01 AM' }
+    { sender: 'user', text: 'Create a Q4 budget vs. actuals variance report template.' },
+    { sender: 'joule', text: 'I\'ve created a Q4 Budget vs. Actuals Variance Report template with Revenue by segment, OPEX breakdown, AR/AP summary with DSO/DPO, cash flow reconciliation, and executive commentary. Want me to populate it with Q3 actuals?' }
+  ],
+  'working-capital': [
+    { sender: 'user', text: 'Build a working capital dashboard with DSO, DPO, and cash conversion.' },
+    { sender: 'joule', text: 'I\'ll build a working capital dashboard. It will include DSO (51 days vs 44 target), DPO (38 days), Cash Conversion Cycle (13 days), and trending charts. Shall I start with a live data connection to your SAP system?' }
   ]
 };
 
-let currentConv = 'cash-flow';
+let currentConv = 'top5-risk';
 let allConvs = [...CONVERSATIONS];
+let searchQuery = '';
 
-function renderConvList(filter) {
+function renderConvList(filter, search) {
   const list = document.getElementById('convList');
-  const filtered = filter === 'all' ? allConvs : allConvs.filter(c => c.category === filter);
+  let filtered = filter === 'all' ? allConvs : allConvs.filter(c => c.category === filter);
+  if (search) filtered = filtered.filter(c =>
+    c.title.toLowerCase().includes(search.toLowerCase()) ||
+    c.preview.toLowerCase().includes(search.toLowerCase())
+  );
+
   list.innerHTML = filtered.map(c => `
-    <a href="#" class="conv-item ${c.id === currentConv ? 'active' : ''}" onclick="loadConv('${c.id}', this); return false;">
-      <div class="conv-item-title">${c.title}</div>
-      <div class="conv-item-preview">${c.preview}</div>
-      <div class="conv-item-meta">
-        <span class="conv-item-time">${c.time}</span>
-        <span class="conv-item-tag">${c.tag}</span>
+    <div class="conv-card ${c.id === currentConv ? 'active' : ''}" onclick="loadConv('${c.id}', this)">
+      <div class="conv-card-content">
+        <div class="conv-card-title">${c.title}</div>
       </div>
-    </a>
+      <div class="conv-card-actions">
+        <button class="icon-btn secondary" onclick="event.stopPropagation()" title="More" style="width:32px;height:32px;background:transparent;border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="4" r="1.2" fill="#848484"/>
+            <circle cx="8" cy="8" r="1.2" fill="#848484"/>
+            <circle cx="8" cy="12" r="1.2" fill="#848484"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   `).join('');
 }
 
 function loadConv(id, el) {
   currentConv = id;
-  document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+  // Remove active from all conv cards and mark the clicked one
+  document.querySelectorAll('.conv-card').forEach(i => i.classList.remove('active'));
   if (el) el.classList.add('active');
-
+  // Also update conv-item (legacy)
+  document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
   const conv = CONVERSATIONS.find(c => c.id === id);
+  document.getElementById('convBreadcrumb').textContent = conv ? conv.breadcrumb : 'Conversations';
   document.getElementById('convTitle').textContent = conv ? conv.title : 'Conversation';
   renderMessages(id);
 }
@@ -247,115 +578,345 @@ function renderMessages(id) {
 
   if (!history.length) {
     container.innerHTML = `
-      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; color:#8a9ba8; text-align:center;">
-        <img src="assets/Joule_icon.svg" width="60" alt="Joule" style="margin-bottom:16px; opacity:0.5">
-        <p style="font-size:18px; font-weight:700; color:#556b82; margin-bottom:8px;">Start a conversation</p>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;color:#8a9ba8;text-align:center;">
+        <img src="assets/Joule_icon.svg" width="56" alt="Joule" style="margin-bottom:16px;opacity:0.5">
+        <p style="font-size:18px;font-weight:700;color:#556b82;margin-bottom:8px;">Start a conversation</p>
         <p style="font-size:14px">Ask Joule anything about your AR, cash flow, or business analytics.</p>
-      </div>
-    `;
+      </div>`;
     return;
   }
 
-  container.innerHTML = history.map(msg => `
-    <div class="message ${msg.sender}">
-      ${msg.sender === 'joule' ? `
-        <div class="joule-avatar">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" fill="white"/>
-          </svg>
-        </div>
-      ` : ''}
-      <div>
-        <div class="message-bubble">${formatText(msg.text)}</div>
-        <div class="message-time">${msg.time}</div>
-        ${msg.sender === 'joule' ? `
-          <div class="flex gap-8" style="margin-top:6px">
-            <button class="icon-btn" title="Copy" style="width:24px;height:24px">
-              <img src="assets/action-copy.svg" width="14" alt="Copy">
-            </button>
-            <button class="icon-btn" title="Like" style="width:24px;height:24px">
-              <img src="assets/action-like.svg" width="14" alt="Like">
-            </button>
-            <button class="icon-btn" title="Dislike" style="width:24px;height:24px">
-              <img src="assets/action-dislike.svg" width="14" alt="Dislike">
-            </button>
-            <button class="icon-btn" title="Refresh" style="width:24px;height:24px">
-              <img src="assets/action-refresh.svg" width="14" alt="Refresh">
-            </button>
-          </div>
-        ` : ''}
-      </div>
-    </div>
-  `).join('');
-
+  container.innerHTML = history.map(msg => renderMessage(msg)).join('');
   container.scrollTop = container.scrollHeight;
 }
 
-function formatText(text) {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>')
-    .replace(/---/g, '<hr style="border:none;border-top:1px solid #e5e5e5;margin:10px 0">')
-    .replace(/\|(.+?)\|(.+?)\|(.+?)\|/g, (m) => {
-      // Simple table rendering
-      const cells = m.split('|').filter(c => c.trim() && !c.match(/^-+$/));
-      return '<span style="display:inline-block;font-family:monospace;font-size:12px">' + m + '</span>';
-    });
+function renderMessage(msg) {
+  if (msg.sender === 'user') {
+    return `<div class="message user">
+      <div>
+        <div class="message-bubble">${msg.text}</div>
+      </div>
+    </div>`;
+  }
+
+  let content = '';
+
+  if (msg.type === 'customer-list') {
+    content = `<div class="customer-result-list">
+      ${msg.customers.map(c => `
+        <div class="customer-result-item">
+          <div class="customer-result-left">
+            <div class="customer-result-name">${c.name}</div>
+            <div class="customer-result-meta">
+              <div class="customer-result-meta-col">
+                <div class="customer-result-label">Outstanding Amount</div>
+                <div class="customer-result-value">${c.outstanding}</div>
+              </div>
+              <div class="customer-result-meta-col">
+                <div class="customer-result-label">Overdue Amount</div>
+                <div class="customer-result-value">${c.overdue}</div>
+              </div>
+            </div>
+          </div>
+          <div class="customer-result-right">
+            <span class="risk-badge ${c.risk === 'High' ? 'high' : ''}">${c.risk}</span>
+            <button class="btn-evaluate" onclick="handleEvaluate('${c.name}')">Evaluate</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  } else if (msg.type === 'create-space') {
+    content = `<div style="font-size:14px;color:#131e29;line-height:1.5;margin-bottom:12px">
+      I would suggest <strong>creating a dedicated space for this customer</strong> to unlock AI-powered insights — risk trends, overdue pattern analysis, and recommended collection actions — all in one place.
+    </div>
+    <div class="create-space-card">
+      <div class="create-space-card-title">Create a Space for ${msg.customerName}</div>
+      <div class="create-space-card-desc">The space contains contextual data to help you process the customer efficiently.</div>
+      <button class="btn-create-space" onclick="window.location.href='spaces.html?state=new'">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1v10M1 6h10" stroke="#5d36ff" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Create Space
+      </button>
+    </div>`;
+  } else if (msg.type === 'dispute-list') {
+    content = `<div class="customer-result-list" style="max-width:580px">
+      <div class="disputes-tabs">
+        <button class="dispute-tab" onclick="setDisputeTab(this,'all')">All</button>
+        <button class="dispute-tab" onclick="setDisputeTab(this,'evaluated')">Evaluated</button>
+        <button class="dispute-tab active" onclick="setDisputeTab(this,'open')">Open</button>
+        <button class="dispute-tab-more">
+          <svg width="14" height="4" viewBox="0 0 14 4" fill="none">
+            <circle cx="2" cy="2" r="1.3" fill="#848484"/>
+            <circle cx="7" cy="2" r="1.3" fill="#848484"/>
+            <circle cx="12" cy="2" r="1.3" fill="#848484"/>
+          </svg>
+        </button>
+        <div class="dispute-tab-actions">
+          <button class="header-icon-btn" title="Filter">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1.5 3.5h11M3.5 7h7M5.5 10.5h3" stroke="#556b82" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="header-icon-btn" title="Sort">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 4l3-3 3 3M5 1v10" stroke="#556b82" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 10l3 3 3-3M12 13V3" stroke="#556b82" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      ${msg.disputes.map(d => `
+        <div class="dispute-result-item">
+          <div class="dispute-result-left">
+            <div>
+              <span class="dispute-result-id">${d.id}</span>&nbsp;
+              <span class="dispute-result-company">${d.company}</span>
+            </div>
+            <div class="dispute-result-meta">
+              <div>
+                <div class="dispute-result-label">Reason:</div>
+                <div class="dispute-result-value">${d.reason}</div>
+              </div>
+              <div>
+                <div class="dispute-result-label">Priority:</div>
+                <div class="dispute-result-value">${d.priority}</div>
+              </div>
+            </div>
+          </div>
+          <div class="dispute-result-right">
+            <span class="dispute-result-amount">${d.amount}</span>
+            <div class="dispute-result-actions">
+              <button class="btn-evaluate" onclick="window.location.href='spaces.html'">Evaluate</button>
+              <button class="btn-chevron" title="Expand">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M2 4l3 3 3-3" stroke="#556b82" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  } else {
+    content = `<div style="font-size:14px;color:#131e29;line-height:1.5;max-width:72%">${msg.text}</div>`;
+  }
+
+  return `<div class="message joule" style="${msg.type ? 'align-items:flex-start' : ''}">
+    <div class="joule-avatar" style="margin-top:2px">
+      <img src="assets/JouleIcon.svg" width="18" height="18" alt="Joule"
+           onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z&quot; fill=&quot;white&quot;/></svg>'">
+    </div>
+    <div style="min-width:0;flex:1">
+      ${content}
+      ${msgActionsHTML()}
+    </div>
+  </div>`;
 }
 
-function filterConvs(cat, btn) {
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+// Map customer names to space IDs in spaces.html
+const CUSTOMER_SPACE_MAP = {
+  'PA Networks GmbH (10100001)': 'pa-networks',
+  'BNORG001 (Notrun Inc.)': 'provita',
+  'Nova Retail Group': 'meridian-dispute',
+  'Iberia Industrial Supplies': 'meridian-dispute',
+  'MedTech Solutions GmbH': 'provita'
+};
+
+function handleEvaluate(customerName) {
+  const container = document.getElementById('chatContainer');
+  const evalId = 'eval-' + customerName.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase();
+
+  // If already shown, don't append again
+  if (document.getElementById(evalId)) return;
+
+  const spaceId = CUSTOMER_SPACE_MAP[customerName] || 'pa-networks';
+
+  const evalHTML = `
+    <div id="${evalId}" class="message joule" style="align-items:flex-start">
+      <div class="joule-avatar" style="margin-top:2px">
+        <img src="assets/JouleIcon.svg" width="18" height="18" alt="Joule"
+             onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=16 height=16 viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z&quot; fill=&quot;white&quot;/></svg>'">
+      </div>
+      <div style="min-width:0;flex:1">
+        <div style="font-size:14px;color:#131e29;line-height:1.5;margin-bottom:12px">
+          Evaluating <strong>${customerName}</strong>. Based on current AR data, this customer has elevated risk indicators including high overdue balances and irregular payment patterns.
+        </div>
+        <div class="create-space-card" id="csc-${evalId}">
+          <div class="create-space-card-title">Create a Space for ${customerName}</div>
+          <div class="create-space-card-desc">The space contains contextual data to help you process the customer efficiently — risk trends, overdue pattern analysis, and recommended collection actions.</div>
+          <button class="btn-create-space" onclick="createSpaceFor('${evalId}', '${customerName}', '${spaceId}')">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M6 1v10M1 6h10" stroke="#5d36ff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Create Space
+          </button>
+        </div>
+      </div>
+    </div>`;
+
+  container.insertAdjacentHTML('beforeend', evalHTML);
+  container.scrollTop = container.scrollHeight;
+}
+
+function createSpaceFor(evalId, customerName, spaceId) {
+  const card = document.getElementById('csc-' + evalId);
+  if (!card) return;
+
+  // Show purple-pink loading animation
+  card.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;gap:12px">
+      <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);display:flex;align-items:center;justify-content:center;animation:spacePulse 1.2s ease-in-out infinite">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2l2 6h6l-5 3.6 1.9 6L10 14l-4.9 3.6L7 11.6 2 8h6z" fill="white"/>
+        </svg>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#5d36ff">Creating Space…</div>
+      <div style="width:120px;height:3px;background:#f0ecff;border-radius:2px;overflow:hidden">
+        <div style="height:100%;background:linear-gradient(90deg,#5d36ff,#a100c2);border-radius:2px;animation:spaceProgress 1.4s ease-in-out forwards"></div>
+      </div>
+    </div>`;
+
+  // After animation, replace with View Space card
+  setTimeout(() => {
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5d36ff,#a100c2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.5l1.6 4.8L14.5 8l-4.9 1.7L8 14.5l-1.6-4.8L1.5 8l4.9-1.7z" fill="white"/>
+          </svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:700;color:#131e29;margin-bottom:2px">Space created</div>
+          <div style="font-size:12px;color:#556b82;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${customerName}</div>
+        </div>
+        <button onclick="window.location.href='spaces.html?space=${spaceId}'"
+          style="background:linear-gradient(135deg,#5d36ff,#a100c2);color:white;border:none;border-radius:20px;padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">
+          View Space
+        </button>
+      </div>`;
+
+    const container = document.getElementById('chatContainer');
+    container.scrollTop = container.scrollHeight;
+  }, 1600);
+}
+
+function setDisputeTab(btn, tab) {
+  btn.closest('.disputes-tabs').querySelectorAll('.dispute-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  renderConvList(cat);
+}
+
+let currentFilter = 'all';
+
+function filterConvs(cat, btn, search) {
+  if (btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = cat;
+  }
+  renderConvList(currentFilter, search || document.getElementById('searchInput')?.value || '');
+}
+
+function toggleSearch() {
+  const sc = document.getElementById('searchContainer');
+  sc.style.display = sc.style.display === 'none' ? 'block' : 'none';
+  if (sc.style.display !== 'none') document.getElementById('searchInput').focus();
+}
+
+function toggleFloatingMenu(btn) {
+  const menu = document.getElementById('convFloatingMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  if (menu.style.display !== 'none') {
+    const close = (e) => {
+      if (!btn.contains(e.target)) { menu.style.display = 'none'; document.removeEventListener('click', close); }
+    };
+    setTimeout(() => document.addEventListener('click', close), 0);
+  }
 }
 
 function handleSend() {
   const input = document.getElementById('jouleInput');
   const text = input.value.trim();
   if (!text) return;
-
   const container = document.getElementById('chatContainer');
-  const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-
+  // If this is a new conversation, set the title from the first message
+  if (currentConv && currentConv.startsWith('conv-new-')) {
+    const title = text.length > 40 ? text.substring(0, 37) + '…' : text;
+    document.getElementById('convTitle').textContent = title;
+    const conv = allConvs.find(c => c.id === currentConv);
+    if (conv) conv.title = title;
+    renderConvList(currentFilter, '');
+    setTimeout(() => {
+      document.querySelectorAll('.conv-card').forEach(el => el.classList.remove('active'));
+      const card = document.querySelector(`.conv-card[onclick*="${currentConv}"]`);
+      if (card) card.classList.add('active');
+    }, 50);
+    // Clear the empty state
+    container.innerHTML = '';
+  }
   container.insertAdjacentHTML('beforeend', `
     <div class="message user">
-      <div>
-        <div class="message-bubble">${text}</div>
-        <div class="message-time">${now}</div>
-      </div>
-    </div>
-  `);
-
+      <div><div class="message-bubble">${text}</div></div>
+    </div>`);
   input.value = '';
+  input.style.height = 'auto';
+  updateSendBtn('convSendBtn', '');
   container.scrollTop = container.scrollHeight;
-
-  // Simulate Joule response
   setTimeout(() => {
-    container.insertAdjacentHTML('beforeend', `
-      <div class="message joule">
-        <div class="joule-avatar">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" fill="white"/>
-          </svg>
-        </div>
-        <div>
-          <div class="message-bubble">I'm analyzing your request across the SAP data landscape. Based on current AR data, I can help you with that. Would you like me to pull a detailed report or take a specific action?</div>
-          <div class="message-time">${now}</div>
-        </div>
-      </div>
-    `);
+    container.insertAdjacentHTML('beforeend', renderMessage({
+      sender: 'joule',
+      text: 'I\'m analyzing your request across the SAP data landscape. Based on current AR data, I can help you with that. Would you like me to pull a detailed report or take a specific action?'
+    }));
     container.scrollTop = container.scrollHeight;
-  }, 1000);
+  }, 900);
 }
 
-document.getElementById('jouleInput').addEventListener('keypress', e => {
-  if (e.key === 'Enter') handleSend();
+document.getElementById('jouleInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
 });
 
+// ── Toggle conversation list panel ──────────────────────────────────
+let convListOpen = true;
+function toggleConvList() {
+  convListOpen = !convListOpen;
+  const subNav = document.querySelector('.sub-nav');
+  if (convListOpen) {
+    subNav.classList.remove('collapsed');
+  } else {
+    subNav.classList.add('collapsed');
+  }
+}
+
+// Handle incoming ?msg= param
+const urlParams = new URLSearchParams(window.location.search);
+const incomingMsg = urlParams.get('msg');
+const incomingTitle = urlParams.get('newtitle');
+
 // Init
-renderConvList('all');
-renderMessages('cash-flow');
+if (incomingMsg) {
+  // Add new conversation to top of list
+  const newId = 'conv-' + Date.now();
+  const title = incomingTitle || (incomingMsg.length > 40 ? incomingMsg.substring(0, 37) + '…' : incomingMsg);
+  allConvs.unshift({ id: newId, title, preview: incomingMsg, time: 'Just now', category: 'ar', tag: 'AR', breadcrumb: 'Conversations', unread: 0 });
+  renderConvList('all');
+  // Load the new conversation as active
+  currentConv = newId;
+  document.getElementById('convTitle').textContent = title;
+  const container = document.getElementById('chatContainer');
+  container.innerHTML = renderMessage({ sender: 'user', text: incomingMsg });
+  // Highlight it in the list
+  setTimeout(() => {
+    document.querySelectorAll('.conv-card').forEach(el => el.classList.remove('active'));
+    const newCard = document.querySelector(`.conv-card[onclick*="${newId}"]`);
+    if (newCard) newCard.classList.add('active');
+  }, 50);
+  setTimeout(() => {
+    const jouleReply = 'I\'m analyzing your request across the SAP data landscape. Based on current AR data, I can help you with that. Would you like me to pull a detailed report or take a specific action?';
+    container.insertAdjacentHTML('beforeend', renderMessage({ sender: 'joule', text: jouleReply }));
+    container.scrollTop = container.scrollHeight;
+  }, 900);
+} else {
+  renderConvList('all');
+  renderMessages('top5-risk');
+}
 </script>
 </body>
 </html>

@@ -25,6 +25,8 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(119.358deg, rgb(237, 247, 255) 0%, rgb(235, 237, 255) 100%);
+  overflow: hidden;
+  position: relative;
 }
 
 /* ── Vertical Nav ────────────────────────────────────────── */
@@ -38,6 +40,8 @@ body {
   justify-content: space-between;
   padding: 20px 10px;
   flex-shrink: 0;
+  z-index: 100;
+  overflow: visible;
 }
 
 .nav-logo {
@@ -58,6 +62,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: visible;
 }
 
 .nav-items {
@@ -69,46 +74,136 @@ body {
   flex-direction: column;
   gap: 10px;
   width: 72px;
+  overflow: visible;
 }
 
 .nav-item {
-  height: 50px;
-  width: 100%;
+  height: 52px;
+  width: 52px;
+  min-width: 52px;
   border-radius: 60px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 0 16px;
   cursor: pointer;
   background: transparent;
-  border: none;
-  transition: background 0.15s ease;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
   text-decoration: none;
   position: relative;
+  gap: 10px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .nav-item:hover {
-  background: rgba(0, 112, 242, 0.05);
+  background: #edf6ff;
+  border-color: rgba(0, 100, 217, 0.2);
+  width: 220px;
+  min-width: 220px;
 }
 
 .nav-item.active {
   background: #ebf8ff;
-  border: 1px solid rgba(0, 112, 242, 0.2);
+  border-color: rgba(0, 112, 242, 0.2);
 }
 
-.nav-item.active svg path,
-.nav-item.active svg circle {
-  fill: #0070F2;
+.nav-item.active:hover {
+  width: 220px;
+  min-width: 220px;
+}
+
+.nav-icon-wrapper {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #131e29;
+  flex: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: translateX(-8px);
+}
+
+.nav-item:hover .nav-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.nav-accessories {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: translateX(-8px);
+}
+
+.nav-item:hover .nav-accessories {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.nav-counter {
+  background: #d9ecff;
+  color: #0064d9;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 4px 8px;
+  border-radius: 13px;
+  min-width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-counter-attention {
+  background: #fff3e0;
+  color: #bf6900;
+}
+
+.nav-action-btn {
+  background: #0070f2;
+  width: 26px;
+  height: 26px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.nav-action-btn:hover {
+  background: #0064d9;
 }
 
 .nav-item .notification-dot {
   position: absolute;
-  top: 2px;
-  right: 8px;
-  width: 10px;
-  height: 10px;
+  top: 6px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
   background: #aa0808;
   border-radius: 50%;
-  border: 1px solid white;
+  border: 1.5px solid white;
+  z-index: 1;
 }
 
 .nav-footer {
@@ -164,14 +259,16 @@ body {
   flex: 1;
   display: flex;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   position: relative;
 }
 
-/* ── Left Sub-Nav (330px panels) ──────────────────────────── */
+/* ── Left Sub-Nav (414px — EL exact) ──────────────────────────── */
 .sub-nav {
-  width: 330px;
+  width: 414px;
   flex-shrink: 0;
-  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   background: linear-gradient(119.358deg, rgb(237, 247, 255) 0%, rgb(235, 237, 255) 100%);
@@ -186,7 +283,7 @@ body {
 }
 
 .sub-nav-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #131e29;
 }
@@ -198,48 +295,54 @@ body {
 }
 
 .icon-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  background: white;
+  border: 1px solid #E0E0E0;
   cursor: pointer;
   transition: background 0.15s;
 }
 
 .icon-btn:hover {
-  background: rgba(0,0,0,0.06);
+  background: #f5f5f5;
+  border-color: #BCC3CA;
 }
 
 .new-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: #0070F2;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #0070f2;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
+  border-radius: 50%;
+  padding: 0;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s;
   text-decoration: none;
   white-space: nowrap;
-  margin: 8px 16px;
+  flex-shrink: 0;
 }
 
 .new-btn:hover {
-  background: #0064d9;
+  background: #005ed6;
 }
 
 .sub-nav-list {
   flex: 1;
   overflow-y: auto;
-  padding: 8px 12px;
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .sub-nav-list::-webkit-scrollbar {
@@ -324,6 +427,7 @@ body {
 .content-area {
   flex: 1;
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   background: white;
@@ -367,11 +471,16 @@ body {
 /* ── Chat Messages ───────────────────────────────────────── */
 .chat-container {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
-  padding: 20px 24px;
+  padding: 32px 120px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  align-self: center;
 }
 
 .message {
@@ -393,26 +502,21 @@ body {
 }
 
 .message.user .message-bubble {
-  background: #5d36ff;
+  background: #7358ff;
   color: white;
-  border-bottom-right-radius: 4px;
+  border-radius: 16px 16px 2px 16px;
 }
 
 .message.joule .message-bubble {
-  background: #f5f6f7;
+  background: none;
   color: #131e29;
-  border-bottom-left-radius: 4px;
+  border-radius: 0;
+  padding: 0;
+  max-width: 100%;
 }
 
 .joule-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #5d36ff, #a100c2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  display: none;
 }
 
 .message-time {
@@ -426,31 +530,31 @@ body {
   text-align: left;
 }
 
-/* ── Joule Input ─────────────────────────────────────────── */
+/* ── Joule Input — Conversations (EL exact match) ────────────── */
 .joule-input-wrapper {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
   display: flex;
-  justify-content: center;
-  padding: 0 20px;
-  pointer-events: none;
-  z-index: 10;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px 16px;
+  flex-shrink: 0;
+  background: white;
+  border-top: 1px solid #f0f2f5;
 }
 
 .joule-input-box {
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 980px;
   background: white;
-  border: 1px solid rgba(93, 54, 255, 0.25);
-  border-radius: 28px;
-  padding: 12px 16px;
+  border: 1px solid rgba(93, 54, 255, 0.4);
+  border-radius: 30px;
+  box-shadow: 0px 0px 2px rgba(120, 88, 255, 0.16),
+              0px 8px 16px rgba(120, 88, 255, 0.1),
+              inset 0 0 0 2px white;
+  padding: 14px 14px 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 0 1px rgba(120, 88, 255, 0.08), 0 4px 10px rgba(120, 88, 255, 0.08);
-  pointer-events: all;
+  gap: 16px;
 }
 
 .joule-input-text-row {
@@ -463,14 +567,19 @@ body {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 14px;
-  color: #556b82;
+  font-size: 16px;
+  color: #000000;
   background: transparent;
   font-family: inherit;
+  resize: none;
+  overflow: hidden;
+  min-height: 24px;
+  max-height: 120px;
+  line-height: 1.5;
 }
 
 .joule-input-field::placeholder {
-  color: #8a9ba8;
+  color: #556b82;
   font-style: italic;
 }
 
@@ -484,13 +593,13 @@ body {
 .joule-input-icons-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .input-action-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 200px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -498,11 +607,264 @@ body {
   align-items: center;
   justify-content: center;
   transition: background 0.15s;
+  padding: 6px;
+  flex-shrink: 0;
 }
 
 .input-action-btn:hover {
   background: #f5f6f7;
 }
+
+.input-action-btn.primary-tint {
+  background: rgba(234, 229, 255, 1);
+}
+
+.input-action-btn.primary-tint:hover {
+  background: rgba(220, 213, 255, 1);
+}
+
+.input-action-btn.grey-bg {
+  background: rgba(245, 246, 247, 1);
+}
+
+.input-action-btn.grey-bg:hover {
+  background: #e8eaed;
+}
+
+.joule-ai-footer {
+  font-size: 12px;
+  color: #5b738b;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+/* ── Space / Jobs: bottom input — EL chat-input-container style ── */
+.space-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px 16px;
+  flex-shrink: 0;
+  background: white;
+  border-top: 1px solid #f0f2f5;
+}
+
+.space-input-wrapper {
+  background: white;
+  border: 1px solid rgba(93, 54, 255, 0.4);
+  border-radius: 30px;
+  padding: 14px 14px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0px 0px 2px rgba(120, 88, 255, 0.16),
+              0px 8px 16px rgba(120, 88, 255, 0.1),
+              inset 0 0 0 2px white;
+  width: 90%;
+  max-width: 980px;
+}
+
+.space-input-text-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.space-input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: '72', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  background: transparent;
+  resize: none;
+  overflow: hidden;
+  min-height: 24px;
+  max-height: 120px;
+  line-height: 1.5;
+}
+
+.space-input-field::placeholder {
+  color: #556b82;
+  font-style: italic;
+}
+
+.space-input-icons-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.space-input-icons-left,
+.space-input-icons-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.space-input-pill-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.space-input-pill-btn:hover { background: #f5f6f7; }
+
+/* Send button — gradient when active, grey when empty */
+.space-input-send-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.space-input-send-btn.active {
+  background: linear-gradient(135deg, #5d36ff 0%, #a100c2 100%);
+}
+
+.space-input-send-btn:hover.active,
+.space-input-send-btn.active:hover { opacity: 0.9; }
+
+.space-input-ai-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #8b95a1;
+}
+
+/* ── Joule panel input (right side panels) — EL chat-input-container style ── */
+.panel-input-container {
+  background: white;
+  border: 1px solid rgba(93, 54, 255, 0.4);
+  border-radius: 30px;
+  padding: 14px 14px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0px 0px 2px rgba(120, 88, 255, 0.16),
+              0px 8px 16px rgba(120, 88, 255, 0.1),
+              inset 0 0 0 2px white;
+}
+
+.panel-input-text-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #000000;
+  font-family: '72', sans-serif;
+  background: transparent;
+  resize: none;
+  overflow: hidden;
+  min-height: 24px;
+  max-height: 80px;
+  line-height: 1.5;
+}
+
+.panel-input-field::placeholder {
+  color: #556b82;
+  font-style: italic;
+}
+
+.panel-input-icons-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-input-icons-left,
+.panel-input-icons-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel-input-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  color: #5d36ff;
+}
+
+.panel-input-btn:hover { background: #f5f6f7; }
+
+/* Panel send button — same gradient pattern */
+.panel-send-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.panel-send-btn.active {
+  background: linear-gradient(135deg, #5d36ff 0%, #a100c2 100%);
+}
+
+.panel-send-btn.active:hover { opacity: 0.9; }
+
+.panel-disclaimer {
+  text-align: center;
+  font-size: 11px;
+  color: #8396a8;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* ── Joule input pill buttons (legacy, kept for compat) ─────── */
+.joule-input-pill-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f5f6f7;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 13px;
+  color: #556b82;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+  font-weight: 500;
+}
+.joule-input-pill-btn:hover { background: #ebebeb; }
 
 /* ── Dashboard Cards ─────────────────────────────────────── */
 .dashboard-grid {
@@ -582,15 +944,16 @@ body {
 }
 
 .filter-tab {
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 6px 14px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 1px solid #BCC8D4;
   background: transparent;
-  color: #556b82;
+  color: #354A5F;
   transition: all 0.15s;
+  font-family: inherit;
 }
 
 .filter-tab:hover {
@@ -598,10 +961,9 @@ body {
 }
 
 .filter-tab.active {
-  background: white;
-  border-color: rgba(0, 112, 242, 0.3);
-  color: #0070F2;
-  font-weight: 700;
+  background: #e8f3ff;
+  border-color: #0064d9;
+  color: #0064d9;
 }
 
 /* ── Space Items ─────────────────────────────────────────── */
@@ -1040,3 +1402,268 @@ body {
 
 /* ── Page nav active highlight ───────────────────────────── */
 a.conv-item.active { color: inherit; }
+
+/* ── Create Space button (conversations + spaces) ─────── */
+.btn-create-space {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  color: #5d36ff;
+  border: 1.5px solid #5d36ff;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-create-space:hover { background: rgba(93,54,255,0.05); }
+
+/* ── Overview / KPI Cards ──────────────────────────────── */
+.overview-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.overview-card {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overview-card-label {
+  font-size: 11px;
+  color: #8a9ba8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.overview-card-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #131e29;
+  line-height: 1;
+}
+
+.overview-card-unit {
+  font-size: 13px;
+  color: #556b82;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.overview-card-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.overview-card-trend.up { background: #ebf5ef; color: #256f3a; }
+.overview-card-trend.down { background: #fce9e9; color: #aa0808; }
+
+/* ── Joule Bubble (chat input user message) ────────────── */
+.joule-user-bubble {
+  align-self: flex-end;
+  background: #5d36ff;
+  color: white;
+  border-radius: 16px 16px 4px 16px;
+  padding: 10px 16px;
+  font-size: 14px;
+  max-width: 70%;
+  line-height: 1.5;
+}
+
+/* ── Joule Bubble (assistant response) ────────────────── */
+.joule-assistant-bubble {
+  background: #f5f6f7;
+  border-radius: 4px 16px 16px 16px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #131e29;
+  line-height: 1.5;
+  max-width: 80%;
+}
+
+/* ── Message icon actions row ──────────────────────────── */
+.msg-icon-actions {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.message.joule:hover .msg-icon-actions {
+  display: flex;
+}
+
+.msg-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.msg-icon-btn:hover { background: rgba(0,0,0,0.06); }
+
+/* ── Floating Joule Button ─────────────────────────────── */
+.joule-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #5d36ff, #a100c2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(93,54,255,0.4);
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 200;
+}
+
+.joule-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(93,54,255,0.5);
+}
+
+/* ── Floating Context Menu ─────────────────────────────── */
+.floating-menu {
+  position: absolute;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px 1px rgba(34,53,72,0.12), 0px 4px 16px rgba(34,53,72,0.16);
+  min-width: 200px;
+  z-index: 500;
+  overflow: hidden;
+  animation: fadeMenuIn 0.15s ease;
+}
+
+@keyframes fadeMenuIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)  scale(1); }
+}
+
+.floating-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #131e29;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+.floating-menu-item:hover { background: #f5f6f7; }
+.floating-menu-item.danger { color: #aa0808; }
+.floating-menu-divider { border: none; border-top: 1px solid #f0f0f0; margin: 4px 0; }
+
+/* ── Space/Conversation header purple Joule button ─────── */
+.header-joule-btn {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #5d36ff, #a100c2);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(93,54,255,0.3);
+}
+
+.header-joule-btn:hover { transform: scale(1.08); }
+
+/* ── Conversation list card (sub-nav) — EL single-line style ── */
+.conv-card {
+  background: rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  border: 1px solid #bcddfc;
+  box-shadow: 0px 0px 2px 0px rgba(34,53,72,0.2), 0px 2px 4px 0px rgba(34,53,72,0.2);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.conv-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 0px 2px 0px rgba(34,53,72,0.3), 0px 4px 8px 0px rgba(34,53,72,0.3);
+}
+.conv-card.active {
+  background: white;
+  border-color: #bcddfc;
+  transform: none;
+  box-shadow: 0px 0px 2px 0px rgba(34,53,72,0.2), 0px 2px 4px 0px rgba(34,53,72,0.2);
+}
+
+.conv-card-content { flex: 1; min-width: 0; }
+
+.conv-card-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #131e29;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conv-card.active .conv-card-title { color: #131e29; }
+
+.conv-card-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+
+/* ── Inline system message ─────────────────────────────── */
+.inline-system-msg {
+  background: #f5f6f7;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #556b82;
+  line-height: 1.4;
+  margin: 4px 0;
+}
+
+.inline-system-msg strong { color: #131e29; }
+
+/* ── Justify-center utility ────────────────────────────── */
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.gap-4 { gap: 4px; }
+.gap-6 { gap: 6px; }

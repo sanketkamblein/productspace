@@ -127,7 +127,13 @@ const projects = [
         "Applied knowledge of HIPAA standards, NABH workflows, diagnostic billing flows",
         "Adapted agile delivery in resource-constrained environments, while maintaining clinical quality and scalability",
       ],
-      links: [],
+      links: [
+        {
+          title: "🔒 View Design Work (Password Protected)",
+          url: "projects/AxonRad/portfolio.html",
+          isProtected: true,
+        },
+      ],
     },
   },
   {
@@ -433,16 +439,9 @@ const projects = [
       ],
       links: [
         {
-          title: "Know more 1",
-          url: "https://www.figma.com/design/sxlZD6u8Ftsm3ttY8UTmvL/Reference-Structures?node-id=69-2&t=OUp7APA586fEaVlY-1",
-        },
-        {
-          title: "Know more 2",
-          url: "https://www.figma.com/design/WHt8dWDeitbJeTL12rIUzk/Reference-TO?node-id=60-458&t=iCEBgxVD2bMqqeSO-1",
-        },
-        {
-          title: "Know more 3",
-          url: "https://www.figma.com/design/ncX2QLpbRexL9vn6REPxKj/Manage-Structures?node-id=911-34392&t=F6M2lT7EPdwPYVKR-1",
+          title: "🔒 View Design Work & Case Study (Password Protected)",
+          url: "projects/Reference TO/index.html",
+          isProtected: true,
         },
       ],
     },
@@ -477,6 +476,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize parallax
   updateParallax()
+})
+
+// Restore scroll when navigating back (bfcache restore or normal load)
+window.addEventListener("pageshow", () => {
+  document.body.style.overflow = "auto"
+  document.body.style.overflowX = "hidden"
 })
 
 // Parallax effect function - Fixed direction

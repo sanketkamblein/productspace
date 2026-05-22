@@ -36,6 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
   updateParallax()
 })
 
+// Restore scroll when navigating back (bfcache restore)
+window.addEventListener("pageshow", () => {
+  document.body.style.overflow = "auto"
+  document.body.style.overflowX = "hidden"
+})
+
 // ============================================================
 // FIX GRID COLUMNS — explicit px widths for cross-browser consistency
 // (Chrome/Safari/Edge resolve 1fr differently than Firefox when the
