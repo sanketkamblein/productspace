@@ -1482,19 +1482,25 @@ html { scroll-behavior: smooth; }
 
 /* Hidden page link */
 .other-side-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   margin-top: 2rem;
-  font-size: 0.82rem;
-  letter-spacing: 0.5px;
-  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--plum);
   text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 2px;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  border: 1.5px solid var(--plum);
+  border-radius: 20px;
+  padding: 0.42rem 1.1rem;
+  background: transparent;
+  transition: color 0.22s ease, background 0.22s ease, transform 0.18s ease;
 }
 .other-side-link:hover {
-  color: var(--plum);
-  border-color: var(--plum-mid);
+  color: #fff;
+  background: var(--plum);
+  transform: translateY(-1px);
 }
 
 /* ── Portfolio Logo (top-right, fixed/sticky, tiny) ──── */
