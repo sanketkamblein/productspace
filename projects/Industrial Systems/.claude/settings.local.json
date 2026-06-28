@@ -19,7 +19,16 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); node=d['nodes']['89:46661']['document']; print\\(node['type'], node['name']\\); children=[c['name']+' '+c['type']+' id='+c['id'] for c in node.get\\('children',[][:10]\\)]; print\\('\\\\n'.join\\(children[:20]\\)\\)\")",
       "Bash(export FIGMA_TOKEN=\"figd_mPeYEI1eZlOAqz9d9KUmwHRheuj_k6tTW3ymVlTz\")",
       "Bash(curl -s -H 'X-Figma-Token: figd_mPeYEI1eZlOAqz9d9KUmwHRheuj_k6tTW3ymVlTz' 'https://api.figma.com/v1/files/lVc15kJllhdwngzmYPjISt/nodes?ids=89-46661')",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(ls -la \"/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/Industrial Systems/.casestudy.html\"*)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__list_pages",
+      "WebSearch",
+      "mcp__chrome-devtools__wait_for"
     ]
   }
 }
