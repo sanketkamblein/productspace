@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="ov-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#032d60"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="sp-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2e0761"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="jb-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c4a6e"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+    <linearGradient id="cv-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b0764"/>
+      <stop offset="100%" stop-color="#5d36ff"/>
+    </linearGradient>
+    <filter id="card-glow">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg6)"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(255,255,255,0.2)" letter-spacing="2">ENGAGEMENT LAYER — 4 CORE AREAS</text>
+
+  <!-- Central connector node -->
+  <circle cx="450" cy="248" r="28" fill="url(#sp-g)" opacity="0.8"/>
+  <circle cx="450" cy="248" r="24" fill="none" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+  <text x="450" y="244" text-anchor="middle" font-size="14">🧠</text>
+  <text x="450" y="260" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.6)" font-weight="700" letter-spacing="1">ORCHESTRATOR</text>
+
+  <!-- Connector lines to cards -->
+  <line x1="422" y1="232" x2="292" y2="162" stroke="rgba(167,139,250,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="478" y1="232" x2="608" y2="162" stroke="rgba(167,139,250,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="422" y1="264" x2="292" y2="334" stroke="rgba(167,139,250,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="478" y1="264" x2="608" y2="334" stroke="rgba(167,139,250,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ── OVERVIEW — top left ── -->
+  <g filter="url(#card-glow)">
+    <rect x="36" y="52" width="390" height="170" rx="14" fill="#0a1628" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+  </g>
+  <rect x="36" y="52" width="390" height="52" rx="14" fill="url(#ov-g)"/>
+  <rect x="36" y="90" width="390" height="14" fill="url(#ov-g)"/>
+  <text x="60" y="74" font-size="18">🏠</text>
+  <text x="86" y="72" font-size="14" font-weight="800" fill="#fff">Overview</text>
+  <text x="86" y="89" font-size="9" fill="rgba(255,255,255,0.55)">Personalised landing surface</text>
+  <!-- content lines -->
+  <text x="56" y="126" font-size="9" fill="rgba(255,255,255,0.6)">• Daily priorities — AI ranked by urgency</text>
+  <text x="56" y="142" font-size="9" fill="rgba(255,255,255,0.6)">• Agent activity feed — what's happened</text>
+  <text x="56" y="158" font-size="9" fill="rgba(255,255,255,0.6)">• KPI snapshots — DSO, total overdue</text>
+  <text x="56" y="174" font-size="9" fill="rgba(255,255,255,0.6)">• Proactive notifications from agents</text>
+  <!-- tag -->
+  <rect x="56" y="188" width="148" height="22" rx="11" fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.25)" stroke-width="1"/>
+  <text x="130" y="203" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(147,197,253,0.9)">→ Entry point for both personas</text>
+
+  <!-- ── SPACES — top right ── -->
+  <g filter="url(#card-glow)">
+    <rect x="474" y="52" width="390" height="170" rx="14" fill="#0a1628" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
+  </g>
+  <rect x="474" y="52" width="390" height="52" rx="14" fill="url(#sp-g)"/>
+  <rect x="474" y="90" width="390" height="14" fill="url(#sp-g)"/>
+  <text x="498" y="74" font-size="18">📦</text>
+  <text x="524" y="72" font-size="14" font-weight="800" fill="#fff">Spaces</text>
+  <text x="524" y="89" font-size="9" fill="rgba(255,255,255,0.55)">Domain-specific workspaces</text>
+  <text x="494" y="126" font-size="9" fill="rgba(255,255,255,0.6)">• AR Space — account list + analysis</text>
+  <text x="494" y="142" font-size="9" fill="rgba(255,255,255,0.6)">• Disputes Space — case pipeline view</text>
+  <text x="494" y="158" font-size="9" fill="rgba(255,255,255,0.6)">• Collections Space — worklist + 360°</text>
+  <text x="494" y="174" font-size="9" fill="rgba(255,255,255,0.6)">• Structured views with embedded AI</text>
+  <rect x="494" y="188" width="148" height="22" rx="11" fill="rgba(124,58,237,0.12)" stroke="rgba(124,58,237,0.25)" stroke-width="1"/>
+  <text x="568" y="203" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(196,181,253,0.9)">→ Primary work area daily</text>
+
+  <!-- ── JOBS — bottom left ── -->
+  <g filter="url(#card-glow)">
+    <rect x="36" y="258" width="390" height="180" rx="14" fill="#0a1628" stroke="rgba(8,145,178,0.2)" stroke-width="1"/>
+  </g>
+  <rect x="36" y="258" width="390" height="52" rx="14" fill="url(#jb-g)"/>
+  <rect x="36" y="296" width="390" height="14" fill="url(#jb-g)"/>
+  <text x="60" y="281" font-size="18">⚙️</text>
+  <text x="86" y="279" font-size="14" font-weight="800" fill="#fff">Jobs</text>
+  <text x="86" y="296" font-size="9" fill="rgba(255,255,255,0.55)">Background agent task runner</text>
+  <text x="56" y="332" font-size="9" fill="rgba(255,255,255,0.6)">• Autonomous tasks with HITL review</text>
+  <text x="56" y="348" font-size="9" fill="rgba(255,255,255,0.6)">• Dispute resolution running in background</text>
+  <text x="56" y="364" font-size="9" fill="rgba(255,255,255,0.6)">• Smart Clearing proposals awaiting approval</text>
+  <text x="56" y="380" font-size="9" fill="rgba(255,255,255,0.6)">• Status: Running · Waiting for Review · Done</text>
+  <rect x="56" y="396" width="190" height="22" rx="11" fill="rgba(8,145,178,0.12)" stroke="rgba(8,145,178,0.25)" stroke-width="1"/>
+  <text x="151" y="411" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(125,211,252,0.9)">→ Visibility into autonomous actions</text>
+
+  <!-- ── CONVERSATION — bottom right ── -->
+  <g filter="url(#card-glow)">
+    <rect x="474" y="258" width="390" height="180" rx="14" fill="#0a1628" stroke="rgba(93,54,255,0.2)" stroke-width="1"/>
+  </g>
+  <rect x="474" y="258" width="390" height="52" rx="14" fill="url(#cv-g)"/>
+  <rect x="474" y="296" width="390" height="14" fill="url(#cv-g)"/>
+  <text x="498" y="281" font-size="18">💬</text>
+  <text x="524" y="279" font-size="14" font-weight="800" fill="#fff">Conversation</text>
+  <text x="524" y="296" font-size="9" fill="rgba(255,255,255,0.55)">Joule-powered natural language</text>
+  <text x="494" y="332" font-size="9" fill="rgba(255,255,255,0.6)">• @mention AR Assistant in Joule chat</text>
+  <text x="494" y="348" font-size="9" fill="rgba(255,255,255,0.6)">• Context carried from Spaces + Jobs</text>
+  <text x="494" y="364" font-size="9" fill="rgba(255,255,255,0.6)">• Ask · Act · Follow-up in one thread</text>
+  <text x="494" y="380" font-size="9" fill="rgba(255,255,255,0.6)">• Routes to Billing Assistant if needed</text>
+  <rect x="494" y="396" width="170" height="22" rx="11" fill="rgba(93,54,255,0.12)" stroke="rgba(93,54,255,0.25)" stroke-width="1"/>
+  <text x="579" y="411" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(167,139,250,0.9)">→ Natural language as navigation</text>
+
+  <text x="450" y="460" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.14)" font-weight="600" letter-spacing="2">ALL FOUR AREAS CONNECTED THROUGH THE AR ASSISTANT ORCHESTRATOR</text>
+</svg>

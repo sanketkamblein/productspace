@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="p1g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#032d60"/>
+      <stop offset="100%" stop-color="#0070f2"/>
+    </linearGradient>
+    <linearGradient id="p2g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2e0761"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="p3g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c4a6e"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="p4g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14532d"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <filter id="card-shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="rgba(0,0,0,0.4)"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="280" fill="url(#bg)"/>
+
+  <!-- Subtle horizontal timeline spine -->
+  <line x1="80" y1="140" x2="820" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+
+  <!-- ── PHASE 1 ── -->
+  <g filter="url(#card-shadow)">
+    <rect x="44" y="50" width="178" height="180" rx="14" fill="url(#p1g)"/>
+  </g>
+  <!-- Top accent stripe -->
+  <rect x="44" y="50" width="178" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <!-- Phase badge -->
+  <rect x="58" y="68" width="72" height="18" rx="9" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="94" y="81" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.85)" letter-spacing="1">PHASE 1</text>
+  <!-- Big label -->
+  <text x="133" y="122" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">AR</text>
+  <text x="133" y="144" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">Agent</text>
+  <text x="133" y="170" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Private Cloud only</text>
+  <text x="133" y="184" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">1 persona · Joule chat</text>
+  <text x="133" y="198" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">No new UI</text>
+  <!-- GTM tag -->
+  <rect x="58" y="210" width="118" height="14" rx="7" fill="rgba(255,255,255,0.1)"/>
+  <text x="117" y="221" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(255,200,100,0.9)">🎯 TechEd 2025</text>
+
+  <!-- Arrow 1 -->
+  <g>
+    <line x1="224" y1="140" x2="258" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <polygon points="255,135 265,140 255,145" fill="rgba(255,255,255,0.25)"/>
+    <text x="243" y="132" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.3)" font-weight="600">PIVOT</text>
+  </g>
+
+  <!-- ── PHASE 2 ── -->
+  <g filter="url(#card-shadow)">
+    <rect x="264" y="50" width="178" height="180" rx="14" fill="url(#p2g)"/>
+  </g>
+  <rect x="264" y="50" width="178" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <rect x="278" y="68" width="72" height="18" rx="9" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="314" y="81" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.85)" letter-spacing="1">PHASE 2</text>
+  <text x="353" y="122" text-anchor="middle" font-size="18" font-weight="900" fill="#fff">Engagement</text>
+  <text x="353" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#fff">Layer</text>
+  <text x="353" y="170" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Public Cloud joins</text>
+  <text x="353" y="184" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">New composite UI on Fiori</text>
+  <text x="353" y="198" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Collection Specialist added</text>
+  <rect x="278" y="210" width="118" height="14" rx="7" fill="rgba(255,255,255,0.1)"/>
+  <text x="337" y="221" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(200,180,255,0.9)">✦ New EL concept born</text>
+
+  <!-- Arrow 2 -->
+  <g>
+    <line x1="444" y1="140" x2="478" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <polygon points="475,135 485,140 475,145" fill="rgba(255,255,255,0.25)"/>
+    <text x="463" y="132" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.3)" font-weight="600">EXPAND</text>
+  </g>
+
+  <!-- ── PHASE 3 ── -->
+  <g filter="url(#card-shadow)">
+    <rect x="484" y="50" width="178" height="180" rx="14" fill="url(#p3g)"/>
+  </g>
+  <rect x="484" y="50" width="178" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <rect x="498" y="68" width="72" height="18" rx="9" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="534" y="81" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.85)" letter-spacing="1">PHASE 3</text>
+  <text x="573" y="122" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">AR</text>
+  <text x="573" y="144" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">Assistant</text>
+  <text x="573" y="170" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Dual persona · 7+ agents</text>
+  <text x="573" y="184" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Autonomous flows</text>
+  <text x="573" y="198" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">HITL confirmation model</text>
+  <rect x="498" y="210" width="118" height="14" rx="7" fill="rgba(255,255,255,0.1)"/>
+  <text x="557" y="221" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(125,211,252,0.9)">🤖 Full multi-agent system</text>
+
+  <!-- Arrow 3 -->
+  <g>
+    <line x1="664" y1="140" x2="698" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <polygon points="695,135 705,140 695,145" fill="rgba(255,255,255,0.25)"/>
+    <text x="683" y="132" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.3)" font-weight="600">GTM</text>
+  </g>
+
+  <!-- ── PHASE 4 — Sapphire ── -->
+  <g filter="url(#card-shadow)">
+    <rect x="704" y="50" width="160" height="180" rx="14" fill="url(#p4g)"/>
+  </g>
+  <rect x="704" y="50" width="160" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <!-- Glow effect on Sapphire card -->
+  <rect x="704" y="50" width="160" height="180" rx="14" fill="none" stroke="rgba(134,239,172,0.25)" stroke-width="2"/>
+  <rect x="718" y="68" width="72" height="18" rx="9" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="754" y="81" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.85)" letter-spacing="1">GTM · 2026</text>
+  <text x="784" y="116" text-anchor="middle" font-size="15" font-weight="900" fill="#fff">SAP</text>
+  <text x="784" y="136" text-anchor="middle" font-size="15" font-weight="900" fill="#fff">Sapphire</text>
+  <text x="784" y="156" text-anchor="middle" font-size="15" font-weight="900" fill="#86efac">2026</text>
+  <text x="784" y="178" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">5 GTM demo flows</text>
+  <text x="784" y="192" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.55)">Flagship customer event</text>
+  <rect x="718" y="210" width="132" height="14" rx="7" fill="rgba(255,255,255,0.1)"/>
+  <text x="784" y="221" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(134,239,172,0.9)">🚀 Delivering now</text>
+
+  <!-- Bottom label -->
+  <text x="450" y="260" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.2)" font-weight="600" letter-spacing="1.5">1.5 YEARS · PRIVATE CLOUD LED · PUBLIC CLOUD COLLABORATION</text>
+</svg>

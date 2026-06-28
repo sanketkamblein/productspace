@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg10" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06091a"/>
+      <stop offset="100%" stop-color="#0a1020"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="980" height="560" fill="url(#bg10)"/>
+  <text x="490" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(255,255,255,0.18)" letter-spacing="2.5">AGENT DESIGN — TRIGGER · ACTION · OUTPUT</text>
+  <text x="490" y="44" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.15)">Source: Figma Frame 1 — Step 2: Decompose into Agent Responsibilities</text>
+
+  <!-- Column headers -->
+  <rect x="24" y="54" width="932" height="28" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="116" y="72" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1">AGENT</text>
+  <text x="330" y="72" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1">TRIGGER</text>
+  <text x="580" y="72" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1">ACTION</text>
+  <text x="810" y="72" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1">OUTPUT</text>
+
+  <!-- Vertical dividers -->
+  <line x1="208" y1="54" x2="208" y2="532" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="452" y1="54" x2="452" y2="532" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="700" y1="54" x2="700" y2="532" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+  <!-- ── ROW 1: Worklist Agent (blue / In Scope) ── -->
+  <rect x="24" y="82" width="932" height="52" rx="6" fill="rgba(0,112,242,0.07)" stroke="rgba(0,112,242,0.14)" stroke-width="1"/>
+  <rect x="28" y="86" width="4" height="44" rx="2" fill="rgba(0,112,242,0.7)"/>
+  <text x="44" y="103" font-size="9" font-weight="700" fill="rgba(147,197,253,0.9)">📋 Worklist Agent</text>
+  <text x="44" y="118" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 1 · In Scope</text>
+  <text x="218" y="108" font-size="8.5" fill="rgba(255,255,255,0.65)">Scheduled daily or called by</text>
+  <text x="218" y="122" font-size="8.5" fill="rgba(255,255,255,0.65)">AR Accountant on demand</text>
+  <text x="462" y="108" font-size="8.5" fill="rgba(255,255,255,0.65)">Display work list with priority ranking</text>
+  <text x="462" y="122" font-size="8.5" fill="rgba(255,255,255,0.65)">across multiple parameters</text>
+  <text x="710" y="108" font-size="8.5" fill="rgba(147,197,253,0.85)" font-weight="600">List of Customers (Top 5)</text>
+  <text x="710" y="122" font-size="7.5" fill="rgba(255,255,255,0.35)">Ranked by exposure, credit, disputes</text>
+
+  <!-- ── ROW 2: Collection 360 Agent ── -->
+  <rect x="24" y="138" width="932" height="52" rx="6" fill="rgba(93,54,255,0.07)" stroke="rgba(93,54,255,0.14)" stroke-width="1"/>
+  <rect x="28" y="142" width="4" height="44" rx="2" fill="rgba(93,54,255,0.7)"/>
+  <text x="44" y="159" font-size="9" font-weight="700" fill="rgba(196,181,253,0.9)">🔍 Collection 360 Agent</text>
+  <text x="44" y="174" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 2 · In Scope</text>
+  <text x="218" y="159" font-size="8.5" fill="rgba(255,255,255,0.65)">Collection Specialist wants to</text>
+  <text x="218" y="173" font-size="8.5" fill="rgba(255,255,255,0.65)">take action from Worklist</text>
+  <text x="462" y="159" font-size="8.5" fill="rgba(255,255,255,0.65)">Contact, Promise-to-Pay,</text>
+  <text x="462" y="173" font-size="8.5" fill="rgba(255,255,255,0.65)">Resubmission workflows</text>
+  <text x="710" y="159" font-size="8.5" fill="rgba(196,181,253,0.85)" font-weight="600">Summary and recommendation</text>
+  <text x="710" y="173" font-size="7.5" fill="rgba(255,255,255,0.35)">With suggested next-best action</text>
+
+  <!-- ── ROW 3: Dunning Agent ── -->
+  <rect x="24" y="194" width="932" height="52" rx="6" fill="rgba(8,145,178,0.07)" stroke="rgba(8,145,178,0.14)" stroke-width="1"/>
+  <rect x="28" y="198" width="4" height="44" rx="2" fill="rgba(8,145,178,0.7)"/>
+  <text x="44" y="215" font-size="9" font-weight="700" fill="rgba(125,211,252,0.9)">🔔 Dunning Agent</text>
+  <text x="44" y="230" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 3 · In Scope</text>
+  <text x="218" y="215" font-size="8.5" fill="rgba(255,255,255,0.65)">Dunning details asked by</text>
+  <text x="218" y="229" font-size="8.5" fill="rgba(255,255,255,0.65)">AR Accountant</text>
+  <text x="462" y="215" font-size="8.5" fill="rgba(255,255,255,0.65)">Analyse previous dunning history,</text>
+  <text x="462" y="229" font-size="8.5" fill="rgba(255,255,255,0.65)">set/remove dunning blocks</text>
+  <text x="710" y="215" font-size="8.5" fill="rgba(125,211,252,0.85)" font-weight="600">Recommendation on dunning,</text>
+  <text x="710" y="229" font-size="8.5" fill="rgba(125,211,252,0.85)" font-weight="600">resubmission options</text>
+
+  <!-- ── ROW 4: Account Analysis Agent ── -->
+  <rect x="24" y="250" width="932" height="52" rx="6" fill="rgba(5,150,105,0.07)" stroke="rgba(5,150,105,0.14)" stroke-width="1"/>
+  <rect x="28" y="254" width="4" height="44" rx="2" fill="rgba(5,150,105,0.7)"/>
+  <text x="44" y="271" font-size="9" font-weight="700" fill="rgba(110,231,183,0.9)">📊 Account Analysis Agent</text>
+  <text x="44" y="286" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 4 · In Scope</text>
+  <text x="218" y="271" font-size="8.5" fill="rgba(255,255,255,0.65)">Selected by Accountant to</text>
+  <text x="218" y="285" font-size="8.5" fill="rgba(255,255,255,0.65)">see full account details</text>
+  <text x="462" y="271" font-size="8.5" fill="rgba(255,255,255,0.65)">Display account details, dunning,</text>
+  <text x="462" y="285" font-size="8.5" fill="rgba(255,255,255,0.65)">credit information, aging</text>
+  <text x="710" y="271" font-size="8.5" fill="rgba(110,231,183,0.85)" font-weight="600">Summary + recommendation,</text>
+  <text x="710" y="285" font-size="8.5" fill="rgba(110,231,183,0.85)" font-weight="600">risk score, actions</text>
+
+  <!-- ── ROW 5: Dispute Agent ── -->
+  <rect x="24" y="306" width="932" height="52" rx="6" fill="rgba(124,58,237,0.07)" stroke="rgba(124,58,237,0.14)" stroke-width="1"/>
+  <rect x="28" y="310" width="4" height="44" rx="2" fill="rgba(124,58,237,0.7)"/>
+  <text x="44" y="327" font-size="9" font-weight="700" fill="rgba(196,181,253,0.9)">✍️ Dispute Agent</text>
+  <text x="44" y="342" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 6 · In Scope</text>
+  <text x="218" y="327" font-size="8.5" fill="rgba(255,255,255,0.65)">Analysis asked for a dispute</text>
+  <text x="218" y="341" font-size="8.5" fill="rgba(255,255,255,0.65)">case or from email</text>
+  <text x="462" y="327" font-size="8.5" fill="rgba(255,255,255,0.65)">Summarise dispute, validate</text>
+  <text x="462" y="341" font-size="8.5" fill="rgba(255,255,255,0.65)">claim against source documents</text>
+  <text x="710" y="327" font-size="8.5" fill="rgba(196,181,253,0.85)" font-weight="600">Summary + recommendation</text>
+  <text x="710" y="341" font-size="7.5" fill="rgba(255,255,255,0.35)">Passed to Dispute Resolution Agent</text>
+
+  <!-- ── ROW 6: Dispute Resolution Agent ── -->
+  <rect x="24" y="362" width="932" height="52" rx="6" fill="rgba(124,58,237,0.07)" stroke="rgba(124,58,237,0.14)" stroke-width="1"/>
+  <rect x="28" y="366" width="4" height="44" rx="2" fill="rgba(124,58,237,0.5)"/>
+  <text x="44" y="383" font-size="9" font-weight="700" fill="rgba(196,181,253,0.9)">🔍 Dispute Resolution Agent</text>
+  <text x="44" y="398" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 5 · In Scope</text>
+  <text x="218" y="383" font-size="8.5" fill="rgba(255,255,255,0.65)">Recommended action executed,</text>
+  <text x="218" y="397" font-size="8.5" fill="rgba(255,255,255,0.65)">dispute resolution update needed</text>
+  <text x="462" y="383" font-size="8.5" fill="rgba(255,255,255,0.65)">Update header data, communicate</text>
+  <text x="462" y="397" font-size="8.5" fill="rgba(255,255,255,0.65)">with Billing Agent for adjustment</text>
+  <text x="710" y="383" font-size="8.5" fill="rgba(196,181,253,0.85)" font-weight="600">Dispute resolved? Delta + reason</text>
+  <text x="710" y="397" font-size="7.5" fill="rgba(255,255,255,0.35)">HITL confirmation before posting</text>
+
+  <!-- ── ROW 7: Billing Agent ── -->
+  <rect x="24" y="418" width="932" height="52" rx="6" fill="rgba(34,197,94,0.07)" stroke="rgba(34,197,94,0.14)" stroke-width="1"/>
+  <rect x="28" y="422" width="4" height="44" rx="2" fill="rgba(34,197,94,0.7)"/>
+  <text x="44" y="439" font-size="9" font-weight="700" fill="rgba(134,239,172,0.9)">🧾 Billing Agent</text>
+  <text x="44" y="454" font-size="7.5" fill="rgba(255,255,255,0.35)">Agent 7 · Cross-assistant</text>
+  <text x="218" y="439" font-size="8.5" fill="rgba(255,255,255,0.65)">Dispute Resolution Agent</text>
+  <text x="218" y="453" font-size="8.5" fill="rgba(255,255,255,0.65)">triggers billing adjustment</text>
+  <text x="462" y="439" font-size="8.5" fill="rgba(255,255,255,0.65)">Bill analysis, cancel + recreate</text>
+  <text x="462" y="453" font-size="8.5" fill="rgba(255,255,255,0.65)">invoice with correct amount</text>
+  <text x="710" y="439" font-size="8.5" fill="rgba(134,239,172,0.85)" font-weight="600">Bill generation · HITL required</text>
+  <text x="710" y="453" font-size="7.5" fill="rgba(255,255,255,0.35)">Handled by Billing Assistant</text>
+
+  <!-- Handoff summary row -->
+  <rect x="24" y="478" width="932" height="44" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="42" y="494" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1">KEY HANDOFFS</text>
+  <text x="220" y="494" font-size="8" fill="rgba(255,255,255,0.45)">Worklist → Collection 360: Customer Account ID</text>
+  <text x="220" y="508" font-size="8" fill="rgba(255,255,255,0.45)">Collection 360 → Dispute Resolution: Customer Dispute Analysis</text>
+  <text x="560" y="494" font-size="8" fill="rgba(255,255,255,0.45)">Dispute Resolution → Billing Agent: Resolved Amount</text>
+  <text x="560" y="508" font-size="8" fill="rgba(255,255,255,0.45)">Dunning Agent → Collection 360: Text Analysis on Customer</text>
+
+  <text x="490" y="544" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.1)" font-weight="600" letter-spacing="2">AGENT DESIGN ARTEFACT · SOURCE: FIGMA NODE 63:78914 — STEP 2</text>
+</svg>

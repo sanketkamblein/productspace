@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 600" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg4b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06091a"/>
+      <stop offset="100%" stop-color="#0a1020"/>
+    </linearGradient>
+    <linearGradient id="user-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(0,112,242,0.18)"/>
+      <stop offset="100%" stop-color="rgba(0,112,242,0.03)"/>
+    </linearGradient>
+    <linearGradient id="orch-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(93,54,255,0.22)"/>
+      <stop offset="100%" stop-color="rgba(93,54,255,0.04)"/>
+    </linearGradient>
+    <linearGradient id="agent-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(8,145,178,0.18)"/>
+      <stop offset="100%" stop-color="rgba(8,145,178,0.03)"/>
+    </linearGradient>
+    <linearGradient id="back-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(3,45,96,0.28)"/>
+      <stop offset="100%" stop-color="rgba(3,45,96,0.05)"/>
+    </linearGradient>
+    <marker id="arr4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7" fill="none" stroke="rgba(93,54,255,0.55)" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr4b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7" fill="none" stroke="rgba(100,200,250,0.45)" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr4g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7" fill="none" stroke="rgba(74,222,128,0.45)" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr4a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7" fill="none" stroke="rgba(251,191,36,0.45)" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="600" fill="url(#bg4b)"/>
+
+  <!-- ─── LAYER 1 — USER ─────────────────────── -->
+  <rect x="24" y="30" width="932" height="78" rx="10" fill="url(#user-l)" stroke="rgba(0,112,242,0.14)" stroke-width="1"/>
+  <text x="42" y="50" font-size="8" font-weight="800" fill="rgba(0,112,242,0.65)" letter-spacing="1.5">LAYER 1 — USER / ENGAGEMENT LAYER</text>
+  <!-- nodes -->
+  <rect x="42"  y="56" width="128" height="36" rx="7" fill="rgba(0,112,242,0.1)" stroke="rgba(0,112,242,0.22)" stroke-width="1"/>
+  <text x="106" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(147,197,253,0.9)">💬 Joule Chat</text>
+  <text x="106" y="84" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.45)">@mention AR Assistant</text>
+
+  <rect x="182" y="56" width="136" height="36" rx="7" fill="rgba(0,112,242,0.1)" stroke="rgba(0,112,242,0.22)" stroke-width="1"/>
+  <text x="250" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(147,197,253,0.9)">📋 Worklist View</text>
+  <text x="250" y="84" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.45)">AI-ranked · EL surface</text>
+
+  <rect x="330" y="56" width="136" height="36" rx="7" fill="rgba(0,112,242,0.1)" stroke="rgba(0,112,242,0.22)" stroke-width="1"/>
+  <text x="398" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(147,197,253,0.9)">✅ HITL Confirm</text>
+  <text x="398" y="84" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.45)">Human-in-the-loop</text>
+
+  <rect x="478" y="56" width="140" height="36" rx="7" fill="rgba(0,112,242,0.1)" stroke="rgba(0,112,242,0.22)" stroke-width="1"/>
+  <text x="548" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(147,197,253,0.9)">🔔 Proactive Alerts</text>
+  <text x="548" y="84" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.45)">Agent recommendations</text>
+
+  <rect x="630" y="56" width="130" height="36" rx="7" fill="rgba(0,112,242,0.1)" stroke="rgba(0,112,242,0.22)" stroke-width="1"/>
+  <text x="695" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(147,197,253,0.9)">⚙️ Jobs View</text>
+  <text x="695" y="84" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.45)">Background task status</text>
+
+  <!-- Down arrow L1→L2 -->
+  <line x1="490" y1="109" x2="490" y2="126" stroke="rgba(93,54,255,0.4)" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- ─── LAYER 2 — ORCHESTRATOR ────────────── -->
+  <rect x="24" y="128" width="932" height="52" rx="10" fill="url(#orch-l)" stroke="rgba(93,54,255,0.18)" stroke-width="1"/>
+  <text x="42" y="147" font-size="8" font-weight="800" fill="rgba(93,54,255,0.65)" letter-spacing="1.5">LAYER 2 — AR ASSISTANT ORCHESTRATOR (JOULE)</text>
+  <rect x="210" y="152" width="560" height="22" rx="6" fill="rgba(93,54,255,0.13)" stroke="rgba(93,54,255,0.22)" stroke-width="1"/>
+  <text x="490" y="167" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(167,139,250,0.9)">🎯 Role-based dispatcher · Context manager · Cross-assistant router · Permissions</text>
+
+  <!-- Fan of arrows L2→L3 -->
+  <line x1="240" y1="181" x2="110" y2="220" stroke="rgba(93,54,255,0.3)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr4)"/>
+  <line x1="310" y1="181" x2="250" y2="220" stroke="rgba(93,54,255,0.3)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr4)"/>
+  <line x1="420" y1="181" x2="400" y2="220" stroke="rgba(93,54,255,0.3)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr4)"/>
+  <line x1="540" y1="181" x2="580" y2="220" stroke="rgba(93,54,255,0.3)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr4)"/>
+  <line x1="680" y1="181" x2="790" y2="220" stroke="rgba(251,191,36,0.35)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr4a)"/>
+
+  <!-- ─── LAYER 3 — AGENTS ───────────────────── -->
+  <rect x="24" y="222" width="932" height="222" rx="10" fill="url(#agent-l)" stroke="rgba(8,145,178,0.1)" stroke-width="1"/>
+  <text x="42" y="242" font-size="8" font-weight="800" fill="rgba(8,145,178,0.55)" letter-spacing="1.5">LAYER 3 — SPECIALIZED AGENTS (BAF)</text>
+
+  <!-- Collections cluster -->
+  <rect x="36" y="248" width="162" height="180" rx="8" fill="rgba(0,112,242,0.06)" stroke="rgba(0,112,242,0.16)" stroke-width="1"/>
+  <text x="117" y="264" text-anchor="middle" font-size="7.5" font-weight="800" fill="rgba(147,197,253,0.6)" letter-spacing="1">COLLECTIONS</text>
+  <text x="50" y="280" font-size="7.5" fill="rgba(255,255,255,0.5)">📋 Worklist Agent</text>
+  <text x="66"  y="292" font-size="7" fill="rgba(255,255,255,0.28)">Scheduled · Top 5 priority list</text>
+  <text x="50" y="308" font-size="7.5" fill="rgba(255,255,255,0.5)">🔍 Collection 360 Agent</text>
+  <text x="66"  y="320" font-size="7" fill="rgba(255,255,255,0.28)">Contact · PTP · Resubmission</text>
+  <text x="50" y="336" font-size="7.5" fill="rgba(255,255,255,0.5)">🔔 Dunning Agent</text>
+  <text x="66"  y="348" font-size="7" fill="rgba(255,255,255,0.28)">History · Block/unblock · Run</text>
+  <text x="50" y="364" font-size="7.5" fill="rgba(255,255,255,0.5)">📊 Account Analysis Agent</text>
+  <text x="66"  y="376" font-size="7" fill="rgba(255,255,255,0.28)">Receivables · Credit · 360° view</text>
+  <text x="50" y="392" font-size="7.5" fill="rgba(255,255,255,0.5)">📈 Credit / Aging Agents</text>
+  <text x="66"  y="404" font-size="7" fill="rgba(255,255,255,0.28)">Credit score · Aging buckets</text>
+
+  <!-- Scope badge: In scope -->
+  <rect x="42" y="412" width="60" height="14" rx="4" fill="rgba(255,255,255,0.08)"/>
+  <text x="72" y="422" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.45)" font-weight="700">IN SCOPE</text>
+
+  <!-- Disputes cluster -->
+  <rect x="210" y="248" width="162" height="130" rx="8" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.16)" stroke-width="1"/>
+  <text x="291" y="264" text-anchor="middle" font-size="7.5" font-weight="800" fill="rgba(196,181,253,0.6)" letter-spacing="1">DISPUTES</text>
+  <text x="224" y="280" font-size="7.5" fill="rgba(255,255,255,0.5)">✍️ Dispute Creation Agent</text>
+  <text x="238" y="292" font-size="7" fill="rgba(255,255,255,0.28)">From email / natural language</text>
+  <text x="224" y="308" font-size="7.5" fill="rgba(255,255,255,0.5)">🔍 Dispute Resolution Agent</text>
+  <text x="238" y="320" font-size="7" fill="rgba(255,255,255,0.28)">Validates · Proposes resolution</text>
+  <text x="224" y="336" font-size="7.5" fill="rgba(255,255,255,0.5)">🧾 Billing Adjustment Agent</text>
+  <text x="238" y="348" font-size="7" fill="rgba(255,255,255,0.28)">Cancels/recreates invoices · HITL</text>
+  <text x="224" y="370" font-size="7" font-style="italic" fill="rgba(196,181,253,0.3)">Triggers Billing Assistant →</text>
+
+  <!-- AR Accounting cluster -->
+  <rect x="384" y="248" width="162" height="130" rx="8" fill="rgba(5,150,105,0.06)" stroke="rgba(5,150,105,0.16)" stroke-width="1"/>
+  <text x="465" y="264" text-anchor="middle" font-size="7.5" font-weight="800" fill="rgba(110,231,183,0.6)" letter-spacing="1">AR ACCOUNTING</text>
+  <text x="398" y="280" font-size="7.5" fill="rgba(255,255,255,0.5)">🔎 Account Analysis Agent</text>
+  <text x="412" y="292" font-size="7" fill="rgba(255,255,255,0.28)">360° view for AR Accountant</text>
+  <text x="398" y="308" font-size="7.5" fill="rgba(255,255,255,0.5)">🎯 AR Account Agent</text>
+  <text x="412" y="320" font-size="7" fill="rgba(255,255,255,0.28)">Top N priority accounts by policy</text>
+  <text x="398" y="336" font-size="7.5" fill="rgba(255,255,255,0.5)">⚡ Smart Clearing Agent</text>
+  <text x="412" y="348" font-size="7" fill="rgba(255,255,255,0.28)">Invoice-payment match · HITL · Rules</text>
+  <text x="398" y="364" font-size="7.5" fill="rgba(255,255,255,0.5)">🏧 Payment Match App</text>
+
+  <!-- Handoff arrows between clusters -->
+  <line x1="198" y1="340" x2="210" y2="340" stroke="rgba(100,200,250,0.3)" stroke-width="1" marker-end="url(#arr4b)"/>
+  <line x1="372" y1="330" x2="384" y2="330" stroke="rgba(100,200,250,0.3)" stroke-width="1" marker-end="url(#arr4b)"/>
+
+  <!-- Handoff labels -->
+  <text x="204" y="335" text-anchor="middle" font-size="6" fill="rgba(255,255,255,0.2)">customer ID</text>
+  <text x="378" y="325" text-anchor="middle" font-size="6" fill="rgba(255,255,255,0.2)">account ID</text>
+
+  <!-- HITL indicators -->
+  <rect x="558" y="248" width="162" height="96" rx="8" fill="rgba(93,54,255,0.06)" stroke="rgba(93,54,255,0.16)" stroke-width="1"/>
+  <text x="639" y="264" text-anchor="middle" font-size="7.5" font-weight="800" fill="rgba(167,139,250,0.6)" letter-spacing="1">HITL POINTS</text>
+  <text x="572" y="280" font-size="7.5" fill="rgba(255,255,255,0.5)">✋ Worklist reprioritisation</text>
+  <text x="572" y="295" font-size="7.5" fill="rgba(255,255,255,0.5)">✋ Dispute update approval</text>
+  <text x="572" y="310" font-size="7.5" fill="rgba(255,255,255,0.5)">✋ Smart Clearing confirm</text>
+  <text x="572" y="325" font-size="7.5" fill="rgba(255,255,255,0.5)">✋ Dunning block decision</text>
+  <text x="572" y="340" font-size="7.5" fill="rgba(255,255,255,0.5)">✋ Cross-assistant billing</text>
+
+  <!-- Cross-assistant dashed box -->
+  <rect x="728" y="248" width="214" height="86" rx="8" fill="rgba(251,191,36,0.04)" stroke="rgba(251,191,36,0.2)" stroke-width="1" stroke-dasharray="5 3"/>
+  <text x="835" y="266" text-anchor="middle" font-size="7.5" font-weight="800" fill="rgba(251,191,36,0.55)" letter-spacing="1">CROSS-ASSISTANT</text>
+  <text x="835" y="285" text-anchor="middle" font-size="11">🔗</text>
+  <text x="835" y="302" text-anchor="middle" font-size="8.5" fill="rgba(251,191,36,0.65)">Billing Assistant</text>
+  <text x="835" y="316" text-anchor="middle" font-size="7.5" fill="rgba(251,191,36,0.35)">External orchestrator</text>
+  <text x="835" y="328" text-anchor="middle" font-size="7" fill="rgba(251,191,36,0.25)">Dispute → billing adjustment</text>
+
+  <!-- Scope legend -->
+  <rect x="36"  y="424" width="10" height="10" rx="2" fill="rgba(255,255,255,0.85)"/>
+  <text x="50"  y="433" font-size="7" fill="rgba(255,255,255,0.4)">In scope</text>
+  <rect x="110" y="424" width="10" height="10" rx="2" fill="rgba(251,191,36,0.7)"/>
+  <text x="124" y="433" font-size="7" fill="rgba(255,255,255,0.4)">Future scope</text>
+  <rect x="200" y="424" width="10" height="10" rx="2" fill="rgba(248,113,113,0.5)"/>
+  <text x="214" y="433" font-size="7" fill="rgba(255,255,255,0.4)">Cancelled</text>
+
+  <!-- Down arrows L3→L4 -->
+  <line x1="117" y1="444" x2="117" y2="462" stroke="rgba(100,200,250,0.2)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr4b)"/>
+  <line x1="291" y1="380" x2="291" y2="462" stroke="rgba(100,200,250,0.2)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr4b)"/>
+  <line x1="465" y1="380" x2="465" y2="462" stroke="rgba(100,200,250,0.2)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr4b)"/>
+
+  <!-- ─── LAYER 4 — BACKEND ──────────────────── -->
+  <rect x="24" y="464" width="932" height="76" rx="10" fill="url(#back-l)" stroke="rgba(3,45,96,0.28)" stroke-width="1"/>
+  <text x="42" y="482" font-size="8" font-weight="800" fill="rgba(147,197,253,0.38)" letter-spacing="1.5">LAYER 4 — SAP BACKEND · S/4HANA + BTP</text>
+  <rect x="38"  y="490" width="110" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="93"  y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">💰 SAP FI-AR</text>
+  <rect x="158" y="490" width="116" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="216" y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">⚖️ Dispute Mgmt</text>
+  <rect x="284" y="490" width="116" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="342" y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">📬 Collections</text>
+  <rect x="410" y="490" width="116" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="468" y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">💳 Credit / FSCM</text>
+  <rect x="536" y="490" width="116" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="594" y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">🔄 BTP iFlow</text>
+  <rect x="662" y="490" width="114" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="719" y="508" text-anchor="middle" font-size="8" font-weight="600" fill="rgba(255,255,255,0.42)">🏧 RPT-1 App</text>
+
+  <!-- Legend -->
+  <line x1="36"  y1="556" x2="60"  y2="556" stroke="rgba(93,54,255,0.5)"  stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="64"   y="560" font-size="7.5" fill="rgba(255,255,255,0.22)">Orchestration</text>
+  <line x1="172" y1="556" x2="196" y2="556" stroke="rgba(251,191,36,0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="200"  y="560" font-size="7.5" fill="rgba(255,255,255,0.22)">Cross-assistant</text>
+  <line x1="324" y1="556" x2="348" y2="556" stroke="rgba(100,200,250,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="352"  y="560" font-size="7.5" fill="rgba(255,255,255,0.22)">Backend calls</text>
+  <line x1="452" y1="556" x2="476" y2="556" stroke="rgba(100,200,250,0.3)" stroke-width="1"/>
+  <text x="480"  y="560" font-size="7.5" fill="rgba(255,255,255,0.22)">Agent handoff</text>
+
+  <text x="490" y="584" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.1)" letter-spacing="2" font-weight="600">AGENT ORCHESTRATION ARCHITECTURE · SOURCE: FIGMA FRAME 1 NODE 63:78914</text>
+</svg>

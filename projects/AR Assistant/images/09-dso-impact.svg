@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg9" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="bar-dso" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0070f2"/>
+      <stop offset="100%" stop-color="#67e8f9"/>
+    </linearGradient>
+    <linearGradient id="bar-time" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5d36ff"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="bar-risk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="bar-sessions" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#6ee7b7"/>
+    </linearGradient>
+    <filter id="bar-glow">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(103,232,249,0.4)"/>
+    </filter>
+    <filter id="bar-glow2">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(167,139,250,0.4)"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="320" fill="url(#bg9)"/>
+
+  <text x="450" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(255,255,255,0.2)" letter-spacing="2">VALUE IMPACT — SAP CUSTOMER VALUE MANAGEMENT ANALYSIS</text>
+  <text x="450" y="44" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.2)">Baseline: Consumer Products company · €1bn revenue · 2,000 employees</text>
+
+  <!-- Grid lines -->
+  <line x1="240" y1="58" x2="240" y2="272" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="390" y1="58" x2="390" y2="272" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="540" y1="58" x2="540" y2="272" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="690" y1="58" x2="690" y2="272" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="840" y1="58" x2="840" y2="272" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+  <!-- Y-axis labels (% of max bar) -->
+  <text x="238" y="275" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.2)">0</text>
+  <text x="388" y="275" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.2)">25%</text>
+  <text x="538" y="275" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.2)">50%</text>
+  <text x="688" y="275" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.2)">75%</text>
+  <text x="838" y="275" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.2)">100%</text>
+
+  <!-- ── ROW 1: DSO Reduction ── max €83k = 100% = 600px -->
+  <text x="232" y="86" text-anchor="end" font-size="9" font-weight="600" fill="rgba(255,255,255,0.6)">DSO Reduction</text>
+  <text x="232" y="100" text-anchor="end" font-size="7.5" fill="rgba(255,255,255,0.3)">38.0 → 37.6 days</text>
+  <!-- Before bar (38 days) — 100% width = 600 -->
+  <rect x="240" y="72" width="600" height="14" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <!-- After bar  -->
+  <rect x="240" y="72" width="600" height="14" rx="3" fill="url(#bar-dso)" filter="url(#bar-glow)" opacity="0.9"/>
+  <text x="848" y="83" font-size="10" font-weight="800" fill="rgba(103,232,249,0.95)">€83k /yr</text>
+
+  <!-- ── ROW 2: Time Savings ── €31k = 37% of 83 ≈ 222px -->
+  <text x="232" y="124" text-anchor="end" font-size="9" font-weight="600" fill="rgba(255,255,255,0.6)">Time Savings</text>
+  <text x="232" y="138" text-anchor="end" font-size="7.5" fill="rgba(255,255,255,0.3)">20 min → 5 min</text>
+  <rect x="240" y="110" width="600" height="14" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="240" y="110" width="224" height="14" rx="3" fill="url(#bar-time)" filter="url(#bar-glow2)" opacity="0.9"/>
+  <text x="472" y="121" font-size="10" font-weight="800" fill="rgba(167,139,250,0.95)">  €31k /yr</text>
+
+  <!-- ── ROW 3: AR Risk ── €21k = 25% = 151px -->
+  <text x="232" y="162" text-anchor="end" font-size="9" font-weight="600" fill="rgba(255,255,255,0.6)">AR Risk Reduction</text>
+  <text x="232" y="176" text-anchor="end" font-size="7.5" fill="rgba(255,255,255,0.3)">1.0% → 0.98% risk</text>
+  <rect x="240" y="148" width="600" height="14" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="240" y="148" width="152" height="14" rx="3" fill="url(#bar-risk)" opacity="0.9"/>
+  <text x="400" y="159" font-size="10" font-weight="800" fill="rgba(34,211,238,0.9)">  €21k /yr</text>
+
+  <!-- ── ROW 4: Session time ── 15min saved = proportional bar visual -->
+  <text x="232" y="200" text-anchor="end" font-size="9" font-weight="600" fill="rgba(255,255,255,0.6)">Per-Session Saving</text>
+  <text x="232" y="214" text-anchor="end" font-size="7.5" fill="rgba(255,255,255,0.3)">Manual → AI-assisted</text>
+  <rect x="240" y="186" width="600" height="14" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <!-- "15 min saved" out of ~20 min total = 75% -->
+  <rect x="240" y="186" width="450" height="14" rx="3" fill="url(#bar-sessions)" opacity="0.85"/>
+  <text x="698" y="197" font-size="10" font-weight="800" fill="rgba(110,231,183,0.95)">  15 min</text>
+
+  <!-- Total line -->
+  <line x1="240" y1="248" x2="840" y2="248" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="232" y="262" text-anchor="end" font-size="9" font-weight="700" fill="rgba(255,255,255,0.4)">Total annual</text>
+  <!-- Total = 83+31+21 = 135k -->
+  <rect x="240" y="250" width="600" height="20" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="240" y="250" width="600" height="20" rx="4" fill="rgba(93,54,255,0.12)"/>
+  <text x="450" y="264" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(255,255,255,0.8)">€135,000+ combined annual benefit</text>
+
+  <text x="450" y="302" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.12)" font-weight="600" letter-spacing="2">SOURCE: SAP VALUE MANAGEMENT · €1BN REVENUE BASELINE</text>
+</svg>

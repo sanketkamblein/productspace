@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="el-header" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#032d60"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="joule-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <filter id="win-shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg3)"/>
+
+  <!-- Center divider with VS -->
+  <line x1="450" y1="40" x2="450" y2="450" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <circle cx="450" cy="245" r="22" fill="#0c1628" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="450" y="250" text-anchor="middle" font-size="12" font-weight="900" fill="rgba(255,255,255,0.3)">VS</text>
+
+  <!-- ═══ LEFT — Joule Chat ═══ -->
+  <g filter="url(#win-shadow)">
+    <rect x="36" y="48" width="390" height="380" rx="14" fill="#111827"/>
+  </g>
+  <!-- Window chrome -->
+  <rect x="36" y="48" width="390" height="38" rx="14" fill="#1f2937"/>
+  <rect x="36" y="72" width="390" height="14" fill="#1f2937"/>
+  <!-- Traffic lights -->
+  <circle cx="62" cy="67" r="6" fill="#ef4444" opacity="0.7"/>
+  <circle cx="82" cy="67" r="6" fill="#f59e0b" opacity="0.7"/>
+  <circle cx="102" cy="67" r="6" fill="#22c55e" opacity="0.7"/>
+  <text x="230" y="72" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.4)" font-weight="600">Joule · Chat</text>
+
+  <!-- Chat content -->
+  <!-- User message -->
+  <rect x="180" y="102" width="224" height="34" rx="10" fill="url(#joule-grad)" opacity="0.85"/>
+  <text x="292" y="115" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="500">Show me overdue accounts</text>
+  <text x="292" y="128" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.75)">for customer Apex Corp</text>
+
+  <!-- Joule reply bubble -->
+  <rect x="52" y="148" width="280" height="108" rx="10" fill="#1e293b" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="72" cy="148" r="12" fill="url(#joule-grad)"/>
+  <text x="72" y="153" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">J</text>
+  <text x="92" y="164" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.7)">Apex Corp has 3 overdue invoices:</text>
+  <text x="66" y="183" font-size="8" fill="rgba(255,255,255,0.5)">• INV-4421: €12,450 — 62 days overdue</text>
+  <text x="66" y="198" font-size="8" fill="rgba(255,255,255,0.5)">• INV-4389: €8,200 — 45 days overdue</text>
+  <text x="66" y="213" font-size="8" fill="rgba(255,255,255,0.5)">• INV-4201: €3,100 — 31 days overdue</text>
+  <text x="66" y="230" font-size="8" fill="rgba(255,255,255,0.35)">Total outstanding: €23,750</text>
+  <text x="66" y="248" font-size="8" fill="rgba(255,255,255,0.35)">Credit risk: High. Recommend immediate follow-up.</text>
+
+  <!-- Dead end marker -->
+  <rect x="52" y="272" width="280" height="50" rx="8" fill="rgba(239,68,68,0.07)" stroke="rgba(239,68,68,0.2)" stroke-width="1"/>
+  <text x="62" y="290" font-size="9" fill="rgba(239,68,68,0.8)" font-weight="700">⚠ Dead end</text>
+  <text x="62" y="307" font-size="8.5" fill="rgba(239,68,68,0.6)">No action button. No worklist. Must navigate</text>
+  <text x="62" y="320" font-size="8.5" fill="rgba(239,68,68,0.6)">to Fiori manually to do anything.</text>
+
+  <!-- Input bar -->
+  <rect x="52" y="340" width="360" height="36" rx="8" fill="#0f172a" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="72" y="363" font-size="9" fill="rgba(255,255,255,0.2)">Message Joule…</text>
+
+  <!-- Left label -->
+  <rect x="52" y="398" width="160" height="22" rx="11" fill="rgba(239,68,68,0.1)" stroke="rgba(239,68,68,0.2)" stroke-width="1"/>
+  <text x="132" y="413" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(239,68,68,0.8)">Text only · No actions</text>
+
+  <!-- ═══ RIGHT — Engagement Layer ═══ -->
+  <g filter="url(#win-shadow)">
+    <rect x="474" y="48" width="390" height="380" rx="14" fill="#0f172a"/>
+  </g>
+  <!-- Window chrome — EL style -->
+  <rect x="474" y="48" width="390" height="38" rx="14" fill="url(#el-header)"/>
+  <rect x="474" y="72" width="390" height="14" fill="url(#el-header)"/>
+  <!-- Traffic lights -->
+  <circle cx="500" cy="67" r="6" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="520" cy="67" r="6" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="540" cy="67" r="6" fill="rgba(255,255,255,0.2)"/>
+  <text x="669" y="72" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.8)" font-weight="600">Engagement Layer — AR Space</text>
+
+  <!-- EL Header -->
+  <text x="490" y="106" font-size="8" font-weight="800" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">TODAY'S WORKLIST  ·  AI RANKED</text>
+
+  <!-- Account row 1 — active -->
+  <rect x="490" y="114" width="356" height="56" rx="8" fill="rgba(93,54,255,0.15)" stroke="rgba(93,54,255,0.35)" stroke-width="1.5"/>
+  <!-- rank badge -->
+  <rect x="498" y="122" width="22" height="22" rx="6" fill="#5d36ff"/>
+  <text x="509" y="137" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">1</text>
+  <text x="532" y="132" font-size="10" font-weight="700" fill="#f1f5f9">Apex Corp</text>
+  <text x="532" y="148" font-size="8.5" fill="rgba(255,255,255,0.5)">€23,750 overdue · Credit: High · 62 days</text>
+  <!-- Action button -->
+  <rect x="762" y="122" width="76" height="28" rx="6" fill="#5d36ff"/>
+  <text x="800" y="140" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">View 360° →</text>
+
+  <!-- Account row 2 -->
+  <rect x="490" y="176" width="356" height="46" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="498" y="184" width="22" height="22" rx="6" fill="rgba(255,255,255,0.08)"/>
+  <text x="509" y="199" text-anchor="middle" font-size="10" font-weight="900" fill="rgba(255,255,255,0.4)">2</text>
+  <text x="532" y="195" font-size="9.5" font-weight="700" fill="rgba(255,255,255,0.7)">Bremer GmbH</text>
+  <text x="532" y="211" font-size="8" fill="rgba(255,255,255,0.35)">€15,200 · Broken promise · 45 days</text>
+
+  <!-- Account row 3 -->
+  <rect x="490" y="228" width="356" height="46" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="498" y="236" width="22" height="22" rx="6" fill="rgba(255,255,255,0.08)"/>
+  <text x="509" y="251" text-anchor="middle" font-size="10" font-weight="900" fill="rgba(255,255,255,0.4)">3</text>
+  <text x="532" y="247" font-size="9.5" font-weight="700" fill="rgba(255,255,255,0.7)">Keller AG</text>
+  <text x="532" y="263" font-size="8" fill="rgba(255,255,255,0.35)">€9,800 · Credit block risk · 38 days</text>
+
+  <!-- Quick action chips -->
+  <text x="490" y="295" font-size="8" font-weight="700" fill="rgba(255,255,255,0.25)" letter-spacing="1">QUICK ACTIONS FOR APEX CORP</text>
+  <rect x="490" y="302" width="110" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <text x="545" y="320" text-anchor="middle" font-size="9" font-weight="700" fill="#4ade80">✓ Log Promise to Pay</text>
+  <rect x="608" y="302" width="108" height="28" rx="6" fill="rgba(251,191,36,0.1)" stroke="rgba(251,191,36,0.25)" stroke-width="1"/>
+  <text x="662" y="320" text-anchor="middle" font-size="9" font-weight="700" fill="#fbbf24">⊘ Set Dunning Block</text>
+  <rect x="724" y="302" width="114" height="28" rx="6" fill="rgba(59,130,246,0.1)" stroke="rgba(59,130,246,0.25)" stroke-width="1"/>
+  <text x="781" y="320" text-anchor="middle" font-size="9" font-weight="700" fill="#60a5fa">📞 Log Call Notes</text>
+
+  <!-- Joule mini chat at bottom -->
+  <rect x="490" y="340" width="356" height="36" rx="8" fill="#0f172a" stroke="rgba(93,54,255,0.2)" stroke-width="1"/>
+  <text x="510" y="363" font-size="9" fill="rgba(255,255,255,0.2)">Ask about Apex Corp…</text>
+  <rect x="820" y="346" width="18" height="24" rx="4" fill="rgba(93,54,255,0.5)"/>
+
+  <!-- Right label -->
+  <rect x="490" y="398" width="200" height="22" rx="11" fill="rgba(34,197,94,0.08)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+  <text x="590" y="413" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(74,222,128,0.9)">Structured · Actions inline · No switch</text>
+
+  <!-- Bottom title -->
+  <text x="450" y="462" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.18)" font-weight="600" letter-spacing="2">THE PIVOT — CHAT TEXT vs. ENGAGEMENT LAYER</text>
+</svg>

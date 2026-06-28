@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg8" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06091a"/>
+      <stop offset="100%" stop-color="#0a1020"/>
+    </linearGradient>
+    <linearGradient id="hitl-center" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2e0761"/>
+      <stop offset="100%" stop-color="#5d36ff"/>
+    </linearGradient>
+    <radialGradient id="node-glow-a" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(93,54,255,0.35)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="node-glow-g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(34,197,94,0.3)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="node-glow-b" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(59,130,246,0.3)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <marker id="arr-hitl" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,1 L5,3.5 L0,6" fill="none" stroke="rgba(93,54,255,0.5)" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr-green" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,1 L5,3.5 L0,6" fill="none" stroke="rgba(34,197,94,0.5)" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,1 L5,3.5 L0,6" fill="none" stroke="rgba(251,191,36,0.5)" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="380" fill="url(#bg8)"/>
+
+  <text x="450" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(255,255,255,0.2)" letter-spacing="2">HUMAN-IN-THE-LOOP — THE TRUST MODEL</text>
+
+  <!-- ── ROW 1: Agent runs autonomously ── -->
+  <!-- Node: Trigger -->
+  <ellipse cx="120" cy="120" rx="66" ry="30" fill="url(#node-glow-b)"/>
+  <rect x="62" y="100" width="116" height="44" rx="10" fill="rgba(59,130,246,0.1)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+  <text x="120" y="120" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(147,197,253,0.9)">⚡ Trigger</text>
+  <text x="120" y="136" text-anchor="middle" font-size="8" fill="rgba(147,197,253,0.5)">User request / job</text>
+
+  <!-- Arrow 1 -->
+  <line x1="178" y1="122" x2="238" y2="122" stroke="rgba(93,54,255,0.4)" stroke-width="1.5" marker-end="url(#arr-hitl)"/>
+  <text x="208" y="116" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.2)">dispatches</text>
+
+  <!-- Node: Agent -->
+  <ellipse cx="310" cy="120" rx="66" ry="30" fill="url(#node-glow-a)"/>
+  <rect x="244" y="100" width="132" height="44" rx="10" fill="rgba(93,54,255,0.12)" stroke="rgba(93,54,255,0.35)" stroke-width="1.5"/>
+  <text x="310" y="120" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(167,139,250,0.9)">🤖 Agent Runs</text>
+  <text x="310" y="136" text-anchor="middle" font-size="8" fill="rgba(167,139,250,0.5)">Autonomously · Background</text>
+
+  <!-- Arrow 2 -->
+  <line x1="376" y1="122" x2="436" y2="122" stroke="rgba(93,54,255,0.4)" stroke-width="1.5" marker-end="url(#arr-hitl)"/>
+  <text x="406" y="116" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.2)">proposes</text>
+
+  <!-- Node: HITL Review — highlighted center -->
+  <ellipse cx="530" cy="120" rx="70" ry="34" fill="url(#node-glow-a)"/>
+  <rect x="464" y="96" width="132" height="52" rx="10" fill="url(#hitl-center)" opacity="0.9"/>
+  <text x="530" y="117" text-anchor="middle" font-size="11" font-weight="900" fill="#fff">✋ HITL</text>
+  <text x="530" y="133" text-anchor="middle" font-size="8.5" font-weight="700" fill="rgba(255,255,255,0.75)">Human Review</text>
+
+  <!-- Fork arrows from HITL -->
+  <!-- Approve path — curves up right -->
+  <path d="M596,108 Q680,72 750,80" stroke="rgba(34,197,94,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+  <text x="672" y="70" text-anchor="middle" font-size="8" fill="rgba(74,222,128,0.7)" font-weight="700">✓ Approve</text>
+
+  <!-- Reject/edit path — curves down right -->
+  <path d="M596,132 Q680,168 750,160" stroke="rgba(251,191,36,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5 3" marker-end="url(#arr-amber)"/>
+  <text x="672" y="182" text-anchor="middle" font-size="8" fill="rgba(251,191,36,0.7)" font-weight="700">✎ Edit / Reject</text>
+
+  <!-- Node: Executed -->
+  <rect x="754" y="60" width="114" height="44" rx="10" fill="rgba(34,197,94,0.1)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <text x="811" y="79" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(74,222,128,0.9)">✅ Executed</text>
+  <text x="811" y="95" text-anchor="middle" font-size="8" fill="rgba(74,222,128,0.5)">Action posted to S/4</text>
+
+  <!-- Node: Returns to agent -->
+  <rect x="754" y="140" width="114" height="44" rx="10" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.25)" stroke-width="1"/>
+  <text x="811" y="159" text-anchor="middle" font-size="9.5" font-weight="700" fill="rgba(251,191,36,0.8)">↩ Re-queued</text>
+  <text x="811" y="175" text-anchor="middle" font-size="8" fill="rgba(251,191,36,0.4)">Agent revises</text>
+
+  <!-- ── Divider ── -->
+  <line x1="44" y1="212" x2="856" y2="212" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="450" y="228" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,0.15)" letter-spacing="1.5">THE THREE AGENT PATTERNS IN AR ASSISTANT</text>
+
+  <!-- ── Pattern 1: Background autonomous ── -->
+  <rect x="44" y="238" width="254" height="110" rx="10" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.18)" stroke-width="1"/>
+  <text x="171" y="259" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(147,197,253,0.6)" letter-spacing="1">BACKGROUND JOB</text>
+  <text x="171" y="278" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">Worklist Prioritisation</text>
+  <text x="171" y="294" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Runs overnight · AI ranks all accounts</text>
+  <text x="171" y="310" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Specialist reviews at morning login</text>
+  <rect x="96" y="322" width="148" height="18" rx="5" fill="rgba(59,130,246,0.12)"/>
+  <text x="170" y="334" text-anchor="middle" font-size="7.5" fill="rgba(147,197,253,0.8)" font-weight="700">No direct approval — display only</text>
+
+  <!-- ── Pattern 2: Propose + confirm ── -->
+  <rect x="322" y="238" width="256" height="110" rx="10" fill="rgba(93,54,255,0.06)" stroke="rgba(93,54,255,0.2)" stroke-width="1.5"/>
+  <text x="450" y="259" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(167,139,250,0.6)" letter-spacing="1">PROPOSE + CONFIRM</text>
+  <text x="450" y="278" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">Smart Clearing · Dispute Resolution</text>
+  <text x="450" y="294" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Agent proposes match or resolution</text>
+  <text x="450" y="310" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Human approves before any posting</text>
+  <rect x="366" y="322" width="168" height="18" rx="5" fill="rgba(93,54,255,0.12)"/>
+  <text x="450" y="334" text-anchor="middle" font-size="7.5" fill="rgba(196,181,253,0.8)" font-weight="700">Core HITL pattern · Highest trust lever</text>
+
+  <!-- ── Pattern 3: Cross-assistant ── -->
+  <rect x="602" y="238" width="254" height="110" rx="10" fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.18)" stroke-width="1" stroke-dasharray="5 3"/>
+  <text x="729" y="259" text-anchor="middle" font-size="8" font-weight="800" fill="rgba(251,191,36,0.55)" letter-spacing="1">CROSS-ASSISTANT</text>
+  <text x="729" y="278" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">AR → Billing Assistant</text>
+  <text x="729" y="294" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Dispute triggers billing adjustment</text>
+  <text x="729" y="310" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)">Context + approval passed between systems</text>
+  <rect x="638" y="322" width="180" height="18" rx="5" fill="rgba(251,191,36,0.08)"/>
+  <text x="728" y="334" text-anchor="middle" font-size="7.5" fill="rgba(251,191,36,0.7)" font-weight="700">Hardest integration · Must be explicit to user</text>
+
+  <text x="450" y="366" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.12)" font-weight="600" letter-spacing="2">HUMAN OVERSIGHT PRESERVED AT EVERY CONSEQUENTIAL ACTION</text>
+</svg>

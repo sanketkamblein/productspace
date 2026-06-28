@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <radialGradient id="bg-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0d1f3a"/>
+      <stop offset="100%" stop-color="#060c18"/>
+    </radialGradient>
+    <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(93,54,255,0.25)"/>
+      <stop offset="100%" stop-color="rgba(93,54,255,0)"/>
+    </radialGradient>
+    <filter id="glow-blue">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-red">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow-red" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="rgba(248,113,113,0.6)"/>
+    </marker>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="900" height="500" fill="url(#bg-glow)"/>
+
+  <!-- Subtle grid -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  </pattern>
+  <rect width="900" height="500" fill="url(#grid)"/>
+
+  <!-- Central glow behind person -->
+  <circle cx="450" cy="250" r="150" fill="url(#center-glow)" opacity="0.8"/>
+
+  <!-- Orbit rings -->
+  <circle cx="450" cy="250" r="155" fill="none" stroke="rgba(93,54,255,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
+  <circle cx="450" cy="250" r="210" fill="none" stroke="rgba(93,54,255,0.07)" stroke-width="1" stroke-dasharray="2 8"/>
+
+  <!-- ── CENTRE PERSONA ── -->
+  <circle cx="450" cy="250" r="60" fill="#0d1f3a" stroke="rgba(93,54,255,0.5)" stroke-width="1.5"/>
+  <circle cx="450" cy="250" r="56" fill="none" stroke="rgba(93,54,255,0.15)" stroke-width="8"/>
+  <!-- Person icon -->
+  <circle cx="450" cy="232" r="14" fill="#5d36ff" opacity="0.9"/>
+  <path d="M420,278 Q420,258 450,258 Q480,258 480,278" fill="#5d36ff" opacity="0.6"/>
+  <text x="450" y="304" text-anchor="middle" font-size="9" font-weight="800" fill="rgba(255,255,255,0.9)" letter-spacing="1.5">SPECIALIST</text>
+  <text x="450" y="318" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.4)" letter-spacing="1">20+ MIN / ACCOUNT</text>
+
+  <!-- ── SYSTEM NODES ── -->
+  <!-- SAP FI — top left -->
+  <g transform="translate(105,82)">
+    <rect width="130" height="72" rx="10" fill="#0a1628" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+    <rect width="130" height="4" rx="2" fill="rgba(248,113,113,0.5)" y="0"/>
+    <text x="65" y="26" text-anchor="middle" font-size="20">💰</text>
+    <text x="65" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#f1f5f9">SAP FI / AR</text>
+    <text x="65" y="58" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.4)">Open items · Invoices</text>
+  </g>
+
+  <!-- Collections — top right -->
+  <g transform="translate(665,82)">
+    <rect width="130" height="72" rx="10" fill="#0a1628" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+    <rect width="130" height="4" rx="2" fill="rgba(248,113,113,0.5)" y="0"/>
+    <text x="65" y="26" text-anchor="middle" font-size="20">📋</text>
+    <text x="65" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#f1f5f9">Collections Mgmt</text>
+    <text x="65" y="58" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.4)">Dunning · Promises</text>
+  </g>
+
+  <!-- Credit — mid left -->
+  <g transform="translate(60,213)">
+    <rect width="130" height="72" rx="10" fill="#0a1628" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+    <rect width="130" height="4" rx="2" fill="rgba(248,113,113,0.5)" y="0"/>
+    <text x="65" y="26" text-anchor="middle" font-size="20">📈</text>
+    <text x="65" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#f1f5f9">Credit Mgmt</text>
+    <text x="65" y="58" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.4)">Risk · Limits · Scores</text>
+  </g>
+
+  <!-- Dispute — mid right -->
+  <g transform="translate(710,213)">
+    <rect width="130" height="72" rx="10" fill="#0a1628" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+    <rect width="130" height="4" rx="2" fill="rgba(248,113,113,0.5)" y="0"/>
+    <text x="65" y="26" text-anchor="middle" font-size="20">⚖️</text>
+    <text x="65" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#f1f5f9">Dispute Mgmt</text>
+    <text x="65" y="58" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.4)">Cases · Resolutions</text>
+  </g>
+
+  <!-- Email — bottom centre -->
+  <g transform="translate(320,390)">
+    <rect width="130" height="72" rx="10" fill="#0a1628" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+    <rect width="130" height="4" rx="2" fill="rgba(248,113,113,0.5)" y="0"/>
+    <text x="65" y="26" text-anchor="middle" font-size="20">📧</text>
+    <text x="65" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#f1f5f9">Email / Outlook</text>
+    <text x="65" y="58" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.4)">Customer threads</text>
+  </g>
+
+  <!-- ── CONNECTION LINES (dashed red) ── -->
+  <!-- to SAP FI -->
+  <line x1="410" y1="210" x2="235" y2="154" stroke="rgba(248,113,113,0.45)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow-red)"/>
+  <!-- to Collections -->
+  <line x1="490" y1="210" x2="665" y2="154" stroke="rgba(248,113,113,0.45)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow-red)"/>
+  <!-- to Credit -->
+  <line x1="395" y1="245" x2="190" y2="249" stroke="rgba(248,113,113,0.45)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow-red)"/>
+  <!-- to Dispute -->
+  <line x1="505" y1="245" x2="710" y2="249" stroke="rgba(248,113,113,0.45)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow-red)"/>
+  <!-- to Email -->
+  <line x1="445" y1="308" x2="415" y2="390" stroke="rgba(248,113,113,0.45)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow-red)"/>
+
+  <!-- Context-switch labels on lines -->
+  <text x="292" y="165" font-size="8" fill="rgba(248,113,113,0.7)" font-weight="600" transform="rotate(-25,292,165)">context switch</text>
+  <text x="582" y="165" font-size="8" fill="rgba(248,113,113,0.7)" font-weight="600" transform="rotate(25,582,165)">context switch</text>
+  <text x="255" y="238" font-size="8" fill="rgba(248,113,113,0.7)" font-weight="600">context switch</text>
+  <text x="560" y="238" font-size="8" fill="rgba(248,113,113,0.7)" font-weight="600">context switch</text>
+
+  <!-- Time cost pill -->
+  <rect x="320" y="456" width="260" height="30" rx="15" fill="rgba(248,113,113,0.1)" stroke="rgba(248,113,113,0.3)" stroke-width="1"/>
+  <text x="450" y="476" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(248,113,113,0.9)">20–30 minutes · every single account · every day</text>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="11" font-weight="800" fill="rgba(255,255,255,0.25)" letter-spacing="2">THE FRAGMENTED REALITY — BEFORE AR ASSISTANT</text>
+</svg>
