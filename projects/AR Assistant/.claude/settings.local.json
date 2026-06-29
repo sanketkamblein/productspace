@@ -42,7 +42,8 @@
       "Bash(cp '/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/AR Assistant/images/AR_Flow_CollectionSpecialist_360_EL.gif' '/Users/i568228/Documents/SAP Resume/Portfolio/External_portfolio/projects/AR Assistant/images/')",
       "Bash(cp '/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/AR Assistant/images/AR_Flow_ARAccountant_EL.gif' '/Users/i568228/Documents/SAP Resume/Portfolio/External_portfolio/projects/AR Assistant/images/')",
       "Bash(cp -r '/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/Industrial Systems/images/' '/Users/i568228/Documents/SAP Resume/Portfolio/External_portfolio/projects/Industrial Systems/images/')",
-      "Bash(cp '/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/Industrial Systems/Task flows.pdf' '/Users/i568228/Documents/SAP Resume/Portfolio/External_portfolio/projects/Industrial Systems/')"
+      "Bash(cp '/Users/i568228/Documents/SAP Resume/Portfolio/Claude_product_space/projects/Industrial Systems/Task flows.pdf' '/Users/i568228/Documents/SAP Resume/Portfolio/External_portfolio/projects/Industrial Systems/')",
+      "WebFetch(domain:sanketkamblein.github.io)"
     ]
   }
 }

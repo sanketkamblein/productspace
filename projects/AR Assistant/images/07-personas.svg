@@ -1,240 +1,214 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 720" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 780" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
 
-  <rect width="980" height="720" fill="#0a0a0a"/>
+  <rect width="980" height="780" fill="#0a0a0a"/>
 
-  <!-- ══ SECTION LABEL (01/05 style) ══ -->
-  <text x="38" y="40" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.5)" letter-spacing="4" font-style="italic">the</text>
-  <text x="66" y="40" font-family="Georgia, serif" font-size="22" fill="#fff" font-weight="700" letter-spacing="1">personas</text>
-  <line x1="38" y1="48" x2="340" y2="48" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-
-  <!-- Subtitle -->
-  <text x="38" y="66" font-family="-apple-system, sans-serif" font-size="9.5" fill="rgba(255,255,255,0.35)" letter-spacing="1">ACCOUNTS RECEIVABLE TEAM — TWO ROLES, ONE SYSTEM</text>
+  <!-- ══ SECTION LABEL ══ -->
+  <text x="38" y="44" font-family="Georgia, serif" font-size="13" fill="rgba(255,255,255,0.5)" letter-spacing="4" font-style="italic">the</text>
+  <text x="68" y="44" font-family="Georgia, serif" font-size="26" fill="#fff" font-weight="700" letter-spacing="1">personas</text>
+  <line x1="38" y1="54" x2="380" y2="54" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+  <text x="38" y="72" font-family="-apple-system, sans-serif" font-size="11" fill="rgba(255,255,255,0.35)" letter-spacing="1">ACCOUNTS RECEIVABLE TEAM — TWO ROLES, ONE SYSTEM</text>
 
   <!-- ══════════════════════════════════════════════
        LEFT — AR ACCOUNTANT
   ════════════════════════════════════════════════ -->
 
-  <!-- Card outline — no fill gradient, just stroke -->
-  <rect x="28" y="82" width="452" height="614" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <rect x="28" y="86" width="452" height="670" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
 
-  <!-- ── AR Accountant illustration (01/05 style — white line art) ── -->
   <!-- Large faint persona number -->
-  <text x="38" y="150" font-family="Georgia, serif" font-size="90" fill="rgba(255,255,255,0.04)" font-weight="700">01</text>
+  <text x="38" y="165" font-family="Georgia, serif" font-size="100" fill="rgba(255,255,255,0.04)" font-weight="700">01</text>
 
-  <!-- Person at desk with monitor / bar chart — echoing 05 analyst figure -->
-  <!-- Monitor -->
-  <rect x="108" y="94" width="60" height="42" rx="3" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
-  <rect x="116" y="101" width="44" height="28" rx="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Bar chart on screen -->
-  <rect x="120" y="118" width="6" height="10" fill="rgba(255,255,255,0.7)"/>
-  <rect x="128" y="114" width="6" height="14" fill="rgba(255,255,255,0.8)"/>
-  <rect x="136" y="110" width="6" height="18" fill="#fff"/>
-  <rect x="144" y="115" width="6" height="13" fill="rgba(255,255,255,0.7)"/>
-  <!-- Stand -->
-  <rect x="135" y="136" width="6" height="5" fill="rgba(255,255,255,0.6)"/>
-  <rect x="126" y="140" width="24" height="3" rx="1" fill="rgba(255,255,255,0.5)"/>
-  <!-- Desk -->
-  <rect x="72" y="143" width="140" height="5" rx="2" fill="rgba(255,255,255,0.35)"/>
-  <!-- Person body -->
-  <ellipse cx="88" cy="124" rx="13" ry="15" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2"/>
-  <!-- Head -->
-  <circle cx="88" cy="100" r="12" fill="none" stroke="#fff" stroke-width="2"/>
-  <!-- Glasses -->
-  <rect x="82" y="97" width="7" height="5" rx="2" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
-  <rect x="91" y="97" width="7" height="5" rx="2" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
-  <line x1="89" y1="99.5" x2="91" y2="99.5" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
-  <!-- Smile -->
-  <path d="M84,107 Q88,111 92,107" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Arms -->
-  <line x1="80" y1="127" x2="68" y2="140" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round"/>
-  <line x1="96" y1="127" x2="106" y2="136" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Person at desk illustration -->
+  <rect x="108" y="96" width="62" height="44" rx="3" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+  <rect x="116" y="103" width="46" height="30" rx="1" fill="rgba(255,255,255,0.05)"/>
+  <rect x="120" y="120" width="7" height="11" fill="rgba(255,255,255,0.7)"/>
+  <rect x="129" y="116" width="7" height="15" fill="rgba(255,255,255,0.8)"/>
+  <rect x="138" y="112" width="7" height="19" fill="#fff"/>
+  <rect x="147" y="117" width="7" height="14" fill="rgba(255,255,255,0.7)"/>
+  <rect x="136" y="140" width="6" height="5" fill="rgba(255,255,255,0.6)"/>
+  <rect x="127" y="145" width="24" height="3" rx="1" fill="rgba(255,255,255,0.5)"/>
+  <rect x="72" y="148" width="140" height="5" rx="2" fill="rgba(255,255,255,0.35)"/>
+  <ellipse cx="88" cy="128" rx="13" ry="15" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2"/>
+  <circle cx="88" cy="104" r="12" fill="none" stroke="#fff" stroke-width="2"/>
+  <rect x="82" y="101" width="7" height="5" rx="2" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+  <rect x="91" y="101" width="7" height="5" rx="2" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+  <line x1="89" y1="103.5" x2="91" y2="103.5" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+  <path d="M84,111 Q88,115 92,111" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="131" x2="68" y2="144" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="96" y1="131" x2="106" y2="140" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round"/>
 
   <!-- Role label -->
-  <text x="230" y="96" font-family="Georgia, serif" font-size="10" fill="rgba(255,255,255,0.45)" letter-spacing="3" font-style="italic">ar</text>
-  <text x="249" y="96" font-family="Georgia, serif" font-size="20" fill="#fff" font-weight="700">Accountant</text>
-  <text x="230" y="114" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.4)" letter-spacing="1">PORTFOLIO · RISK · STRATEGY</text>
-  <line x1="230" y1="122" x2="460" y2="122" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="232" y="102" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.45)" letter-spacing="3" font-style="italic">ar</text>
+  <text x="254" y="102" font-family="Georgia, serif" font-size="22" fill="#fff" font-weight="700">Accountant</text>
+  <text x="232" y="120" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1">PORTFOLIO · RISK · STRATEGY</text>
+  <line x1="232" y1="128" x2="462" y2="128" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
 
   <!-- PRIMARY GOAL -->
-  <text x="44" y="176" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">PRIMARY GOAL</text>
-  <line x1="44" y1="181" x2="460" y2="181" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="44" y="198" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Analyze and process high-priority customer accounts</text>
-  <text x="44" y="213" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">to create actionable prioritized lists for collection efforts</text>
+  <text x="44" y="182" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">PRIMARY GOAL</text>
+  <line x1="44" y1="188" x2="462" y2="188" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="44" y="207" font-family="-apple-system, sans-serif" font-size="11.5" fill="rgba(255,255,255,0.75)">Analyze and process high-priority customer accounts</text>
+  <text x="44" y="223" font-family="-apple-system, sans-serif" font-size="11.5" fill="rgba(255,255,255,0.75)">to create actionable prioritized lists for collection efforts</text>
 
   <!-- KEY RESPONSIBILITIES -->
-  <text x="44" y="240" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">KEY RESPONSIBILITIES</text>
-  <line x1="44" y1="245" x2="460" y2="245" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="44" y="252" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">KEY RESPONSIBILITIES</text>
+  <line x1="44" y1="258" x2="462" y2="258" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-  <rect x="44"  y="252" width="198" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="54"  y="269" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">📋 Evaluate receivable amounts</text>
-  <rect x="250" y="252" width="210" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="260" y="269" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">⚖️ Review &amp; categorize disputes</text>
+  <rect x="44"  y="266" width="198" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="54"  y="286" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">📋 Evaluate receivable amounts</text>
+  <rect x="252" y="266" width="208" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="262" y="286" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">⚖️ Review &amp; categorize disputes</text>
 
-  <rect x="44"  y="284" width="198" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="54"  y="301" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">💳 Check credit information</text>
-  <rect x="250" y="284" width="210" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="260" y="301" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">📅 Analyze due amounts by period</text>
+  <rect x="44"  y="302" width="198" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="54"  y="322" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">💳 Check credit information</text>
+  <rect x="252" y="302" width="208" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="262" y="322" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">📅 Analyze due amounts by period</text>
 
-  <rect x="44"  y="316" width="198" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="54"  y="333" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">🏆 Create prioritized account lists</text>
-  <rect x="250" y="316" width="210" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="260" y="333" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">📈 Generate account status reports</text>
+  <rect x="44"  y="338" width="198" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="54"  y="358" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">🏆 Create prioritized account lists</text>
+  <rect x="252" y="338" width="208" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="262" y="358" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">📈 Generate account status reports</text>
 
-  <!-- TYPICAL WORKFLOW — vertical flow (01/05 style) -->
-  <text x="44" y="364" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">TYPICAL WORKFLOW</text>
-  <line x1="44" y1="369" x2="460" y2="369" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <!-- TYPICAL WORKFLOW -->
+  <text x="44" y="390" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">TYPICAL WORKFLOW</text>
+  <line x1="44" y1="396" x2="462" y2="396" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-  <!-- vertical flow line -->
-  <line x1="64" y1="382" x2="64" y2="516" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <line x1="64" y1="410" x2="64" y2="548" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
 
-  <circle cx="64" cy="388" r="6" fill="#fff"/>
-  <text x="84" y="385" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Data Analysis</text>
-  <text x="84" y="400" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Review receivables data and aging reports</text>
+  <circle cx="64" cy="416" r="7" fill="#fff"/>
+  <text x="86" y="413" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Data Analysis</text>
+  <text x="86" y="430" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Review receivables data and aging reports</text>
 
-  <circle cx="64" cy="432" r="6" fill="#fff"/>
-  <text x="84" y="429" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Account Evaluation</text>
-  <text x="84" y="444" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Assess credit risk and dispute status</text>
+  <circle cx="64" cy="464" r="7" fill="#fff"/>
+  <text x="86" y="461" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Account Evaluation</text>
+  <text x="86" y="476" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Assess credit risk and dispute status</text>
 
-  <circle cx="64" cy="476" r="6" fill="#fff"/>
-  <text x="84" y="473" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Actions in Accounts</text>
-  <text x="84" y="488" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Manage disputes, dunning and operations</text>
+  <circle cx="64" cy="512" r="7" fill="#fff"/>
+  <text x="86" y="509" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Actions in Accounts</text>
+  <text x="86" y="524" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Manage disputes, dunning and operations</text>
 
-  <!-- Outcome -->
-  <line x1="64" y1="516" x2="44" y2="536" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-  <line x1="64" y1="516" x2="84" y2="536" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-  <circle cx="44" cy="542" r="5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-  <circle cx="84" cy="542" r="5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-  <text x="44" y="558" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.55)">Escalate</text>
-  <text x="84" y="558" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.55)">Close</text>
+  <!-- Outcome fork -->
+  <line x1="64" y1="548" x2="44" y2="570" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <line x1="64" y1="548" x2="84" y2="570" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <circle cx="44" cy="576" r="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+  <circle cx="84" cy="576" r="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+  <text x="44" y="594" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Escalate</text>
+  <text x="84" y="594" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Close</text>
 
   <!-- PAIN POINTS -->
-  <text x="44" y="586" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">CURRENT PAIN POINTS</text>
-  <line x1="44" y1="591" x2="460" y2="591" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="44" y="607" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">⚠  Manual prioritization across multiple parameters</text>
-  <text x="44" y="621" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">⚠  Scattered customer data across systems</text>
-  <text x="44" y="635" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">⚠  Time-consuming dispute tracking</text>
+  <text x="44" y="622" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">CURRENT PAIN POINTS</text>
+  <line x1="44" y1="628" x2="462" y2="628" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="44" y="646" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">⚠  Manual prioritization across multiple parameters</text>
+  <text x="44" y="662" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">⚠  Scattered customer data across systems</text>
+  <text x="44" y="678" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">⚠  Time-consuming dispute tracking</text>
 
   <!-- AI REQUIREMENTS -->
-  <text x="44" y="659" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">AI APPLICATION REQUIREMENTS</text>
-  <line x1="44" y1="664" x2="460" y2="664" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="44" y="679" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Automated customer prioritization</text>
-  <text x="44" y="693" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Consolidated view: receivables, disputes, credit data</text>
+  <text x="44" y="706" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">AI APPLICATION REQUIREMENTS</text>
+  <line x1="44" y1="712" x2="462" y2="712" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="44" y="730" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Automated customer prioritization</text>
+  <text x="44" y="748" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Consolidated view: receivables, disputes, credit data</text>
 
-  <!-- ══════════════════════════════════════════════
-       VERTICAL DIVIDER
-  ════════════════════════════════════════════════ -->
-  <line x1="490" y1="72" x2="490" y2="700" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <!-- ══ VERTICAL DIVIDER ══ -->
+  <line x1="490" y1="76" x2="490" y2="764" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
 
   <!-- ══════════════════════════════════════════════
        RIGHT — COLLECTION SPECIALIST
   ════════════════════════════════════════════════ -->
 
-  <rect x="500" y="82" width="452" height="614" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <rect x="500" y="86" width="452" height="670" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
 
   <!-- Large faint persona number -->
-  <text x="510" y="150" font-family="Georgia, serif" font-size="90" fill="rgba(255,255,255,0.04)" font-weight="700">02</text>
+  <text x="510" y="165" font-family="Georgia, serif" font-size="100" fill="rgba(255,255,255,0.04)" font-weight="700">02</text>
 
-  <!-- Collection Specialist illustration — headset + phone (echoing 05 collector figure) -->
-  <!-- Headset arc -->
-  <path d="M578,95 Q606,79 634,95" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="576" cy="99" r="5" fill="none" stroke="#fff" stroke-width="2.5"/>
-  <circle cx="636" cy="99" r="5" fill="none" stroke="#fff" stroke-width="2.5"/>
-  <!-- Mic boom -->
-  <path d="M576,104 Q573,112 581,116" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="582" cy="117" r="3" fill="rgba(255,255,255,0.8)"/>
-  <!-- Head -->
-  <circle cx="606" cy="103" r="12" fill="none" stroke="#fff" stroke-width="2.5"/>
-  <!-- Eyes -->
-  <circle cx="601" cy="101" r="2" fill="#fff"/>
-  <circle cx="611" cy="101" r="2" fill="#fff"/>
-  <!-- Smile -->
-  <path d="M601,109 Q606,113 611,109" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Body -->
-  <ellipse cx="606" cy="133" rx="13" ry="14" fill="none" stroke="#fff" stroke-width="2.5"/>
-  <!-- Arms -->
-  <line x1="593" y1="133" x2="580" y2="144" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="619" y1="133" x2="630" y2="138" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Phone in hand -->
-  <rect x="630" y="135" width="10" height="17" rx="2" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
-  <circle cx="635" cy="150" r="1.5" fill="rgba(255,255,255,0.65)"/>
-  <!-- Desk -->
-  <rect x="566" y="148" width="100" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
+  <!-- Collection Specialist illustration — headset + phone -->
+  <path d="M578,96 Q606,80 634,96" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="576" cy="100" r="5" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <circle cx="636" cy="100" r="5" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <path d="M576,105 Q573,113 581,117" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="582" cy="118" r="3" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="606" cy="104" r="12" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <circle cx="601" cy="102" r="2" fill="#fff"/>
+  <circle cx="611" cy="102" r="2" fill="#fff"/>
+  <path d="M601,110 Q606,114 611,110" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
+  <ellipse cx="606" cy="134" rx="13" ry="14" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <line x1="593" y1="134" x2="580" y2="145" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="619" y1="134" x2="630" y2="139" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="630" y="136" width="10" height="17" rx="2" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+  <circle cx="635" cy="151" r="1.5" fill="rgba(255,255,255,0.65)"/>
+  <rect x="566" y="149" width="100" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
 
   <!-- Role label -->
-  <text x="700" y="96" font-family="Georgia, serif" font-size="10" fill="rgba(255,255,255,0.45)" letter-spacing="3" font-style="italic">collection</text>
-  <text x="700" y="116" font-family="Georgia, serif" font-size="20" fill="#fff" font-weight="700">Specialist</text>
-  <text x="700" y="134" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.4)" letter-spacing="1">ACCOUNT · OUTREACH · RESOLUTION</text>
-  <line x1="700" y1="142" x2="932" y2="142" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="700" y="100" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.45)" letter-spacing="3" font-style="italic">collection</text>
+  <text x="700" y="122" font-family="Georgia, serif" font-size="22" fill="#fff" font-weight="700">Specialist</text>
+  <text x="700" y="140" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1">ACCOUNT · OUTREACH · RESOLUTION</text>
+  <line x1="700" y1="148" x2="934" y2="148" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
 
   <!-- PRIMARY GOAL -->
-  <text x="516" y="176" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">PRIMARY GOAL</text>
-  <line x1="516" y1="181" x2="932" y2="181" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="516" y="198" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Settle receivables from prioritized customers through</text>
-  <text x="516" y="213" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">direct communication and payment arrangement management</text>
+  <text x="516" y="182" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">PRIMARY GOAL</text>
+  <line x1="516" y1="188" x2="934" y2="188" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="516" y="207" font-family="-apple-system, sans-serif" font-size="11.5" fill="rgba(255,255,255,0.75)">Settle receivables from prioritized customers through</text>
+  <text x="516" y="223" font-family="-apple-system, sans-serif" font-size="11.5" fill="rgba(255,255,255,0.75)">direct communication and payment arrangement management</text>
 
   <!-- KEY RESPONSIBILITIES -->
-  <text x="516" y="240" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">KEY RESPONSIBILITIES</text>
-  <line x1="516" y1="245" x2="932" y2="245" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="516" y="252" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">KEY RESPONSIBILITIES</text>
+  <line x1="516" y1="258" x2="934" y2="258" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-  <rect x="516" y="252" width="200" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="526" y="269" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">✉️ Execute email &amp; phone actions</text>
-  <rect x="724" y="252" width="208" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="734" y="269" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">🔄 Handle resubmission cases</text>
+  <rect x="516" y="266" width="200" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="526" y="286" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">✉️ Execute email &amp; phone actions</text>
+  <rect x="724" y="266" width="210" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="734" y="286" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">🔄 Handle resubmission cases</text>
 
-  <rect x="516" y="284" width="200" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="526" y="301" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">🤝 Track Promise-to-Pay agreements</text>
-  <rect x="724" y="284" width="208" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="734" y="301" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">💰 Manage payment closure</text>
+  <rect x="516" y="302" width="200" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="526" y="322" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">🤝 Track Promise-to-Pay agreements</text>
+  <rect x="724" y="302" width="210" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="734" y="322" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">💰 Manage payment closure</text>
 
-  <rect x="516" y="316" width="200" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="526" y="333" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">⚙️ Update account status</text>
-  <rect x="724" y="316" width="208" height="26" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="734" y="333" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">📝 Document customer interactions</text>
+  <rect x="516" y="338" width="200" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="526" y="358" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">⚙️ Update account status</text>
+  <rect x="724" y="338" width="210" height="30" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="734" y="358" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.72)">📝 Document customer interactions</text>
 
   <!-- TYPICAL WORKFLOW -->
-  <text x="516" y="364" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">TYPICAL WORKFLOW</text>
-  <line x1="516" y1="369" x2="932" y2="369" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="516" y="390" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">TYPICAL WORKFLOW</text>
+  <line x1="516" y1="396" x2="934" y2="396" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-  <!-- vertical flow line -->
-  <line x1="536" y1="382" x2="536" y2="542" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <line x1="536" y1="410" x2="536" y2="578" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
 
-  <circle cx="536" cy="388" r="6" fill="#fff"/>
-  <text x="556" y="385" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Account Review</text>
-  <text x="556" y="400" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Receive prioritized list from AR Accountant</text>
+  <circle cx="536" cy="416" r="7" fill="#fff"/>
+  <text x="558" y="413" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Account Review</text>
+  <text x="558" y="429" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Receive prioritized list from AR Accountant</text>
 
-  <circle cx="536" cy="424" r="6" fill="#fff"/>
-  <text x="556" y="421" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Customer Contact</text>
-  <text x="556" y="436" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Initiate collection via email or phone</text>
+  <circle cx="536" cy="456" r="7" fill="#fff"/>
+  <text x="558" y="453" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Customer Contact</text>
+  <text x="558" y="468" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Initiate collection via email or phone</text>
 
-  <circle cx="536" cy="460" r="6" fill="#fff"/>
-  <text x="556" y="457" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Payment Arrangement</text>
-  <text x="556" y="472" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Negotiate and document payment plans</text>
+  <circle cx="536" cy="496" r="7" fill="#fff"/>
+  <text x="558" y="493" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Payment Arrangement</text>
+  <text x="558" y="508" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Negotiate and document payment plans</text>
 
-  <circle cx="536" cy="496" r="6" fill="#fff"/>
-  <text x="556" y="493" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Follow-up</text>
-  <text x="556" y="508" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Monitor Promise-to-Pay agreements</text>
+  <circle cx="536" cy="536" r="7" fill="#fff"/>
+  <text x="558" y="533" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Follow-up</text>
+  <text x="558" y="548" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Monitor Promise-to-Pay agreements</text>
 
-  <circle cx="536" cy="532" r="6" fill="#fff"/>
-  <text x="556" y="529" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#fff">Action on Account</text>
-  <text x="556" y="544" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Finish task in worklist — close or escalate</text>
+  <circle cx="536" cy="572" r="7" fill="#fff"/>
+  <text x="558" y="569" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fff">Action on Account</text>
+  <text x="558" y="584" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.5)">Finish task in worklist — close or escalate</text>
 
-  <!-- Outcome -->
-  <line x1="536" y1="542" x2="516" y2="562" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-  <line x1="536" y1="542" x2="556" y2="562" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-  <circle cx="516" cy="568" r="5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-  <circle cx="556" cy="568" r="5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-  <text x="516" y="583" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.55)">Closed</text>
-  <text x="556" y="583" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8" fill="rgba(255,255,255,0.55)">Escalated</text>
+  <!-- Outcome fork -->
+  <line x1="536" y1="590" x2="516" y2="612" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <line x1="536" y1="590" x2="556" y2="612" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <circle cx="516" cy="618" r="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+  <circle cx="556" cy="618" r="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+  <text x="516" y="636" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Closed</text>
+  <text x="556" y="636" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="rgba(255,255,255,0.6)">Escalated</text>
 
   <!-- AI REQUIREMENTS -->
-  <text x="516" y="612" font-family="-apple-system, sans-serif" font-size="8" font-weight="800" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">AI APPLICATION REQUIREMENTS</text>
-  <line x1="516" y1="617" x2="932" y2="617" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="516" y="633" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Suggested next-best action per account</text>
-  <text x="516" y="647" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Automated communication drafts (email / call scripts)</text>
-  <text x="516" y="661" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Promise-to-Pay tracking &amp; automated alerts</text>
-  <text x="516" y="675" font-family="-apple-system, sans-serif" font-size="8.5" fill="rgba(255,255,255,0.5)">✦  Limited visibility into payment commitments → solved</text>
+  <text x="516" y="664" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="rgba(255,255,255,0.45)" letter-spacing="1.5">AI APPLICATION REQUIREMENTS</text>
+  <line x1="516" y1="670" x2="934" y2="670" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="516" y="688" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Suggested next-best action per account</text>
+  <text x="516" y="706" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Automated communication drafts (email / call scripts)</text>
+  <text x="516" y="724" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Promise-to-Pay tracking &amp; automated alerts</text>
+  <text x="516" y="742" font-family="-apple-system, sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)">✦  Limited visibility into payment commitments → solved</text>
 
   <!-- ══ FOOTER ══ -->
-  <text x="490" y="710" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" fill="rgba(255,255,255,0.22)" font-style="italic" letter-spacing="3">both roles powered by the same AR Assistant orchestrator</text>
+  <text x="490" y="772" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.22)" font-style="italic" letter-spacing="3">both roles powered by the same AR Assistant orchestrator</text>
 
 </svg>

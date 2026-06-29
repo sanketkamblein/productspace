@@ -1,1376 +1,1335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Assistant — The Story · Sanket Kamble</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Assistant — Sanket Kamble</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --joule:      #5d36ff;
-      --joule-dim:  rgba(93,54,255,.12);
-      --joule-bg:   #eae5ff;
-      --sap-blue:   #0070f2;
-      --sap-dark:   #032d60;
-      --text-1:     #0f1923;
-      --text-2:     #4a5568;
-      --text-3:     #8a9ba8;
-      --bg:         #ffffff;
-      --bg-warm:    #f9f8f6;
-      --bg-dark:    #0c1421;
-      --border:     #e8e4df;
-      --green:      #065f46;
-      --green-bg:   #ecfdf5;
-      --amber:      #92400e;
-      --amber-bg:   #fffbeb;
-      --red:        #9b1c1c;
-      --red-bg:     #fef2f2;
-      --serif: 'Playfair Display', 'Georgia', serif;
-      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --joule: #5d36ff;
+      --joule-light: #ede9ff;
+      --sap-blue: #0070f2;
+      --text: #131e29;
+      --text-2: #556b82;
+      --bg-el: linear-gradient(119deg, #edf7ff 0%, #ebedff 100%);
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      background: var(--bg);
-      color: var(--text-2);
-      line-height: 1.85;
-    }
-
-    a { color: var(--joule); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── NAV ─────────────────────────────────────────── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid transparent;
-      padding: 0 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 58px;
-      transition: background .3s, border-color .3s;
-    }
-    nav.scrolled {
-      background: rgba(255,255,255,.96);
-      border-color: var(--border);
-    }
-    .nav-brand {
-      font-family: var(--sans);
-      font-size: .82rem; font-weight: 700;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
       color: #fff;
-      display: flex; align-items: center; gap: .5rem;
-      transition: color .3s;
-    }
-    nav.scrolled .nav-brand { color: var(--text-1); }
-    .nav-brand .badge {
-      background: var(--joule); color: #fff;
-      font-size: .64rem; font-weight: 700;
-      padding: 2px 8px; border-radius: 4px;
-    }
-    .nav-right { display: flex; align-items: center; gap: 1.75rem; }
-    .nav-link {
-      font-family: var(--sans);
-      font-size: .76rem; font-weight: 600; color: rgba(255,255,255,.7);
-      transition: color .2s;
-    }
-    nav.scrolled .nav-link { color: var(--text-3); }
-    .nav-link:hover { color: var(--joule); text-decoration: none; }
-    .nav-link.alt {
-      background: rgba(255,255,255,.15); color: #fff;
-      padding: .32rem .9rem; border-radius: 5px;
-      border: 1px solid rgba(255,255,255,.25);
-      font-size: .73rem;
-    }
-    nav.scrolled .nav-link.alt { background: var(--sap-dark); border-color: transparent; }
-    .nav-link.alt:hover { background: var(--joule); border-color: transparent; }
-
-    /* ── PROGRESS BAR ────────────────────────────────── */
-    #progress-bar {
-      position: fixed; top: 0; left: 0; z-index: 200;
-      height: 3px; width: 0%;
-      background: linear-gradient(90deg, var(--joule), #67e8f9);
-      transition: width .12s linear;
-      box-shadow: 0 0 8px rgba(93,54,255,.4);
+      overflow-x: hidden;
     }
 
-    /* ── COVER — full-viewport hero ─────────────────── */
-    .cover {
+    /* ─────────────────────────────────────────
+       HERO — normal website start
+    ───────────────────────────────────────── */
+    .hero {
       min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(93,54,255,.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(0,112,242,.15) 0%, transparent 55%),
-        linear-gradient(160deg, #060d1a 0%, #0d1f3c 45%, #12083a 100%);
-      color: #fff;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 2.5rem 6rem;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 80px 40px;
+      text-align: center;
       position: relative;
-      overflow: hidden;
+      background: #0a0a0a;
     }
-    /* dot-grid texture */
-    .cover::before {
+    .hero::after {
       content: '';
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(93,54,255,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
-    /* bottom fade */
-    .cover::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 160px;
-      background: linear-gradient(to bottom, transparent, #fff);
-      pointer-events: none;
+    .hero-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 24px;
     }
-    .cover-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      position: relative; z-index: 1;
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; line-height: 1.1;
+      color: #fff; margin-bottom: 20px;
+      max-width: 720px;
     }
-    .cover-label {
-      font-family: var(--sans);
-      font-size: .68rem; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(103,232,249,.8);
-      margin-bottom: 1.75rem;
-      display: flex; align-items: center; gap: .75rem;
+    .hero h1 em { font-style: normal; color: #a78bfa; }
+    .hero-sub {
+      font-size: 16px; color: rgba(255,255,255,0.5); max-width: 520px;
+      line-height: 1.7; margin-bottom: 48px;
     }
-    .cover-label::before {
-      content: '';
-      display: inline-block; width: 32px; height: 1px;
-      background: rgba(103,232,249,.5);
+    .hero-meta {
+      display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 60px;
     }
-    .cover h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 400;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 2rem;
-      letter-spacing: -.02em;
+    .hero-meta-item { text-align: center; }
+    .hero-meta-val { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+    .hero-meta-lbl { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; letter-spacing: 1px; }
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 2px;
+      animation: bounceHint 2s ease-in-out infinite;
     }
-    .cover h1 em { font-style: italic; color: #a78bfa; }
-    .cover-byline {
-      font-family: var(--sans);
-      font-size: .8rem; color: rgba(255,255,255,.4);
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      margin-bottom: 3rem;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    .cover-byline strong { color: rgba(255,255,255,.75); }
-    .cover-intro {
-      font-size: 1.15rem;
-      color: rgba(255,255,255,.6);
-      line-height: 1.9;
-      font-style: italic;
-      max-width: 660px;
-    }
-    .cover-scroll-hint {
-      position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%);
-      font-family: var(--sans); font-size: .7rem; color: rgba(255,255,255,.3);
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      animation: bounce 2s infinite;
-      z-index: 1;
-    }
-    .cover-scroll-hint svg { opacity: .4; }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
-    }
+    @keyframes bounceHint { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
-    /* ── READING AREA ────────────────────────────────── */
-    .reading {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 2rem;
+    .hero-role-row {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 36px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      padding: 14px 24px;
     }
+    .hero-role-item { display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
+    .hero-role-lbl { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 3px; }
+    .hero-role-val { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75); }
+    .hero-role-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.1); }
 
-    /* ── CHAPTER MARKER ──────────────────────────────── */
-    .chapter {
-      margin-top: 6rem;
-      margin-bottom: 2.25rem;
-      position: relative;
-    }
-    /* decorative rule + diamond */
-    .chapter::before {
-      content: '';
-      display: block;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
-      margin-bottom: 2rem;
-    }
+    /* chapter number */
     .chapter-num {
-      font-family: var(--sans);
-      font-size: .62rem; font-weight: 800; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--joule);
-      margin-bottom: .65rem;
-      display: flex; align-items: center; gap: .6rem;
-    }
-    .chapter-num::after {
-      content: '';
-      display: inline-block; width: 20px; height: 1px;
-      background: var(--joule); opacity: .4;
-    }
-    /* large ghost number */
-    .chapter-ghost {
-      font-family: var(--serif);
-      position: absolute; top: 1.5rem; right: -1rem;
-      font-size: 9rem; font-weight: 900;
-      color: var(--text-1); opacity: .04;
-      line-height: 1; pointer-events: none;
-      user-select: none;
-    }
-    .chapter h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
-      font-weight: 400;
-      color: var(--text-1);
-      line-height: 1.2;
-      letter-spacing: -.01em;
-    }
-    .chapter h2 em { font-style: italic; color: var(--joule); }
-
-    /* ── PROSE ───────────────────────────────────────── */
-    .prose p {
-      margin-bottom: 1.65rem;
-      font-size: 1.04rem;
-      color: var(--text-2);
-    }
-    .prose p:last-child { margin-bottom: 0; }
-    .prose p strong { color: var(--text-1); font-weight: 600; }
-
-    /* ── PULL QUOTE ──────────────────────────────────── */
-    .pull-quote {
-      margin: 3rem -1rem;
-      padding: 2rem 2.5rem 2rem 3.5rem;
-      background: var(--bg-warm);
-      border-radius: 4px;
-      position: relative;
-    }
-    .pull-quote::before {
-      content: '\201C';
-      font-family: var(--serif);
-      font-size: 7rem; line-height: .8;
-      color: var(--joule); opacity: .18;
-      position: absolute; top: 1rem; left: .75rem;
-      pointer-events: none;
-    }
-    .pull-quote p {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      font-style: italic;
-      color: var(--text-1);
-      line-height: 1.6;
-      margin-bottom: 0;
-      position: relative;
-    }
-    .pull-quote cite {
-      display: block;
-      margin-top: .85rem;
-      font-family: var(--sans);
-      font-size: .73rem; font-weight: 600; color: var(--text-3);
-      font-style: normal;
-      position: relative;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.2);
+      text-transform: uppercase; margin-bottom: 8px;
     }
 
-    /* ── DECISION MOMENT ─────────────────────────────── */
-    .decision {
-      margin: 3rem 0;
-      background: linear-gradient(145deg, #060e1e, #0d1f3a);
-      border-radius: 12px;
-      padding: 2.25rem 2.5rem;
-      color: #fff;
-      box-shadow: 0 20px 60px rgba(6,14,30,.25), 0 0 0 1px rgba(93,54,255,.2);
+
+    .text-section {
+      max-width: 640px; margin: 0 auto;
+      padding: 80px 40px;
+    }
+    .text-section.center { text-align: center; }
+    .section-kicker {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.3);
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .text-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.2;
+      color: #fff; margin-bottom: 16px;
+    }
+    .text-section h2 em { font-style: italic; color: #a78bfa; }
+    .text-section p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 14px; }
+    .text-section p:last-child { margin-bottom: 0; }
+    .quote-block {
+      border-left: 3px solid var(--joule); padding: 14px 20px;
+      background: rgba(93,54,255,0.08); border-radius: 0 8px 8px 0;
+      margin: 24px 0; font-size: 14px; font-style: italic;
+      color: rgba(255,255,255,0.7); line-height: 1.6;
+    }
+    .quote-block cite { display: block; font-style: normal; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 6px; }
+
+    /* phase pill */
+    .phase-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 40px; padding: 8px 20px; margin-bottom: 20px;
+      font-size: 12px; color: rgba(255,255,255,0.6);
+    }
+    .phase-dot { width: 6px; height: 6px; border-radius: 50%; background: #a78bfa; }
+
+    /* ─────────────────────────────────────────
+       STICKY EL WRAPPER
+    ───────────────────────────────────────── */
+    .el-scroll-track {
+      /* tall enough for all story beats to scroll through */
+      height: 700vh;
       position: relative;
+    }
+    .el-sticky {
+      position: sticky; top: 56px;
+      width: 100%; height: calc(100vh - 56px);
       overflow: hidden;
-    }
-    /* top gradient line */
-    .decision::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--joule), var(--sap-blue), #67e8f9);
-    }
-    /* subtle glow orb */
-    .decision::after {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 220px; height: 220px;
-      background: radial-gradient(circle, rgba(93,54,255,.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .decision-label {
-      font-family: var(--sans);
-      font-size: .6rem; font-weight: 800; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(103,232,249,.6);
-      margin-bottom: .75rem;
-    }
-    .decision h3 {
-      font-family: var(--serif);
-      font-size: 1.2rem; font-weight: 400;
-      color: #fff; line-height: 1.4; margin-bottom: 1rem;
-    }
-    .decision h3 strong { font-weight: 700; color: #a78bfa; }
-    .decision > p {
-      font-size: .9rem; color: rgba(255,255,255,.65);
-      line-height: 1.75; margin-bottom: 0;
-    }
-    .decision > p strong { color: rgba(255,255,255,.9); }
-    .decision-before-after {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem; margin-top: 1.5rem;
-    }
-    @media (max-width: 540px) { .decision-before-after { grid-template-columns: 1fr; } }
-    .ba-block {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 8px; padding: 1.1rem 1.25rem;
-    }
-    .ba-label {
-      font-family: var(--sans);
-      font-size: .6rem; font-weight: 800; letter-spacing: .12em;
-      text-transform: uppercase; margin-bottom: .5rem;
-    }
-    .ba-label.before { color: rgba(252,165,165,.8); }
-    .ba-label.after  { color: rgba(134,239,172,.85); }
-    .ba-block p { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.65; margin-bottom: 0; }
-
-    /* ── INSIGHT CARD ────────────────────────────────── */
-    .insight {
-      margin: 2.5rem 0;
-      padding: 1.6rem 1.85rem;
-      background: linear-gradient(135deg, #ede9ff, #f0eeff);
-      border-radius: 10px;
-      border-left: 3px solid var(--joule);
-      box-shadow: 0 2px 16px rgba(93,54,255,.07);
-    }
-    .insight-label {
-      font-family: var(--sans);
-      font-size: .6rem; font-weight: 800; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--joule);
-      margin-bottom: .6rem;
-    }
-    .insight p { font-size: .92rem; color: #3b2d6e; line-height: 1.75; margin-bottom: 0; }
-    .insight p strong { color: var(--joule); font-weight: 700; }
-
-    /* ── CONSTRAINT ──────────────────────────────────── */
-    .constraint {
-      margin: 2.25rem 0;
-      padding: 1.35rem 1.6rem;
-      background: linear-gradient(135deg, #fffbeb, #fef9e7);
-      border-left: 3px solid #f59e0b;
-      border-radius: 8px;
-      box-shadow: 0 2px 12px rgba(245,158,11,.07);
-    }
-    .constraint-label {
-      font-family: var(--sans);
-      font-size: .6rem; font-weight: 800; letter-spacing: .12em;
-      text-transform: uppercase; color: #b45309;
-      margin-bottom: .45rem;
-    }
-    .constraint p { font-size: .88rem; color: #6b3a0a; line-height: 1.7; margin-bottom: 0; }
-
-    /* ── METRIC ROW ──────────────────────────────────── */
-    .metric-row {
-      margin: 3rem 0;
-      background: linear-gradient(145deg, #060e1e, #0d1f3a);
-      border-radius: 14px;
-      padding: 2.5rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1.5rem;
-      box-shadow: 0 20px 60px rgba(6,14,30,.3);
-      position: relative; overflow: hidden;
-    }
-    .metric-row::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--joule), var(--sap-blue), #67e8f9);
-    }
-    .metric-item { text-align: center; }
-    .metric-item strong {
-      display: block;
-      font-family: var(--sans);
-      font-size: 2.2rem; font-weight: 900;
-      background: linear-gradient(135deg, #a78bfa, #67e8f9);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1; margin-bottom: .35rem;
-    }
-    .metric-item span {
-      display: block;
-      font-family: var(--sans);
-      font-size: .74rem; color: rgba(255,255,255,.45); line-height: 1.45;
-    }
-    .metric-item .delta {
-      font-family: var(--sans);
-      font-size: .66rem; color: #6ee7b7; font-weight: 700;
-      margin-top: .25rem; display: block;
+      background: var(--bg-el);
     }
 
-    /* ── TIMELINE THREAD ─────────────────────────────── */
-    .thread { position: relative; padding-left: .5rem; }
-    .thread-item {
-      display: flex; gap: 1.75rem;
-      position: relative;
-      margin-bottom: 0;
+    /* ─────────────────────────────────────────
+       EL SHELL (inside sticky)
+    ───────────────────────────────────────── */
+    .page-container {
+      display: flex; width: 100%; height: 100%; overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #131e29;
     }
-    .thread-item::before {
-      content: '';
-      position: absolute;
-      left: 15px; top: 32px; bottom: -2.5rem;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--joule), var(--sap-blue));
-      opacity: .3;
+
+    /* Vertical Nav */
+    .vertical-nav {
+      width: 88px; height: 100%; background: transparent;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: space-between; padding: 20px 10px;
+      flex-shrink: 0; z-index: 100; overflow: visible;
     }
-    .thread-item:last-child::before { display: none; }
-    .thread-dot {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--joule);
-      flex-shrink: 0; margin-top: .1rem;
+    .nav-logo { width: 100%; display: flex; justify-content: center; padding: 10px 0; }
+    .nav-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: visible; }
+    .nav-items {
+      background: white; border-radius: 32px;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.06);
+      padding: 10px; display: flex; flex-direction: column;
+      gap: 10px; width: 64px;
+    }
+    .nav-item {
+      height: 44px; width: 44px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 4px var(--joule-dim);
-      transition: box-shadow .2s;
+      cursor: pointer; background: transparent;
+      border: 1px solid transparent; transition: all 0.2s;
     }
-    .thread-dot.filled {
-      background: linear-gradient(135deg, var(--joule), var(--sap-blue));
-      border-color: transparent;
-      box-shadow: 0 0 0 4px var(--joule-dim), 0 4px 12px rgba(93,54,255,.3);
-    }
-    .thread-dot span {
-      font-family: var(--sans);
-      font-size: .56rem; font-weight: 900; color: #fff;
-    }
-    .thread-body { padding-bottom: 3rem; flex: 1; }
-    .thread-phase {
-      font-family: var(--sans);
-      font-size: .62rem; font-weight: 800; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--text-3); margin-bottom: .35rem;
-    }
-    .thread-body h4 {
-      font-family: var(--serif);
-      font-size: 1.1rem; font-weight: 600;
-      color: var(--text-1); margin-bottom: .5rem;
-    }
-    .thread-body p { font-size: .92rem; color: var(--text-2); line-height: 1.75; margin-bottom: 0; }
+    .nav-item.active { background: #ebf8ff; border-color: rgba(0,112,242,0.2); }
+    .nav-item:hover { background: #edf6ff; }
+    .nav-footer { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .nav-avatar { width: 36px; height: 36px; background: linear-gradient(135deg,#5d36ff,#a100c2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 700; }
 
-    /* ── FEATURE LIST ────────────────────────────────── */
-    .feat-list {
-      list-style: none; margin: 1.75rem 0;
-      display: flex; flex-direction: column; gap: .8rem;
-      padding: 1.5rem 1.75rem;
-      background: var(--bg-warm);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-    .feat-list li {
-      font-size: .94rem; color: var(--text-2);
-      display: flex; gap: .85rem; line-height: 1.65; align-items: flex-start;
-    }
-    .feat-list li::before {
-      content: '→';
-      color: var(--joule); font-weight: 700; flex-shrink: 0;
-      margin-top: .05rem;
-    }
+    /* Main panel */
+    .main-panel { flex: 1; display: flex; min-width: 0; overflow: hidden; }
 
-    /* ── USER VOICE ──────────────────────────────────── */
-    .user-voice {
-      margin: 2.5rem 0;
-      padding: 1.5rem 1.75rem 1.5rem 2rem;
-      background: linear-gradient(135deg, #fff1f2, #fef2f2);
-      border-radius: 10px;
-      border-left: 4px solid #f87171;
-      position: relative;
+    /* ── CONV VIEW ── */
+    #conv-view {
+      display: flex; width: 100%; height: 100%;
+      gap: 16px; padding: 16px 16px 0 0;
     }
-    .user-voice p {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-style: italic;
-      color: #7f1d1d;
-      line-height: 1.7;
-      margin-bottom: 0;
+    .sub-nav {
+      width: 260px; min-width: 260px; flex-shrink: 0;
+      display: flex; flex-direction: column;
     }
-    .user-voice cite {
-      display: block; margin-top: .65rem;
-      font-family: var(--sans);
-      font-size: .7rem; font-weight: 700; color: #991b1b; font-style: normal;
-      letter-spacing: .02em;
+    .sub-nav-inner {
+      background: linear-gradient(180deg, #edf7ff 0%, #ebedff 100%);
+      border-radius: 12px 12px 0 0; height: 100%;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .sub-nav-header { padding: 18px 16px 10px; }
+    .sub-nav-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+    .filter-tabs { display: flex; gap: 6px; padding: 0 12px 8px; }
+    .filter-tab { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid transparent; background: transparent; color: #556b82; font-family: inherit; }
+    .filter-tab.active { background: #e8f3ff; color: #0064d9; border-color: #0064d9; font-weight: 600; }
+    .sub-nav-list { flex: 1; overflow-y: auto; padding: 0 8px 20px; display: flex; flex-direction: column; gap: 2px; }
+    .conv-card { padding: 9px 11px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: background 0.15s; }
+    .conv-card.active { background: white; border-color: rgba(0,112,242,0.15); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .conv-card-title { font-size: 13px; font-weight: 600; color: #131e29; }
+    .conv-card-preview { font-size: 11px; color: #556b82; margin-top: 2px; }
+
+    .content-area {
+      flex: 1; min-width: 0; display: flex; flex-direction: column;
+      background: white; border-radius: 20px 20px 0 0; overflow: hidden;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
+    }
+    .content-header {
+      padding: 12px 18px; border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .conv-header-title { font-size: 15px; font-weight: 700; color: #131e29; }
+    .conv-breadcrumb { font-size: 11px; color: #556b82; margin-bottom: 1px; }
+    .header-icon-btn {
+      width: 32px; height: 32px; border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; background: #e8e8e8; border: 1px solid #bcc3ca; cursor: pointer;
     }
 
-    /* ── PHASE BANNER ────────────────────────────────── */
-    .phase-banner {
-      display: flex; gap: 1rem; align-items: center;
-      padding: 1.1rem 1.5rem;
-      border-radius: 10px;
-      margin: 2.5rem 0 1.75rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,.12);
-      position: relative; overflow: hidden;
+    .chat-container {
+      flex: 1; overflow-y: auto; padding: 24px 24px 20px;
+      display: flex; flex-direction: column; gap: 20px;
     }
-    .phase-banner::after {
+    .chat-container::-webkit-scrollbar { width: 4px; }
+    .chat-container::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 4px; }
+
+    .message { display: flex; align-items: flex-start; gap: 10px; max-width: 700px; }
+    .message.user { align-self: flex-end; flex-direction: row-reverse; }
+    .message-bubble { padding: 13px 18px; border-radius: 18px; font-size: 15px; line-height: 1.65; color: #131e29; background: #f5f6f7; }
+    .message.user .message-bubble { background: #7358ff; color: white; border-radius: 18px 18px 4px 18px; }
+    .joule-avatar { width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: linear-gradient(135deg,#5d36ff,#a100c2); display: flex; align-items: center; justify-content: center; }
+
+    /* Typing dots */
+    .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 10px 14px; background: #f5f6f7; border-radius: 16px; width: fit-content; }
+    .typing-dot { width: 5px; height: 5px; border-radius: 50%; background: #8a9ba8; animation: bounce 1.2s ease-in-out infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+    /* Create Space card */
+    .create-space-card {
+      border: 1px solid #bcddfc; border-radius: 14px; padding: 14px 18px;
+      max-width: 400px; background: white; box-shadow: 0px 2px 10px rgba(29,33,50,0.06);
+      cursor: pointer; margin-top: 4px;
+    }
+    .csc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .csc-icon { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg,#ede9ff,#ddd6ff); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .csc-title { font-size: 13px; font-weight: 700; color: #131e29; }
+    .csc-meta { font-size: 11px; color: #556b82; }
+    .csc-desc { font-size: 12px; color: #556b82; line-height: 1.5; margin-bottom: 12px; }
+    .csc-footer { display: flex; align-items: center; justify-content: space-between; }
+    .csc-open-btn { background: #5d36ff; color: white; border: none; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; }
+    .csc-label { font-size: 11px; color: #8a9ba8; }
+
+    /* Input */
+    .joule-input-wrapper { padding: 20px 24px 28px; flex-shrink: 0; border-top: 1px solid #f0f2f5; background: white; }
+    .joule-input-box { background: white; border: 1.5px solid rgba(93,54,255,0.25); border-radius: 28px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 16px rgba(93,54,255,0.08); }
+    .joule-input-field { flex: 1; border: none; outline: none; font-size: 15px; color: #131e29; background: transparent; font-family: inherit; line-height: 1.4; }
+    .joule-input-field::placeholder { color: #8a9ba8; }
+    .joule-ai-footer { font-size: 11px; color: #8a9ba8; text-align: center; padding: 8px 0 0; }
+
+    /* ── SPACES VIEW ── */
+    #spaces-view {
+      display: none; width: 100%; height: 100%;
+      gap: 16px; padding: 16px 16px 0 0;
+    }
+
+    .spaces-left-panel {
+      width: 280px; min-width: 280px; flex-shrink: 0;
+      display: flex; flex-direction: column;
+    }
+    .spaces-sub-inner {
+      background: linear-gradient(180deg,#edf7ff 0%,#ebedff 100%);
+      border-radius: 12px 12px 0 0; height: 100%;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .space-item {
+      background: white; border: 1.5px solid #c8d2de; border-radius: 28px;
+      padding: 8px; cursor: pointer; transition: all 0.2s, transform 0.12s;
+      display: flex; flex-direction: column; gap: 2px;
+      box-shadow: 0px 3px 14px rgba(29,45,70,0.09);
+    }
+    .space-item:active { transform: scale(0.97); }
+    .space-item.active { border-color: #5d36ff; box-shadow: 0px 4px 20px rgba(93,54,255,0.16); background: #f5f0ff; }
+    .space-item.active .space-item-title { color: #5d36ff; }
+
+    /* "Open Space" button states */
+    .csc-open-btn {
+      background: #5d36ff; color: white; border: none; border-radius: 20px;
+      padding: 6px 16px; font-size: 12px; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden;
+    }
+    .csc-open-btn:hover { background: #4a28e0; transform: scale(1.04); }
+    .csc-open-btn:active { transform: scale(0.97); }
+    .csc-open-btn.loading {
+      background: #4a28e0; pointer-events: none;
+      padding-right: 32px;
+    }
+    .csc-open-btn.loading::after {
       content: '';
-      position: absolute; top: 0; right: 0; bottom: 0; width: 120px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.06));
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      animation: spinBtn 0.6s linear infinite;
     }
-    .phase-banner.p1 { background: linear-gradient(135deg, #032d60, #0070f2); }
-    .phase-banner.p2 { background: linear-gradient(135deg, #2e0761, #7c3aed); }
-    .phase-banner.p3 { background: linear-gradient(135deg, #0c4a6e, #0284c7); }
-    .phase-banner.p4 { background: linear-gradient(135deg, #14532d, #16a34a); }
-    .phase-banner .pb-num {
-      font-family: var(--sans);
-      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18);
-      padding: .25rem .7rem; border-radius: 5px;
-      font-size: .6rem; font-weight: 900; color: #fff; letter-spacing: .1em; text-transform: uppercase;
-      white-space: nowrap; flex-shrink: 0;
-    }
-    .phase-banner .pb-text { font-family: var(--sans); font-size: .96rem; font-weight: 700; color: #fff; }
-    .phase-banner .pb-sub { font-family: var(--sans); font-size: .78rem; color: rgba(255,255,255,.6); margin-top: .15rem; }
+    @keyframes spinBtn { to { transform: translateY(-50%) rotate(360deg); } }
 
-    /* ── AGENT GRID ──────────────────────────────────── */
-    .agent-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: .8rem; margin: 2rem 0;
-    }
-    .agent-chip {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 9px; padding: .9rem 1.1rem;
-      transition: box-shadow .2s, transform .2s;
-    }
-    .agent-chip:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,.08);
-      transform: translateY(-2px);
-    }
-    .agent-chip .ac-name {
-      font-family: var(--sans);
-      font-size: .8rem; font-weight: 700; color: var(--text-1); margin-bottom: .3rem;
-    }
-    .agent-chip .ac-desc {
-      font-family: var(--sans);
-      font-size: .72rem; color: var(--text-3); line-height: 1.55;
-    }
-    .agent-chip.collections { border-top: 3px solid var(--sap-blue); }
-    .agent-chip.disputes    { border-top: 3px solid #7c3aed; }
-    .agent-chip.accounting  { border-top: 3px solid #059669; }
-
-    /* ── ILLUSTRATION ────────────────────────────────── */
-    .illustration {
-      margin: 3rem 0;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 32px rgba(0,0,0,.07);
-    }
-    .illustration img {
-      width: 100%; height: auto; display: block;
-    }
-    .illustration figcaption {
-      font-family: var(--sans);
-      font-size: .73rem; color: var(--text-3);
-      padding: .75rem 1.25rem;
-      border-top: 1px solid var(--border);
-      background: #fafaf8;
-      line-height: 1.55;
-    }
-    /* full-bleed dark canvas for diagrams */
-    .illustration.wide {
-      margin-left: calc(-50vw + 50%);
-      margin-right: calc(-50vw + 50%);
-      max-width: 100vw;
-      border-left: none; border-right: none;
-      border-radius: 0;
-      background: var(--bg-dark);
-      box-shadow: 0 12px 48px rgba(0,0,0,.18);
-    }
-    .illustration.wide img {
-      padding: 2rem;
-      background: var(--bg-dark);
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .illustration.wide figcaption {
-      background: #0f1d2e;
-      border-top: 1px solid rgba(255,255,255,.06);
-      color: rgba(255,255,255,.4);
-      text-align: center;
-      padding: .9rem 2rem;
-    }
-    .illus-label {
-      font-family: var(--sans);
-      font-size: .6rem; font-weight: 800; letter-spacing: .15em;
-      text-transform: uppercase; color: rgba(103,232,249,.5);
-      padding: .6rem 2rem .2rem;
-      background: var(--bg-dark);
-    }
-    @media (max-width: 800px) {
-      .illustration.wide { margin-left: -1.5rem; margin-right: -1.5rem; }
-      .illustration.wide img { padding: 1rem; }
-    }
-
-    /* ── CONNECTOR TEXT ──────────────────────────────── */
-    .connector-text {
-      text-align: center; color: var(--text-3);
-      font-family: var(--sans);
-      font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      padding: 1.25rem 0;
-      display: flex; align-items: center; gap: .75rem;
-    }
-    .connector-text::before, .connector-text::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    /* ── LEARNING LIST ───────────────────────────────── */
-    .learning-list { display: flex; flex-direction: column; gap: 0; margin: 2rem 0; }
-    .learning-item {
-      padding: 2rem 0 2rem 4.5rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .learning-item:last-child { border-bottom: none; }
-    .learning-num {
-      position: absolute; left: 0; top: 1.75rem;
-      font-family: var(--serif);
-      font-size: 3.5rem; font-weight: 900;
-      color: var(--text-1); opacity: .05;
-      line-height: 1; pointer-events: none;
-      user-select: none;
-    }
-    .learning-item h4 {
-      font-family: var(--serif);
-      font-size: 1.1rem; font-weight: 700; color: var(--text-1);
-      margin-bottom: .6rem; line-height: 1.35;
-    }
-    .learning-item p { font-size: .92rem; color: var(--text-2); line-height: 1.78; margin-bottom: 0; }
-
-    /* ── CLOSER — full-bleed dark ────────────────────── */
-    .closer {
-      margin-top: 6rem;
-      margin-left: calc(-50vw + 50%);
-      margin-right: calc(-50vw + 50%);
-      padding: 6rem 2rem;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(93,54,255,.3) 0%, transparent 65%),
-        linear-gradient(180deg, #060d1a 0%, #0d1a33 100%);
-      color: #fff;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .closer::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .closer-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
-    .closer h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 400; line-height: 1.3;
-      margin-bottom: 1.25rem;
-    }
-    .closer h2 em { font-style: italic; color: #67e8f9; }
-    .closer p {
-      font-size: .96rem; color: rgba(255,255,255,.55);
-      line-height: 1.85; margin-bottom: 2.5rem;
-    }
-    .closer-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .closer-link {
-      font-family: var(--sans);
-      font-size: .83rem; font-weight: 700;
-      padding: .7rem 1.6rem; border-radius: 7px;
-      display: inline-flex; align-items: center; gap: .4rem;
-      transition: all .2s;
-    }
-    .closer-link.primary {
-      background: #fff; color: var(--sap-dark);
-      box-shadow: 0 4px 16px rgba(255,255,255,.15);
-    }
-    .closer-link.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,.2); }
-    .closer-link.secondary {
-      background: rgba(255,255,255,.08); color: rgba(255,255,255,.8);
-      border: 1px solid rgba(255,255,255,.18);
-    }
-    .closer-link.secondary:hover { background: rgba(255,255,255,.14); }
-    .closer-link:hover { text-decoration: none; }
-
-    /* ── FOOTER ──────────────────────────────────────── */
-    footer {
-      padding: 2.5rem 2rem;
-      text-align: center;
-      background: #060d1a;
-      font-family: var(--sans);
-      font-size: .78rem; color: rgba(255,255,255,.25);
-    }
-    footer strong { color: rgba(255,255,255,.5); }
-
-    /* ── SCROLL-TO-TOP ───────────────────────────────── */
-    #back-top {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
-      width: 42px; height: 42px; border-radius: 50%;
-      background: var(--joule);
-      color: #fff; border: none; cursor: pointer;
+    /* Space transition overlay — fades in/out on space switch */
+    .space-transition-overlay {
+      position: absolute; inset: 0; z-index: 50;
+      background: rgba(237,247,255,0.7); backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(93,54,255,.4);
-      opacity: 0; transform: translateY(10px);
-      transition: opacity .3s, transform .3s;
-      font-size: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease;
     }
-    #back-top.show { opacity: 1; transform: none; }
-    #back-top:hover { background: #4a28e8; }
+    .space-transition-overlay.visible { opacity: 1; pointer-events: all; }
+    .space-transition-spinner {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 3px solid rgba(93,54,255,0.15);
+      border-top-color: #5d36ff;
+      animation: spinBtn 0.7s linear infinite;
+    }
+    .space-item-header { display: flex; align-items: center; gap: 8px; padding: 6px 8px; }
+    .space-icon-mini { width: 28px; height: 28px; border-radius: 50%; background: #c5dff5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .space-item-title { font-size: 13px; font-weight: 700; color: #131e29; line-height: 1.2; }
+    .space-item-meta { font-size: 11px; color: #556b82; }
+    .space-item-body { padding: 0 8px 6px; }
+    .space-item-desc { font-size: 12px; color: #556b82; line-height: 1.4; }
 
-    /* ── FADE ────────────────────────────────────────── */
-    .fade { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
-    .fade.visible { opacity: 1; transform: none; }
-    .fade:nth-child(2) { transition-delay: .08s; }
-    .fade:nth-child(3) { transition-delay: .14s; }
+    .spaces-detail {
+      flex: 1; min-width: 0; display: flex; flex-direction: column;
+      background: white; border-radius: 20px 20px 0 0; overflow: hidden;
+      box-shadow: 0px 4px 46px rgba(29,33,50,0.04);
+    }
+    .spaces-detail-header { padding: 12px 18px; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .spaces-detail-title { font-size: 16px; font-weight: 700; color: #131e29; }
+    .spaces-detail-breadcrumb { font-size: 11px; color: #556b82; margin-bottom: 1px; }
+    .spaces-detail-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 0 60px; }
+    .spaces-detail-body::-webkit-scrollbar { width: 4px; }
+    .spaces-detail-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 4px; }
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
-    @media (max-width: 640px) {
-      .cover { padding: 6rem 1.5rem 5rem; min-height: auto; }
-      .reading { padding: 0 1.25rem; }
-      .decision-before-after { grid-template-columns: 1fr; }
-      .metric-row { padding: 1.75rem 1.25rem; }
-      .chapter-ghost { display: none; }
-      .pull-quote { margin-left: 0; margin-right: 0; }
-      .closer { margin-left: -1.25rem; margin-right: -1.25rem; padding: 4rem 1.5rem; }
+    .section-divider { margin: 8px 18px 0; height: 1px; background: #e5e5e5; }
+    .section-anchor { display: flex; align-items: center; gap: 6px; padding: 10px 18px 4px; }
+    .section-anchor-title { font-size: 13px; font-weight: 700; color: #0064d9; }
+    .section-body { padding: 8px 18px 20px; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+
+    /* SC cards */
+    .sc { background: white; border-radius: 16px; border: 1.5px solid #c8d2de; box-shadow: 0 4px 18px rgba(29,45,70,0.11), 0 1px 4px rgba(0,0,0,0.06); flex-shrink: 0; display: flex; flex-direction: column; }
+    .sc-md { width: 420px; } .sc-xl { width: 520px; }
+    .sc-wrap { display: flex; flex-direction: column; gap: 4px; }
+    .sc-head { display: flex; align-items: center; gap: 8px; padding: 14px 14px 10px; border-bottom: 1px solid #eef0f4; }
+    .sc-avatar { width: 48px; height: 48px; border-radius: 12px; background: #ded3ff; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .sc-head-text { flex: 1; min-width: 0; }
+    .sc-title { font-size: 13px; font-weight: 700; color: #131e29; }
+    .sc-sub { font-size: 12px; color: #556b82; margin-top: 2px; }
+    .sc-body { padding: 2px 14px 14px; }
+    .sc-foot { padding: 2px 14px 12px; display: flex; justify-content: flex-end; }
+    .sc-lbl { font-size: 12px; color: #556b82; margin-bottom: 1px; display: block; }
+    .sc-val { font-size: 13px; color: #1d2d3e; display: block; }
+    .sc-field { margin-bottom: 8px; }
+    .sc-table { width: 100%; border-collapse: collapse; }
+    .sc-table th { font-size: 12px; color: #556b82; font-weight: 600; text-align: left; padding: 5px 6px 7px 0; border-bottom: 1px solid #a8b3bd; }
+    .sc-table td { font-size: 13px; color: #131e29; padding: 8px 6px 8px 0; border-bottom: 1px solid #e5e5e5; }
+    .sc-table tr:last-child td { border-bottom: none; }
+    .btn-primary { background: #5d36ff; color: white; border: none; border-radius: 8px; padding: 5px 12px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+    /* Overview KPI cards */
+    .space-overview-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .overview-card { background: white; border: 1.5px solid #c8d2de; border-radius: 14px; padding: 16px 18px; box-shadow: 0 3px 12px rgba(29,45,70,0.09); }
+    .overview-card-label { font-size: 10px; font-weight: 700; color: #556b82; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .overview-card-value { font-size: 26px; font-weight: 600; color: #131e29; line-height: 1.1; }
+    .overview-card-unit { font-size: 13px; color: #556b82; margin-left: 3px; font-weight: 400; }
+    .overview-card-trend { font-size: 10px; font-weight: 600; margin-top: 5px; display: block; }
+    .overview-card-trend.down { color: #c0392b; }
+    .overview-card-trend.warn { color: #d4700a; }
+
+    /* Joule right panel */
+    .spaces-joule-panel {
+      width: 0; min-width: 0; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      overflow: hidden; transition: width 0.35s ease;
+      background: white;
+    }
+    .spaces-joule-panel.open { width: 340px; min-width: 340px; border-radius: 20px 20px 0 0; box-shadow: 0px 4px 46px rgba(29,33,50,0.06); }
+    .joule-panel-header { padding: 12px 14px; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .joule-panel-title { font-size: 12px; font-weight: 700; color: #131e29; }
+    .joule-panel-subtitle { font-size: 10px; color: #556b82; margin-bottom: 1px; }
+    .joule-panel-messages { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 14px 80px; display: flex; flex-direction: column; gap: 10px; }
+    .joule-panel-messages::-webkit-scrollbar { width: 3px; }
+    .joule-panel-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 4px; }
+    .system-msg { background: #f5f6f7; border-radius: 8px; padding: 8px 10px; font-size: 11px; color: #556b82; line-height: 1.4; }
+    .system-msg strong { color: #131e29; }
+    .cp-msg-joule { display: flex; flex-direction: column; gap: 5px; }
+    .cp-bubble { font-size: 13px; color: #131e29; line-height: 1.5; }
+    .cp-bubble strong { font-weight: 700; }
+    .cp-user-bubble { align-self: flex-end; background: #7358ff; color: white; border-radius: 14px 14px 2px 14px; padding: 10px 12px; font-size: 13px; max-width: 85%; }
+    .cp-action-row { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+    .btn-cp-action { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1.5px solid #e5e5e5; background: white; color: #131e29; font-family: inherit; }
+    .btn-cp-action.primary { background: #5d36ff; color: white; border-color: #5d36ff; }
+    .panel-input-wrap { padding: 8px 12px; border-top: 1px solid #e5e5e5; flex-shrink: 0; position: absolute; bottom: 0; left: 0; right: 0; background: white; }
+    .panel-input-box { background: white; border: 1px solid rgba(93,54,255,0.15); border-radius: 20px; padding: 7px 12px; display: flex; align-items: center; gap: 6px; }
+    .panel-input-field { flex: 1; border: none; outline: none; font-size: 12px; color: #556b82; background: transparent; font-family: inherit; }
+    .panel-input-field::placeholder { color: #8a9ba8; font-style: italic; }
+
+    /* ─────────────────────────────────────────
+       PROGRESS BAR (scroll position indicator, top of EL)
+    ───────────────────────────────────────── */
+    .el-progress {
+      position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: rgba(93,54,255,0.1); z-index: 200; pointer-events: none;
+    }
+    .el-progress-fill {
+      height: 100%; background: linear-gradient(90deg, #5d36ff 0%, #a100c2 100%);
+      transition: width 0.15s ease; width: 0%;
+      box-shadow: 0 0 8px rgba(93,54,255,0.5);
+    }
+
+    /* ─────────────────────────────────────────
+       LIGHTBOX
+    ───────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.88);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-overlay.visible {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox-img {
+      max-width: 92vw; max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.2s ease;
+    }
+    .lightbox-overlay.visible .lightbox-img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute; top: 18px; right: 24px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      color: white; font-size: 18px; line-height: 36px; text-align: center;
+      cursor: pointer; user-select: none;
+    }
+    .lightbox-caption {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; color: rgba(255,255,255,0.45); white-space: nowrap;
+    }
+    /* Make all imgs inside EL show pointer */
+    .el-sticky img { cursor: zoom-in; transition: opacity 0.15s; }
+    .el-sticky img:hover { opacity: 0.88; }
+
+    /* ─────────────────────────────────────────
+       TOP NAV
+    ───────────────────────────────────────── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 56px;
+      background: rgba(10,10,10,0.82); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .top-nav-brand { font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; }
+    .top-nav-brand span { color: #a78bfa; }
+    .top-nav-links { display: flex; align-items: center; gap: 6px; }
+    .top-nav-link {
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+      text-decoration: none; padding: 6px 14px; border-radius: 20px;
+      transition: all 0.18s;
+    }
+    .top-nav-link:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .top-nav-link.cta {
+      background: var(--joule); color: #fff; font-weight: 600;
+    }
+    .top-nav-link.cta:hover { background: #4a28e0; }
+
+    /* push body content below fixed nav */
+    body { padding-top: 56px; }
+
+
+    .outro {
+      background: #0a0a0a; padding: 100px 40px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .outro h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; max-width: 600px; }
+    .outro h2 em { font-style: italic; color: #a78bfa; }
+    .outro p { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 500px; line-height: 1.7; margin-bottom: 36px; }
+    .outro-links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .outro-link { padding: 12px 28px; border-radius: 40px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .outro-link.primary { background: var(--joule); color: white; }
+    .outro-link.primary:hover { background: #4a28e0; }
+    .outro-link.secondary { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+    .outro-link.secondary:hover { color: white; border-color: rgba(255,255,255,0.4); }
+
+    /* fade-in */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeUp 0.3s ease forwards; }
+
+    /* current step label */
+    .el-step-label {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.9); border: 1px solid #e5e5e5;
+      border-radius: 20px; padding: 5px 16px;
+      font-size: 11px; color: #556b82; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); z-index: 150;
+      transition: opacity 0.3s;
+    }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      z-index: 160; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .scroll-hint-text {
+      font-size: 11px; letter-spacing: 0.08em; color: rgba(93,54,255,0.7);
+      font-weight: 600; text-transform: uppercase;
+    }
+    .scroll-hint-arrow {
+      width: 28px; height: 28px; border: 1.5px solid rgba(93,54,255,0.35);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.85); box-shadow: 0 2px 8px rgba(93,54,255,0.12);
+      animation: scrollBounce 1.6s ease-in-out infinite;
+    }
+    .scroll-hint.hidden { opacity: 0; }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
     }
   </style>
 </head>
 <body>
 
-<!-- READING PROGRESS -->
-<div id="progress-bar"></div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">
-    Sanket Kamble
-    <span class="badge">AR Assistant</span>
-  </div>
-  <div class="nav-right">
-    <a href="#chapter-1" class="nav-link">Story</a>
-    <a href="#chapter-3" class="nav-link">The Pivot</a>
-    <a href="#chapter-5" class="nav-link">Delivery</a>
-    <a href="casestudy.html" class="nav-link alt">Full Case Study →</a>
+<!-- ═══════════════════════════════════════
+     TOP NAV
+═══════════════════════════════════════ -->
+<nav class="top-nav">
+  <a class="top-nav-brand" href="#">AR Assistant <span>for Joule</span></a>
+  <div class="top-nav-links">
+    <a class="top-nav-link" href="#story">Story</a>
+    <a class="top-nav-link" href="#pivot">The Pivot</a>
+    <a class="top-nav-link" href="#delivery">Delivery</a>
+    <a class="top-nav-link cta" href="casestudy.html">Full Case Study →</a>
   </div>
 </nav>
 
-
-<!-- ════════════════════════════════════════════════════
-     COVER
-═════════════════════════════════════════════════════ -->
-<div class="cover">
-  <div class="cover-inner">
-    <div class="cover-label fade">UX Case Study · 1.5 Years · SAP S/4HANA Finance</div>
-    <h1 class="fade">How a single Joule chat grew into<br><em>an Engagement Layer</em></h1>
-    <div class="cover-byline fade">
-      <span><strong>Role</strong> — UX Designer</span>
-      <span><strong>Platform</strong> — SAP S/4HANA + Joule + BTP</span>
-      <span><strong>Domain</strong> — Finance / Accounts Receivable</span>
-      <span><strong>GTM</strong> — TechEd 2025 → Sapphire 2026</span>
-    </div>
-    <p class="cover-intro fade">
-      This is not the story of a finished product. It is the story of how a requirement changed —
-      three times — before we understood what we were actually trying to build. It is a story about
-      listening to users, hitting platform limits, and making the call to start a completely new kind
-      of UI in SAP Fiori. The AR Assistant was one of the first products designed for that new layer.
-    </p>
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section class="hero" id="story">
+  <div class="hero-tag">UX CASE STUDY · 1.5 YEARS · SAP S/4HANA FINANCE</div>
+  <h1>How a single Joule chat<br>grew into an <em>Engagement Layer</em></h1>
+  <p class="hero-sub">This is not the story of a finished product. It is the story of how a requirement changed — three times — before we understood what we were actually trying to build.</p>
+  <div class="hero-role-row">
+    <div class="hero-role-item"><span class="hero-role-lbl">Role</span><span class="hero-role-val">UX Designer</span></div>
+    <div class="hero-role-divider"></div>
+    <div class="hero-role-item"><span class="hero-role-lbl">Platform</span><span class="hero-role-val">SAP S/4HANA + Joule + BTP</span></div>
+    <div class="hero-role-divider"></div>
+    <div class="hero-role-item"><span class="hero-role-lbl">Domain</span><span class="hero-role-val">Finance / Accounts Receivable</span></div>
+    <div class="hero-role-divider"></div>
+    <div class="hero-role-item"><span class="hero-role-lbl">GTM</span><span class="hero-role-val">TechEd 2025 → Sapphire 2026</span></div>
   </div>
-  <div class="cover-scroll-hint">
-    <span>Scroll to read</span>
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="hero-meta-val">7+</div><div class="hero-meta-lbl">AI Agents</div></div>
+    <div class="hero-meta-item"><div class="hero-meta-val">€135k</div><div class="hero-meta-lbl">Annual Benefit</div></div>
+    <div class="hero-meta-item"><div class="hero-meta-val">18mo</div><div class="hero-meta-lbl">Design Journey</div></div>
+    <div class="hero-meta-item"><div class="hero-meta-val">2</div><div class="hero-meta-lbl">Personas</div></div>
   </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════
-     CHAPTER 1 — THE PROBLEM
-═════════════════════════════════════════════════════ -->
-<div class="reading">
-
-  <div class="chapter fade" id="chapter-1">
-    <span class="chapter-ghost">01</span>
-    <div class="chapter-num">Chapter 1</div>
-    <h2>The problem wasn't <em>missing data.</em><br>It was the wrong question.</h2>
+  <div class="scroll-hint">
+    <span>SCROLL TO READ</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
+</section>
 
-  <div class="prose fade">
-    <p>
-      The original ask sounded straightforward. AR teams — Accounts Receivable Accountants and
-      Collection Specialists — spent enormous amounts of time every day moving between screens.
-      SAP FI for open items. Credit management for risk scores. Collections management for dunning.
-      Outlook for customer emails. Five, sometimes six, separate places to build a picture of a
-      single customer before making a single call.
-    </p>
-    <p>
-      The initial instinct, as it often is in enterprise software, was to consolidate. Build
-      a dashboard. Surface all the data in one place. Give people a single screen that shows
-      everything at once.
-    </p>
-    <p>
-      That was the wrong question.
-    </p>
-  </div>
-
-  <div class="user-voice fade">
-    <p>"I have 200 accounts. I don't need more data. I need to know which 10 to call today — and why."</p>
+<!-- ═══════════════════════════════════════
+     CHAPTER 1 — The Problem
+═══════════════════════════════════════ -->
+<section class="text-section center" id="chapter1">
+  <div class="chapter-num">01 · Chapter 1</div>
+  <div class="section-kicker">Discovery</div>
+  <h2>The problem wasn't <em>missing data.</em><br>It was the wrong question.</h2>
+  <p>The original ask sounded straightforward. AR teams — Accounts Receivable Accountants and Collection Specialists — spent enormous amounts of time every day moving between screens. SAP FI for open items. Credit management for risk scores. Collections management for dunning. Outlook for customer emails. Five, sometimes six, separate places to build a picture of a single customer before making a single call.</p>
+  <p>The initial instinct, as it often is in enterprise software, was to consolidate. Build a dashboard. Surface all the data in one place. Give people a single screen that shows everything at once.</p>
+  <p>That was the wrong question.</p>
+  <div class="quote-block">
+    "I have 200 accounts. I don't need more data. I need to know which 10 to call today — and why."
     <cite>— Collection Specialist, Customer Engagement Session</cite>
   </div>
+  <p>The founding insight: specialists have a <strong style="color:#a78bfa">prioritisation and action problem</strong>, not an information problem.</p>
+</section>
 
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 01 — The Fragmented Landscape</div>
-    <img src="images/01-problem-space.svg" alt="Diagram showing a Collection Specialist at the centre, connected by dashed red lines to 5 separate systems: SAP FI, Credit Management, Collections Management, Dispute Management, and Email — illustrating the fragmented pre-AR Assistant landscape" loading="lazy"/>
-    <figcaption>The pre-AR Assistant reality: specialists manually connecting 5+ systems for every single account. Each dashed line is a context switch.</figcaption>
-  </figure>
+<!-- ═══════════════════════════════════════
+     CHAPTER 2 — The Pivot
+═══════════════════════════════════════ -->
+<section class="text-section center" id="pivot">
+  <div class="chapter-num">02 · Chapter 2</div>
+  <div class="phase-pill"><span class="phase-dot"></span>Phase 1 → Phase 2 · TechEd 2025</div>
+  <h2>From Joule chat<br>to a dedicated <em>Engagement Layer</em></h2>
+  <p>Phase 1 proved the hypothesis — AI could do in seconds what took 20 minutes. But Joule chat couldn't render ranked worklists, tables, or inline action buttons.</p>
+  <p>Design Decision #1: build a new UI surface — structured, interactive, sitting on top of SAP Fiori. Insight and action in the same place.</p>
+</section>
 
-  <div class="prose fade">
-    <p>
-      The first customer engagement sessions changed the framing. The problem wasn't that information
-      was hard to find. It was that no system was helping specialists <strong>decide what to do next.</strong>
-      Data was abundant. Judgment was not. The right question was not "how do we show everything?"
-      but "how do we tell a specialist where to direct their attention?"
-    </p>
-    <p>
-      That distinction — between a data aggregator and an intelligent action surface — shaped every
-      design decision that followed over the next eighteen months.
-    </p>
-  </div>
+<!-- ═══════════════════════════════════════
+     STICKY EL SECTION — scroll to reveal story
+═══════════════════════════════════════ -->
+<div class="el-scroll-track" id="elTrack">
+  <div class="el-sticky" id="elSticky">
 
-  <div class="insight fade">
-    <div class="insight-label">The founding insight</div>
-    <p>Specialists don't have an information problem. They have a <strong>prioritisation and action problem.</strong>
-    The system should reduce the number of decisions they need to make, not increase the amount of data they need to read.</p>
-  </div>
+    <!-- progress bar -->
+    <div class="el-progress"><div class="el-progress-fill" id="elProgressFill"></div></div>
 
+    <!-- step label -->
+    <div class="el-step-label" id="elStepLabel">Scroll to explore the product story</div>
 
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 07 — The Two Personas</div>
-    <img src="images/07-personas.svg" alt="Side-by-side persona cards: Collection Specialist (operational, high volume) and AR Accountant (analytical, accuracy-first), showing each persona's pain points and what they need from the AR Assistant" loading="lazy"/>
-    <figcaption>The AR Assistant serves two very different users on the same platform. The Collection Specialist needs speed and ranked priorities. The AR Accountant needs process accuracy and safe autonomous actions. Both are served by one orchestrator.</figcaption>
-  </figure>
-
-  <!-- ── CHAPTER 2 ── -->
-  <div class="chapter fade" id="chapter-2">
-    <span class="chapter-ghost">02</span>
-    <div class="chapter-num">Chapter 2</div>
-    <h2>Phase 1: One agent. One persona.<br><em>One very focused delivery.</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      With the problem reframed, the team made an explicit decision to start small. The first
-      version — built entirely by the Private Cloud team — would do one thing well: give an
-      AR Accountant the ability to analyse a customer account through a Joule conversation,
-      without leaving their current workflow.
-    </p>
-    <p>
-      No new UI. No composite screen. Just a conversation. You ask Joule about a customer,
-      it surfaces overdue amounts, dunning history, dispute cases, and a recommended course
-      of action. That was Phase 1. It shipped at SAP TechEd 2025.
-    </p>
-  </div>
-
-  <div class="phase-banner p1 fade">
-    <span class="pb-num">Phase 1 · TechEd 2025</span>
-    <div>
-      <div class="pb-text">AR Agent — Private Cloud · Sole Delivery</div>
-      <div class="pb-sub">Single Joule assistant · Existing Joule side-panel UI · No new front-end</div>
-    </div>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 02 — Product Evolution · 1.5 Years</div>
-    <img src="images/02-phase-evolution.svg" alt="Four-stage product evolution diagram" loading="lazy"/>
-    <figcaption>The four phases of the AR Assistant — from a focused Private Cloud chat agent to a full cross-cloud flagship GTM product at SAP Sapphire 2026.</figcaption>
-  </figure>
-
-  <div class="prose fade">
-    <p>
-      The Phase 1 scope was deliberate. Worklist prioritisation. Account analysis.
-      Dispute analysis. Everything else — dunning, credit management, clearing — was
-      explicitly out of scope, not because it wasn't valuable, but because a focused
-      delivery builds more trust than an ambitious one that slips.
-    </p>
-  </div>
-
-  <ul class="feat-list fade">
-    <li>Prioritised daily account list, AI-ranked by financial exposure and credit risk</li>
-    <li>360° account view in one Joule conversation — overdue items, balance, disputes, payment history</li>
-    <li>Dispute analysis: agent reviews cases and proposes resolutions autonomously</li>
-    <li>Dunning and credit management: deliberately de-scoped for Phase 1</li>
-  </ul>
-
-  <div class="constraint fade">
-    <div class="constraint-label">Platform constraint — discovered early</div>
-    <p>
-      Private Cloud's volume limits meant the LLM context window couldn't hold all open items
-      for large accounts. Smart Clearing and oversized worklists had to be architecturally
-      re-scoped. This wasn't a UX decision — it was a platform reality that forced prioritisation
-      cutoffs into the design from the start. Surfacing this constraint early prevented false
-      expectations in later phases.
-    </p>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      The TechEd delivery gave the team something more valuable than a shipped feature:
-      it gave them real user reactions to a real thing. And those reactions were the
-      seed of everything that came next.
-    </p>
-  </div>
-
-  <div class="pull-quote fade">
-    <p>"Users asked Joule great analytical questions — but when Joule answered, there was
-    nowhere to go. No button to press. No action to take. Just text."</p>
-    <cite>Observation from post-TechEd reflection</cite>
-  </div>
-
-
-  <!-- ── CHAPTER 3 — THE PIVOT ── -->
-  <div class="chapter fade" id="chapter-3">
-    <span class="chapter-ghost">03</span>
-    <div class="chapter-num">Chapter 3</div>
-    <h2>The moment the requirement <em>changed</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      Phase 1 proved the core hypothesis — an AI agent could do in seconds what took a
-      specialist twenty minutes. But it also exposed a structural problem with the medium.
-    </p>
-    <p>
-      Joule's chat interface was designed for questions and answers. It was not designed
-      to surface structured recommendations, render tables of overdue invoices, or present
-      a worklist where you can click an account and immediately take action. The chat
-      metaphor was the right starting point — but the wrong ending point.
-    </p>
-    <p>
-      This was the moment the requirement changed for the first time.
-    </p>
-  </div>
-
-  <div class="decision fade">
-    <div class="decision-label">Design Decision #1</div>
-    <h3><strong>From:</strong> Joule chat assistant → <strong>To:</strong> A dedicated Engagement Layer</h3>
-    <p>
-      The team made the call to design a new kind of UI — not inside the existing Joule chat panel,
-      but a composite surface sitting on top of SAP Fiori. The Engagement Layer. A place where
-      AI-generated insights, agent recommendations, and action prompts could be rendered as
-      structured, interactive UI — not just conversational text.
-    </p>
-    <div class="decision-before-after">
-      <div class="ba-block">
-        <div class="ba-label before">Before the pivot</div>
-        <p>Users get text answers in a chat interface. To take action, they switch back to a Fiori transaction. The gap between insight and action remains.</p>
-      </div>
-      <div class="ba-block">
-        <div class="ba-label after">After the pivot</div>
-        <p>Users get structured cards, prioritised lists, and inline action buttons in the Engagement Layer. Insight and action are in the same surface.</p>
+    <!-- scroll hint -->
+    <div class="scroll-hint" id="scrollHint">
+      <span class="scroll-hint-text">scroll to begin</span>
+      <div class="scroll-hint-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4l4 4 4-4" stroke="rgba(93,54,255,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
     </div>
-  </div>
 
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 03 — The Pivot: Chat vs. Engagement Layer</div>
-    <img src="images/03-chat-vs-el.svg" alt="Side-by-side comparison: left shows Joule chat returning plain text with no action buttons; right shows the Engagement Layer with a ranked worklist, account cards, and inline action buttons" loading="lazy"/>
-    <figcaption>Left: Joule chat surfaces the answer but leaves the specialist stranded — no actions, back to Fiori. Right: The Engagement Layer surfaces the same data as structured, actionable UI.</figcaption>
-  </figure>
+    <!-- EL SHELL -->
+    <div class="page-container">
 
-  <div class="prose fade">
-    <p>
-      This decision had consequences. Designing the Engagement Layer meant designing for a
-      platform that didn't fully exist yet. No dedicated UI kit. No established EL component
-      library. The design had to be co-created with the platform team — which meant the
-      AR Assistant would end up having disproportionate influence on EL design patterns
-      across SAP.
-    </p>
-  </div>
-
-  <div class="insight fade">
-    <div class="insight-label">Why this was the right call</div>
-    <p>Designing for a nascent platform is high-risk and high-reward. The AR Assistant being one of the
-    first EL products meant it shaped the pattern library — but it also meant every design decision
-    was made without precedent. That ambiguity became a feature, not a bug: it forced first-principles
-    thinking rather than pattern-matching.</p>
-  </div>
-
-
-  <!-- ── CHAPTER 4 — THE SECOND PIVOT ── -->
-  <div class="chapter fade" id="chapter-4">
-    <span class="chapter-ghost">04</span>
-    <div class="chapter-num">Chapter 4</div>
-    <h2>A second persona. A second pivot.<br><em>And a user validation session that changed the scope.</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      When the Public Cloud design and development team joined in Phase 2, the product scope
-      expanded beyond the AR Accountant persona. A new persona entered the picture: the
-      Collection Specialist.
-    </p>
-    <p>
-      The Collection Specialist is a fundamentally different user. Where the AR Accountant
-      is analytical — focused on clearing, matching, and dispute resolution — the Collection
-      Specialist is operational. Their job is customer contact. Calls. Emails. Follow-ups.
-      Their performance is measured in cash collected, promises made, bad debt avoided.
-    </p>
-    <p>
-      The team assumed the Engagement Layer design from Phase 1 would transfer cleanly.
-      It didn't.
-    </p>
-  </div>
-
-  <div class="user-voice fade">
-    <p>"Most of the work load comes after the call. Notes, tickets, resubmissions — all of it is manual, all of it is fragmented."</p>
-    <cite>— Collection Specialist, User Validation Session · April 2026 · SAP & DHL participants</cite>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      The validation sessions with SAP and DHL practitioners — Cash Collection Managers,
-      Collection Specialists, Dispute Specialists, OTC Process Owners — surfaced a gap
-      in the initial design that hadn't been anticipated. The prototype focused on
-      pre-call research: get the account view, see the overdue items, decide whether to call.
-    </p>
-    <p>
-      But users were clear: the pre-call research wasn't the bottleneck. The post-call work was.
-      Notes. Follow-up tracking. Resubmissions. Internal escalations that returned with no
-      resolution. These weren't optional features. They were the job.
-    </p>
-  </div>
-
-  <div class="decision fade">
-    <div class="decision-label">Design Decision #2</div>
-    <h3><strong>From:</strong> View-first EL design → <strong>To:</strong> Action-first EL design</h3>
-    <p>
-      Early designs surfaced data. Validation showed specialists wanted to <strong>do things</strong>,
-      not just read things. The Engagement Layer had to lead with recommended actions —
-      not information to process. The design principle shifted from "show everything relevant"
-      to "surface what to do next."
-    </p>
-    <div class="decision-before-after">
-      <div class="ba-block">
-        <div class="ba-label before">View-first (original)</div>
-        <p>EL shows account data, overdue amounts, dispute summaries. User interprets and decides what action to take independently.</p>
-      </div>
-      <div class="ba-block">
-        <div class="ba-label after">Action-first (validated)</div>
-        <p>EL leads with recommended actions ("Set dunning block", "Log Promise to Pay") with supporting data inline. Decision is pre-made, user confirms.</p>
-      </div>
-    </div>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 04 — Before vs. After Workflow</div>
-    <img src="images/05-before-after-workflow.svg" alt="Side-by-side workflow comparison: Before shows 5 manual steps taking 20+ minutes; After shows 4 AI-assisted steps taking approximately 2 minutes" loading="lazy"/>
-    <figcaption>The same pre-call research task: 20+ minutes of manual system-hopping vs. 2 minutes in the Engagement Layer. The time saving is structural — it comes from collapsing context switches, not from typing faster.</figcaption>
-  </figure>
-
-  <div class="constraint fade">
-    <div class="constraint-label">EL architectural constraint</div>
-    <p>
-      The Engagement Layer was built as a separate React tab — it doesn't natively carry context from
-      Fiori. A user viewing a customer account in Fiori gets zero carry-over when opening EL.
-      This was actively limiting the "seamless workflow" promise of the layer. Designing around this
-      gap — and proposing how contextual data passing should work in a future state — became
-      a significant part of Phase 2 design work.
-    </p>
-  </div>
-
-
-  <!-- ── CHAPTER 5 — THE FULL SYSTEM ── -->
-  <div class="chapter fade" id="chapter-5">
-    <span class="chapter-ghost">05</span>
-    <div class="chapter-num">Chapter 5</div>
-    <h2>Phase 3: Building the full system.<br><em>7 agents. 2 personas. One assistant.</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      By Phase 3, the AR Assistant had evolved into something substantially more complex than
-      the original Joule chat concept. Not one agent but many — each specialised, each
-      autonomous, each connected to the others through an orchestration layer that the user
-      never sees.
-    </p>
-    <p>
-      The design challenge shifted. It was no longer about designing what a user sees when
-      they ask a question. It was about designing what a user sees when the system is
-      <em>doing something on their behalf</em> — running background jobs, resolving disputes,
-      proposing clearing matches — and they need to review, confirm, or redirect it.
-    </p>
-  </div>
-
-  <div class="agent-grid fade">
-    <div class="agent-chip collections">
-      <div class="ac-name">Worklist Prioritization Agent</div>
-      <div class="ac-desc">System-triggered. Ranks 200+ accounts by exposure, credit risk, payment behaviour, aging severity.</div>
-    </div>
-    <div class="agent-chip collections">
-      <div class="ac-name">Collections 360 Agent</div>
-      <div class="ac-desc">Full customer view: top 10 overdue items, balance, disputes, dunning history, promises to pay.</div>
-    </div>
-    <div class="agent-chip collections">
-      <div class="ac-name">Aging Analysis Agent</div>
-      <div class="ac-desc">Buckets due & overdue items at 30/60/90 day intervals with recommendations.</div>
-    </div>
-    <div class="agent-chip collections">
-      <div class="ac-name">Credit Risk Analysis Agent</div>
-      <div class="ac-desc">Risk class, credit limit utilisation, exposure percentage, risk-driven recommendations.</div>
-    </div>
-    <div class="agent-chip collections">
-      <div class="ac-name">Payment Behavior Agent</div>
-      <div class="ac-desc">Payment consistency, broken promises, engagement signals, behaviour-based recommendations.</div>
-    </div>
-    <div class="agent-chip collections">
-      <div class="ac-name">Dunning Agent</div>
-      <div class="ac-desc">Dunning history, dunning levels, set/remove dunning blocks, run dunning.</div>
-    </div>
-    <div class="agent-chip disputes">
-      <div class="ac-name">Dispute Creation Agent</div>
-      <div class="ac-desc">Creates dispute cases from customer emails or natural language. Updates notes, attachments.</div>
-    </div>
-    <div class="agent-chip disputes">
-      <div class="ac-name">Dispute Resolution Agent</div>
-      <div class="ac-desc">Validates claims, proposes resolution (credit memo, adjustment invoice), communicates with Billing Assistant.</div>
-    </div>
-    <div class="agent-chip disputes">
-      <div class="ac-name">Billing Adjustment Agent</div>
-      <div class="ac-desc">Triggered by Dispute Resolution Agent. Cancels and recreates invoices. HITL review before posting.</div>
-    </div>
-    <div class="agent-chip accounting">
-      <div class="ac-name">Account Analysis Agent</div>
-      <div class="ac-desc">360° view for AR Accountant: overdue invoices, balance, disputed amounts, dunning, block/unblock actions.</div>
-    </div>
-    <div class="agent-chip accounting">
-      <div class="ac-name">AR Account Agent</div>
-      <div class="ac-desc">Surfaces top N priority accounts for AR Accountant based on policy — high overdue amounts, long-running disputes.</div>
-    </div>
-    <div class="agent-chip accounting">
-      <div class="ac-name">Smart Clearing Agent</div>
-      <div class="ac-desc">Matches open invoices, credit memos, and payments after auto-clearing. HITL confirmation. Pattern detection for rule generation.</div>
-    </div>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 06 — Agent Orchestration Stack</div>
-    <img src="images/04-agent-orchestration.svg" alt="Four-layer architecture diagram: User (EL) → AR Assistant orchestrator → Specialized Agents → SAP Backend" loading="lazy"/>
-    <figcaption>The full orchestration stack. The user only ever sees the Engagement Layer — the agent dispatch, routing, and backend calls happen entirely below the surface. The cross-assistant line to Billing is the most complex integration in the system.</figcaption>
-  </figure>
-
-  <div class="insight fade">
-    <div class="insight-label">The new UX challenge: designing for agents, not just users</div>
-    <p>
-      Designing for a multi-agent system meant designing for <strong>two kinds of failure state</strong>:
-      what the user sees when an agent succeeds, and what they see when it can't complete its task.
-      Most agent UX breaks down at failure. Explicitly designing both — what the agent communicates
-      when it succeeds, what it says and asks when it doesn't — reduced complexity for specialists
-      and built trust faster than any onboarding ever could.
-    </p>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 08 — The HITL Trust Model</div>
-    <img src="images/08-hitl-model.svg" alt="Human-in-the-loop flow: agent runs autonomously, proposes result, human approves or rejects, then either executes or requeues. Three patterns shown: background jobs, propose-and-confirm, and cross-assistant handoff." loading="lazy"/>
-    <figcaption>The HITL model is not a fallback — it is the trust mechanism. Every consequential action in the AR Assistant requires explicit human approval before posting to S/4HANA. The agent does the work. The human remains in control.</figcaption>
-  </figure>
-
-  <div class="prose fade">
-    <p>
-      Engineering built the Joule conversation version first — a text-heavy, limited-visuals
-      scaffold. Design ran in parallel, producing the EL target state: richer visualisations,
-      structured cards, inline actions. Two tracks. Both valid. The dual-track approach
-      allowed demos to happen early while the higher-fidelity experience matured in Figma.
-    </p>
-  </div>
-
-
-  <!-- ── CHAPTER 6 — GTM ── -->
-  <div class="chapter fade" id="chapter-6">
-    <span class="chapter-ghost">06</span>
-    <div class="chapter-num">Chapter 6</div>
-    <h2>Five flows for Sapphire.<br><em>How GTM became a design forcing function.</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      The Go-To-Market strategy for SAP Sapphire 2026 did something that months of internal
-      roadmap discussions had not: it forced the team to choose.
-    </p>
-    <p>
-      Defining five GTM flows for the flagship customer event meant every feature that
-      couldn't be demo-ready by the event deadline was de-scoped or deferred. Hard
-      conversations. Clear tradeoffs. But also — unexpectedly — better design. When you
-      know exactly what story you're telling, the design gets sharper.
-    </p>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 06 — Engagement Layer Anatomy</div>
-    <img src="images/06-el-anatomy.svg" alt="2x2 grid showing the four EL areas: Overview, Spaces, Jobs, Conversation" loading="lazy"/>
-    <figcaption>The four areas of the Engagement Layer. Each is a distinct surface — but all four are connected through the AR Assistant orchestrator, which routes context and permissions based on user role.</figcaption>
-  </figure>
-
-  <div class="insight fade">
-    <div class="insight-label">What GTM revealed about the design</div>
-    <p>
-      Designing for a conference demo is a useful constraint. It forces you to ask: <strong>what is the
-      single most compelling moment in this product?</strong> The answer — watching an agent autonomously
-      resolve a dispute and trigger a billing adjustment, all in one Joule conversation —
-      became the design North Star for Phase 3.
-    </p>
-  </div>
-
-
-  <!-- ── CHAPTER 7 — IMPACT ── -->
-  <div class="chapter fade" id="chapter-7">
-    <span class="chapter-ghost">07</span>
-    <div class="chapter-num">Chapter 7</div>
-    <h2>The numbers behind<br><em>the business case.</em></h2>
-  </div>
-
-  <div class="prose fade">
-    <p>
-      Good design should make business outcomes better. The AR Assistant's value case was
-      quantified by SAP Value Management for a Consumer Products company with €1bn revenue
-      and 2,000 employees — a representative baseline for the target customer segment.
-    </p>
-  </div>
-
-  <div class="metric-row fade">
-    <div class="metric-item">
-      <strong data-value="83" data-prefix="€" data-suffix="k">€83k</strong>
-      <span>Annual benefit from DSO reduction</span>
-      <span class="delta">38.0 → 37.6 Days Sales Outstanding</span>
-    </div>
-    <div class="metric-item">
-      <strong data-value="31" data-prefix="€" data-suffix="k">€31k</strong>
-      <span>Annual benefit from time savings</span>
-      <span class="delta">20 min → 5 min per account analysis</span>
-    </div>
-    <div class="metric-item">
-      <strong data-value="21" data-prefix="€" data-suffix="k">€21k</strong>
-      <span>Annual benefit from reduced AR risk</span>
-      <span class="delta">1.0% → 0.98% risk on outstanding AR</span>
-    </div>
-    <div class="metric-item">
-      <strong data-value="15" data-suffix=" min">15 min</strong>
-      <span>Saved per account session</span>
-      <span class="delta">Manual → AI-assisted analysis</span>
-    </div>
-    <div class="metric-item">
-      <strong data-value="7" data-suffix="+">7+</strong>
-      <span>Specialized agents in one assistant</span>
-      <span class="delta">Replaces 5+ separate screens</span>
-    </div>
-  </div>
-
-  <figure class="illustration wide fade">
-    <div class="illus-label">Diagram 09 — Value Impact Breakdown</div>
-    <img src="images/09-dso-impact.svg" alt="Horizontal bar chart showing four value streams: DSO reduction (€83k), time savings (€31k), AR risk reduction (€21k), and 15 min per-session saving. Total annual benefit: €135,000+." loading="lazy"/>
-    <figcaption>The business case decomposed. DSO reduction is the biggest lever — a 0.4 day reduction on €1bn revenue generates €83k annually. But the compounding effect of time savings, risk reduction, and volume capacity makes the total case substantially stronger.</figcaption>
-  </figure>
-
-
-  <!-- ── CLOSER ── -->
-  <div class="closer fade">
-    <div class="closer-inner">
-      <h2>The AR Assistant shipped at <em>TechEd 2025.</em><br>It is delivering at <em>Sapphire 2026.</em></h2>
-      <p>
-        From a single Joule chat to a fully orchestrated Engagement Layer. From one persona
-        to two. From a Private Cloud experiment to a cross-cloud flagship GTM. The product
-        changed three times before it was right. That is not a failure of planning.
-        That is what good design looks like.
-      </p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.25rem;margin:2rem -4rem;text-align:left;">
-        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);">
-          <div style="background:rgba(255,255,255,.07);padding:.5rem 1rem;font-family:-apple-system,sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);">Collection Specialist</div>
-          <img src="images/AR_Flow_CollectionSpecialist_360_EL.gif" alt="Collection Specialist — 360° account view in EL" style="width:100%;display:block;" loading="lazy"/>
-          <div style="padding:.5rem 1rem;font-family:-apple-system,sans-serif;font-size:.7rem;color:rgba(255,255,255,.35);">360° Customer Account View in Joule</div>
+      <!-- Vertical Nav -->
+      <nav class="vertical-nav">
+        <div class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#1870CA"/>
+            <path d="M8 20c0-2.5 2-4 4-4h8c2.5 0 4.5-1.5 4.5-4S22.5 8 20 8H8" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <path d="M8 24h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
         </div>
-        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);">
-          <div style="background:rgba(255,255,255,.07);padding:.5rem 1rem;font-family:-apple-system,sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);">AR Accountant</div>
-          <img src="images/AR_Flow_ARAccountant_EL.gif" alt="AR Accountant — customer analysis in EL" style="width:100%;display:block;" loading="lazy"/>
-          <div style="padding:.5rem 1rem;font-family:-apple-system,sans-serif;font-size:.7rem;color:rgba(255,255,255,.35);">Customer Analysis &amp; Smart Clearing in Joule</div>
+        <div class="nav-center">
+          <div class="nav-items">
+            <div class="nav-item active" id="navConv" title="Conversations">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 4h14a1 1 0 011 1v9a1 1 0 01-1 1H6l-4 4V5a1 1 0 011-1z" stroke="#131E29" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <div class="nav-item" id="navSpaces" title="Spaces">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="#131E29" stroke-width="1.5" fill="none"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="#131E29" stroke-width="1.5" fill="none"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="#131E29" stroke-width="1.5" fill="none"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="#131E29" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <div class="nav-item" title="Discover">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="#131E29" stroke-width="1.5" fill="none"/><path d="M7 8h6M7 11h4" stroke="#131E29" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="closer-links">
-        <a href="casestudy.html" class="closer-link primary">Full Case Study — Portfolio View →</a>
-        <a href="figmamake_claude/index.html" class="closer-link secondary" target="_blank">View EL Prototype →</a>
-      </div>
-    </div>
+        <div class="nav-footer"><div class="nav-avatar">SK</div></div>
+      </nav>
+
+      <!-- Main Panel -->
+      <div class="main-panel">
+
+        <!-- CONVERSATIONS VIEW -->
+        <div id="conv-view">
+          <div class="sub-nav">
+            <div class="sub-nav-inner">
+              <div class="sub-nav-header"><span class="sub-nav-title">Conversations</span></div>
+              <div class="filter-tabs">
+                <button class="filter-tab active">All</button>
+                <button class="filter-tab">AR</button>
+              </div>
+              <div class="sub-nav-list" id="convList"></div>
+            </div>
+          </div>
+          <div class="content-area">
+            <header class="content-header">
+              <div>
+                <div class="conv-breadcrumb">Conversations</div>
+                <h1 class="conv-header-title">AR Assistant — The Story</h1>
+              </div>
+              <div style="display:flex;gap:6px">
+                <div class="header-icon-btn">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#556b82" stroke-width="1.5"/><path d="M10.5 10.5l3 3" stroke="#556b82" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+              </div>
+            </header>
+            <div class="chat-container" id="chatStream"></div>
+            <div class="joule-input-wrapper">
+              <div class="joule-input-box">
+                <div class="joule-avatar" style="width:28px;height:28px;flex-shrink:0">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="white"/></svg>
+                </div>
+                <input class="joule-input-field" placeholder="Ask Joule or create anything…" id="chatInput" readonly/>
+              </div>
+              <p class="joule-ai-footer">AI generated. Verify results.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SPACES VIEW -->
+        <div id="spaces-view">
+          <div class="spaces-left-panel">
+            <div class="spaces-sub-inner">
+              <div style="padding:18px 16px 10px;flex-shrink:0">
+                <span style="font-size:18px;font-weight:700;color:#1a1a1a">Spaces</span>
+              </div>
+              <div style="flex:1;overflow-y:auto;padding:0 10px 20px;display:flex;flex-direction:column;gap:10px" id="spacesList"></div>
+            </div>
+          </div>
+          <div class="spaces-detail" id="spacesDetail" style="position:relative">
+            <div class="space-transition-overlay" id="spaceTransitionOverlay"><div class="space-transition-spinner"></div></div>
+            <div class="spaces-detail-header">
+              <div>
+                <div class="spaces-detail-breadcrumb" id="spaceBreadcrumb">Spaces</div>
+                <h1 class="spaces-detail-title" id="spaceDetailTitle">The Problem Space</h1>
+              </div>
+              <div style="display:flex;gap:6px">
+                <div class="header-icon-btn" title="Joule" style="background:#e2d8fc;border-color:#5d36ff">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="#5d36ff"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="spaces-detail-body" id="spaceDetailBody"></div>
+          </div>
+          <div class="spaces-joule-panel" id="spacesJoulePanel" style="position:relative">
+            <div class="joule-panel-header">
+              <div>
+                <div class="joule-panel-subtitle">Space conversation</div>
+                <div class="joule-panel-title" id="joulePanelTitle">Analysis</div>
+              </div>
+            </div>
+            <div class="joule-panel-messages" id="joulePanelMsgs"></div>
+            <div class="panel-input-wrap">
+              <div class="panel-input-box">
+                <input class="panel-input-field" placeholder="Ask Joule about this space…" readonly/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /main-panel -->
+    </div><!-- /page-container -->
+
+  </div><!-- /el-sticky -->
+</div><!-- /el-scroll-track -->
+
+<!-- ═══════════════════════════════════════
+     OUTRO
+═══════════════════════════════════════ -->
+<section class="outro" id="delivery">
+  <h2>Shipped at <em>TechEd 2025.</em><br>Delivering at Sapphire 2026.</h2>
+  <p>From a single Joule chat to a fully orchestrated Engagement Layer. From one persona to two. From Private Cloud experiment to cross-cloud flagship GTM. The product changed three times before it was right. That is what good design looks like.</p>
+  <div class="outro-links">
+    <a href="casestudy.html" class="outro-link primary">Read Full Case Study →</a>
+    <a href="figmamake_claude/index.html" class="outro-link secondary" target="_blank">View EL Prototype →</a>
   </div>
+</section>
 
-</div><!-- /reading -->
-
-
-<!-- scroll-to-top -->
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
-
-<!-- FOOTER -->
-<footer>
-  <strong>Sanket Kamble</strong> — UX Designer · SAP S/4HANA Finance<br>
-  <span style="margin-top:.35rem;display:inline-block;">
-    Accounts Receivable Assistant · Joule Engagement Layer · Case Study
-  </span>
-</footer>
-
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <span class="lightbox-close" id="lightboxClose">✕</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+  <span class="lightbox-caption" id="lightboxCaption"></span>
+</div>
 
 <script>
-  // Progress bar
-  window.addEventListener('scroll', () => {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop || document.body.scrollTop;
-    const scrollHeight = doc.scrollHeight - doc.clientHeight;
-    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-    document.getElementById('progress-bar').style.width = pct + '%';
+// ═══════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════
 
-    // Nav style on scroll
-    document.querySelector('nav').classList.toggle('scrolled', scrollTop > 60);
+const CONV_LIST = [
+  { id: 'story', title: 'AR Assistant — The Story', time: 'Now', active: true },
+  { id: 'phase', title: 'Phase Evolution · 1.5 Years', time: '5h ago' },
+  { id: 'impact', title: 'Business Impact & Value Case', time: '1d ago' },
+];
 
-    // Back-to-top button
-    document.getElementById('back-top').classList.toggle('show', scrollTop > 600);
-  });
+const SPACES_LIST = [
+  { id: 'problem', title: 'The Problem Space', meta: 'Chapter 1 · Discovery', desc: 'Fragmented landscape — 5 systems, no action surface', active: true },
+  { id: 'pivot', title: 'The EL Pivot', meta: 'Chapter 3 · Design Decision', desc: 'Chat → Engagement Layer — the founding call' },
+  { id: 'agents', title: 'Agent Architecture', meta: 'Chapter 5 · System Design', desc: '7 agents, 2 personas, one AR Assistant orchestrator' },
+  { id: 'impact', title: 'Business Impact', meta: 'Chapter 7 · Value Case', desc: '€135k+ annual benefit · DSO 38.0 → 37.6 days' },
+];
 
-  // Fade-in on scroll
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.07 });
-  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+const SPACE_DETAIL = {
+  'problem': `
+    <div class="section-divider"></div>
+    <div class="section-anchor"><span class="section-anchor-title">The Fragmented Landscape</span></div>
+    <div class="section-body">
+      <div class="space-overview-cards" style="width:100%">
+        <div class="overview-card"><div class="overview-card-label">Systems per account</div><div class="overview-card-value">5+</div><span class="overview-card-trend down">SAP FI · Credit · Collections · Disputes · Email</span></div>
+        <div class="overview-card"><div class="overview-card-label">Time before (manual)</div><div class="overview-card-value">20<span class="overview-card-unit">min</span></div><span class="overview-card-trend down">Per account analysis</span></div>
+        <div class="overview-card"><div class="overview-card-label">Time after (AI-assisted)</div><div class="overview-card-value">2<span class="overview-card-unit">min</span></div><span class="overview-card-trend warn">In the Engagement Layer</span></div>
+      </div>
+      <div style="width:100%;margin-top:4px"><img src="images/01-problem-space.svg" style="width:100%;max-width:600px;border-radius:10px;border:1px solid #e5e5e5" alt="Fragmented landscape"/></div>
+      <div class="sc-wrap" style="margin-top:12px">
+        <div class="sc sc-md">
+          <div class="sc-head">
+            <div class="sc-avatar"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 4l2.5 8L24 14l-7.5 2.5L14 24l-2.5-7.5L4 14l7.5-2.5z" fill="#5d36ff"/></svg></div>
+            <div class="sc-head-text"><div class="sc-title">The Two Personas</div><div class="sc-sub">AR Accountant · Collection Specialist</div></div>
+          </div>
+          <div style="padding:0 14px 12px"><img src="images/07-personas.svg" style="width:100%;border-radius:6px" alt="Personas"/></div>
+        </div>
+      </div>
+    </div>`,
+  'pivot': `
+    <div class="section-divider"></div>
+    <div class="section-anchor"><span class="section-anchor-title">Chat vs. Engagement Layer</span></div>
+    <div class="section-body">
+      <div class="space-overview-cards" style="width:100%">
+        <div class="overview-card"><div class="overview-card-label">Before (Phase 1)</div><div class="overview-card-value" style="font-size:14px;font-weight:700;color:#aa0808">Chat only</div><span class="overview-card-trend down">Text answers → back to Fiori</span></div>
+        <div class="overview-card"><div class="overview-card-label">After (Phase 2+)</div><div class="overview-card-value" style="font-size:14px;font-weight:700;color:#256f3a">EL surface</div><span class="overview-card-trend warn">Structured cards + actions</span></div>
+        <div class="overview-card"><div class="overview-card-label">EL Areas</div><div class="overview-card-value">4</div><span class="overview-card-trend warn">Overview · Spaces · Jobs · Conv</span></div>
+      </div>
+      <div style="width:100%;margin-top:4px"><img src="images/03-chat-vs-el.svg" style="width:100%;max-width:600px;border-radius:10px;border:1px solid #e5e5e5" alt="Chat vs EL"/></div>
+      <div class="sc-wrap" style="margin-top:12px">
+        <div class="sc sc-xl">
+          <div class="sc-head"><div class="sc-avatar" style="background:#edf7ff"></div><div class="sc-head-text"><div class="sc-title">Before vs. After Workflow</div><div class="sc-sub">20 min manual → 2 min AI-assisted</div></div></div>
+          <div style="padding:0 14px 12px"><img src="images/05-before-after-workflow.svg" style="width:100%;border-radius:6px" alt="Before after"/></div>
+        </div>
+      </div>
+      <div class="sc-wrap">
+        <div class="sc sc-md">
+          <div class="sc-head"><div class="sc-avatar" style="background:#dff5e3"></div><div class="sc-head-text"><div class="sc-title">EL Anatomy</div><div class="sc-sub">Four areas of the Engagement Layer</div></div></div>
+          <div style="padding:0 14px 12px"><img src="images/06-el-anatomy.svg" style="width:100%;border-radius:6px" alt="EL anatomy"/></div>
+        </div>
+      </div>
+    </div>`,
+  'agents': `
+    <div class="section-divider"></div>
+    <div class="section-anchor"><span class="section-anchor-title">Agent Orchestration Stack</span></div>
+    <div class="section-body">
+      <div class="space-overview-cards" style="width:100%">
+        <div class="overview-card"><div class="overview-card-label">Specialized Agents</div><div class="overview-card-value">7+</div><span class="overview-card-trend warn">Collections · Disputes · Accounting</span></div>
+        <div class="overview-card"><div class="overview-card-label">Personas Served</div><div class="overview-card-value">2</div><span class="overview-card-trend warn">Accountant · Specialist</span></div>
+        <div class="overview-card"><div class="overview-card-label">HITL Actions</div><div class="overview-card-value">100%</div><span class="overview-card-trend warn">Every consequential action</span></div>
+      </div>
+      <div style="width:100%;margin-top:4px"><img src="images/04-agent-orchestration.svg" style="width:100%;max-width:600px;border-radius:10px;border:1px solid #e5e5e5" alt="Agent orchestration"/></div>
+      <div class="sc-wrap" style="margin-top:12px">
+        <div class="sc sc-xl">
+          <div class="sc-head"><div class="sc-avatar" style="background:#ede9ff"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 4l2.5 8L24 14l-7.5 2.5L14 24l-2.5-7.5L4 14l7.5-2.5z" fill="#5d36ff"/></svg></div>
+            <div class="sc-head-text"><div class="sc-title">HITL Trust Model</div><div class="sc-sub">Human-in-the-loop — propose-and-confirm</div></div>
+          </div>
+          <div style="padding:0 14px 12px"><img src="images/08-hitl-model.svg" style="width:100%;border-radius:6px" alt="HITL model"/></div>
+        </div>
+      </div>
+    </div>`,
+  'impact': `
+    <div class="section-divider"></div>
+    <div class="section-anchor"><span class="section-anchor-title">Value Case — €1bn Revenue Baseline</span></div>
+    <div class="section-body">
+      <div class="space-overview-cards" style="width:100%">
+        <div class="overview-card"><div class="overview-card-label">DSO Benefit</div><div class="overview-card-value">€83k</div><span class="overview-card-trend warn">38.0 → 37.6 days</span></div>
+        <div class="overview-card"><div class="overview-card-label">Time Savings</div><div class="overview-card-value">€31k</div><span class="overview-card-trend warn">20 min → 5 min</span></div>
+        <div class="overview-card"><div class="overview-card-label">Risk Reduction</div><div class="overview-card-value">€21k</div><span class="overview-card-trend warn">1.0% → 0.98%</span></div>
+        <div class="overview-card"><div class="overview-card-label">Total Annual</div><div class="overview-card-value">€135k+</div><span class="overview-card-trend warn">SAP Value Management</span></div>
+      </div>
+      <div style="width:100%;margin-top:4px"><img src="images/09-dso-impact.svg" style="width:100%;max-width:600px;border-radius:10px;border:1px solid #e5e5e5" alt="DSO impact"/></div>
+      <div class="sc-wrap" style="margin-top:12px">
+        <div class="sc" style="width:100%">
+          <div class="sc-head"><div class="sc-avatar" style="background:#dff5e3"></div><div class="sc-head-text"><div class="sc-title">The Product in Motion</div><div class="sc-sub">Collection Specialist · AR Accountant flows</div></div></div>
+          <div style="display:flex;flex-direction:column;gap:16px;padding:0 14px 14px">
+            <div><div style="font-size:10px;font-weight:700;color:#556b82;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Collection Specialist</div><img src="images/AR_Flow_CollectionSpecialist_360_EL.gif" style="width:100%;border-radius:8px;border:1px solid #e5e5e5" alt="Collection Specialist"/></div>
+            <div><div style="font-size:10px;font-weight:700;color:#556b82;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">AR Accountant</div><img src="images/AR_Flow_ARAccountant_EL.gif" style="width:100%;border-radius:8px;border:1px solid #e5e5e5" alt="AR Accountant"/></div>
+          </div>
+        </div>
+      </div>
+    </div>`,
+};
 
-  // Counter animation for metrics
-  function animateCounter(el, target, prefix, suffix, duration) {
-    const start = performance.now();
-    const isFloat = target % 1 !== 0;
-    const step = ts => {
-      const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = isFloat ? (eased * target).toFixed(1) : Math.round(eased * target);
-      el.textContent = prefix + value + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+const SPACE_CONV = {
+  'problem': [
+    { type: 'system', html: '<strong>Space created</strong><br>The Problem Space — Chapter 1' },
+    { type: 'user', text: 'What was the core problem AR teams faced?' },
+    { type: 'joule', html: `<div class="cp-bubble">The problem wasn't missing data — it was the <strong>wrong question</strong>.<br><br>AR specialists navigated 5+ systems for every account. The founding insight: they have a <strong>prioritisation and action problem</strong>, not an information problem.</div>` },
+  ],
+  'pivot': [
+    { type: 'system', html: '<strong>Space created</strong><br>The EL Pivot — Chapter 3' },
+    { type: 'user', text: 'Why move from chat to the Engagement Layer?' },
+    { type: 'joule', html: `<div class="cp-bubble">Phase 1 (TechEd 2025) proved AI could do in seconds what took 20 minutes — but Joule chat couldn't render structured worklists or action buttons.<br><br>Design Decision #1: a dedicated Engagement Layer — composite surface where AI insights render as <strong>interactive, actionable UI</strong>.</div>` },
+    { type: 'user', text: 'What did the DHL validation session change?' },
+    { type: 'joule', html: `<div class="cp-bubble">Sessions with SAP & DHL surfaced a gap: the pre-call research wasn't the bottleneck — <strong>post-call work was</strong>. Notes, follow-ups, resubmissions.<br><br>Design Decision #2: <strong>Action-first EL</strong>. Lead with recommended actions, not data to read.</div>` },
+  ],
+  'agents': [
+    { type: 'system', html: '<strong>Space created</strong><br>Agent Architecture — Chapter 5' },
+    { type: 'joule', html: `<div class="cp-bubble">The AR Assistant runs <strong>7+ specialized agents</strong> — Worklist Prioritization, 360 Account View, Aging Analysis, Credit Risk, Payment Behavior, Dunning, Dispute Creation, Dispute Resolution, Billing Adjustment, Smart Clearing.<br><br>All orchestrated below the surface. The user only ever sees the EL.</div>` },
+    { type: 'user', text: 'How does HITL work?' },
+    { type: 'joule', html: `<div class="cp-bubble">HITL is the <strong>trust mechanism</strong> — not a fallback. Every consequential action requires explicit human approval before posting to S/4HANA.<br><br>Three patterns: background jobs · propose-and-confirm · cross-assistant handoff (Dispute → Billing).</div>` },
+  ],
+  'impact': [
+    { type: 'system', html: '<strong>Space created</strong><br>Business Impact — Chapter 7' },
+    { type: 'joule', html: `<div class="cp-bubble">SAP Value Management quantified the case for a €1bn revenue company:<br><br>€83k DSO · €31k time savings · €21k risk reduction<br><strong>€135k+ total annual benefit</strong><br><br>The product shipped at TechEd 2025. It is delivering at Sapphire 2026.</div>
+      <div class="cp-action-row" style="margin-top:8px"><a href="casestudy.html" class="btn-cp-action primary" style="text-decoration:none">Full Case Study →</a></div>` },
+  ],
+};
+
+// ═══════════════════════════════════════════
+//  STORY BEATS (scroll-driven)
+// ═══════════════════════════════════════════
+
+const BEATS = [
+  {
+    label: 'User asks about the problem',
+    view: 'conv',
+    fn: () => addUserMsg('What problem was the AR Assistant designed to solve?')
+  },
+  {
+    label: 'Joule explains the fragmented landscape',
+    view: 'conv',
+    fn: () => addJouleMsg(
+      ``,
+      `<div style="max-width:520px">
+        <div style="border-radius:10px;overflow:hidden;border:1px solid #e5e5e5;margin-bottom:10px">
+          <img src="images/01-problem-space.svg" style="width:100%;display:block" alt="Fragmented landscape"/>
+          <div style="padding:6px 10px;font-size:10px;color:#8a9ba8;border-top:1px solid #f0f0f0">Diagram 01 — 5 systems, every account, before every call</div>
+        </div>
+        <div style="background:#f0eeff;border-left:3px solid #5d36ff;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#131e29;font-style:italic;margin-bottom:8px">"I have 200 accounts. I don't need more data. I need to know which 10 to call today — and why."<br><span style="font-size:10px;color:#8a9ba8;font-style:normal">— Collection Specialist, Customer Engagement Session</span></div>
+        <div style="font-size:12px;color:#556b82">The problem wasn't missing data — it was the <strong style="color:#131e29">wrong question.</strong> Founding insight: specialists have a <strong style="color:#131e29">prioritisation &amp; action problem</strong>, not an information problem.</div>
+      </div>`
+    )
+  },
+  {
+    label: 'User asks about personas',
+    view: 'conv',
+    fn: () => addUserMsg('Who are the two users — and what does each one need?')
+  },
+  {
+    label: 'Joule returns personas + Space card',
+    view: 'conv',
+    fn: () => {
+      addJouleMsg(
+        ``,
+        `<div style="max-width:520px">
+          <div style="border-radius:10px;overflow:hidden;border:1px solid #e5e5e5;margin-bottom:10px">
+            <img src="images/07-personas.svg" style="width:100%;display:block" alt="Personas"/>
+            <div style="padding:6px 10px;font-size:10px;color:#8a9ba8;border-top:1px solid #f0f0f0">Diagram 07 — AR Accountant (analytical) · Collection Specialist (operational)</div>
+          </div>
+          <div style="font-size:12px;color:#556b82">The AR Assistant serves two very different users on the same platform. I've created a Space with the full context.</div>
+        </div>`
+      );
+      setTimeout(() => addCreateSpaceCard(), 1400);
+    }
+  },
+  {
+    label: 'Open Space — Problem Space',
+    view: 'space',
+    fn: () => { loadSpace('problem'); showSpacesView(); }
+  },
+  {
+    label: 'Space — The EL Pivot',
+    view: 'space',
+    fn: () => loadSpace('pivot')
+  },
+  {
+    label: 'Space — Agent Architecture',
+    view: 'space',
+    fn: () => loadSpace('agents')
+  },
+  {
+    label: 'Space — Business Impact',
+    view: 'space',
+    fn: () => loadSpace('impact')
+  },
+];
+
+// ═══════════════════════════════════════════
+//  SCROLL ENGINE
+// ═══════════════════════════════════════════
+
+let currentBeat = -1;
+let joulePanelOpen = false;
+let currentSpaceId = 'problem';
+let isReplaying = false;
+
+function onScroll() {
+  const track = document.getElementById('elTrack');
+  const rect = track.getBoundingClientRect();
+  const trackH = track.offsetHeight;
+  const vpH = window.innerHeight;
+
+  // How far into the track we are (0 → 1)
+  const scrolled = Math.max(0, Math.min(1, (-rect.top) / (trackH - vpH)));
+
+  // Reserve first 6% as idle — beat 0 only fires after real scroll
+  const IDLE_ZONE = 0.06;
+  const active = scrolled < IDLE_ZONE ? -1
+    : Math.min(Math.floor(((scrolled - IDLE_ZONE) / (1 - IDLE_ZONE)) * BEATS.length), BEATS.length - 1);
+
+  // Update progress bar
+  document.getElementById('elProgressFill').style.width = (scrolled * 100) + '%';
+
+  // Show/hide scroll hint — visible in idle zone, fades once story starts
+  const hint = document.getElementById('scrollHint');
+  if (hint) hint.classList.toggle('hidden', scrolled > IDLE_ZONE);
+
+  // Update step label
+  if (scrolled > IDLE_ZONE && scrolled < 0.98) {
+    const label = document.getElementById('elStepLabel');
+    label.textContent = BEATS[active] ? BEATS[active].label : '';
+    label.style.opacity = '1';
+  } else if (scrolled >= 0.98) {
+    document.getElementById('elStepLabel').style.opacity = '0';
+  } else {
+    document.getElementById('elStepLabel').style.opacity = '0.4';
   }
 
-  const metricObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const raw = el.dataset.value;
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
-      animateCounter(el, parseFloat(raw), prefix, suffix, 1400);
-      metricObs.unobserve(el);
+  if (active === currentBeat) return;
+
+  // Going forward
+  if (active > currentBeat) {
+    for (let i = currentBeat + 1; i <= active; i++) {
+      runBeat(i);
+    }
+  }
+  // Going back — replay from scratch
+  if (active < currentBeat) {
+    replayTo(active);
+  }
+
+  currentBeat = active;
+}
+
+function runBeat(idx) {
+  const beat = BEATS[idx];
+  if (!beat) return;
+  if (beat.view === 'conv') showConvView();
+  else if (beat.view === 'space' && document.getElementById('conv-view').style.display !== 'none') showSpacesView();
+  beat.fn();
+}
+
+function replayTo(target) {
+  // Reset everything
+  document.getElementById('chatStream').innerHTML = '';
+  document.getElementById('joulePanelMsgs').innerHTML = '';
+  document.getElementById('spacesJoulePanel').classList.remove('open');
+  joulePanelOpen = false;
+  currentBeat = -1;
+  showConvView();
+  if (target < 0) return; // just cleared — idle state
+  isReplaying = true;
+  for (let i = 0; i <= target; i++) {
+    runBeat(i);
+    currentBeat = i;
+  }
+  isReplaying = false;
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// ═══════════════════════════════════════════
+//  CHAT HELPERS
+// ═══════════════════════════════════════════
+
+function addUserMsg(text, instant) {
+  const stream = document.getElementById('chatStream');
+  if (instant || isReplaying) {
+    // No animation — used during replay
+    const div = document.createElement('div');
+    div.className = 'message user';
+    div.innerHTML = `<div><div class="message-bubble">${text}</div></div>`;
+    stream.appendChild(div);
+    stream.scrollTop = stream.scrollHeight;
+    return;
+  }
+  // Type in input first, THEN show bubble when done
+  typeIntoInput(text).then(() => {
+    const div = document.createElement('div');
+    div.className = 'message user fade-in';
+    div.innerHTML = `<div><div class="message-bubble">${text}</div></div>`;
+    stream.appendChild(div);
+    stream.scrollTop = stream.scrollHeight;
+  });
+}
+
+function addJouleMsg(text, extra, instant) {
+  const stream = document.getElementById('chatStream');
+  if (instant || isReplaying) {
+    // No animation — used during replay
+    const div = document.createElement('div');
+    div.className = 'message';
+    div.innerHTML = `
+      <div class="joule-avatar"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="white"/></svg></div>
+      <div><div class="message-bubble" style="background:#f5f6f7;color:#131e29;max-width:600px">${text}${extra || ''}</div></div>`;
+    stream.appendChild(div);
+    stream.scrollTop = stream.scrollHeight;
+    return;
+  }
+  // Show typing dots immediately, then response
+  const dotsEl = document.createElement('div');
+  dotsEl.className = 'message fade-in';
+  dotsEl.innerHTML = `
+    <div class="joule-avatar"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="white"/></svg></div>
+    <div class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+  stream.appendChild(dotsEl);
+  stream.scrollTop = stream.scrollHeight;
+
+  setTimeout(() => {
+    dotsEl.remove();
+    const div = document.createElement('div');
+    div.className = 'message fade-in';
+    div.innerHTML = `
+      <div class="joule-avatar"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="white"/></svg></div>
+      <div><div class="message-bubble" style="background:#f5f6f7;color:#131e29;max-width:600px">${text}${extra || ''}</div></div>`;
+    stream.appendChild(div);
+    stream.scrollTop = stream.scrollHeight;
+  }, 900);
+}
+
+function addCreateSpaceCard() {
+  const stream = document.getElementById('chatStream');
+  const div = document.createElement('div');
+  div.className = 'fade-in';
+  div.style.paddingLeft = '36px';
+  div.innerHTML = `
+    <div class="create-space-card">
+      <div class="csc-header">
+        <div class="csc-icon">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="2" width="7" height="7" rx="1.5" fill="#5d36ff" opacity="0.7"/>
+            <rect x="11" y="2" width="7" height="7" rx="1.5" fill="#5d36ff" opacity="0.7"/>
+            <rect x="2" y="11" width="7" height="7" rx="1.5" fill="#5d36ff" opacity="0.7"/>
+            <rect x="11" y="11" width="7" height="7" rx="1.5" fill="#a100c2" opacity="0.7"/>
+          </svg>
+        </div>
+        <div>
+          <div class="csc-title">The Problem Space</div>
+          <div class="csc-meta">Chapter 1 · Discovery · Space ready</div>
+        </div>
+      </div>
+      <div class="csc-desc">Fragmented landscape · 5 systems · 2 personas · founding insight</div>
+      <div class="csc-footer">
+        <span class="csc-label">Space ready for review</span>
+        <button class="csc-open-btn" id="openSpaceBtn">Open Space →</button>
+      </div>
+    </div>`;
+  stream.appendChild(div);
+  stream.scrollTop = stream.scrollHeight;
+
+  // Wire up button with loading animation then space open
+  setTimeout(() => {
+    const btn = document.getElementById('openSpaceBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      btn.classList.add('loading');
+      btn.textContent = 'Opening…';
+      setTimeout(() => {
+        loadSpace('problem');
+        showSpacesView();
+      }, 900);
     });
-  }, { threshold: 0.5 });
+  }, 50);
+}
 
-  document.querySelectorAll('[data-value]').forEach(el => metricObs.observe(el));
+// ═══════════════════════════════════════════
+//  SPACES HELPERS
+// ═══════════════════════════════════════════
+
+function loadSpace(id, withTransition) {
+  const overlay = document.getElementById('spaceTransitionOverlay');
+
+  const doLoad = () => {
+    currentSpaceId = id;
+    const space = SPACES_LIST.find(s => s.id === id);
+    if (!space) return;
+    document.getElementById('spaceDetailTitle').textContent = space.title;
+    document.getElementById('joulePanelTitle').textContent = space.title;
+    document.getElementById('spaceDetailBody').innerHTML = SPACE_DETAIL[id] || '';
+
+    // Render joule conv
+    const msgs = document.getElementById('joulePanelMsgs');
+    msgs.innerHTML = '';
+    const conv = SPACE_CONV[id] || [];
+    conv.forEach(m => appendJoulePanelMsg(m));
+
+    // Open joule panel
+    joulePanelOpen = true;
+    document.getElementById('spacesJoulePanel').classList.add('open');
+
+    // Update left panel active state
+    renderSpacesList();
+
+    if (withTransition && overlay) {
+      setTimeout(() => overlay.classList.remove('visible'), 200);
+    }
+  };
+
+  if (withTransition && overlay) {
+    overlay.classList.add('visible');
+    setTimeout(doLoad, 400);
+  } else {
+    doLoad();
+  }
+}
+
+function appendJoulePanelMsg(msg) {
+  const msgs = document.getElementById('joulePanelMsgs');
+  const div = document.createElement('div');
+  div.className = 'fade-in';
+  if (msg.type === 'system') {
+    div.innerHTML = `<div class="system-msg">${msg.html}</div>`;
+  } else if (msg.type === 'user') {
+    div.innerHTML = `<div class="cp-user-bubble">${msg.text || msg.html}</div>`;
+  } else {
+    div.innerHTML = `<div class="cp-msg-joule">${msg.html}</div>`;
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ═══════════════════════════════════════════
+//  VIEW SWITCHING
+// ═══════════════════════════════════════════
+
+function showConvView() {
+  document.getElementById('conv-view').style.display = 'flex';
+  document.getElementById('spaces-view').style.display = 'none';
+  document.getElementById('navConv').classList.add('active');
+  document.getElementById('navSpaces').classList.remove('active');
+}
+
+function showSpacesView() {
+  document.getElementById('conv-view').style.display = 'none';
+  document.getElementById('spaces-view').style.display = 'flex';
+  document.getElementById('navConv').classList.remove('active');
+  document.getElementById('navSpaces').classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+//  RENDER LISTS
+// ═══════════════════════════════════════════
+
+function renderConvList() {
+  document.getElementById('convList').innerHTML = CONV_LIST.map(c => `
+    <div class="conv-card ${c.active ? 'active' : ''}">
+      <div class="conv-card-title">${c.title}</div>
+      <div class="conv-card-preview">${c.time}</div>
+    </div>`).join('');
+}
+
+function renderSpacesList() {
+  const container = document.getElementById('spacesList');
+  container.innerHTML = '';
+  SPACES_LIST.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'space-item' + (s.id === currentSpaceId ? ' active' : '');
+    el.innerHTML = `
+      <div class="space-item-header">
+        <div class="space-icon-mini">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="1" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="8" y="1" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="1" y="8" width="5" height="5" rx="1" fill="#5d85a8"/>
+            <rect x="8" y="8" width="5" height="5" rx="1" fill="#5d85a8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="space-item-title">${s.title}</div>
+          <div class="space-item-meta">${s.meta}</div>
+        </div>
+      </div>
+      <div class="space-item-body"><div class="space-item-desc">${s.desc}</div></div>`;
+    el.addEventListener('click', () => {
+      if (s.id !== currentSpaceId) loadSpace(s.id, true);
+    });
+    container.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  TYPING EFFECT IN INPUT — types before bubble appears
+// ═══════════════════════════════════════════
+
+let typingTimer = null;
+// Returns a promise that resolves after typing is done
+function typeIntoInput(text) {
+  return new Promise(resolve => {
+    const inp = document.getElementById('chatInput');
+    if (typingTimer) { clearTimeout(typingTimer); inp.value = ''; }
+    let i = 0;
+    const speed = Math.max(16, Math.min(32, 900 / text.length));
+    function tick() {
+      if (i <= text.length) {
+        inp.value = text.slice(0, i);
+        i++;
+        typingTimer = setTimeout(tick, speed);
+      } else {
+        typingTimer = setTimeout(() => {
+          inp.value = '';
+          resolve();
+        }, 180);
+      }
+    }
+    tick();
+  });
+}
+
+// ═══════════════════════════════════════════
+//  LIGHTBOX
+// ═══════════════════════════════════════════
+
+function openLightbox(src, caption) {
+  const overlay = document.getElementById('lightboxOverlay');
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  img.src = src;
+  cap.textContent = caption || '';
+  overlay.classList.add('visible');
+}
+
+function closeLightbox() {
+  document.getElementById('lightboxOverlay').classList.remove('visible');
+}
+
+// Delegate: any img inside .el-sticky gets lightbox on click
+document.addEventListener('click', e => {
+  const img = e.target.closest('.el-sticky img');
+  if (img) {
+    e.stopPropagation();
+    openLightbox(img.src, img.alt);
+    return;
+  }
+  // Close on overlay bg or close btn
+  if (e.target.id === 'lightboxOverlay' || e.target.id === 'lightboxClose') {
+    closeLightbox();
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderConvList();
+  renderSpacesList();
+  showConvView();
+});
 </script>
-
 </body>
 </html>
